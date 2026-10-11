@@ -1,9 +1,9 @@
--d D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\gwsynthesis\MSXnanoTANG20K.vg
+-d D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\gwsynthesis\MSXnanoTANG20K.vg
 -p GW2AR-18C-QFN88-8
 -pn GW2AR-LV18QN88C8/I7
--cst D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\tang20k.cst
--cfg D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\pnr\device.cfg
--sdc D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\tang20k.sdc
+-cst D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\tang20k.cst
+-cfg D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\pnr\device.cfg
+-sdc D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\tang20k.sdc
 -bit
 -tr
 -ph

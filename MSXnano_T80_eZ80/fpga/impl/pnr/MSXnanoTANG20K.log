@@ -1,7 +1,7 @@
-Reading netlist file: "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\gwsynthesis\MSXnanoTANG20K.vg"
-Parsing netlist file "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\gwsynthesis\MSXnanoTANG20K.vg" completed
+Reading netlist file: "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\gwsynthesis\MSXnanoTANG20K.vg"
+Parsing netlist file "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\gwsynthesis\MSXnanoTANG20K.vg" completed
 Processing netlist completed
-Reading constraint file: "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\tang20k.cst"
+Reading constraint file: "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\tang20k.cst"
 Physical Constraint parsed completed
 Running placement......
 [10%] Placement Phase 0 completed
@@ -22,10 +22,10 @@ Bitstream generation in progress......
 Bitstream generation completed
 Running power analysis......
 [100%] Power analysis completed
-Generate file "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\pnr\MSXnanoTANG20K.power.html" completed
-Generate file "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\pnr\MSXnanoTANG20K.pin.html" completed
-Generate file "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\pnr\MSXnanoTANG20K.rpt.html" completed
-Generate file "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\pnr\MSXnanoTANG20K.rpt.txt" completed
-Generate file "D:\Users\HeroineFactory\Documents\GIT\MSXNano-Z80X\msxnano-vdp\fpga\impl\pnr\MSXnanoTANG20K.tr.html" completed
-Sat Oct  3 18:07:08 2026
+Generate file "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\pnr\MSXnanoTANG20K.power.html" completed
+Generate file "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\pnr\MSXnanoTANG20K.pin.html" completed
+Generate file "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\pnr\MSXnanoTANG20K.rpt.html" completed
+Generate file "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\pnr\MSXnanoTANG20K.rpt.txt" completed
+Generate file "D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80\fpga\impl\pnr\MSXnanoTANG20K.tr.html" completed
+Sun Oct 11 22:08:40 2026
 

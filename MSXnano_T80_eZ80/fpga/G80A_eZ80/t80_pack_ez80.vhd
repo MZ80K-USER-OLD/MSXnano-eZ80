@@ -63,6 +63,8 @@ package T80_eZ80_Pack is
         Mode        : integer := 0;  -- 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
         IOWait      : integer := 0;
         FETCH24     : boolean := false;
+        ENABLE_MIXED : boolean := false;
+        RESET_ADL : boolean := false;
         RESET_PC    : std_logic_vector(23 downto 0) := x"000000";  -- 0 => Single I/O cycle, 1 => Std I/O cycle
         Flag_C      : integer := 0;
         Flag_N      : integer := 1;
@@ -142,6 +144,10 @@ package T80_eZ80_Pack is
     );
     port(
         Data_Long   : in std_logic;
+        Control_Long : in std_logic;
+        Frame_Last : in std_logic;
+        ADL_State : in std_logic;
+        Return_Mode : in std_logic_vector(7 downto 0);
         Store_Long  : in std_logic;
         IR          : in std_logic_vector(7 downto 0);
         ISet        : in std_logic_vector(1 downto 0);

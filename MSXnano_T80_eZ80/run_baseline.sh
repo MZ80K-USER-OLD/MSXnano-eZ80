@@ -65,3 +65,35 @@ done
 for w in false true; do
  ghdl -r --std=08 -fsynopsys tb_pc24 -gWIDE_FETCH=false -gBOOT_BANK=255 -gINSERT_WAIT=$w --assert-level=error
 done
+
+# v6 target-transfer matrix: all eight conditions, taken/untaken, WAIT on/off.
+ghdl -a --std=08 -fsynopsys ../sim/tb_jump24.vhd
+for c in 0 1 2 3 4 5 6 7; do
+ for t in false true; do
+  for w in false true; do
+   ghdl -r --std=08 -fsynopsys tb_jump24 -gCONDITION=$c -gTAKEN=$t -gINSERT_WAIT=$w --assert-level=error
+  done
+ done
+done
+
+ghdl -a --std=08 -fsynopsys ../sim/tb_call24.vhd
+for s in 196609 1 16711681; do
+ for c in 0 1 2 3 4 5 6 7; do
+  for t in false true; do
+   for w in false true; do
+    ghdl -r --std=08 -fsynopsys tb_call24 -gSTACK_TOP=$s -gCONDITION=$c -gTAKEN=$t -gINSERT_WAIT=$w --assert-level=error
+   done
+  done
+ done
+done
+
+ghdl -a --std=08 -fsynopsys ../sim/tb_mixed24.vhd
+for s in 196609 1 16711681; do
+ for c in 0 1 2 3 4 5 6 7; do
+  for t in false true; do
+   for w in false true; do
+    ghdl -r --std=08 -fsynopsys tb_mixed24 -gSTACK_TOP=$s -gCONDITION=$c -gTAKEN=$t -gINSERT_WAIT=$w --assert-level=error
+   done
+  done
+ done
+done

@@ -605,7 +605,7 @@
     "SubInsts" : [
      {
       "InstFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/g80a_ez80.vhd",
-      "InstLine" : 162,
+      "InstLine" : 164,
       "InstName" : "u0",
       "ModuleFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
       "ModuleLine" : 74,
@@ -613,7 +613,7 @@
       "SubInsts" : [
        {
         "InstFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-        "InstLine" : 268,
+        "InstLine" : 278,
         "InstName" : "mcode",
         "ModuleFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_mcode_ez80.vhd",
         "ModuleLine" : 72,
@@ -621,7 +621,7 @@
        },
        {
         "InstFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-        "InstLine" : 338,
+        "InstLine" : 350,
         "InstName" : "alu",
         "ModuleFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_alu_ez80.vhd",
         "ModuleLine" : 66,
@@ -629,7 +629,7 @@
        },
        {
         "InstFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-        "InstLine" : 934,
+        "InstLine" : 997,
         "InstName" : "Regs",
         "ModuleFile" : "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_reg_ez80.vhd",
         "ModuleLine" : 62,

@@ -71,6 +71,8 @@ entity G80A_eZ80 is
     generic(
         Mode        : integer := 0;     -- 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
         FETCH24     : boolean := false;
+        ENABLE_MIXED : boolean := false;
+        RESET_ADL : boolean := false;
         RESET_PC    : std_logic_vector(23 downto 0) := x"000000";
         IOWait      : integer := 1      -- 0 => Single I/O cycle, 1 => Std I/O cycle
     );
@@ -162,7 +164,7 @@ begin
     u0 : T80_eZ80
         generic map(
             Mode => Mode,
-            FETCH24 => FETCH24, RESET_PC => RESET_PC,
+            FETCH24 => FETCH24, ENABLE_MIXED=>ENABLE_MIXED, RESET_ADL=>RESET_ADL, RESET_PC => RESET_PC,
             IOWait => IOWait)
         port map(
             CEN => CEN,

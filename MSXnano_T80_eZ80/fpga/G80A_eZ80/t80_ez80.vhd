@@ -76,6 +76,8 @@ entity T80_eZ80 is
         Mode        : integer := 0;  -- 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
         IOWait      : integer := 0;
         FETCH24     : boolean := false;
+        ENABLE_MIXED : boolean := false;
+        RESET_ADL : boolean := false;
         RESET_PC    : std_logic_vector(23 downto 0) := x"000000";  -- 0 => Single I/O cycle, 1 => Std I/O cycle
         Flag_C      : integer := 0;
         Flag_N      : integer := 1;
@@ -126,10 +128,10 @@ architecture rtl of T80_eZ80 is
     constant aZI    : std_logic_vector(2 downto 0) := "110";
 
     -- FETCH24 is a development-time fetch-width setting, not an ADL mode bit.
-    function step_pc(p : unsigned(23 downto 0); delta : integer) return unsigned is
+    function step_pc(p : unsigned(23 downto 0); delta : integer; wide : boolean) return unsigned is
         variable q : unsigned(23 downto 0);
     begin
-        if FETCH24 then
+        if wide then
             q := unsigned(signed(p) + to_signed(delta,24));
         else
             q := x"00" & unsigned(signed(p(15 downto 0)) + to_signed(delta,16));
@@ -142,8 +144,16 @@ architecture rtl of T80_eZ80 is
     signal Ap, Fp           : std_logic_vector(7 downto 0);
     signal I                : std_logic_vector(7 downto 0);
     signal R                : unsigned(7 downto 0);
+    signal SPL : unsigned(23 downto 0);
+    signal ADL_State : std_logic;
+    signal Fetch_Long : boolean;
+    signal Frame_Last : std_logic;
+    signal Return_Mode : std_logic_vector(7 downto 0);
+    signal Stack_Long : std_logic;
+    signal TargetBank : std_logic_vector(7 downto 0);
     signal SP               : unsigned(15 downto 0);
     signal PC               : unsigned(23 downto 0);
+    signal Control_Long : std_logic;
     signal Long_Pending, Data_Long, Upper_LD_WE : std_logic;
     signal Store_Pending, Store_Long, Long_Store_Active : std_logic;
     -- Upper-byte path. Writes remain disabled until ADL decode is implemented.
@@ -278,6 +288,8 @@ begin
             Flag_S => Flag_S)
         port map(
             Data_Long => Data_Long,
+            Control_Long => Control_Long,
+            Frame_Last => Frame_Last, ADL_State=>ADL_State, Return_Mode=>Return_Mode,
             Store_Long => Store_Long,
             IR => IR,
             ISet => ISet,
@@ -364,7 +376,7 @@ begin
     process (RESET_n, CLK_n)
     begin
         if RESET_n='0' then
-            if FETCH24 then A_BANK<=RESET_PC(23 downto 16);
+            if FETCH24 and (not ENABLE_MIXED or RESET_ADL) then A_BANK<=RESET_PC(23 downto 16);
             else A_BANK<=x"00"; end if;
         elsif rising_edge(CLK_n) then
             if ClkEn='1' then
@@ -375,16 +387,34 @@ begin
                     if FETCH24 then
                         if NMICycle='1' or IntCycle='1' then
                             A_BANK<=x"00";
+                        elsif Jump='1' and Stack_Long='1' then
+                            A_BANK<=DI_Reg;
+                            if Return_Mode=x"02" then A_BANK<=x"00";end if;
+                        elsif Call='1' and Stack_Long='1' then
+                            A_BANK<=TargetBank;
+                        elsif Set_Addr_To=aSP and Stack_Long='1' then
+                            A_BANK<=std_logic_vector(SPL(23 downto 16));
+                        elsif Jump='1' and Control_Long='1' and ISet="00" and (IR=x"C3" or IR(2 downto 0)="010") then
+                            A_BANK<=DI_Reg;
+                        elsif JumpXY='1' and Control_Long='1' then
+                            A_BANK<=RegBusCU;
                         elsif Jump='1' or JumpXY='1' or Call='1' or RstP='1'
                            or Set_Addr_To=aNone
                            or (Set_Addr_To=aXY and NextIs_XY_Fetch='1') then
                             A_BANK<=std_logic_vector(PC(23 downto 16));
+                            if not Fetch_Long then A_BANK<=x"00";end if;
                         end if;
                     end if;
                 end if;
             end if;
         end if;
     end process;
+
+    Stack_Long <= '1' when Control_Long='1' and ISet="00" and
+        (IR=x"CD" or (IR(7 downto 6)="11" and IR(2 downto 0)="100") or
+         IR=x"C9" or (IR(7 downto 6)="11" and IR(2 downto 0)="000")) else '0';
+    Fetch_Long <= FETCH24 and (not ENABLE_MIXED or ADL_State='1');
+    Control_Long <= '1' when FETCH24 and Data_Long='1' else '0';
 
     ClkEn <= CEN and not BusAck;
 
@@ -406,7 +436,7 @@ begin
             Store_Pending <= '0';
             Store_Long <= '0';
             Data_Long <= '0';
-            if FETCH24 then PC <= unsigned(RESET_PC);
+            if FETCH24 and (not ENABLE_MIXED or RESET_ADL) then PC <= unsigned(RESET_PC);
             else PC <= x"00" & unsigned(RESET_PC(15 downto 0)); end if;
             A <= RESET_PC(15 downto 0);
 			update_addr <= '0';
@@ -425,6 +455,9 @@ begin
             I <= (others => '0');
             R <= (others => '0');
             SP <= (others => '1');
+            SPL <= (others => '1');TargetBank<=x"00";
+            Frame_Last<='0';Return_Mode<=x"03";
+            if FETCH24 and (not ENABLE_MIXED or RESET_ADL) then ADL_State<='1';else ADL_State<='0';end if;
             Alternate <= '0';
 
             Read_To_Reg_r <= "00000";
@@ -474,9 +507,10 @@ begin
                     end if;
 
                     if Jump = '0' and Call = '0' and NMICycle = '0' and IntCycle = '0' and not (Halt_FF = '1' or Halt = '1') then
-                        PC <= step_pc(PC,1);
+                        PC <= step_pc(PC,1,Fetch_Long);
                     end if;
 
+                    Frame_Last<='0';
                     -- 5B memory-mode suffix for initial LD.LIL immediate subset.
                     -- DD/FD preserve the pending suffix until the actual opcode.
                     if IntCycle = '0' and NMICycle = '0' and Halt_FF = '0' then
@@ -489,7 +523,7 @@ begin
                                 Store_Pending <= '0';
                             end if;
                         end if;
-                        if DInst = x"5B" and Prefix = "00" then
+                        if (DInst = x"5B" or (ENABLE_MIXED and DInst=x"52")) and Prefix = "00" then
                             Long_Pending <= '1';
                             Data_Long <= '0';
                         elsif Long_Pending = '1' then
@@ -542,9 +576,28 @@ begin
                 end if;
 
                 if T_Res = '1' then
+                    if Stack_Long='1' and (IR=x"CD" or IR(2 downto 0)="100") and MCycle="111" then Frame_Last<='1';end if;
 					update_addr <= '1';
                     BTR_r <= (I_BT or I_BC or I_BTR) and not No_BTR;
-                    if Jump = '1' then
+                    if Jump='1' and Stack_Long='1' then
+                        -- synthesis translate_off
+                        assert Return_Mode=x"03" or (ENABLE_MIXED and Return_Mode=x"02") report "unsupported return mode marker" severity failure;
+                        -- synthesis translate_on
+                        A<=TmpAddr;PC<=unsigned(DI_Reg & TmpAddr);
+                        if ENABLE_MIXED then
+                            if Return_Mode=x"02" then
+                                ADL_State<='0';A<=DI_Reg & TmpAddr(7 downto 0);
+                                PC<=unsigned(x"00" & DI_Reg & TmpAddr(7 downto 0));
+                            else ADL_State<='1';end if;
+                        end if;
+                    elsif Call='1' and Stack_Long='1' then
+                        A<=TmpAddr;PC<=unsigned(TargetBank & TmpAddr);
+                        if ENABLE_MIXED then ADL_State<='1';end if;
+                    elsif Jump='1' and Control_Long='1' and ISet="00" and (IR=x"C3" or IR(2 downto 0)="010") then
+                        A <= TmpAddr;
+                        PC <= unsigned(DI_Reg & TmpAddr);
+                        if ENABLE_MIXED then ADL_State<='1';end if;
+                    elsif Jump = '1' then
                         A(15 downto 8) <= DI_Reg;
                         A(7 downto 0) <= TmpAddr(7 downto 0);
                         PC(15 downto 8) <= unsigned(DI_Reg);
@@ -552,6 +605,7 @@ begin
                     elsif JumpXY = '1' then
                         A <= RegBusC;
                         PC(15 downto 0) <= unsigned(RegBusC);
+                        if Control_Long='1' then PC(23 downto 16)<=unsigned(RegBusCU);if ENABLE_MIXED then ADL_State<='1';end if;end if;
                     elsif Call = '1' or RstP = '1' then
                         A <= TmpAddr;
                         PC(15 downto 0) <= unsigned(TmpAddr);
@@ -588,6 +642,7 @@ begin
                             A(7 downto 0) <= DI_Reg;
                         when aSP =>
                             A <= std_logic_vector(SP);
+                            if Stack_Long='1' then A<=std_logic_vector(SPL(15 downto 0));end if;
                         when aBC =>
                             if Mode = 3 and IORQ_i = '1' then
                                 -- Memory map I/O on GBZ80
@@ -649,12 +704,12 @@ begin
                         IR <= DInst;
                     end if;
                     if JumpE = '1' then
-                        PC <= step_pc(PC,to_integer(signed(DI_Reg)));
+                        PC <= step_pc(PC,to_integer(signed(DI_Reg)),Fetch_Long);
                     elsif Inc_PC = '1' then
-                        PC <= step_pc(PC,1);
+                        PC <= step_pc(PC,1,Fetch_Long);
                     end if;
                     if BTR_r = '1' then
-                        PC <= step_pc(PC,-2);
+                        PC <= step_pc(PC,-2,Fetch_Long);
                     end if;
                     if RstP = '1' then
                         TmpAddr <= (others =>'0');
@@ -667,7 +722,9 @@ begin
 
                 if (TState = 2 and Wait_n = '1') or (TState = 4 and MCycle = "001") then
                     if IncDec_16(2 downto 0) = "111" then
-                        if IncDec_16(3) = '1' then
+                        if Stack_Long='1' then
+                            if IncDec_16(3)='1' then SPL<=SPL-1;else SPL<=SPL+1;end if;
+                        elsif IncDec_16(3) = '1' then
                             SP <= SP - 1;
                         else
                             SP <= SP + 1;
@@ -690,6 +747,9 @@ begin
             end if;
 
             if TState = 3 then
+                if Stack_Long='1' and (IR=x"C9" or IR(2 downto 0)="000") and MCycle="010" then Return_Mode<=DI_Reg;end if;
+                if Control_Long='1' and ISet="00" and IR=x"31" and MCycle="100" then SPL(23 downto 16)<=unsigned(DI_Reg);end if;
+                if Stack_Long='1' and (IR=x"CD" or IR(2 downto 0)="100") and MCycle="100" then TargetBank<=DI_Reg;end if;
                 if LDZ = '1' then
                     TmpAddr(7 downto 0) <= DI_Reg;
                 end if;
@@ -783,9 +843,11 @@ begin
                 when "10110" =>
                     DO <= Save_Mux;
                 when "11000" =>
-                    SP(7 downto 0) <= unsigned(Save_Mux);
+                    if Control_Long='1' and ISet="00" and IR=x"31" then SPL(7 downto 0)<=unsigned(Save_Mux);
+                    else SP(7 downto 0) <= unsigned(Save_Mux);end if;
                 when "11001" =>
-                    SP(15 downto 8) <= unsigned(Save_Mux);
+                    if Control_Long='1' and ISet="00" and IR=x"31" then SPL(15 downto 8)<=unsigned(Save_Mux);
+                    else SP(15 downto 8) <= unsigned(Save_Mux);end if;
                 when "11011" =>
                     F <= Save_Mux;
                 when others =>
@@ -848,7 +910,8 @@ begin
         end if;
     end process;
 
-    Long_Store_Active <= '1' when Store_Long = '1' and ISet = "00" and IR = x"22" else '0';
+    -- Suppress legacy indexed M6/M7 bookkeeping during extended stack cycles.
+    Long_Store_Active <= '1' when Stack_Long='1' else '1' when Store_Long = '1' and ISet = "00" and IR = x"22" else '0';
     Upper_LD_WE <= '1' when Data_Long = '1' and ISet = "00"
         and IR(7 downto 6) = "00" and IR(3 downto 0) = "0001"
         and IR(5 downto 4) /= "11" and MCycle = "100" and TState = 3 else '0';
@@ -989,6 +1052,11 @@ begin
                 BusB <= std_logic_vector(PC(15 downto 8));
             when "1110" =>
                 BusB <= "00000000";
+                if Stack_Long='1' then
+                    if ADL_State='1' then BusB<=x"03";else BusB<=x"02";end if;
+                end if;
+            when "1111" =>
+                BusB <= std_logic_vector(PC(23 downto 16));
             when others =>
                 BusB <= "--------";
             end case;
@@ -1010,6 +1078,8 @@ begin
                 BusA <= std_logic_vector(SP(15 downto 8));
             when "1010" =>
                 BusA <= "00000000";
+            when "1111" =>
+                BusB <= std_logic_vector(PC(23 downto 16));
             when others =>
                 BusB <= "--------";
             end case;
@@ -1143,13 +1213,15 @@ begin
                         BusAck <= '1';
                     else
                         TState <= "001";
-                        if NextIs_XY_Fetch = '1' then
+                        if Stack_Long='1' and (IR=x"CD" or IR(2 downto 0)="100") and MCycle="111" and Frame_Last='0' and ADL_State='1' then
+                            MCycle<="111";
+                        elsif NextIs_XY_Fetch = '1' then
                             MCycle <= "110";
                             Pre_XY_F_M <= MCycle;
                             if IR = "00110110" and Mode = 0 then
                                 Pre_XY_F_M <= "010";
                             end if;
-                        elsif (MCycle = "111") or
+                        elsif (MCycle = "111" and Long_Store_Active='0') or
                             (MCycle = "110" and Mode = 1 and ISet /= "01" and Long_Store_Active = '0') then
                             MCycle <= std_logic_vector(unsigned(Pre_XY_F_M) + 1);
                         elsif (MCycle = MCycles) or

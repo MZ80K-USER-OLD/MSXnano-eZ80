@@ -83,6 +83,10 @@ entity T80_eZ80_MCode is
         );
         port(
                 Data_Long   : in std_logic;
+        Control_Long : in std_logic;
+        Frame_Last : in std_logic;
+        ADL_State : in std_logic;
+        Return_Mode : in std_logic_vector(7 downto 0);
                 Store_Long  : in std_logic;
         IR          : in std_logic_vector(7 downto 0);
                 ISet        : in std_logic_vector(1 downto 0);
@@ -185,7 +189,7 @@ architecture rtl of T80_eZ80_MCode is
 
 begin
 
-        process (Store_Long, Data_Long, IR, ISet, MCycle, F, NMICycle, IntCycle, XY_State)
+        process (ADL_State, Return_Mode, Frame_Last, Control_Long, Store_Long, Data_Long, IR, ISet, MCycle, F, NMICycle, IntCycle, XY_State)
                 variable DDD : std_logic_vector(2 downto 0);
                 variable SSS : std_logic_vector(2 downto 0);
                 variable DPair : std_logic_vector(1 downto 0);
@@ -421,7 +425,7 @@ begin
                 when "00000001"|"00010001"|"00100001"|"00110001" =>
                         -- Initial eZ80 subset: suffix long immediate loads, excluding SP.
                         MCycles <= "011";
-                        if Data_Long = '1' and DPAIR /= "11" then
+                        if Data_Long = '1' and (DPAIR /= "11" or Control_Long='1') then
                             MCycles <= "100";
                         end if;
                         case to_integer(unsigned(MCycle)) is
@@ -925,13 +929,17 @@ begin
                 when "11000011" =>
                         -- JP nn
                         MCycles <= "011";
+                        if Control_Long = '1' then MCycles <= "100"; end if;
                         case to_integer(unsigned(MCycle)) is
                         when 2 =>
                                 Inc_PC <= '1';
                                 LDZ <= '1';
                         when 3 =>
                                 Inc_PC <= '1';
-                                Jump <= '1';
+                                if Control_Long = '0' then Jump <= '1'; else LDW <= '1'; end if;
+                        when 4 =>
+                                Inc_PC <= '1';
+                                if Control_Long = '1' then Jump <= '1'; end if;
                         when others => null;
                         end case;
                 when "11000010"|"11001010"|"11010010"|"11011010"|"11100010"|"11101010"|"11110010"|"11111010" =>
@@ -993,15 +1001,20 @@ begin
                         else
                                 -- JP cc,nn
                                 MCycles <= "011";
+                                if Control_Long = '1' then MCycles <= "100"; end if;
                                 case to_integer(unsigned(MCycle)) is
                                 when 2 =>
                                         Inc_PC <= '1';
                                         LDZ <= '1';
                                 when 3 =>
+                                        if Control_Long = '1' then LDW <= '1'; end if;
                                         Inc_PC <= '1';
                                         if is_cc_true(F, to_bitvector(IR(5 downto 3))) then
-                                                Jump <= '1';
+                                                if Control_Long = '0' then Jump <= '1'; else LDW <= '1'; end if;
                                         end if;
+                                when 4 =>
+                                        Inc_PC <= '1';
+                                        if Control_Long = '1' and is_cc_true(F, to_bitvector(IR(5 downto 3))) then Jump <= '1'; end if;
                                 when others => null;
                                 end case;
                         end if;
@@ -2029,6 +2042,56 @@ begin
                         end if;
                 end if;
 
+
+                -- Development long CALL/RET: 3 operand reads and 3 stack bytes.
+                -- Four-byte long frame; 03 marker represents fixed development long mode.
+                if Control_Long='1' and ISet="00" and IntCycle='0' and NMICycle='0' and
+                   (IR=x"CD" or (IR(7 downto 6)="11" and IR(2 downto 0)="100") or
+                    IR=x"C9" or (IR(7 downto 6)="11" and IR(2 downto 0)="000")) then
+                    Inc_PC<='0'; LDZ<='0'; LDW<='0'; Jump<='0'; Call<='0';
+                    Write<='0'; NoRead<='0'; IncDec_16<="0000";
+                    Set_Addr_To<=aNone; Set_BusB_To<="0000";
+                    TStates<="011";
+                    if MCycle="001" then TStates<="100";end if;
+                    if IR=x"CD" or IR(2 downto 0)="100" then
+                        MCycles<="111";
+                        if IR/=x"CD" and not is_cc_true(F,to_bitvector(IR(5 downto 3))) then MCycles<="100";end if;
+                        case to_integer(unsigned(MCycle)) is
+                        when 2 => Inc_PC<='1';LDZ<='1';
+                        when 3 => Inc_PC<='1';LDW<='1';
+                        when 4 =>
+                            Inc_PC<='1';
+                            if IR=x"CD" or is_cc_true(F,to_bitvector(IR(5 downto 3))) then
+                                IncDec_16<="1111";Set_Addr_To<=aSP;TStates<="100";
+                                if ADL_State='1' then Set_BusB_To<="1111";else Set_BusB_To<="1101";end if;
+                            end if;
+                        when 5 => Write<='1';IncDec_16<="1111";Set_Addr_To<=aSP;
+                            if ADL_State='1' then Set_BusB_To<="1101";else Set_BusB_To<="1100";end if;
+                        when 6 => Write<='1';IncDec_16<="1111";Set_Addr_To<=aSP;
+                            if ADL_State='1' then Set_BusB_To<="1100";else Set_BusB_To<="1110";end if;
+                        when 7 =>
+                            Write<='1';
+                            if Frame_Last='1' or ADL_State='0' then Call<='1';
+                            else IncDec_16<="1111";Set_Addr_To<=aSP;Set_BusB_To<="1110";end if;
+                        when others => null;
+                        end case;
+                    else
+                        MCycles<="101";
+                        if Return_Mode=x"02" and MCycle>"010" then MCycles<="100";end if;
+                        case to_integer(unsigned(MCycle)) is
+                        when 1 =>
+                            TStates<="101";
+                            if IR=x"C9" or is_cc_true(F,to_bitvector(IR(5 downto 3))) then Set_Addr_To<=aSP;
+                            else MCycles<="001";end if;
+                        when 2 => IncDec_16<="0111";Set_Addr_To<=aSP;
+                        when 3 => IncDec_16<="0111";Set_Addr_To<=aSP;LDZ<='1';
+                        when 4 => IncDec_16<="0111";
+                            if Return_Mode=x"02" then Jump<='1';else Set_Addr_To<=aSP;LDW<='1';end if;
+                        when 5 => IncDec_16<="0111";Jump<='1';
+                        when others => null;
+                        end case;
+                    end if;
+                end if;
         end process;
 
 end;

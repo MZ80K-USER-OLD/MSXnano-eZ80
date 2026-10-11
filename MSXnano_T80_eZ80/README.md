@@ -1,12 +1,12 @@
-# MSXnano T80/eZ80 v5
+# MSXnano T80/eZ80 v9
 
-PCと命令取得アドレスの24bit化基盤。ADL_PROGRESS_v5.mdを参照。
-実機確認済みv4は前のZIPに保持。このv5はGowin合成・実機動作未確認。
+実行時の短長モード遷移と02h/03hフレーム復帰の基盤を追加。
+全命令ADL対応ではない。対応範囲はDOCM/ADL_PROGRESS_v9.mdを参照。
 
-拡張CPU: fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj
-元T80: fpga/project_T80/MSXNanoTang20K_T80.gprj
-
-MSX用設定ではFETCH24=falseで16bit動作。24bitアドレスはまだMSXメモリに接続していない。
-実機でFETCH24を有効にしない。ADLモード未実装。
-既存EZ80V4.COM/EZ80DIAG.COMは変更なし。新しいPC24機能は単体シミュレーションで検証。
-GHDLとPython3でbash run_baseline.sh: 通常/WAITを含む27テストPASS。
+GHDL: bash run_baseline.sh（GHDLとPython3）。251実行PASS。
+新規: sim/tb_mixed24.vhd（テストプログラムも内包）。ログ: test_results_v9.log。
+MSX実機用設定は従来と同じ。新機能用のメモリ接続・実機COMは未実装。
+v9のGowin合成・実機動作は未確認。
+eZ80プロジェクト: fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj。
+元T80プロジェクト: fpga/project_T80/MSXNanoTang20K_T80.gprj。
+既存EZ80V4.COM/EZ80DIAG.COMとそのASMは旧拡張機能の実機回帰用として同梱。
