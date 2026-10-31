@@ -1,2 +1,3 @@
-# Z80_-MicroCodeCore
-The Z80 Implemented in Microcode
+# MSX eZ80
+
+eZ80 Implemented for MSX
