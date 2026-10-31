@@ -1,0 +1,10 @@
+{
+  "fresh_runs": 26,
+  "bridge_decode_runs": 1,
+  "SDRAM_functional_runs": 16,
+  "legacy_pin_comparison_runs": 4,
+  "payload_hold_runs": 4,
+  "power_on_runs": 1,
+  "gowin_tested": false,
+  "negative_control_runs": 1
+}

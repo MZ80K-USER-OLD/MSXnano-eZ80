@@ -1,0 +1,8 @@
+COM stage 1 time=75230000
+COM stage 2 time=781470000
+COM stage 3 time=887710000
+COM stage 4 time=976670000
+COM stage 5 time=1052510000
+EZ80D1 R1: PASS
+PASS data_r1 phase=3 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=1428
+/workspace/scratch/db88d59b2a4d/cpu_restart_r1/sim/tb_data_r1.sv:114: $finish called at 1566110000 (1ps)

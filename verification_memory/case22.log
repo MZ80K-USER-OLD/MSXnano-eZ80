@@ -1,0 +1,2 @@
+PASS capture R1 phase=1 held payload writes=16
+/workspace/scratch/db88d59b2a4d/cpu_restart_r1/sim/tb_capture_r1.sv:73: $finish called at 10540000 (1ps)

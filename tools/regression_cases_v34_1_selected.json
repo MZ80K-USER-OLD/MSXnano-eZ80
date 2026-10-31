@@ -1,0 +1,1638 @@
+[
+  {
+    "entity": "tb_baseline",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_baseline",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error",
+      "--vcd=tb_baseline_false.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_baseline",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_baseline",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error",
+      "--vcd=tb_baseline_true.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_ez80_baseline",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_ez80_baseline",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error",
+      "--vcd=tb_ez80_baseline_false.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_ez80_baseline",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_ez80_baseline",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error",
+      "--vcd=tb_ez80_baseline_true.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_upper",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_upper",
+      "--assert-level=error",
+      "--vcd=upper.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_long_ld",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_long_ld",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error",
+      "--vcd=long_ld_false.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_long_ld",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_long_ld",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error",
+      "--vcd=long_ld_true.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_long_store",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_long_store",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error",
+      "--vcd=long_store_false.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_long_store",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_long_store",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error",
+      "--vcd=long_store_true.vcd"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_hardware_com",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_hardware_com",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_hardware_com",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_hardware_com",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_v4_sparse",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_v4_sparse",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_v4_sparse",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_v4_sparse",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_v4_irq",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_v4_irq",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_v4_irq",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_v4_irq",
+      "-gINSERT_WAIT=false",
+      "-gIRQ_AT_ADDR=256",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_v4_irq",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_v4_irq",
+      "-gINSERT_WAIT=true",
+      "-gIRQ_AT_ADDR=256",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_v4_diagnostic",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_v4_diagnostic",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_v4_diagnostic",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_v4_diagnostic",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pc24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pc24",
+      "-gBOOT_BANK=0",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pc24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pc24",
+      "-gBOOT_BANK=255",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pc24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pc24",
+      "-gWIDE_FETCH=false",
+      "-gBOOT_BANK=255",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_jump24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_jump24",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_jump24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_jump24",
+      "-gCONDITION=4",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_jump24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_jump24",
+      "-gCONDITION=7",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_call24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_call24",
+      "-gSTACK_TOP=196609",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_call24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_call24",
+      "-gSTACK_TOP=1",
+      "-gCONDITION=4",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_call24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_call24",
+      "-gSTACK_TOP=16711681",
+      "-gCONDITION=7",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_mixed24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_mixed24",
+      "-gSTACK_TOP=196609",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_mixed24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_mixed24",
+      "-gSTACK_TOP=1",
+      "-gCONDITION=4",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_mixed24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_mixed24",
+      "-gSTACK_TOP=16711681",
+      "-gCONDITION=7",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native24",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native24",
+      "-gCONDITION=4",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native24",
+      "-gCONDITION=7",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native_call24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native_call24",
+      "-gSTACK_TOP=196609",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native_call24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native_call24",
+      "-gSTACK_TOP=1",
+      "-gCONDITION=4",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native_call24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native_call24",
+      "-gSTACK_TOP=16711681",
+      "-gCONDITION=7",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pushpop24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pushpop24",
+      "-gSTACK_TOP=196609",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pushpop24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pushpop24",
+      "-gSTACK_TOP=1",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pushpop24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pushpop24",
+      "-gSTACK_TOP=16711681",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_incdec24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_incdec24",
+      "-gSTACK_TOP=196609",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_incdec24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_incdec24",
+      "-gSTACK_TOP=1",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_incdec24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_incdec24",
+      "-gSTACK_TOP=16711681",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_spl_incdec24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_spl_incdec24",
+      "-gSTACK_TOP=65535",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_spl_incdec24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_spl_incdec24",
+      "-gSTACK_TOP=16777215",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_spl_incdec24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_spl_incdec24",
+      "-gSTACK_TOP=0",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_indirect24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_indirect24",
+      "-gCONDITION=1",
+      "-gSTACK_TOP=36864",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_indirect24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_indirect24",
+      "-gCONDITION=127",
+      "-gSTACK_TOP=65535",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_indirect24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_indirect24",
+      "-gCONDITION=253",
+      "-gSTACK_TOP=65535",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_indexed24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_indexed24",
+      "-gCONDITION=0",
+      "-gSTACK_TOP=0",
+      "-gDISPLACEMENT=-128",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_indexed24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_indexed24",
+      "-gCONDITION=127",
+      "-gSTACK_TOP=0",
+      "-gDISPLACEMENT=-128",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_indexed24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_indexed24",
+      "-gCONDITION=255",
+      "-gSTACK_TOP=65535",
+      "-gDISPLACEMENT=127",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_absolute24",
+      "-gCONDITION=1",
+      "-gSTACK_TOP=36864",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_absolute24",
+      "-gCONDITION=127",
+      "-gSTACK_TOP=65535",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_absolute24",
+      "-gCONDITION=255",
+      "-gSTACK_TOP=65535",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pair_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pair_absolute24",
+      "-gCONDITION=1",
+      "-gSTACK_TOP=65534",
+      "-gREG_SELECT=0",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pair_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pair_absolute24",
+      "-gCONDITION=127",
+      "-gSTACK_TOP=65535",
+      "-gREG_SELECT=0",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_pair_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_pair_absolute24",
+      "-gCONDITION=255",
+      "-gSTACK_TOP=65535",
+      "-gREG_SELECT=2",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_ed_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_ed_absolute24",
+      "-gCONDITION=1",
+      "-gSTACK_TOP=65534",
+      "-gREG_SELECT=0",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_ed_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_ed_absolute24",
+      "-gCONDITION=127",
+      "-gSTACK_TOP=65535",
+      "-gREG_SELECT=0",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_ed_absolute24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_ed_absolute24",
+      "-gCONDITION=255",
+      "-gSTACK_TOP=65535",
+      "-gREG_SELECT=3",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_memory_alu24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_memory_alu24",
+      "-gCONDITION=1",
+      "-gSTACK_TOP=0",
+      "-gDISPLACEMENT=-128",
+      "-gREG_SELECT=0",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_memory_alu24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_memory_alu24",
+      "-gCONDITION=255",
+      "-gSTACK_TOP=0",
+      "-gDISPLACEMENT=-128",
+      "-gREG_SELECT=0",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_memory_alu24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_memory_alu24",
+      "-gCONDITION=255",
+      "-gSTACK_TOP=65535",
+      "-gDISPLACEMENT=127",
+      "-gREG_SELECT=2",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_cb_hl24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_cb_hl24",
+      "-gBANK=1",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_cb_hl24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_cb_hl24",
+      "-gBANK=255",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_cb_hl24",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_cb_hl24",
+      "-gBANK=255",
+      "-gCONDITION=31",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_indexed_cb24",
+    "case": {
+      "REG_SELECT": 0,
+      "BANK": 1,
+      "STACK_TOP": 0,
+      "DISPLACEMENT": -128,
+      "CONDITION": 0,
+      "TAKEN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_indexed_cb24",
+    "case": {
+      "REG_SELECT": 1,
+      "BANK": 1,
+      "STACK_TOP": 0,
+      "DISPLACEMENT": -128,
+      "CONDITION": 0,
+      "TAKEN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_indexed_cb24",
+    "case": {
+      "REG_SELECT": 1,
+      "BANK": 127,
+      "STACK_TOP": 32768,
+      "DISPLACEMENT": 1,
+      "CONDITION": 31,
+      "TAKEN": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_transfer24",
+    "case": {
+      "REPEATING": false,
+      "DECREMENTING": false,
+      "SHORT_MODE": false,
+      "ADDRESS_CASE": 0,
+      "INSERT_WAIT": false,
+      "COUNT_CASE": 0
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_transfer24",
+    "case": {
+      "REPEATING": false,
+      "DECREMENTING": true,
+      "SHORT_MODE": false,
+      "ADDRESS_CASE": 2,
+      "INSERT_WAIT": false,
+      "COUNT_CASE": 2
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_transfer24",
+    "case": {
+      "REPEATING": true,
+      "HIGH_REPEAT": true,
+      "DECREMENTING": true,
+      "ADDRESS_CASE": 2,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_compare24",
+    "case": {
+      "REPEATING": false,
+      "DECREMENTING": false,
+      "SHORT_MODE": false,
+      "ADDRESS_CASE": 0,
+      "CARRY_IN": false,
+      "INSERT_WAIT": false,
+      "VALUE_CASE": 0
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_compare24",
+    "case": {
+      "REPEATING": false,
+      "DECREMENTING": true,
+      "SHORT_MODE": true,
+      "ADDRESS_CASE": 2,
+      "CARRY_IN": false,
+      "INSERT_WAIT": true,
+      "VALUE_CASE": 3
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_compare24",
+    "case": {
+      "REPEATING": true,
+      "HIGH_REPEAT": true,
+      "DECREMENTING": true,
+      "ADDRESS_CASE": 2,
+      "CARRY_IN": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_add24",
+    "case": {
+      "DESTINATION": 0,
+      "SOURCE": 0,
+      "VECTOR": 0,
+      "SHORT_MODE": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_add24",
+    "case": {
+      "DESTINATION": 1,
+      "SOURCE": 2,
+      "VECTOR": 0,
+      "SHORT_MODE": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_add24",
+    "case": {
+      "DESTINATION": 2,
+      "SOURCE": 3,
+      "VECTOR": 7,
+      "SHORT_MODE": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_adc_sbc24",
+    "case": {
+      "SUBTRACTING": false,
+      "SOURCE": 0,
+      "VECTOR": 0,
+      "CARRY_IN": false,
+      "SHORT_MODE": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_adc_sbc24",
+    "case": {
+      "SUBTRACTING": true,
+      "SOURCE": 0,
+      "VECTOR": 0,
+      "CARRY_IN": false,
+      "SHORT_MODE": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_adc_sbc24",
+    "case": {
+      "SUBTRACTING": true,
+      "SOURCE": 3,
+      "VECTOR": 15,
+      "CARRY_IN": true,
+      "SHORT_MODE": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_adc_sbc24_sign",
+    "case": {
+      "SUBTRACTING": false,
+      "VECTOR": 0,
+      "CARRY_IN": false,
+      "SHORT_MODE": false,
+      "INSERT_WAIT": false
+    },
+    "sign": true
+  },
+  {
+    "entity": "tb_adc_sbc24_sign",
+    "case": {
+      "SUBTRACTING": true,
+      "VECTOR": 0,
+      "CARRY_IN": false,
+      "SHORT_MODE": false,
+      "INSERT_WAIT": false
+    },
+    "sign": true
+  },
+  {
+    "entity": "tb_adc_sbc24_sign",
+    "case": {
+      "SUBTRACTING": true,
+      "VECTOR": 1,
+      "CARRY_IN": true,
+      "SHORT_MODE": true,
+      "INSERT_WAIT": true
+    },
+    "sign": true
+  },
+  {
+    "entity": "tb_block_io24",
+    "case": {
+      "OUTPUTTING": false,
+      "DECREMENTING": false,
+      "REPEATING": false,
+      "SHORT_MODE": false,
+      "ADDRESS_CASE": 0,
+      "INITIAL_B": 0,
+      "FLAG_SEED": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_io24",
+    "case": {
+      "OUTPUTTING": true,
+      "DECREMENTING": false,
+      "REPEATING": false,
+      "SHORT_MODE": false,
+      "ADDRESS_CASE": 0,
+      "INITIAL_B": 0,
+      "FLAG_SEED": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_block_io24",
+    "case": {
+      "OUTPUTTING": true,
+      "DECREMENTING": true,
+      "REPEATING": true,
+      "SHORT_MODE": true,
+      "ADDRESS_CASE": 2,
+      "INITIAL_B": 3,
+      "FLAG_SEED": 1,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_width28",
+    "case": {
+      "NATIVE_ADL": false,
+      "SUFFIX": 0,
+      "TARGET": 0,
+      "VALUE_CASE": 0,
+      "CHAINED": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_width28",
+    "case": {
+      "NATIVE_ADL": true,
+      "SUFFIX": 0,
+      "TARGET": 0,
+      "VALUE_CASE": 0,
+      "CHAINED": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_width28",
+    "case": {
+      "NATIVE_ADL": true,
+      "SUFFIX": 3,
+      "TARGET": 5,
+      "VALUE_CASE": 2,
+      "CHAINED": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_absolute281",
+    "case": {
+      "NATIVE_ADL": false,
+      "SUFFIX": 0,
+      "TARGET": 0,
+      "BOUNDARY": 0,
+      "LOADING": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_absolute281",
+    "case": {
+      "NATIVE_ADL": true,
+      "SUFFIX": 0,
+      "TARGET": 0,
+      "BOUNDARY": 0,
+      "LOADING": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_absolute281",
+    "case": {
+      "NATIVE_ADL": true,
+      "SUFFIX": 3,
+      "TARGET": 6,
+      "BOUNDARY": 2,
+      "LOADING": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_control281",
+    "case": {
+      "NATIVE_ADL": false,
+      "LONG_TARGET": false,
+      "EXPLICIT_SUFFIX": false,
+      "KIND": 0,
+      "CONDITION": 0,
+      "TAKEN": false,
+      "RET_TAKEN": true,
+      "BOUNDARY": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_control281",
+    "case": {
+      "NATIVE_ADL": true,
+      "LONG_TARGET": false,
+      "EXPLICIT_SUFFIX": true,
+      "KIND": 0,
+      "CONDITION": 0,
+      "TAKEN": false,
+      "RET_TAKEN": true,
+      "BOUNDARY": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_suffix_control281",
+    "case": {
+      "NATIVE_ADL": true,
+      "LONG_TARGET": true,
+      "EXPLICIT_SUFFIX": true,
+      "KIND": 2,
+      "REG_SELECT": 2,
+      "BOUNDARY": 2,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_native_call_v2_281",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native_call_v2_281",
+      "-gSTACK_TOP=196609",
+      "-gCONDITION=0",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native_call_v2_281",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native_call_v2_281",
+      "-gSTACK_TOP=1",
+      "-gCONDITION=4",
+      "-gTAKEN=false",
+      "-gINSERT_WAIT=false",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_native_call_v2_281",
+    "args": [
+      "--std=08",
+      "-fsynopsys",
+      "tb_native_call_v2_281",
+      "-gSTACK_TOP=16711681",
+      "-gCONDITION=7",
+      "-gTAKEN=true",
+      "-gINSERT_WAIT=true",
+      "--assert-level=error"
+    ],
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_absolute29",
+    "case": {
+      "NATIVE_ADL": false,
+      "SUFFIX": 0,
+      "TARGET": 0,
+      "BOUNDARY": 0,
+      "LOADING": false,
+      "INSERT_WAIT": false,
+      "BASE": 0
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_absolute29",
+    "case": {
+      "NATIVE_ADL": true,
+      "SUFFIX": 0,
+      "TARGET": 0,
+      "BOUNDARY": 0,
+      "LOADING": false,
+      "INSERT_WAIT": false,
+      "BASE": 1
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_absolute29",
+    "case": {
+      "NATIVE_ADL": true,
+      "SUFFIX": 3,
+      "TARGET": 6,
+      "BOUNDARY": 2,
+      "LOADING": true,
+      "INSERT_WAIT": true,
+      "BASE": 126
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_control29",
+    "case": {
+      "NATIVE_ADL": false,
+      "LONG_TARGET": false,
+      "EXPLICIT_SUFFIX": false,
+      "KIND": 0,
+      "CONDITION": 0,
+      "TAKEN": false,
+      "RET_TAKEN": true,
+      "BOUNDARY": 0,
+      "INSERT_WAIT": false,
+      "BASE": 0
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_control29",
+    "case": {
+      "NATIVE_ADL": true,
+      "LONG_TARGET": false,
+      "EXPLICIT_SUFFIX": true,
+      "KIND": 0,
+      "CONDITION": 0,
+      "TAKEN": false,
+      "RET_TAKEN": true,
+      "BOUNDARY": 0,
+      "INSERT_WAIT": false,
+      "BASE": 1
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_control29",
+    "case": {
+      "NATIVE_ADL": true,
+      "LONG_TARGET": true,
+      "EXPLICIT_SUFFIX": true,
+      "KIND": 2,
+      "REG_SELECT": 2,
+      "BOUNDARY": 2,
+      "INSERT_WAIT": true,
+      "BASE": 126
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_isa_slots29",
+    "case": {
+      "SLOT": 0,
+      "NATIVE_ADL": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_isa_slots29",
+    "case": {
+      "SLOT": 48,
+      "NATIVE_ADL": true,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_isa_slots29",
+    "case": {
+      "SLOT": 96,
+      "NATIVE_ADL": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_bus29",
+    "case": {
+      "BASE": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_bus29",
+    "case": {
+      "BASE": 126,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_bus29",
+    "case": {
+      "BASE": 255,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_irq29",
+    "case": {
+      "BASE": 0,
+      "KIND": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_irq29",
+    "case": {
+      "BASE": 126,
+      "KIND": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_mbase_irq29",
+    "case": {
+      "BASE": 255,
+      "KIND": 3,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_exchange_sp30",
+    "case": {
+      "NATIVE_ADL": false,
+      "KIND": 0,
+      "TARGET": 0,
+      "WIDTH": 0,
+      "ALT_BANK": false,
+      "VALUE": 0,
+      "BASE": 0,
+      "CHAIN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_exchange_sp30",
+    "case": {
+      "NATIVE_ADL": true,
+      "KIND": 0,
+      "TARGET": 0,
+      "WIDTH": 0,
+      "ALT_BANK": false,
+      "VALUE": 0,
+      "BASE": 0,
+      "CHAIN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_exchange_sp30",
+    "case": {
+      "NATIVE_ADL": true,
+      "KIND": 2,
+      "TARGET": 2,
+      "WIDTH": 4,
+      "ALT_BANK": true,
+      "VALUE": 3,
+      "BASE": 126,
+      "CHAIN": true,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_stack31",
+    "case": {
+      "NATIVE_ADL": false,
+      "KIND": 0,
+      "TARGET": 0,
+      "WIDTH": 0,
+      "BOUNDARY": 0,
+      "VALUE": 0,
+      "FLAG_SEED": 0,
+      "BASE": 0,
+      "ALT_BANK": false,
+      "CHAIN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_stack31",
+    "case": {
+      "NATIVE_ADL": true,
+      "KIND": 1,
+      "TARGET": 0,
+      "WIDTH": 2,
+      "BOUNDARY": 2,
+      "VALUE": 1,
+      "FLAG_SEED": 255,
+      "BASE": 126,
+      "ALT_BANK": false,
+      "CHAIN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_stack31",
+    "case": {
+      "NATIVE_ADL": true,
+      "KIND": 1,
+      "TARGET": 0,
+      "WIDTH": 0,
+      "BOUNDARY": 1,
+      "VALUE": 0,
+      "FLAG_SEED": 255,
+      "BASE": 0,
+      "ALT_BANK": false,
+      "CHAIN": false,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_decimal32",
+    "case": {
+      "NATIVE_ADL": false,
+      "WIDTH": 0,
+      "BASE": 0,
+      "ADDRESS_CASE": 0,
+      "VALUE": 0,
+      "LEFTWARD": false,
+      "CARRY_IN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_decimal32",
+    "case": {
+      "NATIVE_ADL": true,
+      "WIDTH": 0,
+      "BASE": 0,
+      "ADDRESS_CASE": 1,
+      "VALUE": 0,
+      "LEFTWARD": false,
+      "CARRY_IN": false,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_decimal32",
+    "case": {
+      "BATCH": true,
+      "LOW": 15,
+      "LEFTWARD": true,
+      "CARRY_IN": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_restart32",
+    "case": {
+      "NATIVE_ADL": false,
+      "VECTOR": 0,
+      "BOUNDARY": 0,
+      "BASE": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_restart32",
+    "case": {
+      "NATIVE_ADL": true,
+      "VECTOR": 0,
+      "BOUNDARY": 0,
+      "BASE": 0,
+      "INSERT_WAIT": false
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_restart32",
+    "case": {
+      "NATIVE_ADL": true,
+      "VECTOR": 7,
+      "BOUNDARY": 2,
+      "BASE": 126,
+      "INSERT_WAIT": true
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_relative32",
+    "case": {
+      "NATIVE_ADL": false,
+      "KIND": 0,
+      "DISPLACEMENT": -128,
+      "POSITION": 0,
+      "BASE": 0,
+      "INSERT_WAIT": false,
+      "TAKEN": true,
+      "INITIAL_B": 2
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_relative32",
+    "case": {
+      "NATIVE_ADL": true,
+      "KIND": 0,
+      "DISPLACEMENT": -128,
+      "POSITION": 0,
+      "BASE": 0,
+      "INSERT_WAIT": false,
+      "TAKEN": true,
+      "INITIAL_B": 2
+    },
+    "sign": false
+  },
+  {
+    "entity": "tb_relative32",
+    "case": {
+      "NATIVE_ADL": true,
+      "KIND": 5,
+      "DISPLACEMENT": 127,
+      "POSITION": 3,
+      "BASE": 126,
+      "INSERT_WAIT": true,
+      "TAKEN": true,
+      "INITIAL_B": 255
+    },
+    "sign": false
+  }
+]

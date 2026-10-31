@@ -1,0 +1,4 @@
+COM stage 1 time=75150000
+EZ80D1 R1: FAIL stage 1
+PASS data_r1 phase=7 fault=1 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=925
+/workspace/scratch/db88d59b2a4d/cpu_restart_r1/sim/tb_data_r1.sv:114: $finish called at 950350000 (1ps)

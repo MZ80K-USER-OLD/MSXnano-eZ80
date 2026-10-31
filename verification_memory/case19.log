@@ -1,0 +1,2 @@
+PASS memory_compat33 phase=2 identical SDRAM pin edges=122884
+/workspace/scratch/db88d59b2a4d/cpu_restart_r1/sim/tb_memory_compat33.sv:74: $finish called at 1230680000 (1ps)

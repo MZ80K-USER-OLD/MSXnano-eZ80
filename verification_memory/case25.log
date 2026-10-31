@@ -1,0 +1,2 @@
+PASS memory33 phase=0 transactions=518 WAIT_ticks=8273 VDP_reads=3154 contended=1036 refresh=32771
+/workspace/scratch/db88d59b2a4d/cpu_restart_r1/sim/tb_memory33.sv:148: $finish called at 63420431000 (1ps)

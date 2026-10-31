@@ -1,0 +1,38 @@
+{
+  "bytes": 1042,
+  "sha256": "f9cedd651670db971fd5102ae1f772d39a2909352c16e7b1df87d801cd885a1a",
+  "labels": {
+    "START": 256,
+    "SUBROUTINE": 1180,
+    "FAIL": 1181,
+    "UNSUPPORTED": 1192,
+    "FINISH": 1200,
+    "MSG_PASS": 1220,
+    "MSG_UNSUPPORTED": 1238,
+    "MSG_FAIL": 1263,
+    "FAIL_STAGE": 1285,
+    "STATUS": 1289,
+    "GUARD": 1290,
+    "SP_SNAPSHOT": 1291,
+    "SP_SNAPSHOT1": 1292,
+    "SP_SNAPSHOT2": 1293,
+    "SPS_SNAPSHOT": 1294,
+    "SPS_SNAPSHOT1": 1295,
+    "SAVED_SPS": 1296,
+    "SAVED_SPS1": 1297
+  },
+  "private_addresses": [
+    "018000..1B8000 (one byte per bank)",
+    "020100..020103",
+    "030000",
+    "02FFFF",
+    "01FFFF"
+  ],
+  "not_tested": [
+    "ADL code execution",
+    "ADL interrupts",
+    "VRAM",
+    "MegaRAM",
+    "24bit stack push/pop"
+  ]
+}

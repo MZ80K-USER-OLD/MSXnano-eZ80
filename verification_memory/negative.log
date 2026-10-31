@@ -1,0 +1,3 @@
+EXPECTED FAILURE of former live-data mux
+FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r1/sim/tb_capture_r1.sv:53: live upstream data reached SDRAM expected=90 got=6f6f6f6f
+       Time: 490000  Scope: tb_capture_r1
