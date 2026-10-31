@@ -1,3 +1,5 @@
+> R2の履歴資料。R3の現行範囲・実機手順はRESTART_R3.mdを参照。
+
 # 再構築R2：24bit INC/DEC、独立SPによるPUSH/POP、メモリ診断
 
 ## 出発点と変更

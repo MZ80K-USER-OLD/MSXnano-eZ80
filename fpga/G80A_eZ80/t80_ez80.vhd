@@ -129,6 +129,10 @@ architecture rtl of T80_eZ80 is
     signal Upper : upper_array;
     signal Wide_Stack, Wide_IncDec : std_logic;
     signal Stack_Upper_Index : std_logic_vector(2 downto 0);
+    signal Pair_Absolute, Pair_Read, Pair_SP : std_logic;
+    signal Pair_Number : std_logic_vector(1 downto 0);
+    signal Pair_Upper_Index : std_logic_vector(2 downto 0);
+    signal Pair_Address_Last : integer range 3 to 4;
     signal SPL : unsigned(23 downto 0);
     signal Extensions_Enabled, Unlock_Armed : std_logic;
     signal Width_Pending, Data_Long, Stream_Long : std_logic;
@@ -361,6 +365,13 @@ begin
         IntCycle='0' and NMICycle='0' and IR(7 downto 6)="00" and
         (IR(3 downto 0)="0011" or IR(3 downto 0)="1011") else '0';
     Stack_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
+    Pair_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and IntCycle='0' and NMICycle='0' and
+        ((ISet="00" and (IR=x"22" or IR=x"2A")) or (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="011")) else '0';
+    Pair_Read<=IR(3);
+    Pair_Number<="10" when ISet="00" else IR(5 downto 4);
+    Pair_SP<='1' when Pair_Number="11" else '0';
+    Pair_Upper_Index<=XY_State(1) & "11" when Pair_Number="10" and XY_State/="00" else Alternate & Pair_Number;
+    Pair_Address_Last<=4 when Stream_Long='1' else 3;
     Extension_State<=Extensions_Enabled;
     SP_Readback<='1' when ISet="10" and IR=x"73" and Data_Long='1' and Stream_Long='0' else '0';
     ClkEn <= CEN and not BusAck;
@@ -429,7 +440,13 @@ begin
             elsif T_Res='1' then
                 A_BANK<=x"00";
                 if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and IORQ_i='0' then
-                    if Set_Addr_To=aSP and Wide_Stack='1' then
+                    if Pair_Absolute='1' and Set_Addr_To=aZI then
+                        if Inc_WZ='1' then
+                            A_BANK<=A_BANK;
+                            if Data_Long='1' and A=x"FFFF" then A_BANK<=std_logic_vector(unsigned(A_BANK)+1);end if;
+                        elsif Data_Long='1' and Stream_Long='1' then A_BANK<=DI_Reg;
+                        else A_BANK<=x"00";end if;
+                    elsif Set_Addr_To=aSP and Wide_Stack='1' then
                         A_BANK<=std_logic_vector(SPL(23 downto 16));
                     elsif Set_Addr_To=aBC or Set_Addr_To=aDE then
                         A_BANK<=Upper(to_integer(unsigned(RegAddrC)));
@@ -519,7 +536,7 @@ begin
             else
             -- either (MCycle > 1) OR (MCycle = 1 AND TState > 3)
 
-                if MCycle = "110" and SP_Readback='0' then
+                if MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' then
                     XY_Ind <= '1';
                     if Prefix = "01" then
                         ISet <= "01";
@@ -585,7 +602,8 @@ begin
                             A <= RegBusC;
                         when aZI =>
                             if Inc_WZ = '1' then
-                                if SP_Readback='1' and MCycle="101" then A<=std_logic_vector(unsigned(A)+1);else A <= std_logic_vector(unsigned(TmpAddr) + 1);end if;
+                                if Pair_Absolute='1' then A<=std_logic_vector(unsigned(A)+1);elsif SP_Readback='1' and MCycle="101" then A<=std_logic_vector(unsigned(A)+1);else A <= std_logic_vector(unsigned(TmpAddr) + 1);end if;
+                            elsif Pair_Absolute='1' and Stream_Long='1' then A<=TmpAddr;
                             else
                                 A(15 downto 8) <= DI_Reg;
                                 A(7 downto 0) <= TmpAddr(7 downto 0);
@@ -642,7 +660,7 @@ begin
                         TmpAddr(5 downto 3) <= IR(5 downto 3);
                     end if;
                 end if;
-                if TState = 3 and MCycle = "110" and SP_Readback='0' then
+                if TState = 3 and MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' then
                     TmpAddr <= std_logic_vector(signed(RegBusC) + signed(DI_Reg));
                     if Data_Long='1' then
                         TmpAddr<=std_logic_vector(Indexed_Address(15 downto 0));
@@ -663,7 +681,8 @@ begin
                 end if;
 
                 if LDSPHL = '1' then
-                    SP <= unsigned(RegBusC);
+                    if Extensions_Enabled='1' and Data_Long='1' then SPL<=unsigned(Upper(to_integer(unsigned(RegAddrC)))) & unsigned(RegBusC);
+                    else SP <= unsigned(RegBusC);end if;
                 end if;
                 if ExchangeAF = '1' then
                     Ap <= ACC;
@@ -676,6 +695,14 @@ begin
                 end if;
             end if;
 
+            if Extensions_Enabled='1' and Data_Long='1' and ExchangeDH='1' and TState=3 then
+                Upper(to_integer(unsigned'(Alternate & "10")))<=Upper(to_integer(unsigned'(Alternate & "01")));
+                Upper(to_integer(unsigned'(Alternate & "01")))<=Upper(to_integer(unsigned'(Alternate & "10")));
+            end if;
+            if Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 then
+                if Pair_SP='1' then SPL(23 downto 16)<=unsigned(DI_Reg);
+                else Upper(to_integer(unsigned(Pair_Upper_Index)))<=DI_Reg;end if;
+            end if;
             if Wide_IncDec='1' and MCycle="001" and TState=3 and IR(5 downto 4)/="11" then
                 if IncDec_16(3)='1' and RegBusA=x"0000" then
                     Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1);
@@ -794,10 +821,10 @@ begin
                 when "10110" =>
                     DO <= Save_Mux;
                 when "11000" =>
-                    if Data_Long='1' and ISet="00" and IR=x"31" then SPL(7 downto 0)<=unsigned(Save_Mux);
+                    if Data_Long='1' and ((ISet="00" and IR=x"31") or (Pair_Absolute='1' and Pair_Read='1' and Pair_SP='1')) then SPL(7 downto 0)<=unsigned(Save_Mux);
                     else SP(7 downto 0)<=unsigned(Save_Mux);end if;
                 when "11001" =>
-                    if Data_Long='1' and ISet="00" and IR=x"31" then SPL(15 downto 8)<=unsigned(Save_Mux);
+                    if Data_Long='1' and ((ISet="00" and IR=x"31") or (Pair_Absolute='1' and Pair_Read='1' and Pair_SP='1')) then SPL(15 downto 8)<=unsigned(Save_Mux);
                     else SP(15 downto 8)<=unsigned(Save_Mux);end if;
                 when "11011" =>
                     F <= Save_Mux;
@@ -972,9 +999,9 @@ begin
             when "0110" =>
                 BusB <= DI_Reg;
             when "1000" =>
-                if SP_Readback='1' then BusB<=std_logic_vector(SPL(7 downto 0));else BusB <= std_logic_vector(SP(7 downto 0));end if;
+                if SP_Readback='1' or (Pair_Absolute='1' and Data_Long='1' and Pair_SP='1') then BusB<=std_logic_vector(SPL(7 downto 0));else BusB <= std_logic_vector(SP(7 downto 0));end if;
             when "1001" =>
-                if SP_Readback='1' then BusB<=std_logic_vector(SPL(15 downto 8));else BusB <= std_logic_vector(SP(15 downto 8));end if;
+                if SP_Readback='1' or (Pair_Absolute='1' and Data_Long='1' and Pair_SP='1') then BusB<=std_logic_vector(SPL(15 downto 8));else BusB <= std_logic_vector(SP(15 downto 8));end if;
             when "1010" =>
                 BusB <= "00000001";
             when "1011" =>
@@ -984,7 +1011,9 @@ begin
             when "1101" =>
                 BusB <= std_logic_vector(PC(15 downto 8));
             when "1110" =>
-                if SP_Readback='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB <= "00000000";end if;
+                if Pair_Absolute='1' then
+                    if Pair_SP='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB<=Upper(to_integer(unsigned(Pair_Upper_Index)));end if;
+                elsif SP_Readback='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB <= "00000000";end if;
             when others =>
                 BusB <= "--------";
             end case;
@@ -1145,8 +1174,8 @@ begin
                             if IR = "00110110" and Mode = 0 then
                                 Pre_XY_F_M <= "010";
                             end if;
-                        elsif (MCycle = "111") or
-                            (MCycle = "110" and Mode = 1 and ISet /= "01") then
+                        elsif (MCycle = "111" and Pair_Absolute='0') or
+                            (MCycle = "110" and Mode = 1 and ISet /= "01" and Pair_Absolute='0') then
                             MCycle <= std_logic_vector(unsigned(Pre_XY_F_M) + 1);
                         elsif (MCycle = MCycles) or
                             No_BTR = '1' or

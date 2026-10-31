@@ -187,6 +187,9 @@ begin
                 variable DDD : std_logic_vector(2 downto 0);
                 variable SSS : std_logic_vector(2 downto 0);
                 variable DPair : std_logic_vector(1 downto 0);
+                variable lastaddr, countdata, cycle : integer;
+                variable pairnum : std_logic_vector(1 downto 0);
+                variable reading : boolean;
                 variable IRB : bit_vector(7 downto 0);
         begin
                 DDD := IR(5 downto 3);
@@ -2061,6 +2064,40 @@ begin
                         when 4=>IncDec_16<="0111";
                         when others=>null;
                         end case;
+                    end if;
+                end if;
+
+                -- R3 pair absolute transfers: separate immediate width and data width.
+                if Ext_Active='1' and (Data_Long='1' or Stream_Long='1') and Mode=0 and IntCycle='0' and NMICycle='0' and
+                   ((ISet="00" and (IR=x"22" or IR=x"2A")) or (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="011")) then
+                    if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
+                    if Data_Long='1' then countdata:=3;else countdata:=2;end if;
+                    if ISet="00" then pairnum:="10";else pairnum:=IR(5 downto 4);end if;
+                    cycle:=to_integer(unsigned(MCycle));reading:=IR(3)='1';
+                    MCycles<=std_logic_vector(to_unsigned(lastaddr+countdata,3));
+                    Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';
+                    Set_Addr_To<=aNone;NoRead<='0';IncDec_16<="0000";
+                    if cycle=1 then TStates<="100";else TStates<="011";end if;
+                    if cycle=2 then Inc_PC<='1';LDZ<='1';end if;
+                    if cycle=3 then Inc_PC<='1';LDW<='1';end if;
+                    if cycle=4 and lastaddr=4 then Inc_PC<='1';end if;
+                    if cycle=lastaddr then
+                        Set_Addr_To<=aZI;
+                        if pairnum="11" then Set_BusB_To<="1000";else Set_BusB_To<='0' & pairnum & '1';end if;
+                    elsif cycle>lastaddr then
+                        if cycle<lastaddr+countdata then Inc_WZ<='1';Set_Addr_To<=aZI;end if;
+                        if reading then
+                            if cycle=lastaddr+1 then
+                                Read_To_Reg<='1';if pairnum="11" then Set_BusA_To<="1000";else Set_BusA_To<='0' & pairnum & '1';end if;
+                            elsif cycle=lastaddr+2 then
+                                Read_To_Reg<='1';if pairnum="11" then Set_BusA_To<="1001";else Set_BusA_To<='0' & pairnum & '0';end if;
+                            end if;
+                        else
+                            Write<='1';
+                            if cycle=lastaddr+1 then
+                                if pairnum="11" then Set_BusB_To<="1001";else Set_BusB_To<='0' & pairnum & '0';end if;
+                            elsif cycle=lastaddr+2 then Set_BusB_To<="1110";end if;
+                        end if;
                     end if;
                 end if;
         end process;
