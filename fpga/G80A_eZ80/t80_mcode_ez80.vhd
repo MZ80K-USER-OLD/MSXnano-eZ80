@@ -2034,6 +2034,35 @@ begin
                     end if;
                 end if;
 
+
+                -- R2 explicit long PUSH/POP. SPL only; never changes SPS or PC.
+                if Ext_Active='1' and Data_Long='1' and ISet="00" and Mode=0 and IntCycle='0' and NMICycle='0' and
+                   IR(7 downto 6)="11" and (IR(3 downto 0)="0101" or IR(3 downto 0)="0001") then
+                    MCycles<="100"; Write<='0';Read_To_Reg<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
+                    TStates<="011"; if MCycle="001" then TStates<="100";end if;
+                    if IR(3 downto 0)="0101" then
+                        case to_integer(unsigned(MCycle)) is
+                        when 1 => TStates<="101";IncDec_16<="1111";Set_Addr_To<=aSP;
+                            if DPair="11" then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
+                        when 2 => Write<='1';IncDec_16<="1111";Set_Addr_To<=aSP;
+                            if DPair="11" then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
+                        when 3 => Write<='1';IncDec_16<="1111";Set_Addr_To<=aSP;
+                            if DPair="11" then Set_BusB_To<="1011";else Set_BusB_To<='0' & DPair & '1';end if;
+                        when 4 => Write<='1';
+                        when others=>null;
+                        end case;
+                    else
+                        case to_integer(unsigned(MCycle)) is
+                        when 1=>Set_Addr_To<=aSP;
+                        when 2=>IncDec_16<="0111";Set_Addr_To<=aSP;Read_To_Reg<='1';
+                            if DPair="11" then Set_BusA_To<="1011";else Set_BusA_To<='0' & DPair & '1';end if;
+                        when 3=>IncDec_16<="0111";Set_Addr_To<=aSP;Read_To_Reg<='1';
+                            if DPair="11" then Set_BusA_To<="0111";else Set_BusA_To<='0' & DPair & '0';end if;
+                        when 4=>IncDec_16<="0111";
+                        when others=>null;
+                        end case;
+                    end if;
+                end if;
         end process;
 
 end;

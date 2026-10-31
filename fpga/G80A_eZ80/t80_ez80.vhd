@@ -127,6 +127,8 @@ architecture rtl of T80_eZ80 is
     -- R1: PC and SPS stay 16-bit. No ADL execution/interrupts in this stage.
     type upper_array is array(0 to 7) of std_logic_vector(7 downto 0);
     signal Upper : upper_array;
+    signal Wide_Stack, Wide_IncDec : std_logic;
+    signal Stack_Upper_Index : std_logic_vector(2 downto 0);
     signal SPL : unsigned(23 downto 0);
     signal Extensions_Enabled, Unlock_Armed : std_logic;
     signal Width_Pending, Data_Long, Stream_Long : std_logic;
@@ -352,6 +354,13 @@ begin
 
     Load_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
     Indexed_Address<=(signed(Upper(to_integer(unsigned(RegAddrC)))) & signed(RegBusC))+resize(signed(DI_Reg),24);
+    Wide_Stack<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and
+        IntCycle='0' and NMICycle='0' and IR(7 downto 6)="11" and
+        (IR(3 downto 0)="0101" or IR(3 downto 0)="0001") else '0';
+    Wide_IncDec<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and
+        IntCycle='0' and NMICycle='0' and IR(7 downto 6)="00" and
+        (IR(3 downto 0)="0011" or IR(3 downto 0)="1011") else '0';
+    Stack_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
     Extension_State<=Extensions_Enabled;
     SP_Readback<='1' when ISet="10" and IR=x"73" and Data_Long='1' and Stream_Long='0' else '0';
     ClkEn <= CEN and not BusAck;
@@ -420,7 +429,9 @@ begin
             elsif T_Res='1' then
                 A_BANK<=x"00";
                 if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and IORQ_i='0' then
-                    if Set_Addr_To=aBC or Set_Addr_To=aDE then
+                    if Set_Addr_To=aSP and Wide_Stack='1' then
+                        A_BANK<=std_logic_vector(SPL(23 downto 16));
+                    elsif Set_Addr_To=aBC or Set_Addr_To=aDE then
                         A_BANK<=Upper(to_integer(unsigned(RegAddrC)));
                     elsif Set_Addr_To=aXY then
                         if XY_State="00" then A_BANK<=Upper(to_integer(unsigned(RegAddrC)));
@@ -466,7 +477,7 @@ begin
                     end if;
 
                     if Extensions_Enabled='1' and IntCycle='0' and NMICycle='0' and Halt_FF='0' then
-                        if ISet="00" and (DInst=x"40" or DInst=x"49" or DInst=x"52" or DInst=x"5B") then
+                        if Prefix/="10" and Prefix/="01" and (DInst=x"40" or DInst=x"49" or DInst=x"52" or DInst=x"5B") then
                             Width_Pending<='1'; Width_Code<=DInst;
                             Data_Long<='0';Stream_Long<='0';
                         elsif DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB" then
@@ -561,7 +572,7 @@ begin
                             end if;
                             A(7 downto 0) <= DI_Reg;
                         when aSP =>
-                            A <= std_logic_vector(SP);
+                            if Wide_Stack='1' then A<=std_logic_vector(SPL(15 downto 0));else A <= std_logic_vector(SP);end if;
                         when aBC =>
                             if Mode = 3 and IORQ_i = '1' then
                                 -- Memory map I/O on GBZ80
@@ -641,7 +652,9 @@ begin
 
                 if (TState = 2 and Wait_n = '1') or (TState = 4 and MCycle = "001") then
                     if IncDec_16(2 downto 0) = "111" then
-                        if IncDec_16(3) = '1' then
+                        if Wide_Stack='1' or Wide_IncDec='1' then
+                            if IncDec_16(3)='1' then SPL<=SPL-1;else SPL<=SPL+1;end if;
+                        elsif IncDec_16(3) = '1' then
                             SP <= SP - 1;
                         else
                             SP <= SP + 1;
@@ -663,7 +676,17 @@ begin
                 end if;
             end if;
 
-            if TState=3 and IntCycle='0' and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
+            if Wide_IncDec='1' and MCycle="001" and TState=3 and IR(5 downto 4)/="11" then
+                if IncDec_16(3)='1' and RegBusA=x"0000" then
+                    Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1);
+                elsif IncDec_16(3)='0' and RegBusA=x"FFFF" then
+                    Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))+1);
+                end if;
+            end if;
+            if Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" then
+                Upper(to_integer(unsigned(Stack_Upper_Index)))<=DI_Reg;
+            end if;
+            if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
                 if MCycle="011" and Stream_Long='0' and Data_Long='1' then
                     if IR(5 downto 4)="11" then SPL(23 downto 16)<=(others=>'0');
                     else Upper(to_integer(unsigned(Load_Upper_Index)))<=x"00";end if;
@@ -730,6 +753,10 @@ begin
 
             if TState = 1 and Auto_Wait_t1 = '0' then
                 DO <= BusB;
+                if Wide_Stack='1' and IR(3 downto 0)="0101" and MCycle="010" then
+                    if IR(5 downto 4)="11" then DO<=x"00";
+                    else DO<=Upper(to_integer(unsigned(Stack_Upper_Index)));end if;
+                end if;
                 if I_RLD = '1' then
                     DO(3 downto 0) <= BusA(3 downto 0);
                     DO(7 downto 4) <= BusB(3 downto 0);

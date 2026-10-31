@@ -1,5 +1,5 @@
-/workspace/scratch/db88d59b2a4d/cpu_restart_r1/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
-/workspace/scratch/db88d59b2a4d/cpu_restart_r1/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
-/workspace/scratch/db88d59b2a4d/cpu_restart_r1/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
-/workspace/scratch/db88d59b2a4d/cpu_restart_r1/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/workspace/scratch/db88d59b2a4d/cpu_restart_r2/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/workspace/scratch/db88d59b2a4d/cpu_restart_r2/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/workspace/scratch/db88d59b2a4d/cpu_restart_r2/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
+/workspace/scratch/db88d59b2a4d/cpu_restart_r2/fpga/top_ez80.v:1594: sorry: constant selects in always_* processes are not currently supported (all bits will be included).
 PASS partial top Verilog syntax only
