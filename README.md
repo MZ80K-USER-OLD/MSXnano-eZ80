@@ -1,28 +1,37 @@
-# MSXnano T80 eZ80 再構築 R3
+# MSXnano T80 eZ80 再構築 R6
 
-R2のGOWINビルド、EZ80D2 PASS、その後のSofaRun・スペースマンボウのプレイはユーザー実機確認済み。
-R3では24bit交換、SPへの転送、レジスタペアの複数バイト絶対メモリアクセスを追加する。
-PCと通常SP(SPS)は16bitを維持。ADL命令フェッチとADL割込みはまだ追加しない。
+R5はGOWIN合成成功、実機の `EZ80ALU P1: PASS` と、その後のSofaRun・スペースマンボウのプレイをユーザー確認済み。
+R6は24bitのLDI／LDD／LDIR／LDDR／CPI／CPD／CPIR／CPDRを追加する。
+PC・割り込み用SPSは16bit、SPLは24bit。ADLモードはまだ未実装。
 
 ## 実機確認
 
 1. ZIPを新しいフォルダへ完全展開する。
 2. `fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj` をGOWINで全ビルドする。
-3. 配置配線・タイミング結果を確認して、そのビットストリームを書き込む。
-4. MSX-DOSで `hardware_test/EZ80D3.COM` を実行する。
-
-正常時は `EZ80D3 R3: PASS`。
-メモリ不一致時は最初の不一致について、stage、24bit論理アドレス、期待値、実際値を表示する。
+3. 配置配線・タイミング結果を確認し、ビットストリームを書き込む。
+4. MSX-DOSで保存済みのCOMを実行する。
 
 ```
-EZ80D3 R3: FAIL stage A
-ADDR=07FFFE EXP=56 ACT=57
+EZ80BLK /RUN
 ```
 
-ADDRはテストが意図したCPU論理アドレス。SDRAM物理アドレスや端子の観測値ではない。
-レジスタ単体の比較ではADDR=------。正常時は各アクセスを逐次表示せずPASSだけを表示する。
-DI区間ではDOS/BIOSを呼ばない。全テストを終えて拡張をロックし、通常Z80処理で診断を変換し、
-EI後にBDOS9で結果表示する。システムコール内でEIする条件も検証する。
+期待表示は **EZ80BLK P1: PASS**。
+FLASHまとめのEZ80BLK.COMとバイト列は同じ。再コピー不要。
+半角空白1つと大文字 `/RUN` で指定する。引数なしのPLANNEDは機能試験の合格ではない。
+不一致時はstageと `ADDR=xxxxxx EXP=xx ACT=xx` を表示する。
+DI中にDOS／BIOSを呼ばず、拡張をロックしてから診断表示・EI・DOS復帰する。
+PASS後にSofaRunからスペースマンボウを起動して通常動作を確認する。
 
-R3のGOWIN合成・配置配線・実機は未確認。
-詳細は `doc/RESTART_R3.md`。過去版の説明書は履歴資料。
+回帰用の `EZ80MEM /RUN` と `EZ80ALU /RUN` も利用できる。
+MUL／LEA／ADLの先行COMは対応するRTLができてから `/RUN` する。
+`sim/` 内のCOMは固定メモリ・仮想割り込みベクタを使うため、実機で実行しない。
+
+## ループとIRQ／WAIT
+
+1バイトの処理を終えた区切りで割り込みを受け付ける。
+繰返し継続時は幅プレフィクスの先頭へ、終了時は次の命令へ戻る。
+WAITでT2が保持される間はアドレス・データ・レジスタを保持し、重複更新を防ぐ。
+従来ラッパーの割り込み応答IORQ抑止もeZ80側で修正した。
+
+詳細・試験条件・未実装範囲は `doc/RESTART_R6.md`、現行集計は `verification_result.json` を参照。
+R6のGOWIN合成・配置配線・実機動作は未確認。

@@ -1,0 +1,5 @@
+COM stage 1 time=132570000
+COM stage 2 time=414170000
+EZ80MEM P1: PASS
+PASS mem_r4 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=1008
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_mem_r4.sv:110: $finish called at 1503770000 (1ps)

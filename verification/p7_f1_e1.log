@@ -1,5 +1,5 @@
 COM stage 1 time=75150000
-EZ80D2 R2: FAIL stage 1
+EZ80D3 R3: FAIL stage 1
 ADDR=1A8000 EXP=4A ACT=4B
-PASS data_r2 phase=7 fault=1 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=925
-/workspace/scratch/db88d59b2a4d/cpu_restart_r2/sim/tb_data_r2.sv:115: $finish called at 1859150000 (1ps)
+PASS data_r3 phase=7 fault=1 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=925
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_data_r3.sv:117: $finish called at 1859150000 (1ps)

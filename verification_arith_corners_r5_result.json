@@ -1,0 +1,29 @@
+{
+  "fresh_runs": 4,
+  "cases": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      7,
+      1,
+      0
+    ],
+    [
+      3,
+      0,
+      1
+    ],
+    [
+      11,
+      1,
+      1
+    ]
+  ],
+  "long_arithmetic_cases_per_run": 56,
+  "short_arithmetic_cases_per_run": 8,
+  "cases_per_run": 64,
+  "reference": "independent integer operations; H from bit11/borrow into12; XY ignored"
+}

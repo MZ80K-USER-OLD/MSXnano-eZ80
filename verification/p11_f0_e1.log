@@ -6,6 +6,10 @@ COM stage 5 time=1210430000
 COM stage 6 time=1366910000
 COM stage 7 time=3616510000
 COM stage 8 time=6258430000
-EZ80D2 R2: PASS
-PASS data_r2 phase=11 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=7740
-/workspace/scratch/db88d59b2a4d/cpu_restart_r2/sim/tb_data_r2.sv:115: $finish called at 6909630000 (1ps)
+COM stage 9 time=6509630000
+COM stage A time=7263550000
+COM stage B time=8995390000
+COM stage C time=9484350000
+EZ80D3 R3: PASS
+PASS data_r3 phase=11 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=11949
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_data_r3.sv:117: $finish called at 10015230000 (1ps)

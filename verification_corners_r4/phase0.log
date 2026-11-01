@@ -1,0 +1,6 @@
+COM stage L time=65690000
+COM stage S time=3078810000
+COM stage B time=4171930000
+EZ80C4 R4: PASS
+PASS corners_r4 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=2592
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_corners_r4.sv:110: $finish called at 4828250000 (1ps)

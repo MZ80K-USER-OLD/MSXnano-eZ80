@@ -1,0 +1,3 @@
+EZ80ALU P1: UNSUPPORTED
+PASS alu_r5 phase=0 fault=0 extended=0 cpu_div=16 status=3 high_fetch_ticks=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_alu_r5.sv:110: $finish called at 658650000 (1ps)

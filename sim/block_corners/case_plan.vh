@@ -1,0 +1,15 @@
+block_pc[0]=16'h015d;after_pc[0]=16'h0160;trigger_kind[0]=1;irq_expected[0]=0;steps_expected[0]=1;irq_step[0]=1;restart_expected[0]=0;
+block_pc[1]=16'h0430;after_pc[1]=16'h0433;trigger_kind[1]=1;irq_expected[1]=0;steps_expected[1]=1;irq_step[1]=1;restart_expected[1]=0;
+block_pc[2]=16'h0725;after_pc[2]=16'h0728;trigger_kind[2]=1;irq_expected[2]=1;steps_expected[2]=3;irq_step[2]=1;restart_expected[2]=1;
+block_pc[3]=16'h0a70;after_pc[3]=16'h0a73;trigger_kind[3]=2;irq_expected[3]=1;steps_expected[3]=3;irq_step[3]=1;restart_expected[3]=1;
+block_pc[4]=16'h0d91;after_pc[4]=16'h0d94;trigger_kind[4]=1;irq_expected[4]=0;steps_expected[4]=1;irq_step[4]=1;restart_expected[4]=0;
+block_pc[5]=16'h1031;after_pc[5]=16'h1034;trigger_kind[5]=1;irq_expected[5]=0;steps_expected[5]=1;irq_step[5]=1;restart_expected[5]=0;
+block_pc[6]=16'h12da;after_pc[6]=16'h12dd;trigger_kind[6]=1;irq_expected[6]=1;steps_expected[6]=2;irq_step[6]=1;restart_expected[6]=1;
+block_pc[7]=16'h158c;after_pc[7]=16'h158f;trigger_kind[7]=4;irq_expected[7]=1;steps_expected[7]=3;irq_step[7]=3;restart_expected[7]=0;
+block_pc[8]=16'h1834;after_pc[8]=16'h1837;trigger_kind[8]=4;irq_expected[8]=1;steps_expected[8]=1;irq_step[8]=1;restart_expected[8]=0;
+block_pc[9]=16'h1aff;after_pc[9]=16'h1b02;trigger_kind[9]=3;irq_expected[9]=1;steps_expected[9]=1;irq_step[9]=1;restart_expected[9]=0;
+block_pc[10]=16'h1dc9;after_pc[10]=16'h1dcc;trigger_kind[10]=1;irq_expected[10]=0;steps_expected[10]=3;irq_step[10]=1;restart_expected[10]=1;
+block_pc[11]=16'h2114;after_pc[11]=16'h2117;trigger_kind[11]=3;irq_expected[11]=1;steps_expected[11]=3;irq_step[11]=1;restart_expected[11]=1;
+block_pc[12]=16'h243d;after_pc[12]=16'h2440;trigger_kind[12]=1;irq_expected[12]=0;steps_expected[12]=1;irq_step[12]=1;restart_expected[12]=0;
+block_pc[13]=16'h273d;after_pc[13]=16'h273f;trigger_kind[13]=1;irq_expected[13]=1;steps_expected[13]=3;irq_step[13]=1;restart_expected[13]=1;
+block_pc[14]=16'h2a81;after_pc[14]=16'h2a83;trigger_kind[14]=3;irq_expected[14]=1;steps_expected[14]=2;irq_step[14]=1;restart_expected[14]=1;

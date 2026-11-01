@@ -2100,6 +2100,47 @@ begin
                         end if;
                     end if;
                 end if;
+
+                -- R4 absolute byte access: immediate width independent from data block.
+                if Ext_Active='1' and (Data_Long='1' or Stream_Long='1') and Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and (IR=x"32" or IR=x"3A") then
+                    if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
+                    cycle:=to_integer(unsigned(MCycle));MCycles<=std_logic_vector(to_unsigned(lastaddr+1,3));
+                    Inc_PC<='0';LDZ<='0';LDW<='0';Write<='0';Read_To_Acc<='0';Read_To_Reg<='0';
+                    Set_Addr_To<=aNone;Inc_WZ<='0';IncDec_16<="0000";NoRead<='0';
+                    if cycle=1 then TStates<="100";else TStates<="011";end if;
+                    if cycle=2 then Inc_PC<='1';LDZ<='1';end if;
+                    if cycle=3 then Inc_PC<='1';LDW<='1';end if;
+                    if cycle=4 and lastaddr=4 then Inc_PC<='1';end if;
+                    if cycle=lastaddr then Set_Addr_To<=aZI;Set_BusB_To<="0111";
+                    elsif cycle=lastaddr+1 then
+                        if IR=x"32" then Write<='1';else Read_To_Acc<='1';end if;
+                    end if;
+                end if;
+                -- R4 EX(SPL),HL/IX/IY. Read all 3 bytes, then write all 3 bytes.
+                -- SPL is never changed. The register commits after the final write.
+                if Ext_Active='1' and Data_Long='1' and Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and IR=x"E3" then
+                    MCycles<="111";Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";
+                    Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Set_Addr_To<=aSP;NoRead<='0';
+                    ExchangeDH<='0';ExchangeRp<='0';
+                    if MCycle="001" then TStates<="100";else TStates<="011";end if;
+                    case MCycle is
+                    when "100"=>Set_BusB_To<="0101";
+                    when "101"=>Write<='1';Set_BusB_To<="0100";
+                    when "110"=>Write<='1';Set_BusB_To<="1110";
+                    when "111"=>Write<='1';Set_Addr_To<=aNone;
+                    when others=>null;
+                    end case;
+                end if;
+
+                -- R5 long ADD/ADC/SBC. Internal T4 operand capture, T7 atomic result.
+                -- Short and locked profiles retain the original 8-bit ALU schedule.
+                if Ext_Active='1' and Data_Long='1' and Mode=0 and IntCycle='0' and NMICycle='0' and
+                    ((ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="1001") or
+                     (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="010")) then
+                    MCycles<="001";TStates<="111";NoRead<='1';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';
+                    Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Arith16<='0';Save_ALU<='0';
+                    Set_Addr_To<=aNone;Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
+                end if;
         end process;
 
 end;

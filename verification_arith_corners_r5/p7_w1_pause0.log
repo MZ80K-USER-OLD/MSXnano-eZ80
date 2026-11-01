@@ -1,0 +1,6 @@
+COM stage A time=75790000
+COM stage C time=4138190000
+COM stage S time=9517070000
+EZ80A5 R5: PASS
+PASS arith_corners_r5 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_arith_corners_r5.sv:120: $finish called at 11152590000 (1ps)

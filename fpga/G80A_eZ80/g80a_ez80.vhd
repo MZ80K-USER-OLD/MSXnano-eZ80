@@ -204,7 +204,8 @@ begin
     begin
         if CLK_n'event and CLK_n = '1' then
 			if clk_enable = '1' then
-				IReq_Inhibit <= not IORQ;
+				-- Preserve I/O qualification, but allow the interrupt acknowledge cycle.
+                IReq_Inhibit <= not (IORQ or not IntCycle_n);
 			end if;
         end if;
     end process;

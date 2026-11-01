@@ -1,0 +1,4 @@
+COM stage 1 time=132830000
+EZ80ALU P1: PASS
+PASS alu_r5 phase=3 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=3024
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_alu_r5.sv:110: $finish called at 3951710000 (1ps)

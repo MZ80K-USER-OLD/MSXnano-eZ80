@@ -5,7 +5,7 @@ COM stage 4 time=1118110000
 COM stage 5 time=1210590000
 COM stage 6 time=1367070000
 COM stage 7 time=3616670000
-EZ80D2 R2: FAIL stage 7
+EZ80D3 R3: FAIL stage 7
 ADDR=04FFFE EXP=56 ACT=57
-PASS data_r2 phase=3 fault=3 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=4678
-/workspace/scratch/db88d59b2a4d/cpu_restart_r2/sim/tb_data_r2.sv:115: $finish called at 5131550000 (1ps)
+PASS data_r3 phase=3 fault=3 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=4678
+/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_data_r3.sv:117: $finish called at 5131550000 (1ps)

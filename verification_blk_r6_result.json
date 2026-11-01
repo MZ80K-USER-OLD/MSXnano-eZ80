@@ -1,0 +1,39 @@
+{
+  "fresh_runs": 6,
+  "cases": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      3,
+      0,
+      1
+    ],
+    [
+      7,
+      0,
+      1
+    ],
+    [
+      11,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "COM_sha256": "b81adadf000c1309df5aa168e1470be55258e02cea6a9e6a5ebd6a33e1907a4a",
+  "iterations_per_nominal_run": 11,
+  "block_writes_per_nominal_run": 8,
+  "preloaded_COM_changed": false
+}

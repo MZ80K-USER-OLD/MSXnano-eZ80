@@ -133,6 +133,21 @@ architecture rtl of T80_eZ80 is
     signal Pair_Number : std_logic_vector(1 downto 0);
     signal Pair_Upper_Index : std_logic_vector(2 downto 0);
     signal Pair_Address_Last : integer range 3 to 4;
+    signal Byte_Absolute, EX_SP_Long, EX_SP_Result_WE : std_logic;
+    signal EX_SP_Index : std_logic_vector(2 downto 0);
+    signal EX_SP_Read : std_logic_vector(23 downto 0);
+    signal EX_SP_Address : unsigned(23 downto 0);
+    signal Arith_Long, Arith_Commit, Arith_Sub, Arith_Carry : std_logic;
+    signal Arith_Target, Arith_Source : std_logic_vector(2 downto 0);
+    signal Arith_Left, Arith_Right : unsigned(23 downto 0);
+    signal Arith_Flags : std_logic_vector(7 downto 0);
+    signal Arith_Sub_Latched, Arith_Carry_Latched, Arith_Is_ADD : std_logic;
+    signal Arith_Xor_Right : unsigned(23 downto 0);
+    signal Arith_Sum : unsigned(24 downto 0);
+    signal Arith_Result : unsigned(23 downto 0);
+    signal Arith_Overflow, Arith_Half, Arith_Carry_Out : std_logic;
+    signal Block_Instruction, Block_Long, Instruction_Has_Width : std_logic;
+    signal Block_Inc_Result : unsigned(23 downto 0);
     signal SPL : unsigned(23 downto 0);
     signal Extensions_Enabled, Unlock_Armed : std_logic;
     signal Width_Pending, Data_Long, Stream_Long : std_logic;
@@ -372,6 +387,40 @@ begin
     Pair_SP<='1' when Pair_Number="11" else '0';
     Pair_Upper_Index<=XY_State(1) & "11" when Pair_Number="10" and XY_State/="00" else Alternate & Pair_Number;
     Pair_Address_Last<=4 when Stream_Long='1' else 3;
+    Byte_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and ISet="00" and
+        (IR=x"32" or IR=x"3A") and IntCycle='0' and NMICycle='0' else '0';
+    EX_SP_Long<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and IR=x"E3" and IntCycle='0' and NMICycle='0' else '0';
+    EX_SP_Index<=XY_State(1) & "11" when XY_State/="00" else Alternate & "10";
+    EX_SP_Result_WE<='1' when EX_SP_Long='1' and MCycle="111" and TState=3 else '0';
+    process(SPL,MCycle) variable offset:natural range 0 to 2;
+    begin
+        offset:=0;
+        if MCycle="010" or MCycle="101" then offset:=1;
+        elsif MCycle="011" or MCycle="110" then offset:=2;end if;
+        EX_SP_Address<=SPL+offset;
+    end process;
+    Arith_Long<='1' when Mode=0 and Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
+        ((ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="1001") or
+         (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="010")) else '0';
+    Arith_Target<=XY_State(1) & "11" when ISet="00" and XY_State/="00" else Alternate & "10";
+    Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Alternate & IR(5 downto 4);
+    Arith_Sub<='1' when ISet="10" and IR(3)='0' else '0';
+    Arith_Carry<=F(Flag_C) when ISet="10" else '0';
+    Arith_Commit<='1' when Arith_Long='1' and MCycle="001" and TState=7 else '0';
+    -- Both operands and flags are captured at T4 and held through the T7 commit.
+    -- Addition and subtraction share this single adder; subtraction complements B.
+    Arith_Xor_Right<=not Arith_Right when Arith_Sub_Latched='1' else Arith_Right;
+    Arith_Sum<=resize(Arith_Left,25)+resize(Arith_Xor_Right,25)+to_unsigned(1,25) when (Arith_Carry_Latched xor Arith_Sub_Latched)='1'
+        else resize(Arith_Left,25)+resize(Arith_Xor_Right,25);
+    Arith_Result<=Arith_Sum(23 downto 0);
+    Arith_Half<=Arith_Left(12) xor Arith_Right(12) xor Arith_Result(12);
+    Arith_Carry_Out<=Arith_Sum(24) xor Arith_Sub_Latched;
+    Arith_Overflow<=(not (Arith_Left(23) xor Arith_Right(23) xor Arith_Sub_Latched)) and (Arith_Left(23) xor Arith_Result(23));
+    Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and IR(7 downto 5)="101" and
+        IR(2 downto 1)="00" and IntCycle='0' and NMICycle='0' else '0';
+    Block_Long<=Block_Instruction and Data_Long;
+    Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
+        else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
     Extension_State<=Extensions_Enabled;
     SP_Readback<='1' when ISet="10" and IR=x"73" and Data_Long='1' and Stream_Long='0' else '0';
     ClkEn <= CEN and not BusAck;
@@ -390,6 +439,10 @@ begin
     process (RESET_n, CLK_n)
     begin
         if RESET_n = '0' then
+            Instruction_Has_Width<='0';
+            Arith_Left<=(others=>'0');Arith_Right<=(others=>'0');Arith_Flags<=(others=>'0');
+            Arith_Sub_Latched<='0';Arith_Carry_Latched<='0';Arith_Is_ADD<='0';
+            EX_SP_Read<=(others=>'0');
             Upper <= (others=>(others=>'0')); SPL <= (others=>'1');
             Extensions_Enabled<='0'; Unlock_Armed<='0';
             Width_Pending<='0'; Width_Code<=x"40"; Data_Long<='0'; Stream_Long<='0';
@@ -440,7 +493,8 @@ begin
             elsif T_Res='1' then
                 A_BANK<=x"00";
                 if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and IORQ_i='0' then
-                    if Pair_Absolute='1' and Set_Addr_To=aZI then
+                    if EX_SP_Long='1' and Set_Addr_To=aSP then A_BANK<=std_logic_vector(EX_SP_Address(23 downto 16));
+                    elsif (Pair_Absolute='1' or Byte_Absolute='1') and Set_Addr_To=aZI then
                         if Inc_WZ='1' then
                             A_BANK<=A_BANK;
                             if Data_Long='1' and A=x"FFFF" then A_BANK<=std_logic_vector(unsigned(A_BANK)+1);end if;
@@ -496,13 +550,14 @@ begin
                     if Extensions_Enabled='1' and IntCycle='0' and NMICycle='0' and Halt_FF='0' then
                         if Prefix/="10" and Prefix/="01" and (DInst=x"40" or DInst=x"49" or DInst=x"52" or DInst=x"5B") then
                             Width_Pending<='1'; Width_Code<=DInst;
-                            Data_Long<='0';Stream_Long<='0';
+                            Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';
                         elsif DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB" then
+                            Instruction_Has_Width<=Width_Pending;
                             Data_Long<=Width_Pending and Width_Code(3);
                             Stream_Long<=Width_Pending and Width_Code(4);
                             Width_Pending<='0';
                         end if;
-                    else Width_Pending<='0';Data_Long<='0';Stream_Long<='0';end if;
+                    else Width_Pending<='0';Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';end if;
                     if IntCycle = '1' and IStatus = "01" then
                         IR <= "11111111";
                     elsif Halt_FF = '1' or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' then
@@ -536,7 +591,7 @@ begin
             else
             -- either (MCycle > 1) OR (MCycle = 1 AND TState > 3)
 
-                if MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' then
+                if MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' then
                     XY_Ind <= '1';
                     if Prefix = "01" then
                         ISet <= "01";
@@ -589,7 +644,7 @@ begin
                             end if;
                             A(7 downto 0) <= DI_Reg;
                         when aSP =>
-                            if Wide_Stack='1' then A<=std_logic_vector(SPL(15 downto 0));else A <= std_logic_vector(SP);end if;
+                            if EX_SP_Long='1' then A<=std_logic_vector(EX_SP_Address(15 downto 0));elsif Wide_Stack='1' then A<=std_logic_vector(SPL(15 downto 0));else A <= std_logic_vector(SP);end if;
                         when aBC =>
                             if Mode = 3 and IORQ_i = '1' then
                                 -- Memory map I/O on GBZ80
@@ -603,7 +658,7 @@ begin
                         when aZI =>
                             if Inc_WZ = '1' then
                                 if Pair_Absolute='1' then A<=std_logic_vector(unsigned(A)+1);elsif SP_Readback='1' and MCycle="101" then A<=std_logic_vector(unsigned(A)+1);else A <= std_logic_vector(unsigned(TmpAddr) + 1);end if;
-                            elsif Pair_Absolute='1' and Stream_Long='1' then A<=TmpAddr;
+                            elsif (Pair_Absolute='1' or Byte_Absolute='1') and Stream_Long='1' then A<=TmpAddr;
                             else
                                 A(15 downto 8) <= DI_Reg;
                                 A(7 downto 0) <= TmpAddr(7 downto 0);
@@ -653,14 +708,17 @@ begin
                         PC <= PC + 1;
                     end if;
                     if BTR_r = '1' then
-                        PC <= PC - 2;
+                        -- Refetch the width prefix as well as ED and the block opcode.
+                        -- This also gives an interrupt a restart PC including the suffix.
+                        if Block_Instruction='1' and Instruction_Has_Width='1' then PC<=PC-3;
+                        else PC <= PC - 2;end if;
                     end if;
                     if RstP = '1' then
                         TmpAddr <= (others =>'0');
                         TmpAddr(5 downto 3) <= IR(5 downto 3);
                     end if;
                 end if;
-                if TState = 3 and MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' then
+                if TState = 3 and MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' then
                     TmpAddr <= std_logic_vector(signed(RegBusC) + signed(DI_Reg));
                     if Data_Long='1' then
                         TmpAddr<=std_logic_vector(Indexed_Address(15 downto 0));
@@ -703,7 +761,32 @@ begin
                 if Pair_SP='1' then SPL(23 downto 16)<=unsigned(DI_Reg);
                 else Upper(to_integer(unsigned(Pair_Upper_Index)))<=DI_Reg;end if;
             end if;
-            if Wide_IncDec='1' and MCycle="001" and TState=3 and IR(5 downto 4)/="11" then
+            if Arith_Long='1' and MCycle="001" and TState=4 then
+                Arith_Left<=unsigned(Upper(to_integer(unsigned(Arith_Target)))) & unsigned(RegBusA);
+                if IR(5 downto 4)="11" then Arith_Right<=SPL;
+                else Arith_Right<=unsigned(Upper(to_integer(unsigned(Arith_Source)))) & unsigned(RegBusB);end if;
+                Arith_Flags<=F;Arith_Sub_Latched<=Arith_Sub;Arith_Carry_Latched<=Arith_Carry;
+                if ISet="00" then Arith_Is_ADD<='1';else Arith_Is_ADD<='0';end if;
+            end if;
+            if Arith_Commit='1' then
+                Upper(to_integer(unsigned(Arith_Target)))<=std_logic_vector(Arith_Result(23 downto 16));
+            end if;
+            if EX_SP_Long='1' and TState=3 then
+                case MCycle is
+                when "010"=>EX_SP_Read(7 downto 0)<=DI_Reg;
+                when "011"=>EX_SP_Read(15 downto 8)<=DI_Reg;
+                when "100"=>EX_SP_Read(23 downto 16)<=DI_Reg;
+                when others=>null;
+                end case;
+            end if;
+            if EX_SP_Result_WE='1' then Upper(to_integer(unsigned(EX_SP_Index)))<=EX_SP_Read(23 downto 16);end if;
+            -- Use exactly the original lower16 register write edge: once per byte,
+            -- never while T2 is held by WAIT. BC decrements in M1/T3; HL/DE in data T2.
+            if Block_Long='1' and IncDec_16(2)='1' and
+               ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) then
+                Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(Block_Inc_Result(23 downto 16));
+            end if;
+            if Wide_IncDec='1'   and MCycle="001" and TState=3 and IR(5 downto 4)/="11" then
                 if IncDec_16(3)='1' and RegBusA=x"0000" then
                     Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1);
                 elsif IncDec_16(3)='0' and RegBusA=x"FFFF" then
@@ -778,6 +861,16 @@ begin
                     DI_Reg(4) xor DI_Reg(5) xor DI_Reg(6) xor DI_Reg(7));
             end if;
 
+            if Arith_Commit='1' then
+                F(Flag_H)<=Arith_Half;F(Flag_N)<=Arith_Sub_Latched;F(Flag_C)<=Arith_Carry_Out;
+                F(Flag_X)<=Arith_Result(19);F(Flag_Y)<=Arith_Result(21);
+                if Arith_Is_ADD='1' then
+                    F(Flag_S)<=Arith_Flags(Flag_S);F(Flag_Z)<=Arith_Flags(Flag_Z);F(Flag_P)<=Arith_Flags(Flag_P);
+                else
+                    F(Flag_S)<=Arith_Result(23);F(Flag_P)<=Arith_Overflow;
+                    if Arith_Result=0 then F(Flag_Z)<='1';else F(Flag_Z)<='0';end if;
+                end if;
+            end if;
             if TState = 1 and Auto_Wait_t1 = '0' then
                 DO <= BusB;
                 if Wide_Stack='1' and IR(3 downto 0)="0101" and MCycle="010" then
@@ -876,7 +969,9 @@ begin
                     IncDecZ <= F_Out(Flag_Z);
                 end if;
                 if (TState = 2 or (TState = 3 and MCycle = "001")) and IncDec_16(2 downto 0) = "100" then
-                    if ID16 = 0 then
+                    if Block_Long='1' then
+                        if Block_Inc_Result=0 then IncDecZ<='0';else IncDecZ<='1';end if;
+                    elsif ID16 = 0 then
                         IncDecZ <= '0';
                     else
                         IncDecZ <= '1';
@@ -888,7 +983,7 @@ begin
         end if;
     end process;
 
-    RegAddrA <=
+    RegAddrA <= Arith_Target when Arith_Long='1' else EX_SP_Index when EX_SP_Long='1' else
             -- 16 bit increment/decrement
             Alternate & IncDec_16(1 downto 0) when (TState = 2 or
                 (TState = 3 and MCycle = "001" and IncDec_16(2) = '1')) and XY_State = "00" else
@@ -900,7 +995,7 @@ begin
             -- Bus A / Write
             RegAddrA_r;
 
-    RegAddrB <=
+    RegAddrB <= Arith_Source when Arith_Long='1' else
             -- EX HL,DL
             Alternate & "01" when ExchangeDH = '1' and TState = 3 else
             -- Bus B
@@ -910,10 +1005,10 @@ begin
             signed(RegBusA) + 1;
 
     process (Save_ALU_r, Auto_Wait_t1, ALU_OP_r, Read_To_Reg_r,
-            ExchangeDH, IncDec_16, MCycle, TState, Wait_n)
+            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, Arith_Commit)
     begin
-        RegWEH <= '0';
-        RegWEL <= '0';
+        RegWEH <= EX_SP_Result_WE or Arith_Commit;
+        RegWEL <= EX_SP_Result_WE or Arith_Commit;
         if (TState = 1 and Save_ALU_r = '0' and Auto_Wait_t1 = '0') or
             (Save_ALU_r = '1' and ALU_OP_r /= "0111") then
             case Read_To_Reg_r is
@@ -940,10 +1035,11 @@ begin
     end process;
 
     process (Save_Mux, RegBusB, RegBusA_r, ID16,
-            ExchangeDH, IncDec_16, MCycle, TState, Wait_n)
+            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, EX_SP_Read, Arith_Commit, Arith_Result)
     begin
-        RegDIH <= Save_Mux;
-        RegDIL <= Save_Mux;
+        if Arith_Commit='1' then RegDIH<=std_logic_vector(Arith_Result(15 downto 8));RegDIL<=std_logic_vector(Arith_Result(7 downto 0));
+        elsif EX_SP_Result_WE='1' then RegDIH<=EX_SP_Read(15 downto 8);RegDIL<=EX_SP_Read(7 downto 0);
+        else RegDIH <= Save_Mux;RegDIL <= Save_Mux;end if;
 
         if ExchangeDH = '1' and TState = 3 then
             RegDIH <= RegBusB(15 downto 8);
@@ -1011,7 +1107,8 @@ begin
             when "1101" =>
                 BusB <= std_logic_vector(PC(15 downto 8));
             when "1110" =>
-                if Pair_Absolute='1' then
+                if EX_SP_Long='1' then BusB<=Upper(to_integer(unsigned(EX_SP_Index)));
+                elsif Pair_Absolute='1' then
                     if Pair_SP='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB<=Upper(to_integer(unsigned(Pair_Upper_Index)));end if;
                 elsif SP_Readback='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB <= "00000000";end if;
             when others =>
@@ -1174,8 +1271,8 @@ begin
                             if IR = "00110110" and Mode = 0 then
                                 Pre_XY_F_M <= "010";
                             end if;
-                        elsif (MCycle = "111" and Pair_Absolute='0') or
-                            (MCycle = "110" and Mode = 1 and ISet /= "01" and Pair_Absolute='0') then
+                        elsif (MCycle = "111" and Pair_Absolute='0' and EX_SP_Long='0') or
+                            (MCycle = "110" and Mode = 1 and ISet /= "01" and Pair_Absolute='0' and EX_SP_Long='0') then
                             MCycle <= std_logic_vector(unsigned(Pre_XY_F_M) + 1);
                         elsif (MCycle = MCycles) or
                             No_BTR = '1' or
