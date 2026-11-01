@@ -1,0 +1,580 @@
+[
+  {
+    "pair": "BC",
+    "prefix": null,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 141
+  },
+  {
+    "pair": "BC",
+    "prefix": null,
+    "alternate": 0,
+    "input": 257,
+    "expected": 10551297,
+    "flags": 93
+  },
+  {
+    "pair": "BC",
+    "prefix": 64,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 54
+  },
+  {
+    "pair": "BC",
+    "prefix": 64,
+    "alternate": 0,
+    "input": 21930,
+    "expected": 10565746,
+    "flags": 33
+  },
+  {
+    "pair": "BC",
+    "prefix": 73,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 84
+  },
+  {
+    "pair": "BC",
+    "prefix": 73,
+    "alternate": 0,
+    "input": 4128,
+    "expected": 10551808,
+    "flags": 66
+  },
+  {
+    "pair": "BC",
+    "prefix": 82,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 244
+  },
+  {
+    "pair": "BC",
+    "prefix": 82,
+    "alternate": 0,
+    "input": 32895,
+    "expected": 10567552,
+    "flags": 105
+  },
+  {
+    "pair": "BC",
+    "prefix": 91,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 19
+  },
+  {
+    "pair": "BC",
+    "prefix": 91,
+    "alternate": 0,
+    "input": 255,
+    "expected": 10551296,
+    "flags": 235
+  },
+  {
+    "pair": "DE",
+    "prefix": null,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 52
+  },
+  {
+    "pair": "DE",
+    "prefix": null,
+    "alternate": 0,
+    "input": 4128,
+    "expected": 10551808,
+    "flags": 68
+  },
+  {
+    "pair": "DE",
+    "prefix": 64,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 33
+  },
+  {
+    "pair": "DE",
+    "prefix": 64,
+    "alternate": 0,
+    "input": 4128,
+    "expected": 10551808,
+    "flags": 240
+  },
+  {
+    "pair": "DE",
+    "prefix": 73,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 93
+  },
+  {
+    "pair": "DE",
+    "prefix": 73,
+    "alternate": 0,
+    "input": 257,
+    "expected": 10551297,
+    "flags": 173
+  },
+  {
+    "pair": "DE",
+    "prefix": 82,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 15
+  },
+  {
+    "pair": "DE",
+    "prefix": 82,
+    "alternate": 0,
+    "input": 255,
+    "expected": 10551296,
+    "flags": 84
+  },
+  {
+    "pair": "DE",
+    "prefix": 91,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 201
+  },
+  {
+    "pair": "DE",
+    "prefix": 91,
+    "alternate": 0,
+    "input": 32895,
+    "expected": 10567552,
+    "flags": 243
+  },
+  {
+    "pair": "HL",
+    "prefix": null,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 161
+  },
+  {
+    "pair": "HL",
+    "prefix": null,
+    "alternate": 0,
+    "input": 4128,
+    "expected": 10551808,
+    "flags": 68
+  },
+  {
+    "pair": "HL",
+    "prefix": 64,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 102
+  },
+  {
+    "pair": "HL",
+    "prefix": 64,
+    "alternate": 0,
+    "input": 257,
+    "expected": 10551297,
+    "flags": 174
+  },
+  {
+    "pair": "HL",
+    "prefix": 73,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 234
+  },
+  {
+    "pair": "HL",
+    "prefix": 73,
+    "alternate": 0,
+    "input": 255,
+    "expected": 10551296,
+    "flags": 174
+  },
+  {
+    "pair": "HL",
+    "prefix": 82,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 121
+  },
+  {
+    "pair": "HL",
+    "prefix": 82,
+    "alternate": 0,
+    "input": 257,
+    "expected": 10551297,
+    "flags": 99
+  },
+  {
+    "pair": "HL",
+    "prefix": 91,
+    "alternate": 0,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 215
+  },
+  {
+    "pair": "HL",
+    "prefix": 91,
+    "alternate": 0,
+    "input": 257,
+    "expected": 10551297,
+    "flags": 97
+  },
+  {
+    "pair": "BC",
+    "prefix": null,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 146
+  },
+  {
+    "pair": "BC",
+    "prefix": null,
+    "alternate": 1,
+    "input": 21930,
+    "expected": 10565746,
+    "flags": 242
+  },
+  {
+    "pair": "BC",
+    "prefix": 64,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 15
+  },
+  {
+    "pair": "BC",
+    "prefix": 64,
+    "alternate": 1,
+    "input": 21930,
+    "expected": 10565746,
+    "flags": 68
+  },
+  {
+    "pair": "BC",
+    "prefix": 73,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 72
+  },
+  {
+    "pair": "BC",
+    "prefix": 73,
+    "alternate": 1,
+    "input": 255,
+    "expected": 10551296,
+    "flags": 69
+  },
+  {
+    "pair": "BC",
+    "prefix": 82,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 90
+  },
+  {
+    "pair": "BC",
+    "prefix": 82,
+    "alternate": 1,
+    "input": 32895,
+    "expected": 10567552,
+    "flags": 223
+  },
+  {
+    "pair": "BC",
+    "prefix": 91,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 2
+  },
+  {
+    "pair": "BC",
+    "prefix": 91,
+    "alternate": 1,
+    "input": 255,
+    "expected": 10551296,
+    "flags": 10
+  },
+  {
+    "pair": "DE",
+    "prefix": null,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 159
+  },
+  {
+    "pair": "DE",
+    "prefix": null,
+    "alternate": 1,
+    "input": 4128,
+    "expected": 10551808,
+    "flags": 152
+  },
+  {
+    "pair": "DE",
+    "prefix": 64,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 20
+  },
+  {
+    "pair": "DE",
+    "prefix": 64,
+    "alternate": 1,
+    "input": 4128,
+    "expected": 10551808,
+    "flags": 103
+  },
+  {
+    "pair": "DE",
+    "prefix": 73,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 216
+  },
+  {
+    "pair": "DE",
+    "prefix": 73,
+    "alternate": 1,
+    "input": 21930,
+    "expected": 10565746,
+    "flags": 108
+  },
+  {
+    "pair": "DE",
+    "prefix": 82,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 99
+  },
+  {
+    "pair": "DE",
+    "prefix": 82,
+    "alternate": 1,
+    "input": 255,
+    "expected": 10551296,
+    "flags": 103
+  },
+  {
+    "pair": "DE",
+    "prefix": 91,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 99
+  },
+  {
+    "pair": "DE",
+    "prefix": 91,
+    "alternate": 1,
+    "input": 21930,
+    "expected": 10565746,
+    "flags": 159
+  },
+  {
+    "pair": "HL",
+    "prefix": null,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 36
+  },
+  {
+    "pair": "HL",
+    "prefix": null,
+    "alternate": 1,
+    "input": 21930,
+    "expected": 10565746,
+    "flags": 61
+  },
+  {
+    "pair": "HL",
+    "prefix": 64,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 146
+  },
+  {
+    "pair": "HL",
+    "prefix": 64,
+    "alternate": 1,
+    "input": 21930,
+    "expected": 10565746,
+    "flags": 125
+  },
+  {
+    "pair": "HL",
+    "prefix": 73,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 215
+  },
+  {
+    "pair": "HL",
+    "prefix": 73,
+    "alternate": 1,
+    "input": 257,
+    "expected": 10551297,
+    "flags": 66
+  },
+  {
+    "pair": "HL",
+    "prefix": 82,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 6
+  },
+  {
+    "pair": "HL",
+    "prefix": 82,
+    "alternate": 1,
+    "input": 32895,
+    "expected": 10567552,
+    "flags": 169
+  },
+  {
+    "pair": "HL",
+    "prefix": 91,
+    "alternate": 1,
+    "input": 65535,
+    "expected": 10616321,
+    "flags": 168
+  },
+  {
+    "pair": "HL",
+    "prefix": 91,
+    "alternate": 1,
+    "input": 255,
+    "expected": 10551296,
+    "flags": 56
+  },
+  {
+    "pair": "SP",
+    "prefix": null,
+    "input": 258,
+    "expected": 2,
+    "upper_preserved": true,
+    "selected_stack": "SPS",
+    "flags": 179
+  },
+  {
+    "pair": "SP",
+    "prefix": null,
+    "input": 65535,
+    "expected": 65025,
+    "upper_preserved": true,
+    "selected_stack": "SPS",
+    "flags": 32
+  },
+  {
+    "pair": "SP",
+    "prefix": 64,
+    "input": 258,
+    "expected": 2,
+    "upper_preserved": true,
+    "selected_stack": "SPS",
+    "flags": 207
+  },
+  {
+    "pair": "SP",
+    "prefix": 64,
+    "input": 65535,
+    "expected": 65025,
+    "upper_preserved": true,
+    "selected_stack": "SPS",
+    "flags": 91
+  },
+  {
+    "pair": "SP",
+    "prefix": 73,
+    "input": 258,
+    "expected": 2,
+    "upper_preserved": true,
+    "selected_stack": "SPL",
+    "flags": 34
+  },
+  {
+    "pair": "SP",
+    "prefix": 73,
+    "input": 65535,
+    "expected": 65025,
+    "upper_preserved": true,
+    "selected_stack": "SPL",
+    "flags": 7
+  },
+  {
+    "pair": "SP",
+    "prefix": 82,
+    "input": 258,
+    "expected": 2,
+    "upper_preserved": true,
+    "selected_stack": "SPS",
+    "flags": 128
+  },
+  {
+    "pair": "SP",
+    "prefix": 82,
+    "input": 65535,
+    "expected": 65025,
+    "upper_preserved": true,
+    "selected_stack": "SPS",
+    "flags": 98
+  },
+  {
+    "pair": "SP",
+    "prefix": 91,
+    "input": 258,
+    "expected": 2,
+    "upper_preserved": true,
+    "selected_stack": "SPL",
+    "flags": 173
+  },
+  {
+    "pair": "SP",
+    "prefix": 91,
+    "input": 65535,
+    "expected": 65025,
+    "upper_preserved": true,
+    "selected_stack": "SPL",
+    "flags": 12
+  },
+  {
+    "pair": "HL",
+    "prefix": 73,
+    "input": 65535,
+    "expected": 10616321,
+    "IRQ": true,
+    "flags": 165
+  }
+]

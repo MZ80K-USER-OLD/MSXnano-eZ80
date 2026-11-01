@@ -12,4 +12,4 @@ COM stage B time=8995290000
 COM stage C time=9484250000
 EZ80D3 R3: PASS
 PASS data_r3 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=10170
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_data_r3.sv:117: $finish called at 10015130000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_data_r3.sv:117: $finish called at 10015130000 (1ps)

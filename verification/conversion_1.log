@@ -1,6 +1,9 @@
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/fpga/G80A_eZ80/t80_reg_ez80.vhd:84:13:note: found RAM "regsh", width: 8 bits, depth: 8
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/fpga/G80A_eZ80/t80_ez80.vhd:157:15:warning: unhandled attribute "syn_dspstyle" [-Wunhandled-attribute]
+    attribute syn_dspstyle of Mul_Product : signal is "dsp";
+              ^
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/fpga/G80A_eZ80/t80_reg_ez80.vhd:84:13:note: found RAM "regsh", width: 8 bits, depth: 8
     signal  RegsH   : Register_Image(0 to 7);
             ^
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/fpga/G80A_eZ80/t80_reg_ez80.vhd:85:13:note: found RAM "regsl", width: 8 bits, depth: 8
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/fpga/G80A_eZ80/t80_reg_ez80.vhd:85:13:note: found RAM "regsl", width: 8 bits, depth: 8
     signal  RegsL   : Register_Image(0 to 7);
             ^

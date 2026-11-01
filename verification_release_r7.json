@@ -1,0 +1,10 @@
+{
+  "changed_FPGA_files": [
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd"
+  ],
+  "GOWIN_project_referenced_files": 122,
+  "FLASH_COM_byte_identity": true,
+  "constraints_unchanged": true,
+  "original_G80A_unchanged": true
+}

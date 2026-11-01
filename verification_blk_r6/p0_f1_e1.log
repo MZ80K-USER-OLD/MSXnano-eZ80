@@ -2,4 +2,4 @@ COM stage 1 time=132570000
 EZ80BLK P1: FAIL stage 1
 ADDR=08FFFF EXP=31 ACT=30
 PASS blk_r6 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=396
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_blk_r6.sv:110: $finish called at 1848730000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_blk_r6.sv:110: $finish called at 1848730000 (1ps)

@@ -1,0 +1,8 @@
+COM stage R time=68250000
+COM stage S time=13348250000
+COM stage L time=14966170000
+COM stage I time=15335770000
+EZ80M7 R7: PASS
+COVERAGE MLT=71 IRQ=1 internal_WAIT=0 paused=0
+PASS mul_corners_r7 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_mul_corners_r7.sv:122: $finish called at 16034010000 (1ps)

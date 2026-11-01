@@ -2,5 +2,5 @@ COM stage A time=68250000
 COM stage B time=499610000
 COM stage C time=930970000
 IRQ entry case=          2 steps=          1
-FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_block_corners_r6.sv:159: IRQ SPS case=          2 sp=eff8 ack=0 irq_total=          0 intcycle=0
+FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_block_corners_r6.sv:159: IRQ SPS case=          2 sp=eff8 ack=0 irq_total=          0 intcycle=0
        Time: 1078180000  Scope: tb_block_corners_r6

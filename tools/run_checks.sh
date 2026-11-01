@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")/.."
-python3 tools/verify_r6.py
+python3 tools/verify_r7.py

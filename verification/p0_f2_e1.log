@@ -4,4 +4,4 @@ COM stage 3 time=1016410000
 EZ80D3 R3: FAIL stage 3
 ADDR=030000 EXP=96 ACT=97
 PASS data_r3 phase=0 fault=2 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=1152
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_data_r3.sv:117: $finish called at 2471450000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_data_r3.sv:117: $finish called at 2471450000 (1ps)

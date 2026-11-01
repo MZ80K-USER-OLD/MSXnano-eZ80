@@ -2141,6 +2141,15 @@ begin
                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Arith16<='0';Save_ALU<='0';
                     Set_Addr_To<=aNone;Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
                 end if;
+
+                -- MLT replaces only the four NEG aliases while the extension gate is open.
+                -- One captured 8x8 multiply is committed at T7, flags and upper byte preserved.
+                if Ext_Active='1' and Mode=0 and ISet="10" and IR(7 downto 6)="01" and
+                    IR(3 downto 0)="1100" and IntCycle='0' and NMICycle='0' then
+                    MCycles<="001";TStates<="111";NoRead<='1';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';
+                    Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Arith16<='0';Save_ALU<='0';
+                    Set_Addr_To<=aNone;Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
+                end if;
         end process;
 
 end;

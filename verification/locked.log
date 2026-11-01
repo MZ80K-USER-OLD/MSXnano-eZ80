@@ -40,7 +40,7 @@
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97005ns
 -gEXTENSIONS=false -gINSERT_WAIT=false -gSEED=false -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -84,7 +84,7 @@ simulation stopped @97005ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97645ns
 -gEXTENSIONS=false -gINSERT_WAIT=false -gSEED=true -gCARRY_IN=false
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -128,7 +128,7 @@ simulation stopped @97645ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97005ns
 -gEXTENSIONS=false -gINSERT_WAIT=false -gSEED=true -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -172,7 +172,7 @@ simulation stopped @97005ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97645ns
 -gEXTENSIONS=false -gINSERT_WAIT=true -gSEED=false -gCARRY_IN=false
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -216,7 +216,7 @@ simulation stopped @97645ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @110925ns
 -gEXTENSIONS=false -gINSERT_WAIT=true -gSEED=false -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -260,7 +260,7 @@ simulation stopped @110925ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @111405ns
 -gEXTENSIONS=false -gINSERT_WAIT=true -gSEED=true -gCARRY_IN=false
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -304,7 +304,7 @@ simulation stopped @111405ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @110925ns
 -gEXTENSIONS=false -gINSERT_WAIT=true -gSEED=true -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -348,7 +348,7 @@ simulation stopped @110925ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @111405ns
 -gEXTENSIONS=true -gINSERT_WAIT=false -gSEED=false -gCARRY_IN=false
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -392,7 +392,7 @@ simulation stopped @111405ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97005ns
 -gEXTENSIONS=true -gINSERT_WAIT=false -gSEED=false -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -436,7 +436,7 @@ simulation stopped @97005ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97645ns
 -gEXTENSIONS=true -gINSERT_WAIT=false -gSEED=true -gCARRY_IN=false
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -480,7 +480,7 @@ simulation stopped @97645ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97005ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97005ns
 -gEXTENSIONS=true -gINSERT_WAIT=false -gSEED=true -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -524,7 +524,7 @@ simulation stopped @97005ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@97645ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @97645ns
 -gEXTENSIONS=true -gINSERT_WAIT=true -gSEED=false -gCARRY_IN=false
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -568,7 +568,7 @@ simulation stopped @97645ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @110925ns
 -gEXTENSIONS=true -gINSERT_WAIT=true -gSEED=false -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -612,7 +612,7 @@ simulation stopped @110925ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @111405ns
 -gEXTENSIONS=true -gINSERT_WAIT=true -gSEED=true -gCARRY_IN=false
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -656,7 +656,7 @@ simulation stopped @111405ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@110925ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @110925ns
 -gEXTENSIONS=true -gINSERT_WAIT=true -gSEED=true -gCARRY_IN=true
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
@@ -700,5 +700,5 @@ simulation stopped @110925ns
 ../../src/ieee2008/numeric_std-body.vhdl:1776:7:@0ms:(assertion warning): NUMERIC_STD."=": metavalue detected, returning FALSE
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 ../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_locked_r1.vhd:57:108:@111405ns:(report note): PASS locked boot profile: Z80 bytes, failed keys, stack and aliases match original T80
 simulation stopped @111405ns

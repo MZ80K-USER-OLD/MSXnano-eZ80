@@ -1,0 +1,5 @@
+COM stage 1 time=132570000
+COM stage 2 time=1346970000
+EZ80MUL P1: PASS
+PASS mul_r7 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_mul_r7.sv:110: $finish called at 2347290000 (1ps)

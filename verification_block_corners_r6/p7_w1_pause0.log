@@ -25,4 +25,4 @@ IRQ entry case=         14 steps=          1
 EZ80B6 R6: PASS
 COVERAGE cases=15 IRQ=9 read_WAIT=174 write_WAIT=114 internal_WAIT=144
 PASS block_corners_r6 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=8480
-/workspace/scratch/db88d59b2a4d/cpu_restart_r6/sim/tb_block_corners_r6.sv:121: $finish called at 8038030000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r7/sim/tb_block_corners_r6.sv:121: $finish called at 8038030000 (1ps)

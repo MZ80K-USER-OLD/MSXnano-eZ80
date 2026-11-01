@@ -148,6 +148,13 @@ architecture rtl of T80_eZ80 is
     signal Arith_Overflow, Arith_Half, Arith_Carry_Out : std_logic;
     signal Block_Instruction, Block_Long, Instruction_Has_Width : std_logic;
     signal Block_Inc_Result : unsigned(23 downto 0);
+    signal Mul_Active, Mul_Commit, Mul_Reg_Commit : std_logic;
+    signal Mul_Target : std_logic_vector(2 downto 0);
+    signal Mul_Operand : unsigned(15 downto 0);
+    signal Mul_Left, Mul_Right : unsigned(7 downto 0);
+    signal Mul_Product : unsigned(15 downto 0);
+    attribute syn_dspstyle : string;
+    attribute syn_dspstyle of Mul_Product : signal is "dsp";
     signal SPL : unsigned(23 downto 0);
     signal Extensions_Enabled, Unlock_Armed : std_logic;
     signal Width_Pending, Data_Long, Stream_Long : std_logic;
@@ -421,6 +428,13 @@ begin
     Block_Long<=Block_Instruction and Data_Long;
     Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
         else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
+    Mul_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
+        IR(7 downto 6)="01" and IR(3 downto 0)="1100" and IntCycle='0' and NMICycle='0' else '0';
+    Mul_Target<=Alternate & IR(5 downto 4);
+    Mul_Operand<=SPL(15 downto 0) when IR(5 downto 4)="11" and Data_Long='1' else
+        SP when IR(5 downto 4)="11" else unsigned(RegBusA);
+    Mul_Commit<='1' when Mul_Active='1' and MCycle="001" and TState=7 else '0';
+    Mul_Reg_Commit<=Mul_Commit when IR(5 downto 4)/="11" else '0';
     Extension_State<=Extensions_Enabled;
     SP_Readback<='1' when ISet="10" and IR=x"73" and Data_Long='1' and Stream_Long='0' else '0';
     ClkEn <= CEN and not BusAck;
@@ -439,6 +453,7 @@ begin
     process (RESET_n, CLK_n)
     begin
         if RESET_n = '0' then
+            Mul_Left<=(others=>'0');Mul_Right<=(others=>'0');Mul_Product<=(others=>'0');
             Instruction_Has_Width<='0';
             Arith_Left<=(others=>'0');Arith_Right<=(others=>'0');Arith_Flags<=(others=>'0');
             Arith_Sub_Latched<='0';Arith_Carry_Latched<='0';Arith_Is_ADD<='0';
@@ -761,6 +776,14 @@ begin
                 if Pair_SP='1' then SPL(23 downto 16)<=unsigned(DI_Reg);
                 else Upper(to_integer(unsigned(Pair_Upper_Index)))<=DI_Reg;end if;
             end if;
+            -- Capture source before computing: no combinational CPU bus reaches DSP output.
+            if Mul_Active='1' and MCycle="001" then
+                if TState=4 then Mul_Left<=Mul_Operand(15 downto 8);Mul_Right<=Mul_Operand(7 downto 0);end if;
+                if TState=5 then Mul_Product<=Mul_Left*Mul_Right;end if;
+            end if;
+            if Mul_Commit='1' and IR(5 downto 4)="11" then
+                if Data_Long='1' then SPL(15 downto 0)<=Mul_Product;else SP<=Mul_Product;end if;
+            end if;
             if Arith_Long='1' and MCycle="001" and TState=4 then
                 Arith_Left<=unsigned(Upper(to_integer(unsigned(Arith_Target)))) & unsigned(RegBusA);
                 if IR(5 downto 4)="11" then Arith_Right<=SPL;
@@ -983,7 +1006,7 @@ begin
         end if;
     end process;
 
-    RegAddrA <= Arith_Target when Arith_Long='1' else EX_SP_Index when EX_SP_Long='1' else
+    RegAddrA <= Mul_Target when Mul_Active='1' else Arith_Target when Arith_Long='1' else EX_SP_Index when EX_SP_Long='1' else
             -- 16 bit increment/decrement
             Alternate & IncDec_16(1 downto 0) when (TState = 2 or
                 (TState = 3 and MCycle = "001" and IncDec_16(2) = '1')) and XY_State = "00" else
@@ -1005,10 +1028,10 @@ begin
             signed(RegBusA) + 1;
 
     process (Save_ALU_r, Auto_Wait_t1, ALU_OP_r, Read_To_Reg_r,
-            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, Arith_Commit)
+            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, Arith_Commit, Mul_Reg_Commit)
     begin
-        RegWEH <= EX_SP_Result_WE or Arith_Commit;
-        RegWEL <= EX_SP_Result_WE or Arith_Commit;
+        RegWEH <= EX_SP_Result_WE or Arith_Commit or Mul_Reg_Commit;
+        RegWEL <= EX_SP_Result_WE or Arith_Commit or Mul_Reg_Commit;
         if (TState = 1 and Save_ALU_r = '0' and Auto_Wait_t1 = '0') or
             (Save_ALU_r = '1' and ALU_OP_r /= "0111") then
             case Read_To_Reg_r is
@@ -1035,9 +1058,10 @@ begin
     end process;
 
     process (Save_Mux, RegBusB, RegBusA_r, ID16,
-            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, EX_SP_Read, Arith_Commit, Arith_Result)
+            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, EX_SP_Read, Arith_Commit, Arith_Result, Mul_Reg_Commit, Mul_Product)
     begin
-        if Arith_Commit='1' then RegDIH<=std_logic_vector(Arith_Result(15 downto 8));RegDIL<=std_logic_vector(Arith_Result(7 downto 0));
+        if Mul_Reg_Commit='1' then RegDIH<=std_logic_vector(Mul_Product(15 downto 8));RegDIL<=std_logic_vector(Mul_Product(7 downto 0));
+        elsif Arith_Commit='1' then RegDIH<=std_logic_vector(Arith_Result(15 downto 8));RegDIL<=std_logic_vector(Arith_Result(7 downto 0));
         elsif EX_SP_Result_WE='1' then RegDIH<=EX_SP_Read(15 downto 8);RegDIL<=EX_SP_Read(7 downto 0);
         else RegDIH <= Save_Mux;RegDIL <= Save_Mux;end if;
 

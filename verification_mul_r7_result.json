@@ -1,0 +1,40 @@
+{
+  "fresh_runs": 6,
+  "cases": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      3,
+      0,
+      1
+    ],
+    [
+      7,
+      0,
+      1
+    ],
+    [
+      11,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "multiply_cases_per_nominal_run": 21,
+  "preloaded_COM_changed": false,
+  "COM_sha256": "accc1d7c5328e0be328016737767c05e8fd91faba85a861a9872867b21b3b381",
+  "gowin_tested": false,
+  "hardware_tested": false
+}
