@@ -1,0 +1,13 @@
+{
+  "plan": {
+    "kind": "guard",
+    "src": 1,
+    "dst": 0,
+    "mb": 14,
+    "madl": 0,
+    "guard": "bad_lis"
+  },
+  "checks": [],
+  "writes": [],
+  "entries": 0
+}

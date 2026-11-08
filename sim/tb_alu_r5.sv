@@ -35,11 +35,21 @@ module tb_alu_r5;
     wire [7:0] ext_di,wd,ramdata;
     // Hold INT active during high-address cycles. All such work must be DI.
     wire int_n = a[23:16]==0;
+    wire [15:0] cpu_msx_address;
+    wire cpu_extended;
+    always @(posedge c54 or negedge c54) begin
+        #0.001;
+        if(reset_n && (^a)!==1'bx) begin
+            if(cpu_extended !== (a[23:16]!=0)) $fatal(1,"registered MSX window mismatch %h",a);
+            if(cpu_msx_address !== (a[23:16]!=0 ? 16'h0000:a[15:0]))
+                $fatal(1,"registered MSX address isolation mismatch %h",a);
+        end
+    end
     G80A_eZ80 cpu(.RESET_n(reset_n),.CLK_n(c54),.clk_enable(divider==0),.clk_falling(divider==CPU_DIV/2),
         .WAIT_n(wait_n),.INT_n(int_n),.NMI_n(1'b1),.BUSRQ_n(1'b1),.DI(din),
-        .A24(a),.MREQ_n(mr),.IORQ_n(io),.RFSH_n(rf),.RD_n(rd),.WR_n(wr),.DO(dout),.M1_n(m1),.HALT_n(halt_n));
-    ez80_memory_bridge bridge(c54,reset_n,a,mr,io,rf,rd,wr,dout,
-        mm,ma,ext,wait_n,ext_di,req,rw,ra,wd,done,ramdata);
+        .A24(a),.A_MSX(cpu_msx_address),.Extended_Window(cpu_extended),.MREQ_n(mr),.IORQ_n(io),.RFSH_n(rf),.RD_n(rd),.WR_n(wr),.DO(dout),.M1_n(m1),.HALT_n(halt_n));
+    ez80_memory_bridge #(.REQUEST_BANK_QUALIFIED(1),.PREDECODED_MSX(1)) bridge(c54,reset_n,a,mr,io,rf,rd,wr,dout,
+        mm,ma,ext,wait_n,ext_di,req,rw,ra,wd,done,ramdata,cpu_msx_address,cpu_extended);
     wire [22:0] fault_address = ra;
     wire [7:0] fault_data = FAULT==1 && ra==23'h6a0102 ? wd^8'h01 : wd;
     wire cs,ras,cas,we,sc,cke;

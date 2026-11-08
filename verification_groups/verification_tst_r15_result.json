@@ -1,0 +1,166 @@
+{
+  "fresh_runs": 12,
+  "expected_failure_runs": 2,
+  "cases": [
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS tst_r15 case=0 div=4 stress=0 checks=3840 waits=0 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 9369130000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS tst_r15 case=0 div=4 stress=1 checks=3840 waits=66408 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 19933550000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS tst_r15 case=0 div=16 stress=1 checks=3840 waits=56739 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 68126110000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS tst_r15 case=1 div=4 stress=0 checks=240 waits=0 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 493610000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS tst_r15 case=1 div=4 stress=1 checks=240 waits=3494 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 1049070000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS tst_r15 case=1 div=16 stress=1 checks=240 waits=2973 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 3567710000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS tst_r15 case=2 div=4 stress=0 checks=256 waits=0 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 992810000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS tst_r15 case=2 div=4 stress=1 checks=256 waits=7043 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 2113950000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS tst_r15 case=2 div=16 stress=1 checks=256 waits=5913 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 7100190000 (1ps)\n"
+    },
+    {
+      "case": [
+        3,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS tst_r15 case=3 div=4 stress=0 checks=512 waits=0 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 965770000 (1ps)\n"
+    },
+    {
+      "case": [
+        3,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS tst_r15 case=3 div=4 stress=1 checks=512 waits=6795 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 2038590000 (1ps)\n"
+    },
+    {
+      "case": [
+        3,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS tst_r15 case=3 div=16 stress=1 checks=512 waits=5881 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 7060510000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        1
+      ],
+      "result": "FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:42: MBASE state ADDR=0a000e MB_EXP=00 MB_ACT=00 A_EXP=00 A_ACT=00 F_EXP=54 F_ACT=00 ADL=1/1\n       Time: 13050000  Scope: tb_tst_r15\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        2
+      ],
+      "result": "FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:42: MBASE state ADDR=0a000f MB_EXP=00 MB_ACT=00 A_EXP=a5 A_ACT=00 F_EXP=54 F_ACT=54 ADL=1/1\n       Time: 13370000  Scope: tb_tst_r15\n"
+    }
+  ],
+  "A_values": 256,
+  "register_sources": 7,
+  "immediate": true,
+  "memory": true,
+  "source_and_A_preserved": true,
+  "flags_SZHPNC_and_XY_checked": true,
+  "ED74_legacy_NEG": true,
+  "locked_ED64_legacy_NEG": true,
+  "all_four_width_suffixes": true,
+  "WAIT_and_CEN_pause": true,
+  "nonzero_MBASE": true,
+  "flat_24bit_RAM_not_board_mapping": true,
+  "sha256": {
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "fbcfd3507f34263e8ad2ae6c880a658bdde6005792f8a73d997b71beb816e743",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "43199aefd74c19e9e469a692ffe274d6a1c26c976767709f8c731858d03694ff",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "5aaee8651412c640579fd50c7b9f3279ff3a711850ff51c28d39d140c3b0a7a9",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "15e92d80e86b00f33e06aa33f4c4b81162fc145d9bd85ee450482c7fc0e57a84"
+  }
+}

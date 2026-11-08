@@ -27,7 +27,7 @@ module tb_memory33;
     wire [22:0] ra;
     wire [7:0] di,wd,ramdata;
     ez80_memory_bridge bridge(c54,reset_n,a,mr,1'b1,rf,rd,wr,dout,
-        mm,ma,ext,wait_n,di,req,rw,ra,wd,done,ramdata);
+        mm,ma,ext,wait_n,di,req,rw,ra,wd,done,ramdata,16'h0000,1'b0);
     reg mapper_req=0,mapper_write=0,mega_req=0,mega_write=0;
     reg [21:0] mapper_addr=0;
     reg [20:0] mega_addr=0;

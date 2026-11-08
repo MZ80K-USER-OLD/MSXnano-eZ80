@@ -1,0 +1,2 @@
+PASS MSX request R11.3 diagnostics=1 checks=86016
+/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_msx_request_r11_3.sv:73: $finish called at 1720380010 (1ps)

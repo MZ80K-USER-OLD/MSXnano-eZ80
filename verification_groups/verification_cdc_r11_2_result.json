@@ -1,0 +1,17 @@
+{
+  "fresh_runs": 9,
+  "expected_failure_runs": 2,
+  "real_clock_offsets_ns": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "payload_minimum_receiver_cycles": 3,
+  "payload_stable_until_ack": true,
+  "capture_once_per_request": true,
+  "VDP_priority_and_refresh": true,
+  "legacy_pin_equivalence_runs": 4,
+  "full_power_on_initialization_runs": 1,
+  "GOWIN_run": false
+}

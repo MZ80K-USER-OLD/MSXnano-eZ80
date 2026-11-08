@@ -483,14 +483,23 @@ wire [7:0] ex_bus_data;
     wire cpu_mreq_n;
     wire [15:0] cpu_addr16;
     wire [23:0] cpu_addr24;
+    wire [15:0] cpu_msx_addr;
+    wire cpu_extended_window;
     wire ext_cycle, ext_wait_n;
     wire [7:0] ext_cpu_din;
     wire ext_ram_req, ext_ram_write, ext_ram_done;
     wire [22:0] ext_ram_addr;
     wire [7:0] ext_ram_din, ext_ram_dout;
-    ez80_memory_bridge memory_bridge (
+    ez80_memory_bridge #(
+`ifdef MSXNANO_USE_EZ80
+        .REQUEST_BANK_QUALIFIED(1), .PREDECODED_MSX(1)
+`else
+        .REQUEST_BANK_QUALIFIED(0)
+`endif
+    ) memory_bridge (
         .clk(clk_54m), .reset_n(bus_reset_n & reset3_n),
         .cpu_addr(cpu_addr24), .cpu_mreq_n(cpu_mreq_n),
+        .cpu_msx_addr(cpu_msx_addr), .cpu_extended_window(cpu_extended_window),
         .cpu_iorq_n(bus_iorq_n), .cpu_rfsh_n(bus_rfsh_n),
         .cpu_rd_n(bus_rd_n), .cpu_wr_n(bus_wr_n), .cpu_dout(cpu_dout),
         .msx_mreq_n(bus_mreq_n), .msx_addr(bus_addr),
@@ -792,6 +801,7 @@ wire [7:0] mapper_read_data =
     wire update_addr;
 `ifdef MSXNANO_USE_EZ80
     G80A_eZ80 #(
+        .DIAGNOSTICS (EZ80_EXTENDED), // P2 service, inactive until explicit D8
         .DATA_EXTENDED (EZ80_EXTENDED), // R1: hardware present, runtime locked at reset
         .Mode    (0),     // 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
         //.T2Write (0),     //0 => WR_n active in T3, /=0 => WR_n active in T2
@@ -828,6 +838,7 @@ wire [7:0] mapper_read_data =
         .BUSAK_n   ( ),
         .A         (cpu_addr16),
         .A24       (cpu_addr24),
+        .A_MSX     (cpu_msx_addr), .Extended_Window(cpu_extended_window),
         .update_addr(update_addr),
         .DI         (cpu_din),
         .DO         (cpu_dout),
@@ -835,6 +846,8 @@ wire [7:0] mapper_read_data =
     );
 `else
     assign cpu_addr24 = {8'h00,cpu_addr16};
+    assign cpu_msx_addr = cpu_addr16;
+    assign cpu_extended_window = 1'b0;
     G80a  #(
         .Mode    (0),     // 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
         //.T2Write (0),     //0 => WR_n active in T3, /=0 => WR_n active in T2
@@ -1506,13 +1519,13 @@ memory_ctrl_ez80 mem1 (
     reg [1:0] config_mapper_slot_ff = 2'b11;
     reg [1:0] config_megaram_slot_ff = 2'b11;
     reg [1:0] config_sdcard_slot_ff = 2'b11;
-    reg config_enable_mapper3;
-    reg config_enable_mapper12;
+    reg config_enable_mapper3 = 1'b1;
+    reg config_enable_mapper12 = 1'b0;
     wire config_enable_megaram;
     wire config_enable_megaram3;
     wire config_enable_megaram12;
     wire config_enable_ghost_scc;
-    reg config_enable_sdcard;
+    reg config_enable_sdcard = 1'b1;
     wire config_enable_wait;
     reg config_reset_ff;
     reg config_update;
@@ -1591,7 +1604,9 @@ memory_ctrl_ez80 mem1 (
                          ( bus_addr[3:0] == 4'h2 ) ? config2_ff : 8'hff;
 
 
-    always_latch begin
+    // Configuration follows updates while reset is held; retain it after release.
+    // This uses the system clock rather than a transparent reset-controlled latch.
+    always @(posedge clk_27m) begin
         if (~bus_reset_n) begin
             config_mapper_slot_ff <= config1_ff[5:4];
             //config_megaram_slot_ff <= config1_ff[7:6];
@@ -1877,7 +1892,11 @@ memory_ctrl_ez80 mem1 (
     end
     
     reg sd_cs_w;
+    // R11.9: read register number travels with the existing SD select stage.
+    // The CPU holds the MSX request through the data sampling point.
+    reg [7:0] sd_read_index;
     always @ (posedge clk_27m) begin
+        sd_read_index <= bus_addr[7:0];
         sd_cs_w <= config_enable_sdcard == 1 && bus_reset_n && ff_sd_en && bus_iorq_n && bus_m1_n && bus_mreq_n == 0 && pri_slot_num[SD_SLOT] == 1 && exp_slotx_num[2] == 1 && (bus_addr >= SDC_ENABLE && bus_addr <= SDC_END) ? 1 : 0;
     end
     wire sd_busreq_w;
@@ -1913,7 +1932,7 @@ memory_ctrl_ez80 mem1 (
                     endcase
                 end else
                 if (~bus_rd_n) begin
-                    case(bus_addr) 
+                    case({8'h7E, sd_read_index}) 
                         SDC_ENABLE:     ff_sd_cd <= { 7'b0, ff_sd_en };
                         SDC_STATUS:     ff_sd_cd <= { sd_busy_w, 5'b0, sd_timeout_error_w, sd_crc_error_w };
                         SDC_C_SIZE+0:   ff_sd_cd <= sd_c_size_w[7:0];

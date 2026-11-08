@@ -1,0 +1,58 @@
+--- R11.5/fpga/G80A_eZ80/g80a_ez80.vhd
++++ R11.6/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -134,7 +134,6 @@
+     signal Request_Write, Request_IO : std_logic;
+     signal Request_MSX_Address : std_logic_vector(15 downto 0);
+     signal Request_Extended : std_logic;
+-    signal Request_Vector, Vector_Read_Request : std_logic;
+     signal DI_Reg       : std_logic_vector (7 downto 0);    -- Input synchroniser
+     signal Wait_s       : std_logic;
+     signal MCycle       : std_logic_vector(2 downto 0);
+@@ -158,35 +157,36 @@
+     -- Decode read intent before MREQ/T1, so the existing bridge can assert
+     -- WAIT before RD. Captured SDRAM requests remain untouched downstream.
+     Vector_Window <= '1' when DIAGNOSTICS and Diag_Active='1' and Bank_i=x"00" and A_i(15 downto 7)="000000000" and
+-        IORQ='0' and IntCycle_n='1' and RFSH_n_i='1' else '0';
+-    -- R11.5: qualify vector reads only after capturing the request.
+-    -- No combinational Write decode enters either address register.
+-    Vector_Read_Request <= Request_Vector and not Request_Write;
++        Write='0' and IORQ='0' and IntCycle_n='1' and RFSH_n_i='1' else '0';
++    -- R11.6: latch the final read-only vector decision in one bit at T1.
++    -- Low16 address payload registers do not depend on the core Write decode.
+     -- Only the refresh phase uses the core's refresh address directly.
+     -- All ordinary requests retain their T1 address through WAIT and bus release.
+     A24 <= x"00" & A_i when RFSH_n_i='0' and BUSAK_n_i='1' else
+-           x"0F" & Request_Address(15 downto 0) when Vector_Read_Request='1' and BUSAK_n_i='1' else
+            Request_Address when BUSAK_n_i='1' else (others=>'Z');
+-    -- R11.3: isolate the MSX address at the same edge as the full request.
++    -- R11.6: capture MSX payload and final isolation at the same T1 edge.
+     -- Refresh remains bank zero; ordinary addresses never use a live bank mux.
+     A_MSX <= A_i when RFSH_n_i='0' and BUSAK_n_i='1' else
+-             x"0000" when Vector_Read_Request='1' and BUSAK_n_i='1' else
++             x"0000" when Request_Extended='1' and BUSAK_n_i='1' else
+              Request_MSX_Address when BUSAK_n_i='1' else (others=>'Z');
+-    Extended_Window <= '0' when RFSH_n_i='0' else Request_Extended or Vector_Read_Request;
++    Extended_Window <= '0' when RFSH_n_i='0' else Request_Extended;
+     DO <= Request_Data;
+     process(RESET_n, CLK_n)
+     begin
+         if RESET_n='0' then
+             Request_Address <= (others=>'0'); Request_Data <= (others=>'0');
+             Request_Write <= '0'; Request_IO <= '0';
+-            Request_MSX_Address <= (others=>'0'); Request_Extended <= '0'; Request_Vector <= '0';
++            Request_MSX_Address <= (others=>'0'); Request_Extended <= '0';
+         elsif falling_edge(CLK_n) then
+             if clk_falling='1' then
+                 if TState="001" then
+-                    Request_Address <= Bank_i & A_i; Request_Vector <= Vector_Window;
++                    Request_Address <= Bank_i & A_i;
++                    if Vector_Window='1' then
++                        Request_Address <= x"0F" & A_i;
++                    end if;
+                     Request_MSX_Address <= (others=>'0'); Request_Extended <= '1';
+                     if Bank_i=x"00" then
+-                        Request_MSX_Address <= A_i; Request_Extended <= '0';
++                        Request_MSX_Address <= A_i; Request_Extended <= Vector_Window;
+                     end if;
+                     if IORQ='1' or (IntCycle_n='0' and MCycle="001") then
+                         Request_Address <= x"00" & A_i;

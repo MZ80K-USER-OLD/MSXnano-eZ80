@@ -1,0 +1,95 @@
+{
+  "fresh_runs": 6,
+  "expected_failure_runs": 2,
+  "cases": [
+    {
+      "case": [
+        "data_r3",
+        7,
+        0
+      ],
+      "events_seen": 225,
+      "exchange_count": 1
+    },
+    {
+      "case": [
+        "mem_r4",
+        3,
+        0
+      ],
+      "events_seen": 136,
+      "exchange_count": 0
+    },
+    {
+      "case": [
+        "alu_r5",
+        7,
+        0
+      ],
+      "events_seen": 132,
+      "exchange_count": 0
+    },
+    {
+      "case": [
+        "blk_r6",
+        7,
+        0
+      ],
+      "events_seen": 144,
+      "exchange_count": 0
+    },
+    {
+      "case": [
+        "lea_r8",
+        7,
+        0
+      ],
+      "events_seen": 130,
+      "exchange_count": 0
+    },
+    {
+      "case": [
+        "corners_r4",
+        7,
+        0
+      ],
+      "events_seen": 136,
+      "exchange_count": 0
+    },
+    {
+      "case": [
+        "data_r3",
+        0,
+        1
+      ],
+      "events_seen": 128,
+      "exchange_count": 0
+    },
+    {
+      "case": [
+        "data_r3",
+        0,
+        2
+      ],
+      "events_seen": 128,
+      "exchange_count": 0
+    }
+  ],
+  "event_coverage_mask": 255,
+  "exchange_coverage": 1,
+  "all_64_upper_bits_compared_each_clock_edge": true,
+  "external_bus_PC_SPL_flags_compared": true,
+  "one_ordinary_event_proof_opcode_ISet_combinations": 1024,
+  "maximum_event_family_count": 1,
+  "baseline": "R14 CPU saved source; comparison programs keep MBASE and MADL zero",
+  "GOWIN_run": false,
+  "hardware_run": false,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "15e92d80e86b00f33e06aa33f4c4b81162fc145d9bd85ee450482c7fc0e57a84",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "df5992bc7e4ba91bef4ddecc4288b0b7096525807fcf6878182b099731701f6d",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "43199aefd74c19e9e469a692ffe274d6a1c26c976767709f8c731858d03694ff",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "2a958a0ff9f62a90a1ac6a0ed9f63005993a31b91e9b439f9a1df7197ce964d7"
+  }
+}

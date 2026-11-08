@@ -1,0 +1,40 @@
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -2273,6 +2273,23 @@
+                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
+                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
+                 end if;
++                -- R15 TST: share the existing AND datapath and flag writer.
++                -- No register destination: A and the source are preserved.
++                -- ED 74 (TSTIO) remains a legacy alias, never a new I/O cycle.
++                if Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
++                    ((IR(7 downto 6)="00" and IR(2 downto 0)="100") or IR=x"64") then
++                    MCycles<="001";NoRead<='0';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
++                    ALU_Op<="0100";ALU_cpi<='0';Arith16<='0';PreserveC<='0';
++                    Set_BusA_To<="0111";Set_BusB_To<="0" & IR(5 downto 3);
++                    Inc_PC<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
++                    if IR=x"34" or IR=x"64" then
++                        MCycles<="010";Set_BusB_To<="0110";
++                        if MCycle="001" and IR=x"34" then Set_Addr_To<=aXY;end if;
++                        if MCycle="010" then
++                            Save_ALU<='1';if IR=x"64" then Inc_PC<='1';end if;
++                        end if;
++                    elsif MCycle="001" then Save_ALU<='1';end if;
++                end if;
+         end process;
+ 
+     -- The legacy writer is unchanged. Extension overrides select one opcode
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -214,9 +214,9 @@
+             when x"C1"=>Diag_Read<=x"5A";
+             when x"C2"=>Diag_Read<=x"02";
+             when x"C3"=>Diag_Read<=x"A7";
+-            when x"C4"=>Diag_Read<=x"9F";
++            when x"C4"=>Diag_Read<=x"BF";
+             when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"83";else Diag_Read<=x"03";end if;
+-            when x"C6"=>Diag_Read<=x"60";
++            when x"C6"=>Diag_Read<=x"40";
+             when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"7C";else Diag_Read<=x"FC";end if;
+             when x"C8"=>Diag_Read<=MBASE_i;
+             when x"C9"=>Diag_Read<="0000000" & MADL_i;

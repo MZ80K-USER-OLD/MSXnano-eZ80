@@ -1,0 +1,11 @@
+COM stage A time=1512590000
+COM stage B time=2021710000
+COM stage C time=2530830000
+COM stage D time=3039950000
+COM stage E time=3549070000
+COM stage F time=4058190000
+COM stage G time=4567310000
+COM stage H time=5076430000
+EZ80RST P2: PASS
+PASS irq_r11 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=80 WAIT_ticks=13208
+/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_irq_r11.sv:128: $finish called at 6064910000 (1ps)

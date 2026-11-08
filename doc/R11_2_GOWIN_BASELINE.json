@@ -1,0 +1,40 @@
+{
+  "source": "impl(2).zip",
+  "source_sha256": "dd796d62de61e6b1a529532ef99f7ceb873fa107ec913a10707bbb358e719abe",
+  "reported_revision": "R11.2",
+  "Logic": 17787,
+  "Logic_capacity": 20736,
+  "LUT": 15589,
+  "ALU": 1844,
+  "Register": 7247,
+  "CLS": 9742,
+  "CLS_capacity": 10368,
+  "BSRAM": 43,
+  "BSRAM_capacity": 46,
+  "latches": 0,
+  "Fmax_MHz": {
+    "clock_54m": 29.777,
+    "clock_108m": 163.562,
+    "clock_27m": 67.993
+  },
+  "setup_violated_endpoints": 996,
+  "hold_violated_endpoints": 75,
+  "clock54_setup_TNS_ns": -891.763,
+  "clock54_setup_endpoints": 323,
+  "reported_worst_setup_slack_ns": -7.983,
+  "reported_worst_hold_slack_ns": -3.183,
+  "request_address_half_cycle_slack_ns": -4.334,
+  "user_hardware": {
+    "EZ80MEM": "P1: PASS",
+    "RUNALL_supported_tests": "all PASS",
+    "NOT_READY": [
+      "EZ80LDH",
+      "EZ80LDX",
+      "EZ80MAD",
+      "EZ80MB",
+      "EZ80TST",
+      "EZ80MIX"
+    ],
+    "SofaRun_Space_Manbow_play": true
+  }
+}

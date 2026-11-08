@@ -1,0 +1,2832 @@
+{
+  "name": "EZ80LDH",
+  "version": "P2",
+  "bytes": 10981,
+  "sha256": "58f9aea2c5e5779e9e7974e95153017413e27754663b6877e937b904e98c16e2",
+  "major_stage": 9,
+  "required_features": 64,
+  "feature_bit": 6,
+  "diagnostic_hooks_required": false,
+  "labels": {
+    "START": 256,
+    "STAGE_A": 538,
+    "RETURN_0": 818,
+    "OK_581": 863,
+    "OK_626": 908,
+    "OK_671": 953,
+    "OK_716": 998,
+    "STAGE_B": 1025,
+    "RETURN_1": 1314,
+    "OK_1077": 1359,
+    "OK_1122": 1404,
+    "OK_1167": 1449,
+    "OK_1212": 1494,
+    "STAGE_C": 1521,
+    "RETURN_2": 1846,
+    "OK_1609": 1891,
+    "OK_1654": 1936,
+    "OK_1699": 1981,
+    "OK_1744": 2026,
+    "STAGE_D": 2053,
+    "RETURN_3": 2387,
+    "OK_2150": 2432,
+    "OK_2195": 2477,
+    "OK_2240": 2522,
+    "STAGE_E": 2549,
+    "RETURN_4": 2829,
+    "OK_2592": 2874,
+    "OK_2637": 2919,
+    "OK_2682": 2964,
+    "OK_2727": 3009,
+    "STAGE_F": 3036,
+    "RETURN_5": 3325,
+    "OK_3088": 3370,
+    "OK_3133": 3415,
+    "OK_3178": 3460,
+    "OK_3223": 3505,
+    "STAGE_G": 3532,
+    "RETURN_6": 3857,
+    "OK_3620": 3902,
+    "OK_3665": 3947,
+    "OK_3710": 3992,
+    "OK_3755": 4037,
+    "STAGE_H": 4064,
+    "RETURN_7": 4398,
+    "OK_4161": 4443,
+    "OK_4206": 4488,
+    "OK_4251": 4533,
+    "STAGE_I": 4560,
+    "RETURN_8": 4840,
+    "OK_4603": 4885,
+    "OK_4648": 4930,
+    "OK_4693": 4975,
+    "OK_4738": 5020,
+    "STAGE_J": 5047,
+    "RETURN_9": 5336,
+    "OK_5099": 5381,
+    "OK_5144": 5426,
+    "OK_5189": 5471,
+    "OK_5234": 5516,
+    "STAGE_K": 5543,
+    "RETURN_10": 5859,
+    "OK_5622": 5904,
+    "OK_5667": 5949,
+    "OK_5712": 5994,
+    "OK_5757": 6039,
+    "STAGE_L": 6066,
+    "RETURN_11": 6391,
+    "OK_6154": 6436,
+    "OK_6199": 6481,
+    "OK_6244": 6526,
+    "STAGE_M": 6553,
+    "RETURN_12": 6842,
+    "OK_6605": 6887,
+    "OK_6650": 6932,
+    "OK_6695": 6977,
+    "OK_6740": 7022,
+    "STAGE_N": 7049,
+    "RETURN_13": 7347,
+    "OK_7110": 7392,
+    "OK_7155": 7437,
+    "OK_7200": 7482,
+    "OK_7245": 7527,
+    "STAGE_O": 7554,
+    "RETURN_14": 7888,
+    "OK_7651": 7933,
+    "OK_7696": 7978,
+    "OK_7741": 8023,
+    "OK_7786": 8068,
+    "STAGE_P": 8095,
+    "RETURN_15": 8438,
+    "OK_8201": 8483,
+    "OK_8246": 8528,
+    "OK_8291": 8573,
+    "STAGE_Q": 8600,
+    "RETURN_16": 8889,
+    "OK_8652": 8934,
+    "OK_8697": 8979,
+    "OK_8742": 9024,
+    "OK_8787": 9069,
+    "STAGE_R": 9096,
+    "RETURN_17": 9394,
+    "OK_9157": 9439,
+    "OK_9202": 9484,
+    "OK_9247": 9529,
+    "OK_9292": 9574,
+    "STAGE_S": 9601,
+    "RETURN_18": 9935,
+    "OK_9698": 9980,
+    "OK_9743": 10025,
+    "OK_9788": 10070,
+    "OK_9833": 10115,
+    "STAGE_T": 10142,
+    "RETURN_19": 10485,
+    "OK_10248": 10530,
+    "OK_10293": 10575,
+    "OK_10338": 10620,
+    "CHECK_OK_10378": 10650,
+    "CHECK_OK_10408": 10680,
+    "READY": 10691,
+    "NOT_READY": 10702,
+    "MSG_READY": 10713,
+    "MSG_NOT_READY": 10744,
+    "Z80_SUB": 10800,
+    "SUBROUTINE": 10807,
+    "FAIL": 10808,
+    "UNSUPPORTED": 10819,
+    "FINISH": 10827,
+    "NO_CLEANUP": 10839,
+    "PRINT_EXIT": 10856,
+    "FORMAT_DIAG": 10867,
+    "FORMAT_REG": 10898,
+    "FORMAT_VALUES": 10916,
+    "HEX_BYTE": 10935,
+    "HEX_NIBBLE": 10948,
+    "HEX_STORE": 10959,
+    "MSG_PASS": 10962,
+    "MSG_UNSUPPORTED": 10981,
+    "MSG_FAIL": 11007,
+    "FAIL_STAGE": 11030,
+    "HEX_ADDR": 11038,
+    "HEX_EXP": 11049,
+    "HEX_ACT": 11056,
+    "STATUS": 11061,
+    "GUARD": 11062,
+    "SP_SNAPSHOT": 11063,
+    "SP_SNAPSHOT1": 11064,
+    "SP_SNAPSHOT2": 11065,
+    "SPS_SNAPSHOT": 11066,
+    "SPS_SNAPSHOT1": 11067,
+    "SAVED_SPS": 11068,
+    "SAVED_SPS1": 11069,
+    "DIAG_MEM": 11070,
+    "DIAG_ADDR0": 11071,
+    "DIAG_ADDR1": 11072,
+    "DIAG_ADDR2": 11073,
+    "DIAG_EXP": 11074,
+    "DIAG_ACT": 11075,
+    "SAVED_AF": 11076,
+    "PAIR_SNAPSHOT": 11078,
+    "PAIR_SNAPSHOT1": 11079,
+    "LOCAL_PAIR": 11080,
+    "LOCAL_PAIR1": 11081,
+    "LOCAL_PAIR2": 11082,
+    "FLAGS": 11083,
+    "SNAP": 11085,
+    "CAP_LO": 11094,
+    "CAP_HI": 11095,
+    "CLEANUP": 11096,
+    "Z80_RESULT": 11097,
+    "SAVED_I16": 11098,
+    "SHORT_DATA": 11100,
+    "SHORT_STACK": 11108,
+    "SHORT_TOP": 11236
+  },
+  "cases": [
+    {
+      "index": 0,
+      "description": "LD BC to (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          262143,
+          86
+        ],
+        [
+          262144,
+          52
+        ],
+        [
+          262145,
+          18
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_0",
+      "resolved_checks": [
+        {
+          "address": "03FFFF",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "040000",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "040001",
+          "expected": "12",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        15,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        50,
+        3
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        15,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 1,
+      "description": "LD BC to (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          [
+            "SHORT_DATA",
+            0
+          ],
+          86
+        ],
+        [
+          [
+            "SHORT_DATA",
+            1
+          ],
+          52
+        ],
+        [
+          [
+            "SHORT_DATA",
+            2
+          ],
+          167
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_1",
+      "resolved_checks": [
+        {
+          "address": "002B5C",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5D",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5E",
+          "expected": "A7",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        15,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        34,
+        5
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        15,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 2,
+      "description": "LD BC from (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197634,
+          52
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_2",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030402",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        7,
+        237,
+        67,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        54,
+        7
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        7,
+        237,
+        67,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 3,
+      "description": "LD BC from (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_3",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        7,
+        237,
+        67,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        83,
+        9
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        1,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        7,
+        237,
+        67,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 4,
+      "description": "LD DE to (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          262143,
+          86
+        ],
+        [
+          262144,
+          52
+        ],
+        [
+          262145,
+          18
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_4",
+      "resolved_checks": [
+        {
+          "address": "03FFFF",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "040000",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "040001",
+          "expected": "12",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        31,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        13,
+        11
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        31,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 5,
+      "description": "LD DE to (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          [
+            "SHORT_DATA",
+            0
+          ],
+          86
+        ],
+        [
+          [
+            "SHORT_DATA",
+            1
+          ],
+          52
+        ],
+        [
+          [
+            "SHORT_DATA",
+            2
+          ],
+          167
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_5",
+      "resolved_checks": [
+        {
+          "address": "002B5C",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5D",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5E",
+          "expected": "A7",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        31,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        253,
+        12
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        31,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 6,
+      "description": "LD DE from (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197634,
+          52
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_6",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030402",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        23,
+        237,
+        83,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        17,
+        15
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        23,
+        237,
+        83,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 7,
+      "description": "LD DE from (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_7",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        23,
+        237,
+        83,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        46,
+        17
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        17,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        23,
+        237,
+        83,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 8,
+      "description": "LD HL to (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          262143,
+          255
+        ],
+        [
+          262144,
+          255
+        ],
+        [
+          262145,
+          3
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_8",
+      "resolved_checks": [
+        {
+          "address": "03FFFF",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "040000",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "040001",
+          "expected": "03",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        47,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        232,
+        18
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        47,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 9,
+      "description": "LD HL to (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          [
+            "SHORT_DATA",
+            0
+          ],
+          [
+            "SHORT_DATA",
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            "SHORT_DATA",
+            1
+          ],
+          [
+            "SHORT_DATA",
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            "SHORT_DATA",
+            2
+          ],
+          167
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_9",
+      "resolved_checks": [
+        {
+          "address": "002B5C",
+          "expected": "5C",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5D",
+          "expected": "2B",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5E",
+          "expected": "A7",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        47,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        216,
+        20
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        47,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 10,
+      "description": "LD HL from (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197634,
+          52
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_10",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030402",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        39,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        227,
+        22
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        39,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 11,
+      "description": "LD HL from (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_11",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        39,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        247,
+        24
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        33,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        39,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 12,
+      "description": "LD IX to (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          262143,
+          86
+        ],
+        [
+          262144,
+          52
+        ],
+        [
+          262145,
+          18
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_12",
+      "resolved_checks": [
+        {
+          "address": "03FFFF",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "040000",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "040001",
+          "expected": "12",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        63,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        186,
+        26
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        63,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 13,
+      "description": "LD IX to (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          [
+            "SHORT_DATA",
+            0
+          ],
+          86
+        ],
+        [
+          [
+            "SHORT_DATA",
+            1
+          ],
+          52
+        ],
+        [
+          [
+            "SHORT_DATA",
+            2
+          ],
+          167
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_13",
+      "resolved_checks": [
+        {
+          "address": "002B5C",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5D",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5E",
+          "expected": "A7",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        63,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        179,
+        28
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        63,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 14,
+      "description": "LD IX from (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197634,
+          52
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_14",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030402",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        55,
+        221,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        208,
+        30
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        55,
+        221,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 15,
+      "description": "LD IX from (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_15",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        55,
+        221,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        246,
+        32
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        221,
+        33,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        55,
+        221,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 16,
+      "description": "LD IY to (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          262143,
+          86
+        ],
+        [
+          262144,
+          52
+        ],
+        [
+          262145,
+          18
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_16",
+      "resolved_checks": [
+        {
+          "address": "03FFFF",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "040000",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "040001",
+          "expected": "12",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        62,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        185,
+        34
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        62,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 17,
+      "description": "LD IY to (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          [
+            "SHORT_DATA",
+            0
+          ],
+          86
+        ],
+        [
+          [
+            "SHORT_DATA",
+            1
+          ],
+          52
+        ],
+        [
+          [
+            "SHORT_DATA",
+            2
+          ],
+          167
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_17",
+      "resolved_checks": [
+        {
+          "address": "002B5C",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5D",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "002B5E",
+          "expected": "A7",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        62,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        178,
+        36
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        62,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 18,
+      "description": "LD IY from (HL+0), 24bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197634,
+          52
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_18",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030402",
+          "expected": "34",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        49,
+        253,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        207,
+        38
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        255,
+        255,
+        3,
+        237,
+        49,
+        253,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 19,
+      "description": "LD IY from (HL+0), 16bit; overlap source/dest captured before transfer",
+      "entry": 655360,
+      "labels": {},
+      "checks": [
+        [
+          197632,
+          120
+        ],
+        [
+          197633,
+          86
+        ],
+        [
+          197648,
+          197
+        ]
+      ],
+      "return_label": "RETURN_19",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "78",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "56",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "C5",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        92,
+        43,
+        0,
+        82,
+        237,
+        49,
+        253,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        245,
+        40
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        197,
+        165,
+        0,
+        229,
+        241,
+        253,
+        33,
+        86,
+        52,
+        18,
+        33,
+        [
+          "SHORT_DATA",
+          0,
+          0
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          1
+        ],
+        [
+          "SHORT_DATA",
+          0,
+          2
+        ],
+        82,
+        237,
+        49,
+        253,
+        34,
+        0,
+        4,
+        3,
+        245,
+        225,
+        34,
+        16,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "case_count": 20,
+  "default": "READY",
+  "R10_RUN": "NOT READY",
+  "future_feature_functionally_verified_on_RTL": false,
+  "ABI": "doc/TEST_ABI_P2.md"
+}

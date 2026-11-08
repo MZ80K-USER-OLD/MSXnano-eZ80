@@ -1,0 +1,9 @@
+COM stage 1 time=141070000
+COM stage 2 time=1905870000
+COM stage 3 time=2674510000
+COM stage 4 time=3431310000
+COM stage 5 time=3619790000
+COM stage 6 time=4388430000
+EZ80F9 R9: PASS
+PASS fetch_r9 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=51 WAIT_ticks=10075
+/workspace/scratch/db88d59b2a4d/cpu_restart_r9/sim/tb_fetch_r9.sv:118: $finish called at 5798670000 (1ps)

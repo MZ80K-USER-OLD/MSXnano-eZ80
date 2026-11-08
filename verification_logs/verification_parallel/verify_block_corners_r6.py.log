@@ -1,0 +1,6 @@
+PASS block_corners_r6 p0_w0_pause0
+PASS block_corners_r6 p7_w1_pause0
+PASS block_corners_r6 p3_w0_pause1
+PASS block_corners_r6 p11_w7_pause1
+PASS expected failure negative_1
+PASS expected failure negative_2

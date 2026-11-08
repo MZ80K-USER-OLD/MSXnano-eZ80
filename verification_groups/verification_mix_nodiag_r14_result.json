@@ -1,0 +1,16 @@
+{
+  "fresh_runs": 1,
+  "expected_failure_runs": 0,
+  "COM": "EZ80MIX.COM",
+  "DIAGNOSTICS": false,
+  "actual_CPU_bridge_SDRAM": true,
+  "output": "COM stage A time=408090000\nCOM stage B time=820890000\nCOM stage C time=1112090000\nCOM stage D time=1669210000\nEZ80MIX P2: PASS\nPASS irq_r11 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=19 WAIT_ticks=3196\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_irq_r11.sv:128: $finish called at 2753690000 (1ps)\n",
+  "sha256": {
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "fbcfd3507f34263e8ad2ae6c880a658bdde6005792f8a73d997b71beb816e743",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "43199aefd74c19e9e469a692ffe274d6a1c26c976767709f8c731858d03694ff",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "5aaee8651412c640579fd50c7b9f3279ff3a711850ff51c28d39d140c3b0a7a9",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "15e92d80e86b00f33e06aa33f4c4b81162fc145d9bd85ee450482c7fc0e57a84"
+  }
+}

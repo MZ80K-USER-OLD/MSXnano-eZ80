@@ -1,3 +1,14 @@
+// R11.2: use the common external source for PLL/CLKDIV clock definitions.
+// No source/network latency constants and no new timing exceptions.
+// R11.1 clock tree: no new false paths or multicycle exceptions.
+create_clock -name clock_input -period 37.037 [get_ports {ex_clk_27m}]
+create_generated_clock -name clock_108m -source [get_ports {ex_clk_27m}] -master_clock clock_input -multiply_by 4 [get_pins {clk_main/rpll_inst/CLKOUT}]
+create_generated_clock -name clock_27m -source [get_ports {ex_clk_27m}] -master_clock clock_input -divide_by 1 [get_nets {clk_27m}]
+create_generated_clock -name clock_54m -source [get_ports {ex_clk_27m}] -master_clock clock_input -multiply_by 2 [get_nets {clk_54m}]
+// Fractional 44.1 kHz divider: minimum interval 612 parent periods.
+create_generated_clock -name clock_audio -source [get_nets {clk_27m}] -master_clock clock_27m -divide_by 612 [get_nets {vdp4/clk_audio}]
+// VideoDHClk and VideoDLClk remain timing data from their actual 27 MHz FFs.
+
 // R1: active multicycle exceptions removed pending endpoint-specific proof.
 //Copyright (C)2014-2023 GOWIN Semiconductor Corporation.
 //All rights reserved.
@@ -5,15 +16,11 @@
 //GOWIN Version: 1.9.9 Beta-4
 //Created Time: 2023-10-11 15:41:18
 // create_clock -name clock_reset -period 277.778 -waveform {0 138.889} [get_nets {bus_reset_n}] -add
-create_clock -name clock_audio -period 277.778 -waveform {0 138.889} [get_nets {vdp4/clk_audio}] -add
+// R11.1: shortest 44.1 kHz fractional-divider period is 612 parent clocks.
+// 27 MHz / 44.1 kHz is non-integral; this is a conservative minimum interval.
 //create_clock -name clock_VideoDLClk -period 37.037 -waveform {0 18.518} [get_nets {VideoDLClk}] -add
 //create_clock -name clock_3m6 -period 277.778 -waveform {0 138.889} [get_nets {bus_clk_3m6}] -add
 //create_clock -name clock_27m -period 37.037 -waveform {0 18.518} [get_ports {ex_clk_27m}] -add
-create_clock -name clock_27m -period 37.037 -waveform {0 18.518} [get_nets {clk_27m}] -add
-create_generated_clock -name clock_54m -source [get_nets {clk_27m}] -master_clock clock_27m -multiply_by 2 [get_nets {clk_54m}] -add //[get_nets {clk_108m}] -add
-create_generated_clock -name clock_108m -source [get_nets {clk_27m}] -master_clock clock_27m -multiply_by 4 [get_ports {O_sdram_clk}] -add //[get_nets {clk_108m}] -add
-create_generated_clock -name clock_VideoDHClk -source [get_nets {clk_27m}] -master_clock clock_27m -divide_by 2 [get_nets {VideoDHClk}] -add
-create_generated_clock -name clock_VideoDLClk -source [get_nets {clk_27m}] -master_clock clock_27m -divide_by 4 [get_nets {VideoDLClk}] -add
 // set_clock_groups -asynchronous -group [get_clocks {clock_108m clock_54m clock_VideoDHClk clock_VideoDLClk clock_27m }] -group [get_clocks {clock_reset }] -group [get_clocks {clock_env_reset }] 
 
 // R1_AUDIT_DISABLED set_multicycle_path -from [get_clocks {clock_54m}] -to [get_pins {cpu1/?*?/D}] -setup -end 2

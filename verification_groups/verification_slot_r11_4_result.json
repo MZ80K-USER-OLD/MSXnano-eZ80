@@ -1,0 +1,9 @@
+{
+  "expected_failure_runs": 2,
+  "actual_top_slot_logic_extracted": true,
+  "expanded_primary_slot_forced_selected": true,
+  "upper_bank_not_used_by_slot_decoder": true,
+  "address_07FFFF_alias_injection_detected": true,
+  "ideal_RTL_test_only": true,
+  "hardware_leak_not_excluded": true
+}

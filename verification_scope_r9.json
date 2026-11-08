@@ -1,0 +1,14 @@
+{
+  "major_stage": 5,
+  "PC_bits": 24,
+  "reset_Z80": true,
+  "default_width_from_ADL": true,
+  "refresh_bank_zero": true,
+  "unconditional_JP_bridge": true,
+  "ADL_native_stage6_enabled": true,
+  "ADL_native_RETI_RETN_enabled": true,
+  "ADL_IM1_IM2_NMI_enabled": true,
+  "ADL_IM0_not_implemented": true,
+  "no_new_IO": true,
+  "original_T80_unchanged": true
+}

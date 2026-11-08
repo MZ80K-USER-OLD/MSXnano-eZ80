@@ -1,0 +1,13 @@
+{
+  "Logic": 18878,
+  "LUT": 16647,
+  "ALU": 1877,
+  "CLS": 10047,
+  "registers": 7349,
+  "clock54_Fmax_MHz": 33.854,
+  "worst_setup_ns": -5.51,
+  "worst_hold_ns": -2.678,
+  "R14_1_LUT": 16836,
+  "R14_1_rejected": true,
+  "reason": "LUT increased by 189"
+}

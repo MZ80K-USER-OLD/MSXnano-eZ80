@@ -1,0 +1,10 @@
+COM stage L time=97950000
+COM stage A time=24047070000
+COM stage P time=27167710000
+COM stage B time=31504990000
+COM stage K time=33145630000
+COM stage I time=33330910000
+EZ80L8 R8: PASS
+COVERAGE EA=72 LEA=57 writes=37 IRQ=2 read_WAIT=192 write_WAIT=151 pauses=524192
+PASS lea_corners_r8 phase=3 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=790
+/workspace/scratch/db88d59b2a4d/cpu_restart_r9/sim/tb_lea_corners_r8.sv:120: $finish called at 34996510000 (1ps)

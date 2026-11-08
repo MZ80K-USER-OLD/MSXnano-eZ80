@@ -1,0 +1,4 @@
+PASS no diagnostics EZ80IM2 NOT READY
+PASS no diagnostics EZ80IRQ NOT READY
+PASS no diagnostics EZ80NMI NOT READY
+PASS no diagnostics EZ80RST NOT READY

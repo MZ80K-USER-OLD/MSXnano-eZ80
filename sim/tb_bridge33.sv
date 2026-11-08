@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
 module tb_bridge33;
+    parameter QUALIFIED=0;
     reg clk=0, reset_n=0;
     always #10 clk=~clk;
     reg [23:0] a=0;
@@ -11,8 +12,8 @@ module tb_bridge33;
     wire [7:0] di,wd;
     reg done=0;
     reg [7:0] ramdata=0;
-    ez80_memory_bridge dut(clk,reset_n,a,mr,io,rf,rd,wr,dout,
-        mm,ma,ext,wait_n,di,req,rw,ra,wd,done,ramdata);
+    ez80_memory_bridge #(.REQUEST_BANK_QUALIFIED(QUALIFIED)) dut(clk,reset_n,a,mr,io,rf,rd,wr,dout,
+        mm,ma,ext,wait_n,di,req,rw,ra,wd,done,ramdata,16'h0000,1'b0);
     integer bank,k,op,checks=0,timeout;
     reg [15:0] offset[0:7];
     reg [22:0] expected;
@@ -58,7 +59,8 @@ module tb_bridge33;
                     end
                     checks=checks+1;idle;
                 end
-                // High addresses must not turn I/O, refresh or acknowledge into RAM.
+                // Legacy bridge qualifies live pins; qualified bridge receives bank zero for I/O/refresh.
+                if(QUALIFIED) a[23:16]=0;
                 @(negedge clk);mr=1;io=0;rf=1;rd=0;wr=1;#1;
                 if(mm!==1 || ma!==offset[k] || ext || req || !wait_n) $fatal(1,"I/O decode");
                 checks=checks+1;idle;

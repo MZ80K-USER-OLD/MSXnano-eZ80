@@ -1,0 +1,790 @@
+--- R11.6/fpga/G80A_eZ80/t80_ez80.vhd
++++ R11.7/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -136,6 +136,7 @@
+     type upper_array is array(0 to 7) of std_logic_vector(7 downto 0);
+     signal Upper : upper_array;
+     signal Wide_Stack, Wide_IncDec : std_logic;
++    signal Write_Class : std_logic_vector(7 downto 0);
+     signal Opcode_Class : std_logic_vector(15 downto 0);
+     function Classify_Opcode(op : std_logic_vector(7 downto 0)) return std_logic_vector is
+         variable c : std_logic_vector(15 downto 0) := (others=>'0');
+@@ -389,7 +390,7 @@
+             Flag_Z => Flag_Z,
+             Flag_S => Flag_S)
+         port map(
+-            IR => IR,
++            IR => IR, Write_Class=>Write_Class,
+             Ext_Active=>Extensions_Enabled, Data_Long=>Data_Long, Stream_Long=>Stream_Long, ADL_Mode=>ADL_Mode, Has_Width=>Instruction_Has_Width, Flow_Cond=>Flow_Cond, Branch_Condition=>Branch_Condition, Interrupt_Mode=>IStatus,
+             ISet => ISet,
+             MCycle => MCycle,
+@@ -585,7 +586,7 @@
+             Address_Reg <= (others => '0');
+ 			update_addr <= '0';
+             TmpAddr <= (others => '0');
+-            IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00");
++            IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
+             ISet <= "00";
+             XY_State <= "00";
+             IStatus <= "00";
+@@ -698,11 +699,11 @@
+                         end if;
+                     else Width_Pending<='0';Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';end if;
+                     if IntCycle = '1' and IStatus = "01" then
+-                        IR <= "11111111"; Opcode_Class<=Classify_Opcode(x"FF");
++                        IR <= "11111111"; Opcode_Class<=Classify_Opcode(x"FF"); Write_Class<=Classify_Write(x"FF");
+                     elsif Halt_FF = '1' or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' then
+-                        IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00");
++                        IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
+                     else
+-                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst);
++                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
+                     end if;
+ 
+                     ISet <= "00";
+@@ -844,7 +845,7 @@
+ 
+                 if TState = 2 and Wait_n = '1' then
+                     if ISet = "01" and MCycle = "111" then
+-                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst);
++                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
+                     end if;
+                     if JumpE = '1' then
+                         PC <= PC_Width(unsigned(signed(PC) + signed(DI_Reg)),ADL_Mode);
+--- R11.6/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ R11.7/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -56,6 +56,7 @@
+ use IEEE.std_logic_1164.all;
+ 
+ package T80_eZ80_Pack is
++    function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
+ 
+     component T80_eZ80
+     generic(
+@@ -135,6 +136,7 @@
+     );
+     port(
+         IR          : in std_logic_vector(7 downto 0);
++        Write_Class : in std_logic_vector(7 downto 0);
+                 Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width : in std_logic;
+                 Flow_Cond : out std_logic;
+                 Branch_Condition : in std_logic;
+@@ -225,3 +227,39 @@
+     end component;
+ 
+ end;
++
++package body T80_eZ80_Pack is
++    -- R11.7: raw opcode classification, captured alongside every IR update.
++    -- Low nibble is the unprefixed class; high nibble is the ED class.
++    function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector is
++        variable c : std_logic_vector(7 downto 0) := x"00";
++    begin
++        if op=x"22" then c(3 downto 0):=x"1";
++        elsif op=x"2A" then c(3 downto 0):=x"2";
++        elsif op=x"32" then c(3 downto 0):=x"3";
++        elsif op=x"3A" then c(3 downto 0):=x"4";
++        elsif op(7 downto 6)="11" and op(3 downto 0)="0101" then c(3 downto 0):=x"5";
++        elsif op(7 downto 6)="11" and op(3 downto 0)="0001" then c(3 downto 0):=x"6";
++        elsif op=x"E3" then c(3 downto 0):=x"7";
++        elsif op(7 downto 6)="00" and op(3 downto 0)="1001" then c(3 downto 0):=x"8";
++        elsif op=x"C3" or (op(7 downto 6)="11" and op(2 downto 0)="010") then c(3 downto 0):=x"9";
++        elsif op=x"CD" then c(3 downto 0):=x"A";
++        elsif op(7 downto 6)="11" and op(2 downto 0)="100" then c(3 downto 0):=x"B";
++        elsif op=x"C9" then c(3 downto 0):=x"C";
++        elsif op(7 downto 6)="11" and op(2 downto 0)="000" then c(3 downto 0):=x"D";
++        elsif op(7 downto 6)="11" and op(2 downto 0)="111" then c(3 downto 0):=x"E";
++        end if;
++        if op(7 downto 6)="01" and op(2 downto 0)="011" then
++            if op(3)='0' then c(7 downto 4):=x"1";else c(7 downto 4):=x"2";end if;
++        elsif op(7 downto 6)="01" and op(2 downto 0)="010" then c(7 downto 4):=x"3";
++        elsif op(7 downto 6)="01" and op(3 downto 0)="1100" then c(7 downto 4):=x"4";
++        elsif op=x"65" or op=x"66" then c(7 downto 4):=x"6";
++        elsif op=x"02" or op=x"03" or op=x"12" or op=x"13" or op=x"22" or op=x"23" or
++              op=x"32" or op=x"33" or op=x"54" or op=x"55" then c(7 downto 4):=x"5";
++        elsif op=x"5D" or op=x"6D" or op=x"75" or op=x"7D" then c(7 downto 4):=x"7";
++        elsif op=x"45" or op=x"4D" then c(7 downto 4):=x"8";
++        elsif op=x"C7" or op=x"D7" then c(7 downto 4):=x"9";
++        end if;
++        return c;
++    end function;
++end package body;
+--- R11.6/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ R11.7/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -82,6 +82,7 @@
+         );
+         port(
+                 IR          : in std_logic_vector(7 downto 0);
++                Write_Class : in std_logic_vector(7 downto 0);
+                 Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width : in std_logic;
+                 Flow_Cond : out std_logic;
+                 Branch_Condition : in std_logic;
+@@ -145,6 +146,7 @@
+ end T80_MCode_eZ80;
+ 
+ architecture rtl of T80_MCode_eZ80 is
++        signal Legacy_Write : std_logic;
+ 
+         constant aNone  : std_logic_vector(2 downto 0) := "111";
+         constant aBC    : std_logic_vector(2 downto 0) := "000";
+@@ -251,7 +253,7 @@
+                 IMode <= "11";
+                 Halt <= '0';
+                 NoRead <= '0';
+-                Write <= '0';
++                Legacy_Write <= '0';
+                 XYbit_undoc <= '0';
+ 
+                 case ISet is
+@@ -307,7 +309,7 @@
+                                 Set_BusB_To(2 downto 0) <= SSS;
+                                 Set_BusB_To(3) <= '0';
+                         when 2 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when others => null;
+                         end case;
+                 when "00110110" =>
+@@ -320,7 +322,7 @@
+                                 Set_BusB_To(2 downto 0) <= SSS;
+                                 Set_BusB_To(3) <= '0';
+                         when 3 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when others => null;
+                         end case;
+                 when "00001010" =>
+@@ -378,7 +380,7 @@
+                                 Set_Addr_To <= aBC;
+                                 Set_BusB_To <= "0111";
+                         when 2 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when others => null;
+                         end case;
+                 when "00010010" =>
+@@ -389,7 +391,7 @@
+                                 Set_Addr_To <= aDE;
+                                 Set_BusB_To <= "0111";
+                         when 2 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when others => null;
+                         end case;
+                 when "00110010" =>
+@@ -401,7 +403,7 @@
+                                         Set_Addr_To <= aXY;
+                                         Set_BusB_To <= "0111";
+                                 when 2 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         IncDec_16 <= "1110";
+                                 when others => null;
+                                 end case;
+@@ -417,7 +419,7 @@
+                                         Inc_PC <= '1';
+                                         Set_BusB_To <= "0111";
+                                 when 4 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others => null;
+                                 end case;
+                         end if;
+@@ -490,7 +492,7 @@
+                                         Set_Addr_To <= aXY;
+                                         Set_BusB_To <= "0111";
+                                 when 2 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         IncDec_16 <= "0110";
+                                 when others => null;
+                                 end case;
+@@ -509,10 +511,10 @@
+                                 when 4 =>
+                                         Inc_WZ <= '1';
+                                         Set_Addr_To <= aZI;
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         Set_BusB_To <= "0100"; -- H
+                                 when 5 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others => null;
+                                 end case;
+                         end if;
+@@ -545,9 +547,9 @@
+                                         Set_BusB_To(0) <= '1';
+                                         Set_BusB_To(3) <= '0';
+                                 end if;
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when 3 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when others => null;
+                         end case;
+                 when "11000001"|"11010001"|"11100001"|"11110001" =>
+@@ -600,10 +602,10 @@
+                                 when 4 =>
+                                         Inc_WZ <= '1';
+                                         Set_Addr_To <= aZI;
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         Set_BusB_To <= "1001";
+                                 when 5 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others => null;
+                                 end case;
+                         elsif Mode < 2 then
+@@ -648,7 +650,7 @@
+                                         IncDec_16 <= "0111";
+                                         Set_Addr_To <= aSP;
+                                         TStates <= "100";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when 4 =>
+                                         Read_To_Reg <= '1';
+                                         Set_BusA_To <= "0100";
+@@ -657,7 +659,7 @@
+                                 when 5 =>
+                                         IncDec_16 <= "1111";
+                                         TStates <= "101";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others => null;
+                                 end case;
+                         end if;
+@@ -744,7 +746,7 @@
+                                 Set_BusB_To <= "1010";
+                                 Set_BusA_To(2 downto 0) <= DDD;
+                         when 3 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when others => null;
+                         end case;
+                 when "00000101"|"00001101"|"00010101"|"00011101"|"00100101"|"00101101"|"00111101" =>
+@@ -771,7 +773,7 @@
+                                 Set_BusB_To <= "1010";
+                                 Set_BusA_To(2 downto 0) <= DDD;
+                         when 3 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                         when others => null;
+                         end case;
+ 
+@@ -803,13 +805,13 @@
+                                         Set_BusB_To <= "1101";
+                                 when 2 =>
+                                         TStates <= "100";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         IncDec_16 <= "1111";
+                                         Set_Addr_To <= aSP;
+                                         Set_BusB_To <= "1100";
+                                 when 3 =>
+                                         TStates <= "100";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others => null;
+                                 end case;
+                         elsif IntCycle = '1' then
+@@ -824,13 +826,13 @@
+                                         Set_BusB_To <= "1101";
+                                 when 2 =>
+                                         TStates <= "100";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         IncDec_16 <= "1111";
+                                         Set_Addr_To <= aSP;
+                                         Set_BusB_To <= "1100";
+                                 when 3 =>
+                                         TStates <= "100";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when 4 =>
+                                         Inc_PC <= '1';
+                                         LDZ <= '1';
+@@ -935,7 +937,7 @@
+                                                 Set_Addr_To <= aBC;
+                                                 Set_BusB_To     <= "0111";
+                                         when 2 =>
+-                                                Write <= '1';
++                                                Legacy_Write <= '1';
+                                                 IORQ <= '1';
+                                         when others =>
+                                         end case;
+@@ -951,7 +953,7 @@
+                                                 Inc_PC <= '1';
+                                                 Set_BusB_To <= "0111";
+                                         when 4 =>
+-                                                Write <= '1';
++                                                Legacy_Write <= '1';
+                                         when others => null;
+                                         end case;
+                                 when "10" =>
+@@ -1122,12 +1124,12 @@
+                                 LDW <= '1';
+                                 Set_BusB_To <= "1101";
+                         when 4 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                                 IncDec_16 <= "1111";
+                                 Set_Addr_To <= aSP;
+                                 Set_BusB_To <= "1100";
+                         when 5 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                                 Call <= '1';
+                         when others => null;
+                         end case;
+@@ -1151,12 +1153,12 @@
+                                                 MCycles <= "011";
+                                         end if;
+                                 when 4 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         IncDec_16 <= "1111";
+                                         Set_Addr_To <= aSP;
+                                         Set_BusB_To <= "1100";
+                                 when 5 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         Call <= '1';
+                                 when others => null;
+                                 end case;
+@@ -1189,7 +1191,7 @@
+                                                 Set_Addr_To <= aIOA;
+                                                 Set_BusB_To     <= "0111";
+                                         when 3 =>
+-                                                Write <= '1';
++                                                Legacy_Write <= '1';
+                                         when others => null;
+                                         end case;
+                                 when "01" =>
+@@ -1276,12 +1278,12 @@
+                                 Set_Addr_To <= aSP;
+                                 Set_BusB_To <= "1101";
+                         when 2 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                                 IncDec_16 <= "1111";
+                                 Set_Addr_To <= aSP;
+                                 Set_BusB_To <= "1100";
+                         when 3 =>
+-                                Write <= '1';
++                                Legacy_Write <= '1';
+                                 RstP <= '1';
+                         when others => null;
+                         end case;
+@@ -1311,7 +1313,7 @@
+                                         Set_Addr_To <= aIOA;
+                                         Set_BusB_To     <= "0111";
+                                 when 3 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         IORQ <= '1';
+                                 when others => null;
+                                 end case;
+@@ -1388,7 +1390,7 @@
+                         Set_Addr_To <= aXY;
+                         TStates <= "100";
+                     when 3 =>
+-                        Write <= '1';
++                        Legacy_Write <= '1';
+                     when others => null;
+                     end case;
+                 end if;
+@@ -1414,7 +1416,7 @@
+                     Set_Addr_To <= aXY;
+                     TStates <= "100";
+                 when 3 =>
+-                    Write <= '1';
++                    Legacy_Write <= '1';
+                 when others =>
+                 end case;
+             when "01000000"|"01000001"|"01000010"|"01000011"|"01000100"|"01000101"|"01000111"
+@@ -1484,7 +1486,7 @@
+                         Set_Addr_To <= aXY;
+                         TStates <= "100";
+                     when 3 =>
+-                        Write <= '1';
++                        Legacy_Write <= '1';
+                     when others => null;
+                     end case;
+                 end if;
+@@ -1501,7 +1503,7 @@
+                     Set_Addr_To <= aXY;
+                     TStates <= "100";
+                 when 3 =>
+-                    Write <= '1';
++                    Legacy_Write <= '1';
+                 when others => null;
+                 end case;
+             when "10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000111"
+@@ -1533,7 +1535,7 @@
+                         Set_Addr_To <= aXY;
+                         TStates <= "100";
+                     when 3 =>
+-                        Write <= '1';
++                        Legacy_Write <= '1';
+                     when others => null;
+                     end case;
+                 end if;
+@@ -1551,7 +1553,7 @@
+                     Set_Addr_To <= aXY;
+                     TStates <= "100";
+                 when 3 =>
+-                    Write <= '1';
++                    Legacy_Write <= '1';
+                 when others => null;
+                 end case;
+             end case;
+@@ -1665,7 +1667,7 @@
+                                 when 4 =>
+                                         Inc_WZ <= '1';
+                                         Set_Addr_To <= aZI;
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         if IR(5 downto 4) = "11" then
+                                                 Set_BusB_To <= "1001";
+                                         else
+@@ -1674,7 +1676,7 @@
+                                                 Set_BusB_To(3) <= '0';
+                                         end if;
+                                 when 5 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others => null;
+                                 end case;
+                         when "10100000" | "10101000" | "10110000" | "10111000" =>
+@@ -1697,7 +1699,7 @@
+                                 when 3 =>
+                                         I_BT <= '1';
+                                         TStates <= "101";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         if IR(3) = '0' then
+                                                 IncDec_16 <= "0101"; -- DE
+                                         else
+@@ -1835,7 +1837,7 @@
+                                         Save_ALU <= '1';
+                                 when 4 =>
+                                         I_RLD <= '1';
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others =>
+                                 end case;
+                         when "01100111" =>
+@@ -1854,7 +1856,7 @@
+                                         Save_ALU <= '1';
+                                 when 4 =>
+                                         I_RRD <= '1';
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                 when others =>
+                                 end case;
+                         when "01000101"|"01001101"|"01010101"|"01011101"|"01100101"|"01101101"|"01110101"|"01111101" =>
+@@ -1900,7 +1902,7 @@
+                                                 Set_BusB_To(3) <= '1';
+                                         end if;
+                                 when 2 =>
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         IORQ <= '1';
+                                 when others =>
+                                 end case;
+@@ -1926,7 +1928,7 @@
+                                                 IncDec_16 <= "1110";    -- 0242a
+                                         end if;
+                                         TStates <= "100";
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         I_BTR <= '1';
+                                 when 4 =>
+                                         NoRead <= '1';
+@@ -1955,7 +1957,7 @@
+                                                 IncDec_16 <= "1110";    -- 0242a
+                                         end if;
+                                         IORQ <= '1';
+-                                        Write <= '1';
++                                        Legacy_Write <= '1';
+                                         I_BTR <= '1';
+                                 when 4 =>
+                                         NoRead <= '1';
+@@ -2036,7 +2038,7 @@
+                         if MCycle="101" then
+                             Inc_WZ<='1'; Set_Addr_To<=aZI; Set_BusB_To<="1110";
+                         elsif MCycle="110" then
+-                            Inc_PC<='0'; Set_Addr_To<=aNone; NoRead<='0'; Write<='1';
++                            Inc_PC<='0'; Set_Addr_To<=aNone; NoRead<='0'; null;
+                         end if;
+                     end if;
+                 end if;
+@@ -2045,17 +2047,17 @@
+                 -- R2 explicit long PUSH/POP. SPL only; never changes SPS or PC.
+                 if Ext_Active='1' and Data_Long='1' and ISet="00" and Mode=0 and IntCycle='0' and NMICycle='0' and
+                    IR(7 downto 6)="11" and (IR(3 downto 0)="0101" or IR(3 downto 0)="0001") then
+-                    MCycles<="100"; Write<='0';Read_To_Reg<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
++                    MCycles<="100"; null;Read_To_Reg<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
+                     TStates<="011"; if MCycle="001" then TStates<="100";end if;
+                     if IR(3 downto 0)="0101" then
+                         case to_integer(unsigned(MCycle)) is
+                         when 1 => TStates<="101";IncDec_16<="1111";Set_Addr_To<=aSP;
+                             if DPair="11" then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
+-                        when 2 => Write<='1';IncDec_16<="1111";Set_Addr_To<=aSP;
++                        when 2 => null;IncDec_16<="1111";Set_Addr_To<=aSP;
+                             if DPair="11" then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
+-                        when 3 => Write<='1';IncDec_16<="1111";Set_Addr_To<=aSP;
++                        when 3 => null;IncDec_16<="1111";Set_Addr_To<=aSP;
+                             if DPair="11" then Set_BusB_To<="1011";else Set_BusB_To<='0' & DPair & '1';end if;
+-                        when 4 => Write<='1';
++                        when 4 => null;
+                         when others=>null;
+                         end case;
+                     else
+@@ -2079,7 +2081,7 @@
+                     if ISet="00" then pairnum:="10";else pairnum:=IR(5 downto 4);end if;
+                     cycle:=to_integer(unsigned(MCycle));reading:=IR(3)='1';
+                     MCycles<=std_logic_vector(to_unsigned(lastaddr+countdata,3));
+-                    Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';
++                    null;Read_To_Reg<='0';Read_To_Acc<='0';Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';
+                     Set_Addr_To<=aNone;NoRead<='0';IncDec_16<="0000";
+                     if cycle=1 then TStates<="100";else TStates<="011";end if;
+                     if cycle=2 then Inc_PC<='1';LDZ<='1';end if;
+@@ -2097,7 +2099,7 @@
+                                 Read_To_Reg<='1';if pairnum="11" then Set_BusA_To<="1001";else Set_BusA_To<='0' & pairnum & '0';end if;
+                             end if;
+                         else
+-                            Write<='1';
++                            null;
+                             if cycle=lastaddr+1 then
+                                 if pairnum="11" then Set_BusB_To<="1001";else Set_BusB_To<='0' & pairnum & '0';end if;
+                             elsif cycle=lastaddr+2 then Set_BusB_To<="1110";end if;
+@@ -2109,7 +2111,7 @@
+                 if Ext_Active='1' and (Data_Long='1' or Stream_Long='1') and Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and (IR=x"32" or IR=x"3A") then
+                     if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
+                     cycle:=to_integer(unsigned(MCycle));MCycles<=std_logic_vector(to_unsigned(lastaddr+1,3));
+-                    Inc_PC<='0';LDZ<='0';LDW<='0';Write<='0';Read_To_Acc<='0';Read_To_Reg<='0';
++                    Inc_PC<='0';LDZ<='0';LDW<='0';null;Read_To_Acc<='0';Read_To_Reg<='0';
+                     Set_Addr_To<=aNone;Inc_WZ<='0';IncDec_16<="0000";NoRead<='0';
+                     if cycle=1 then TStates<="100";else TStates<="011";end if;
+                     if cycle=2 then Inc_PC<='1';LDZ<='1';end if;
+@@ -2117,21 +2119,21 @@
+                     if cycle=4 and lastaddr=4 then Inc_PC<='1';end if;
+                     if cycle=lastaddr then Set_Addr_To<=aZI;Set_BusB_To<="0111";
+                     elsif cycle=lastaddr+1 then
+-                        if IR=x"32" then Write<='1';else Read_To_Acc<='1';end if;
++                        if IR=x"32" then null;else Read_To_Acc<='1';end if;
+                     end if;
+                 end if;
+                 -- R4 EX(SPL),HL/IX/IY. Read all 3 bytes, then write all 3 bytes.
+                 -- SPL is never changed. The register commits after the final write.
+                 if Ext_Active='1' and Data_Long='1' and Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and IR=x"E3" then
+                     MCycles<="111";Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";
+-                    Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Set_Addr_To<=aSP;NoRead<='0';
++                    null;Read_To_Reg<='0';Read_To_Acc<='0';Set_Addr_To<=aSP;NoRead<='0';
+                     ExchangeDH<='0';ExchangeRp<='0';
+                     if MCycle="001" then TStates<="100";else TStates<="011";end if;
+                     case MCycle is
+                     when "100"=>null;
+-                    when "101"=>Write<='1';
+-                    when "110"=>Write<='1';
+-                    when "111"=>Write<='1';Set_Addr_To<=aNone;
++                    when "101"=>null;
++                    when "110"=>null;
++                    when "111"=>null;Set_Addr_To<=aNone;
+                     when others=>null;
+                     end case;
+                 end if;
+@@ -2141,7 +2143,7 @@
+                 if Ext_Active='1' and Data_Long='1' and Mode=0 and IntCycle='0' and NMICycle='0' and
+                     ((ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="1001") or
+                      (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="010")) then
+-                    MCycles<="001";TStates<="111";NoRead<='1';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';
++                    MCycles<="001";TStates<="111";NoRead<='1';null;Read_To_Reg<='0';Read_To_Acc<='0';
+                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Arith16<='0';Save_ALU<='0';
+                     Set_Addr_To<=aNone;Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
+                 end if;
+@@ -2150,7 +2152,7 @@
+                 -- One captured 8x8 multiply is committed at T7, flags and upper byte preserved.
+                 if Ext_Active='1' and Mode=0 and ISet="10" and IR(7 downto 6)="01" and
+                     IR(3 downto 0)="1100" and IntCycle='0' and NMICycle='0' then
+-                    MCycles<="001";TStates<="111";NoRead<='1';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';
++                    MCycles<="001";TStates<="111";NoRead<='1';null;Read_To_Reg<='0';Read_To_Acc<='0';
+                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Arith16<='0';Save_ALU<='0';
+                     Set_Addr_To<=aNone;Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
+                 end if;
+@@ -2160,7 +2162,7 @@
+                     (IR=x"02" or IR=x"03" or IR=x"12" or IR=x"13" or IR=x"22" or IR=x"23" or
+                      IR=x"32" or IR=x"33" or IR=x"54" or IR=x"55" or IR=x"65" or IR=x"66") then
+                     MCycles<="010";TStates<="011";if MCycle="001" then TStates<="100";end if;
+-                    NoRead<='0';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Arith16<='0';
++                    NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Arith16<='0';
+                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Set_Addr_To<=aNone;LDZ<='0';LDW<='0';
+                     Jump<='0';JumpXY<='0';Call<='0';RstP<='0';I_RETN<='0';IMode<="11";
+                     Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
+@@ -2170,7 +2172,7 @@
+                         if MCycle="010" or MCycle="011" or (MCycle="100" and Data_Long='1') then
+                             IncDec_16<="1111";Set_Addr_To<=aSP;
+                         end if;
+-                        if unsigned(MCycle)>=3 then Write<='1';end if;
++                        if unsigned(MCycle)>=3 then null;end if;
+                     end if;
+                 end if;
+ 
+@@ -2178,14 +2180,14 @@
+                 if Ext_Active='1' and ISet="00" and (IR=x"C3" or (IR(7 downto 6)="11" and IR(2 downto 0)="010")) and Data_Long=Stream_Long and IntCycle='0' and NMICycle='0' then
+                     if Stream_Long='1' then MCycles<="100";else MCycles<="011";end if;
+                     TStates<="011";if MCycle="001" then TStates<="100";end if;
+-                    NoRead<='0';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
++                    NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
+                     Set_Addr_To<=aNone;Jump<='0';Inc_PC<='0';LDZ<='0';LDW<='0';IncDec_16<="0000";
+                     if MCycle="010" then Inc_PC<='1';LDZ<='1';end if;
+                     if MCycle="011" then Inc_PC<='1';LDW<='1';end if;
+                     if MCycle="100" then Inc_PC<='1';end if;
+                 end if;
+                 if ADL_Mode='1' and ISet="10" and (IR=x"5D" or IR=x"6D" or IR=x"75" or IR=x"7D") then
+-                    MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';Write<='0';Jump<='0';I_RETN<='0';
++                    MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
+                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
+                 end if;
+ 
+@@ -2194,7 +2196,7 @@
+                     (IR=x"CD" or IR=x"C9" or (IR(7 downto 6)="11" and
+                      (IR(2 downto 0)="100" or IR(2 downto 0)="000" or IR(2 downto 0)="111"))) then
+                     TStates<="011";if MCycle="001" then TStates<="101";end if;
+-                    NoRead<='0';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
++                    NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
+                     Jump<='0';JumpXY<='0';Call<='0';RstP<='0';JumpE<='0';I_DJNZ<='0';
+                     Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
+                     if IR=x"CD" or IR(2 downto 0)="100" then
+@@ -2202,7 +2204,7 @@
+                         if IR=x"CD" or Branch_Condition='1' then
+                             MCycles<="111";
+                             if MCycle="100" or MCycle="101" or MCycle="110" then IncDec_16<="1111";Set_Addr_To<=aSP;end if;
+-                            if unsigned(MCycle)>=5 then Write<='1';end if;
++                            if unsigned(MCycle)>=5 then null;end if;
+                         else MCycles<="100";end if;
+                         if unsigned(MCycle)>=2 and unsigned(MCycle)<=4 then Inc_PC<='1';end if;
+                     elsif IR=x"C9" or IR(2 downto 0)="000" then
+@@ -2214,14 +2216,14 @@
+                     else
+                         MCycles<="100";
+                         if unsigned(MCycle)<=3 then IncDec_16<="1111";Set_Addr_To<=aSP;end if;
+-                        if unsigned(MCycle)>=2 then Write<='1';end if;
++                        if unsigned(MCycle)>=2 then null;end if;
+                     end if;
+                 end if;
+                 -- Mixed CALL/RET/RST suffix frames belong to stage8, not this native path.
+                 if Ext_Active='1' and Has_Width='1' and ISet="00" and
+                     (IR=x"CD" or IR=x"C9" or (IR(7 downto 6)="11" and
+                      (IR(2 downto 0)="100" or IR(2 downto 0)="000" or IR(2 downto 0)="111"))) then
+-                    MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';Write<='0';
++                    MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;
+                     Jump<='0';Call<='0';RstP<='0';IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
+                 end if;
+ 
+@@ -2229,28 +2231,98 @@
+                 if Ext_Active='1' and ADL_Mode='1' and (IntCycle='1' or NMICycle='1') then
+                     MCycles<="100";if IntCycle='1' and Interrupt_Mode="10" then MCycles<="111";end if;
+                     TStates<="011";if MCycle="001" then TStates<="101";end if;
+-                    NoRead<='0';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Halt<='0';SetEI<='0';SetDI<='0';Special_LD<="000";IMode<="11";
++                    NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Halt<='0';SetEI<='0';SetDI<='0';Special_LD<="000";IMode<="11";
+                     Jump<='0';JumpXY<='0';Call<='0';RstP<='0';JumpE<='0';I_DJNZ<='0';I_RETN<='0';
+                     Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';IncDec_16<="0000";Set_Addr_To<=aNone;Prefix<="00";
+                     if unsigned(MCycle)<=3 then IncDec_16<="1111";Set_Addr_To<=aSP;end if;
+-                    if MCycle="010" or MCycle="011" or MCycle="100" then Write<='1';end if;
++                    if MCycle="010" or MCycle="011" or MCycle="100" then null;end if;
+                 end if;
+                 if Ext_Active='1' and ADL_Mode='1' and Has_Width='0' and ISet="10" and (IR=x"45" or IR=x"4D") and IntCycle='0' and NMICycle='0' then
+                     MCycles<="100";TStates<="011";if MCycle="001" then TStates<="101";end if;
+-                    NoRead<='0';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Jump<='0';I_RETN<='0';
++                    NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Jump<='0';I_RETN<='0';
+                     Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
+                     if unsigned(MCycle)<=3 then Set_Addr_To<=aSP;end if;
+                     if unsigned(MCycle)>=2 then IncDec_16<="0111";end if;
+                 end if;
+                 if Ext_Active='1' and ISet="10" and (IR=x"C7" or IR=x"D7") and IntCycle='0' and NMICycle='0' then
+-                    MCycles<="001";TStates<="101";NoRead<='1';Write<='0';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
++                    MCycles<="001";TStates<="101";NoRead<='1';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
+                     Inc_PC<='0';IncDec_16<="0000";Set_Addr_To<=aNone;Set_BusA_To<="0100";Special_LD<="000";
+                 end if;
+                 -- Mode-bearing RETI.L/RETN.L frames remain stage8 work.
+                 if Ext_Active='1' and Has_Width='1' and ISet="10" and (IR=x"45" or IR=x"4D") and IntCycle='0' and NMICycle='0' then
+-                    MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';Write<='0';Jump<='0';I_RETN<='0';
++                    MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
+                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
+                 end if;
+         end process;
+ 
++    -- The legacy writer is unchanged. Extension overrides select one opcode
++    -- class in parallel instead of chaining every instruction's Write mux.
++    process(Legacy_Write, Write_Class, ISet, MCycle, Ext_Active, Data_Long,
++            Stream_Long, ADL_Mode, Has_Width, IntCycle, NMICycle, Branch_Condition)
++        variable w : std_logic;
++        variable base_kind, ed_kind : std_logic_vector(3 downto 0);
++        variable lastaddr, cycle : integer range 0 to 7;
++    begin
++        w:=Legacy_Write; base_kind:=Write_Class(3 downto 0);ed_kind:=Write_Class(7 downto 4);
++        cycle:=to_integer(unsigned(MCycle));
++        if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
++        if Ext_Active='1' and Mode=0 and IntCycle='0' and NMICycle='0' then
++            if ISet="00" then
++                case base_kind is
++                when x"1"|x"2" =>
++                    if Data_Long='1' or Stream_Long='1' then
++                        w:='0';if base_kind=x"1" and cycle>lastaddr then w:='1';end if;
++                    end if;
++                when x"3"|x"4" =>
++                    if Data_Long='1' or Stream_Long='1' then
++                        w:='0';if base_kind=x"3" and cycle=lastaddr+1 then w:='1';end if;
++                    end if;
++                when x"5"|x"6" =>
++                    if Data_Long='1' then
++                        w:='0';if base_kind=x"5" and cycle>=2 and cycle<=4 then w:='1';end if;
++                    end if;
++                when x"7" =>
++                    if Data_Long='1' then w:='0';if cycle>=5 then w:='1';end if;end if;
++                when x"8" => if Data_Long='1' then w:='0';end if;
++                when others=>null;
++                end case;
++            elsif ISet="10" then
++                case ed_kind is
++                when x"1"|x"2" =>
++                    if Data_Long='1' or Stream_Long='1' then
++                        w:='0';if ed_kind=x"1" and cycle>lastaddr then w:='1';end if;
++                    end if;
++                when x"3" => if Data_Long='1' then w:='0';end if;
++                when x"4"|x"5" => w:='0';
++                when x"6" => w:='0';if cycle>=3 then w:='1';end if;
++                when others=>null;
++                end case;
++            end if;
++        end if;
++        -- Preserve the original guards, including profiles with Mode/=0,
++        -- a closed extension gate, or an interrupt coincident with a suffix.
++        if Ext_Active='1' and ISet="00" and IntCycle='0' and NMICycle='0' then
++            if base_kind=x"9" and Data_Long=Stream_Long then w:='0';end if;
++            if ADL_Mode='1' and Has_Width='0' then
++                case base_kind is
++                when x"A"|x"B" =>
++                    w:='0';if cycle>=5 and (base_kind=x"A" or Branch_Condition='1') then w:='1';end if;
++                when x"C"|x"D" => w:='0';
++                when x"E" => w:='0';if cycle>=2 then w:='1';end if;
++                when others=>null;
++                end case;
++            end if;
++        end if;
++        if ADL_Mode='1' and ISet="10" and ed_kind=x"7" then w:='0';end if;
++        if Ext_Active='1' and Has_Width='1' and ISet="00" and
++           (base_kind=x"A" or base_kind=x"B" or base_kind=x"C" or base_kind=x"D" or base_kind=x"E") then w:='0';end if;
++        if Ext_Active='1' and ADL_Mode='1' and (IntCycle='1' or NMICycle='1') then
++            w:='0';if cycle>=2 and cycle<=4 then w:='1';end if;
++        end if;
++        if Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' then
++            if ed_kind=x"9" or (ed_kind=x"8" and (ADL_Mode='1' or Has_Width='1')) then w:='0';end if;
++        end if;
++        Write<=w;
++    end process;
++
+ end;

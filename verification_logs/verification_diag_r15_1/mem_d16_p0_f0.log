@@ -1,0 +1,22 @@
+EZ80MX1 R15.1 START
+COM stage 1 time=2381530000
+MX1 HL>HL
+COM stage 2 time=4017690000
+MX2 HL>IX
+COM stage 3 time=5706330000
+MX3 IX>HL
+COM stage 4 time=7361690000
+MX4 IX>IX
+COM stage 5 time=9052890000
+MX5 IY>HL
+COM stage 6 time=10691610000
+MX6 HL>IY
+COM stage 7 time=12346970000
+MX7 IY>IY
+COM stage 8 time=14038170000
+MX8 LANES HL>ALL
+COM stage 9 time=18629530000
+MX9 LANES IX/IY>HL
+EZ80MX1 R15.1: PASS
+PASS mem_diag_r15_1 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=7028
+/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mem_diag_r15_1.sv:127: $finish called at 24416090000 (1ps)

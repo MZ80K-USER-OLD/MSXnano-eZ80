@@ -1,6 +1,10 @@
 // v33: isolate the MSX window before any 16-bit memory decode.
 // The external data bus remains byte-wide. Width/suffix handling is in the CPU.
-module ez80_memory_bridge (
+module ez80_memory_bridge #(
+    // Enable only with the R11.1 wrapper, which forces bank zero for I/O/IACK/refresh.
+    parameter REQUEST_BANK_QUALIFIED = 0,
+    parameter PREDECODED_MSX = 0
+) (
     input wire clk, reset_n,
     input wire [23:0] cpu_addr,
     input wire cpu_mreq_n, cpu_iorq_n, cpu_rfsh_n, cpu_rd_n, cpu_wr_n,
@@ -15,12 +19,16 @@ module ez80_memory_bridge (
     output reg [22:0] ram_addr,
     output reg [7:0] ram_din,
     input wire ram_done,
-    input wire [7:0] ram_dout
+    input wire [7:0] ram_dout,
+    // Only enable PREDECODED_MSX with the R11.3 wrapper's registered outputs.
+    input wire [15:0] cpu_msx_addr,
+    input wire cpu_extended_window
 );
     wire [7:0] bank = cpu_addr[23:16];
-    wire extended_window = bank != 8'h00 && cpu_iorq_n && cpu_rfsh_n;
+    wire extended_window = PREDECODED_MSX ? cpu_extended_window : bank != 8'h00 &&
+        (REQUEST_BANK_QUALIFIED || (cpu_iorq_n && cpu_rfsh_n));
     assign msx_mreq_n = cpu_mreq_n | extended_window;
-    assign msx_addr = extended_window ? 16'h0000 : cpu_addr[15:0];
+    assign msx_addr = PREDECODED_MSX ? cpu_msx_addr : extended_window ? 16'h0000 : cpu_addr[15:0];
     assign extended_cycle = extended_window && !cpu_mreq_n &&
                             (!cpu_rd_n || !cpu_wr_n);
     wire private_ram = bank >= 8'h01 && bank <= 8'h1b;

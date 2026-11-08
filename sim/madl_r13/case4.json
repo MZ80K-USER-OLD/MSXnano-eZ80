@@ -1,0 +1,35 @@
+{
+  "plan": {
+    "type": "entry",
+    "adl": 0,
+    "kind": "NMI",
+    "mb": 0
+  },
+  "checks": [
+    {
+      "pc": 33288,
+      "adl": 0,
+      "acc": 166,
+      "flags": 215,
+      "madl": 1,
+      "sp": 61440,
+      "spl": 327681,
+      "ief": 0,
+      "marker": 161
+    }
+  ],
+  "frames": [
+    {
+      "sp": 327681,
+      "bytes": [
+        130,
+        8,
+        2
+      ]
+    }
+  ],
+  "labels": {
+    "halt": 33287,
+    "after": 33288
+  }
+}

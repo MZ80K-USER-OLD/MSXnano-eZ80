@@ -1,0 +1,59 @@
+{
+  "fresh_runs": 8,
+  "cases": [
+    [
+      1,
+      1,
+      8
+    ],
+    [
+      1,
+      1,
+      9
+    ],
+    [
+      1,
+      1,
+      10
+    ],
+    [
+      1,
+      1,
+      13
+    ],
+    [
+      1,
+      1,
+      14
+    ],
+    [
+      1,
+      1,
+      15
+    ],
+    [
+      1,
+      1,
+      16
+    ],
+    [
+      1,
+      1,
+      19
+    ]
+  ],
+  "mock_full_address_ROM": true,
+  "mixed_suffix_guard_cases": 8,
+  "prefixes": [
+    64,
+    73,
+    82,
+    91
+  ],
+  "instruction_classes": [
+    "CALL",
+    "RET",
+    "RST"
+  ],
+  "ADL_IRQ_implemented": false
+}

@@ -76,8 +76,15 @@ module memory_ctrl_ez80 (
     reg [2:0] sdram_seq;
     reg enable_sdram;
 
+    reg ext_req_sample;
     reg ext_meta, ext_sync;
+    // Separate the synchronizer from the one-shot payload capture enable.
+    reg ext_capture_armed;
     reg ext_pending, ext_selected, ext_running;
+    // Unconditional falling-edge samples feed a rising-edge transaction register.
+    reg [22:0] ext_addr_sample;
+    reg [7:0] ext_data_sample;
+    reg ext_write_sample;
     reg [22:0] ext_addr_latched;
     reg [7:0] ext_data_latched;
     reg ext_write_latched;
@@ -88,15 +95,20 @@ module memory_ctrl_ez80 (
     // Select only between slots; never change a row/column halfway through a slot.
     always @(posedge clk_108m or negedge bus_reset_n) begin
         if (!bus_reset_n) begin
-            ext_meta<=0; ext_sync<=0; ext_pending<=0;
+            ext_meta<=0; ext_sync<=0; ext_capture_armed<=0; ext_pending<=0;
             ext_selected<=0; ext_running<=0; ext_done<=0; ext_dout<=8'hff;
             ext_addr_latched<=0; ext_data_latched<=0; ext_write_latched<=0;
         end else begin
-            ext_meta<=ext_req; ext_sync<=ext_meta;
+            ext_meta<=ext_req_sample; ext_sync<=ext_meta;
             if (!ext_sync && ext_done) ext_done<=0;
-            if (ext_sync && !ext_pending && !ext_selected && !ext_done) begin
-                ext_addr_latched<=ext_addr; ext_data_latched<=ext_din;
-                ext_write_latched<=ext_write; ext_pending<=1;
+            ext_capture_armed <= ext_sync && !ext_pending && !ext_selected && !ext_done && !ext_capture_armed;
+            if (ext_capture_armed) begin
+                // Publish the held payload and pending together on a rising edge.
+                // The controller now has a full cycle from this register.
+                ext_addr_latched<=ext_addr_sample;
+                ext_data_latched<=ext_data_sample;
+                ext_write_latched<=ext_write_sample;
+                ext_pending<=1;
             end
             if (ext_pending && ff_sdr_seq==3'b111 && RstSeq[4:3]==2'b11) begin
                 ext_pending<=0; ext_selected<=1;
@@ -108,6 +120,20 @@ module memory_ctrl_ez80 (
                 ext_dout<=RamDbi; ext_done<=1;
                 ext_running<=0; ext_selected<=0;
             end
+        end
+    end
+
+    // R11.4: no arm decode or capture enable on the falling-edge samples.
+    // Only the rising-edge transaction register consumes a qualified sample.
+    // The sender holds payload throughout synchronization and until acknowledgement.
+    always @(negedge clk_108m or negedge bus_reset_n) begin
+        if (!bus_reset_n) begin
+            ext_req_sample<=0;
+            ext_addr_sample<=0; ext_data_sample<=0; ext_write_sample<=0;
+        end else begin
+            ext_req_sample<=ext_req;
+            ext_addr_sample<=ext_addr; ext_data_sample<=ext_din;
+            ext_write_sample<=ext_write;
         end
     end
 

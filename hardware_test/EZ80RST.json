@@ -1,0 +1,1085 @@
+{
+  "name": "EZ80RST",
+  "version": "P2",
+  "bytes": 6406,
+  "sha256": "d1213baa35013d45f90a2d3444dbfa5ef009538019d0145ff491ed53008e58b2",
+  "major_stage": 6,
+  "required_features": 33280,
+  "feature_bit": 9,
+  "diagnostic_hooks_required": true,
+  "labels": {
+    "START": 256,
+    "STAGE_A": 1382,
+    "RETURN_0": 1509,
+    "OK_1272": 1554,
+    "OK_1317": 1599,
+    "OK_1362": 1644,
+    "OK_1407": 1689,
+    "OK_1452": 1734,
+    "OK_1497": 1779,
+    "OK_1542": 1824,
+    "OK_1592": 1874,
+    "OK_1637": 1919,
+    "OK_1682": 1964,
+    "STAGE_B": 1964,
+    "RETURN_1": 2091,
+    "OK_1854": 2136,
+    "OK_1899": 2181,
+    "OK_1944": 2226,
+    "OK_1989": 2271,
+    "OK_2034": 2316,
+    "OK_2079": 2361,
+    "OK_2124": 2406,
+    "OK_2174": 2456,
+    "OK_2219": 2501,
+    "OK_2264": 2546,
+    "STAGE_C": 2546,
+    "RETURN_2": 2673,
+    "OK_2436": 2718,
+    "OK_2481": 2763,
+    "OK_2526": 2808,
+    "OK_2571": 2853,
+    "OK_2616": 2898,
+    "OK_2661": 2943,
+    "OK_2706": 2988,
+    "OK_2756": 3038,
+    "OK_2801": 3083,
+    "OK_2846": 3128,
+    "STAGE_D": 3128,
+    "RETURN_3": 3255,
+    "OK_3018": 3300,
+    "OK_3063": 3345,
+    "OK_3108": 3390,
+    "OK_3153": 3435,
+    "OK_3198": 3480,
+    "OK_3243": 3525,
+    "OK_3288": 3570,
+    "OK_3338": 3620,
+    "OK_3383": 3665,
+    "OK_3428": 3710,
+    "STAGE_E": 3710,
+    "RETURN_4": 3837,
+    "OK_3600": 3882,
+    "OK_3645": 3927,
+    "OK_3690": 3972,
+    "OK_3735": 4017,
+    "OK_3780": 4062,
+    "OK_3825": 4107,
+    "OK_3870": 4152,
+    "OK_3920": 4202,
+    "OK_3965": 4247,
+    "OK_4010": 4292,
+    "STAGE_F": 4292,
+    "RETURN_5": 4419,
+    "OK_4182": 4464,
+    "OK_4227": 4509,
+    "OK_4272": 4554,
+    "OK_4317": 4599,
+    "OK_4362": 4644,
+    "OK_4407": 4689,
+    "OK_4452": 4734,
+    "OK_4502": 4784,
+    "OK_4547": 4829,
+    "OK_4592": 4874,
+    "STAGE_G": 4874,
+    "RETURN_6": 5001,
+    "OK_4764": 5046,
+    "OK_4809": 5091,
+    "OK_4854": 5136,
+    "OK_4899": 5181,
+    "OK_4944": 5226,
+    "OK_4989": 5271,
+    "OK_5034": 5316,
+    "OK_5084": 5366,
+    "OK_5129": 5411,
+    "OK_5174": 5456,
+    "STAGE_H": 5456,
+    "RETURN_7": 5583,
+    "OK_5346": 5628,
+    "OK_5391": 5673,
+    "OK_5436": 5718,
+    "OK_5481": 5763,
+    "OK_5526": 5808,
+    "OK_5571": 5853,
+    "OK_5616": 5898,
+    "OK_5666": 5948,
+    "OK_5711": 5993,
+    "OK_5756": 6038,
+    "CHECK_OK_5796": 6068,
+    "CHECK_OK_5826": 6098,
+    "READY": 6109,
+    "NOT_READY": 6120,
+    "MSG_READY": 6131,
+    "MSG_NOT_READY": 6162,
+    "Z80_SUB": 6218,
+    "SUBROUTINE": 6225,
+    "FAIL": 6226,
+    "UNSUPPORTED": 6237,
+    "FINISH": 6245,
+    "NO_CLEANUP": 6264,
+    "PRINT_EXIT": 6281,
+    "FORMAT_DIAG": 6292,
+    "FORMAT_REG": 6323,
+    "FORMAT_VALUES": 6341,
+    "HEX_BYTE": 6360,
+    "HEX_NIBBLE": 6373,
+    "HEX_STORE": 6384,
+    "MSG_PASS": 6387,
+    "MSG_UNSUPPORTED": 6406,
+    "MSG_FAIL": 6432,
+    "FAIL_STAGE": 6455,
+    "HEX_ADDR": 6463,
+    "HEX_EXP": 6474,
+    "HEX_ACT": 6481,
+    "STATUS": 6486,
+    "GUARD": 6487,
+    "SP_SNAPSHOT": 6488,
+    "SP_SNAPSHOT1": 6489,
+    "SP_SNAPSHOT2": 6490,
+    "SPS_SNAPSHOT": 6491,
+    "SPS_SNAPSHOT1": 6492,
+    "SAVED_SPS": 6493,
+    "SAVED_SPS1": 6494,
+    "DIAG_MEM": 6495,
+    "DIAG_ADDR0": 6496,
+    "DIAG_ADDR1": 6497,
+    "DIAG_ADDR2": 6498,
+    "DIAG_EXP": 6499,
+    "DIAG_ACT": 6500,
+    "SAVED_AF": 6501,
+    "PAIR_SNAPSHOT": 6503,
+    "PAIR_SNAPSHOT1": 6504,
+    "LOCAL_PAIR": 6505,
+    "LOCAL_PAIR1": 6506,
+    "LOCAL_PAIR2": 6507,
+    "FLAGS": 6508,
+    "SNAP": 6510,
+    "CAP_LO": 6519,
+    "CAP_HI": 6520,
+    "CLEANUP": 6521,
+    "Z80_RESULT": 6522,
+    "SAVED_I16": 6523,
+    "SHORT_DATA": 6525,
+    "SHORT_STACK": 6533,
+    "SHORT_TOP": 6661
+  },
+  "cases": [
+    {
+      "index": 0,
+      "description": "native ADL RST 00, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          0
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_0",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        199,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        229,
+        5
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        199,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 1,
+      "description": "native ADL RST 08, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          8
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_1",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "08",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        207,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        43,
+        8
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        207,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 2,
+      "description": "native ADL RST 10, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          16
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_2",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "10",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        215,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        113,
+        10
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        215,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 3,
+      "description": "native ADL RST 18, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          24
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_3",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "18",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        223,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        183,
+        12
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        223,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 4,
+      "description": "native ADL RST 20, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          32
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_4",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "20",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        231,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        253,
+        14
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        231,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 5,
+      "description": "native ADL RST 28, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          40
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_5",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "28",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        239,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        67,
+        17
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        239,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 6,
+      "description": "native ADL RST 30, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          48
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_6",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "30",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        247,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        137,
+        19
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        247,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 7,
+      "description": "native ADL RST 38, vector bank00, 3-byte SPL frame",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655365
+      },
+      "checks": [
+        [
+          197632,
+          56
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          5
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_7",
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "38",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "05",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        255,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        207,
+        21
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        255,
+        50,
+        0,
+        4,
+        3,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "case_count": 8,
+  "default": "READY",
+  "R10_RUN": "NOT READY",
+  "future_feature_functionally_verified_on_RTL": false,
+  "ABI": "doc/TEST_ABI_P2.md"
+}

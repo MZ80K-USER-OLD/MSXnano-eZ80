@@ -1,0 +1,6 @@
+{
+  "fresh_runs": 4,
+  "branch_operations_per_run": 448,
+  "all_16_combinations_of_SZPC": true,
+  "original_T80_cycle_comparison": true
+}

@@ -1,0 +1,157 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -101,6 +101,7 @@
+         BUSAK_n     : out std_logic;
+         A           : out std_logic_vector(15 downto 0);
+         A_BANK : out std_logic_vector(7 downto 0);
++        MBASE_State : out std_logic_vector(7 downto 0);
+         Extension_State : out std_logic;
+ 		update_addr	: out std_logic;
+         DInst       : in std_logic_vector(7 downto 0);
+@@ -134,6 +135,7 @@
+ 
+     -- R1: PC and SPS stay 16-bit. No ADL execution/interrupts in this stage.
+     type upper_array is array(0 to 7) of std_logic_vector(7 downto 0);
++    signal MBASE : std_logic_vector(7 downto 0);
+     signal Upper : upper_array;
+     signal Upper_Port_Events : std_logic_vector(7 downto 0);
+     signal Upper_Port_WE : std_logic;
+@@ -373,6 +375,7 @@
+     end function;begin
+     A <= Address_Reg;
+     A_BANK <= Address_Bank_Reg;
++    MBASE_State <= MBASE;
+     DO <= Data_Out_Reg;
+     Write <= Write_Decode;
+     -- The previous instruction's delayed flag write completes at fetch T1.
+@@ -635,7 +638,7 @@
+             SPL <= (others=>'1');
+             Extensions_Enabled<='0'; Unlock_Armed<='0';
+             Width_Pending<='0'; Width_Code<=x"40"; Data_Long<='0'; Stream_Long<='0';
+-            Address_Bank_Reg<=x"00"; Index_Bank<=x"00";
++            Address_Bank_Reg<=x"00"; Index_Bank<=x"00";MBASE<=x"00";
+             PC <= (others => '0');  -- Program Counter
+             Address_Reg <= (others => '0');
+ 			update_addr <= '0';
+@@ -680,7 +683,9 @@
+             MCycles <= MCycles_d;
+             if MCycle="001" and TState=2 and Wait_n='1' then Address_Bank_Reg<=x"00";
+             elsif T_Res='1' then
++                -- R12: short data and Z80 instruction addresses use MBASE.
+                 Address_Bank_Reg<=x"00";
++                if Extensions_Enabled='1' then Address_Bank_Reg<=MBASE;end if;
+                 -- Instruction stream stays PC24 even for Address_Reg short data-width prefix.
+                 if ADL_Mode='1' and (Set_Addr_To=aNone or (Set_Addr_To=aXY and NextIs_XY_Fetch='1')) then
+                     Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));
+@@ -707,7 +712,7 @@
+             if T_Res='1' and IORQ_i='1' and Write_Decode='1' then
+                 if DATA_EXTENDED and Address_Reg=x"E7E7" then
+                     if Data_Out_Reg=x"00" then
+-                        if ADL_Mode='0' then Extensions_Enabled<='0';end if;Unlock_Armed<='0';
++                        if ADL_Mode='0' then Extensions_Enabled<='0';MBASE<=x"00";end if;Unlock_Armed<='0';
+                     elsif Data_Out_Reg=x"A5" then Unlock_Armed<='1';
+                     elsif Data_Out_Reg=x"5A" and Unlock_Armed='1' then Extensions_Enabled<='1';Unlock_Armed<='0';
+                     else Unlock_Armed<='0';end if;
+@@ -806,7 +811,7 @@
+                             if Data_Long='1' then
+                                 PC<=unsigned(Upper(to_integer(unsigned(RegAddrC)))) & unsigned(RegBusC);
+                                 Address_Bank_Reg<=Upper(to_integer(unsigned(RegAddrC)));ADL_Mode<='1';
+-                            else PC<=resize(unsigned(RegBusC),24);Address_Bank_Reg<=x"00";ADL_Mode<='0';end if;
++                            else PC<=resize(unsigned(RegBusC),24);Address_Bank_Reg<=MBASE;ADL_Mode<='0';end if;
+                         else PC <= resize(unsigned(RegBusC),24);end if;
+                     elsif Call = '1' or RstP = '1' then
+                         Address_Reg <= TmpAddr;
+@@ -1015,7 +1020,7 @@
+                     PC<=(unsigned(DI_Reg) & unsigned(TmpAddr));Address_Reg<=TmpAddr;Address_Bank_Reg<=DI_Reg;ADL_Mode<='1';
+                 else
+                     PC<=(to_unsigned(0,8) & unsigned(DI_Reg) & unsigned(TmpAddr(7 downto 0)));
+-                    Address_Reg<=DI_Reg & TmpAddr(7 downto 0);Address_Bank_Reg<=x"00";ADL_Mode<='0';
++                    Address_Reg<=DI_Reg & TmpAddr(7 downto 0);Address_Bank_Reg<=MBASE;ADL_Mode<='0';
+                 end if;
+             end if;
+             -- The displacement is stable after the external read's falling T3 edge.
+@@ -1238,6 +1243,13 @@
+                 end if;
+             end if;
+ 
++            -- LD MB,A / LD A,MB are ADL-only; Z80 mode is a NOP.
++            if Extensions_Enabled='1' and ADL_Mode='1' and ISet="10" and
++                MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' then
++                if IR=x"6D" then MBASE<=ACC;
++                elsif IR=x"6E" then ACC<=MBASE;end if;
++            end if;
++
+         end if;
+ 
+         end if;
+--- a/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -89,6 +89,7 @@
+         BUSAK_n     : out std_logic;
+         A           : out std_logic_vector(15 downto 0);
+         A_BANK : out std_logic_vector(7 downto 0);
++        MBASE_State : out std_logic_vector(7 downto 0);
+         Extension_State : out std_logic;
+         update_addr	: out std_logic;
+         DInst       : in std_logic_vector(7 downto 0);
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -2248,6 +2248,14 @@
+                     MCycles<="001";TStates<="101";NoRead<='1';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
+                     Inc_PC<='0';IncDec_16<="0000";Set_Addr_To<=aNone;Set_BusA_To<="0100";Special_LD<="000";
+                 end if;
++                -- R12: replace undocumented ED aliases while extensions are enabled.
++                -- Actual transfer is ADL-only and preserves all flags.
++                if Ext_Active='1' and Mode=0 and ISet="10" and (IR=x"6D" or IR=x"6E") and IntCycle='0' and NMICycle='0' then
++                    MCycles<="001";TStates<="101";NoRead<='1';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
++                    Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Set_Addr_To<=aNone;LDZ<='0';LDW<='0';
++                    Jump<='0';JumpXY<='0';Call<='0';RstP<='0';I_RETN<='0';IMode<="11";
++                    SetDI<='0';SetEI<='0';Halt<='0';Special_LD<="000";Arith16<='0';
++                end if;
+                 -- Mode-bearing RETI.L/RETN.L frames remain stage8 work.
+                 if Ext_Active='1' and Has_Width='1' and ISet="10" and (IR=x"45" or IR=x"4D") and IntCycle='0' and NMICycle='0' then
+                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -110,6 +110,7 @@
+     signal INT_Input_n, NMI_Input_n, Vector_Window : std_logic;
+     signal Bank_i : std_logic_vector(7 downto 0);
+     signal Extension_State_i : std_logic;
++    signal MBASE_i : std_logic_vector(7 downto 0);
+     signal CEN          : std_logic;
+     signal Reset_s      : std_logic;
+     signal IntCycle_n   : std_logic;
+@@ -203,7 +204,7 @@
+     HALT_n<=HALT_i;
+     INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
+     NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 else NMI_n;
+-    process(Diag_Select, Extension_State_i)
++    process(Diag_Select, Extension_State_i, MBASE_i)
+     begin
+         Diag_Read<="1110000" & Extension_State_i;
+         if Extension_State_i='1' then
+@@ -212,11 +213,12 @@
+             when x"C1"=>Diag_Read<=x"5A";
+             when x"C2"=>Diag_Read<=x"02";
+             when x"C3"=>Diag_Read<=x"A7";
+-            when x"C4"=>Diag_Read<=x"87";
++            when x"C4"=>Diag_Read<=x"97";
+             when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"82";else Diag_Read<=x"02";end if;
+-            when x"C6"=>Diag_Read<=x"78";
++            when x"C6"=>Diag_Read<=x"68";
+             when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"7D";else Diag_Read<=x"FD";end if;
+-            when x"C8"|x"C9"=>Diag_Read<=x"00";
++            when x"C8"=>Diag_Read<=MBASE_i;
++            when x"C9"=>Diag_Read<=x"00";
+             when others=>null;
+             end case;
+         end if;
+@@ -288,7 +290,7 @@
+             BUSRQ_n => BUSRQ_n,
+             BUSAK_n => BUSAK_n_i,
+             CLK_n => CLK_n,
+-            A => A_i, A_BANK=>Bank_i, Extension_State=>Extension_State_i,
++            A => A_i, A_BANK=>Bank_i, Extension_State=>Extension_State_i, MBASE_State=>MBASE_i,
+ 			update_addr => update_addr,
+             DInst => DI,
+             DI => DI_Reg,

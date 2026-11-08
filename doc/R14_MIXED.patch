@@ -1,0 +1,263 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -142,9 +142,11 @@
+     signal Frame_TS : unsigned(2 downto 0);
+     signal Frame_Count : integer range 0 to 3;
+     signal Frame_Mode_Bit, Frame_IM2, Frame_RetN : std_logic;
++    signal Frame_Calling, Frame_Is_Call, Frame_SPS, Frame_Take, Frame_Target_Last : std_logic;
++    signal Frame_Stack_Short, Frame_Stack_Down : std_logic;
++    signal Frame_Stack_Value, Frame_Stack_Delta, Frame_Stack_Next : unsigned(23 downto 0);
++    signal Frame_Stack_Bank : std_logic_vector(7 downto 0);
+     signal Frame_Active, Frame_Ready, Frame_Start, Frame_Unsupported, Frame_Entry, Frame_Return, Frame_End, Frame_Returning, Frame_IEF, CPU_Run : std_logic;
+-    signal Frame_Address : std_logic_vector(23 downto 0);
+-    signal Frame_Data : std_logic_vector(7 downto 0);
+     signal NoRead_Base : std_logic;
+     signal MBASE : std_logic_vector(7 downto 0);
+     signal Upper : upper_array;
+@@ -386,26 +388,38 @@
+     end function;begin
+     Frame_Active<='0' when Frame_State=frame_idle else '1';
+     Frame_Entry<='1' when MADL='1' and (IntCycle='1' or NMICycle='1') else '0';
+-    Frame_Return<='1' when MADL='1' and ISet="10" and Instruction_Has_Width='1' and Data_Long='1' and
+-        (IR=x"45" or IR=x"4D") and IntCycle='0' and NMICycle='0' else '0';
++    Frame_Take<='1' when Write_Class(0)='0' else Branch_Condition;
++    Frame_Calling<='1' when Mode=0 and ISet="00" and Instruction_Has_Width='1' and Data_Long=ADL_Mode and
++        Write_Class(3 downto 1)="101" and IntCycle='0' and NMICycle='0' else '0';
++    Frame_Return<='1' when Instruction_Has_Width='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
++        ((MADL='1' and ISet="10" and (IR=x"45" or IR=x"4D")) or
++         (Mode=0 and ISet="00" and Frame_Take='1' and Write_Class(3 downto 1)="110")) else '0';
++    Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0') or Frame_Count=2 else '0';
+     -- MADL RST suffix/native frame variants are not enabled in this stage.
+     Frame_Unsupported<='1' when MADL='1' and ISet="00" and IntCycle='0' and NMICycle='0' and
+-        IR(7 downto 6)="11" and IR(2 downto 0)="111" else '0';
++        Write_Class(3 downto 0)=x"E" else '0';
+     Frame_Ready<='1' when Extensions_Enabled='1' and Frame_State=frame_idle and MCycle="001" and TState=4 and
+-        (Frame_Entry='1' or Frame_Return='1' or Frame_Unsupported='1') else '0';
++        (Frame_Entry='1' or Frame_Return='1' or Frame_Calling='1' or Frame_Unsupported='1') else '0';
+     Frame_Start<=Frame_Ready and not BusAck;
+     CPU_Run<=CEN and not Frame_Active and not Frame_Start;
+     Frame_Returning<='1' when Frame_State=frame_mode or Frame_State=frame_long or Frame_State=frame_upper or Frame_State=frame_short else '0';
+     Frame_End<='1' when Frame_TS=3 and
+-        ((Frame_State=frame_push and Frame_Count=0 and Frame_IM2='0') or
+-         (Frame_State=frame_vector and Frame_Count=2) or
++        ((Frame_State=frame_push and Frame_Count=0 and Frame_SPS='0' and Frame_IM2='0') or
++         (Frame_State=frame_vector and ((Frame_Is_Call='0' and Frame_Count=2) or (Frame_Is_Call='1' and Frame_Target_Last='1' and Frame_Take='0'))) or
+          (Frame_State=frame_long and ((Frame_Mode_Bit='0' and Frame_Count=1) or Frame_Count=2)) or
+          (Frame_State=frame_short and Frame_Count=1)) else '0';
+-    Frame_IEF<=IntE_FF2 when Frame_Returning='1' and Frame_RetN='1' else IntE_FF1 when Frame_Returning='1' else '0';
+-    Frame_Address<=std_logic_vector(IRQ_Vector) when Frame_State=frame_vector else
+-        MBASE & std_logic_vector(SP) when Frame_State=frame_short else std_logic_vector(SPL);
+-    Frame_Data<=Ctrl_Return(23 downto 16) when Frame_Count=3 else Ctrl_Return(15 downto 8) when Frame_Count=2 else
+-        Ctrl_Return(7 downto 0) when Frame_Count=1 else "0000001" & Frame_Mode_Bit;
++    Frame_IEF<=IntE_FF2 when Frame_Returning='1' and Frame_RetN='1' else IntE_FF1 when Frame_Returning='1' or Frame_Is_Call='1' else '0';
++    -- One carry chain for both stack widths and both push/pop directions.
++    -- SPS wraps at 16 bits; its bank comes from MBASE, never from carry-out.
++    Frame_Stack_Short<='1' when Frame_State=frame_short or
++        (Frame_State=frame_push and Frame_SPS='1' and Frame_Count=2) or
++        (Frame_State=frame_vector and Frame_Is_Call='1' and Stream_Long='0') else '0';
++    Frame_Stack_Down<='1' when Frame_State=frame_push or
++        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' else '0';
++    Frame_Stack_Value<=resize(SP,24) when Frame_Stack_Short='1' else SPL;
++    Frame_Stack_Delta<=(others=>'1') when Frame_Stack_Down='1' else to_unsigned(1,24);
++    Frame_Stack_Next<=Frame_Stack_Value+Frame_Stack_Delta;
++    Frame_Stack_Bank<=MBASE when Frame_Stack_Short='1' else std_logic_vector(Frame_Stack_Next(23 downto 16));
+     -- R13.1: both engines drive the shared registered bus payload.
+     A<=Address_Reg;
+     A_BANK<=Address_Bank_Reg;
+@@ -662,7 +676,7 @@
+     process (RESET_n, CLK_n)
+     begin
+         if RESET_n = '0' then
+-            MADL<='0';Frame_State<=frame_idle;Frame_TS<=to_unsigned(1,3);Frame_Count<=0;
++            MADL<='0';Frame_Is_Call<='0';Frame_SPS<='0';Frame_State<=frame_idle;Frame_TS<=to_unsigned(1,3);Frame_Count<=0;
+             Frame_Mode_Bit<='0';Frame_IM2<='0';Frame_RetN<='0';
+             Mul_Left<=(others=>'0');Mul_Right<=(others=>'0');Mul_Product<=(others=>'0');
+             EA_Result<=(others=>'0');
+@@ -712,20 +726,26 @@
+ 
+             if CEN='1' and Frame_Start='1' then
+                 -- Finish the fetch/refresh phase before starting a memory T1.
+-                Frame_TS<=to_unsigned(4,3);Frame_Count<=0;Frame_RetN<='0';Frame_IM2<='0';
++                Frame_TS<=to_unsigned(4,3);Frame_Count<=0;Frame_RetN<='0';Frame_IM2<='0';Frame_Is_Call<='0';Frame_SPS<='0';
+                 if Frame_Unsupported='1' then Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);
++                elsif Frame_Calling='1' then
++                    -- Reuse the three-byte vector reader for CALL immediates.
++                    Frame_State<=frame_vector;Frame_Is_Call<='1';Frame_Mode_Bit<=ADL_Mode;Ctrl_Target<=(others=>'0');
++                    Address_Reg<=std_logic_vector(PC(15 downto 0));
++                    Address_Bank_Reg<=MBASE;if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));end if;
+                 elsif Frame_Entry='1' then
+                     Frame_State<=frame_push;Frame_Mode_Bit<=ADL_Mode;Ctrl_Return<=std_logic_vector(PC);
+                     if ADL_Mode='1' then Frame_Count<=3;else Frame_Count<=2;end if;
+-                    SPL<=SPL-1;
+-                    Address_Reg<=std_logic_vector(resize(SPL-1,16));Address_Bank_Reg<=std_logic_vector(resize(shift_right(SPL-1,16),8));
++                    SPL<=Frame_Stack_Next;
++                    Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                     if ADL_Mode='1' then Data_Out_Reg<=std_logic_vector(PC(23 downto 16));
+                     else Data_Out_Reg<=std_logic_vector(PC(15 downto 8));end if;
+                     if NMICycle='1' then Ctrl_Target<=x"000066";else Ctrl_Target<=x"000038";end if;
+                     IRQ_Vector<=unsigned(I_Upper) & unsigned(I) & unsigned(DI_Reg);
+                     if IntCycle='1' and IStatus="10" then Frame_IM2<='1';end if;
+                 else
+-                    Frame_State<=frame_mode;Frame_RetN<=not IR(3);Ctrl_Target<=(others=>'0');
++                    Frame_State<=frame_mode;Ctrl_Target<=(others=>'0');
++                    if ISet="10" then Frame_RetN<=not IR(3);end if;
+                     Address_Reg<=std_logic_vector(SPL(15 downto 0));Address_Bank_Reg<=std_logic_vector(SPL(23 downto 16));
+                 end if;
+             elsif CEN='1' and Frame_Active='1' then
+@@ -746,9 +766,19 @@
+                         Frame_TS<=to_unsigned(1,3);
+                         case Frame_State is
+                         when frame_push =>
+-                            if Frame_Count>0 then
+-                                Frame_Count<=Frame_Count-1;SPL<=SPL-1;
+-                                Address_Reg<=std_logic_vector(resize(SPL-1,16));Address_Bank_Reg<=std_logic_vector(resize(shift_right(SPL-1,16),8));
++                            if Frame_SPS='1' then
++                                if Frame_Count=2 then
++                                    Frame_Count<=1;SP<=Frame_Stack_Next(15 downto 0);Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
++                                    Data_Out_Reg<=Ctrl_Return(7 downto 0);
++                                else
++                                    Frame_SPS<='0';SPL<=Frame_Stack_Next;
++                                    Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
++                                    if Frame_Mode_Bit='1' then Frame_Count<=1;Data_Out_Reg<=Ctrl_Return(23 downto 16);
++                                    else Frame_Count<=0;Data_Out_Reg<=x"02";end if;
++                                end if;
++                            elsif Frame_Count>0 then
++                                Frame_Count<=Frame_Count-1;SPL<=Frame_Stack_Next;
++                                Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                                 if Frame_Count=3 then Data_Out_Reg<=Ctrl_Return(15 downto 8);
+                                 elsif Frame_Count=2 then Data_Out_Reg<=Ctrl_Return(7 downto 0);
+                                 else Data_Out_Reg<="0000001" & Frame_Mode_Bit;end if;
+@@ -758,8 +788,38 @@
+                             else
+                                 PC<=unsigned(Ctrl_Target);Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=Ctrl_Target(23 downto 16);
+                                 ADL_Mode<='1';Frame_State<=frame_idle;
++                                if Frame_Is_Call='1' then
++                                    ADL_Mode<=Stream_Long;
++                                    if Stream_Long='0' then PC(23 downto 16)<=(others=>'0');Address_Bank_Reg<=MBASE;end if;
++                                end if;
+                             end if;
+                         when frame_vector =>
++                            if Frame_Is_Call='1' then
++                                PC<=PC_Width(PC_Increment,ADL_Mode);
++                                if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;
++                                elsif Frame_Count=1 then Ctrl_Target(15 downto 8)<=DI_Reg;
++                                else Ctrl_Target(23 downto 16)<=DI_Reg;end if;
++                                if Frame_Target_Last='0' then
++                                    Frame_Count<=Frame_Count+1;
++                                    Address_Reg<=std_logic_vector(resize(PC_Increment,16));Address_Bank_Reg<=MBASE;
++                                    if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));end if;
++                                elsif Frame_Take='0' then
++                                    Frame_State<=frame_idle;
++                                    Address_Reg<=std_logic_vector(resize(PC_Increment,16));Address_Bank_Reg<=MBASE;
++                                    if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));end if;
++                                else
++                                    Ctrl_Return<=std_logic_vector(PC_Width(PC_Increment,ADL_Mode));Frame_State<=frame_push;
++                                    if Stream_Long='0' then
++                                        Frame_SPS<='1';Frame_Count<=2;SP<=Frame_Stack_Next(15 downto 0);
++                                        Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
++                                        Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,8),8));
++                                    else
++                                        SPL<=Frame_Stack_Next;Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
++                                        if Frame_Mode_Bit='1' then Frame_Count<=3;Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));
++                                        else Frame_Count<=2;Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,8),8));end if;
++                                    end if;
++                                end if;
++                            else
+                             if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;
+                             elsif Frame_Count=1 then Ctrl_Target(15 downto 8)<=DI_Reg;
+                             else
+@@ -770,22 +830,23 @@
+                                 Frame_Count<=Frame_Count+1;IRQ_Vector<=IRQ_Vector+1;
+                                 Address_Reg<=std_logic_vector(resize(IRQ_Vector+1,16));Address_Bank_Reg<=std_logic_vector(resize(shift_right(IRQ_Vector+1,16),8));
+                             end if;
++                            end if;
+                         when frame_mode =>
+                             if DI_Reg=x"02" or DI_Reg=x"03" then
+-                                Frame_Mode_Bit<=DI_Reg(0);SPL<=SPL+1;Frame_Count<=0;
++                                Frame_Mode_Bit<=DI_Reg(0);SPL<=Frame_Stack_Next;Frame_Count<=0;
+                                 if Stream_Long='1' or DI_Reg(0)='1' then
+-                                    Address_Reg<=std_logic_vector(resize(SPL+1,16));Address_Bank_Reg<=std_logic_vector(resize(shift_right(SPL+1,16),8));
++                                    Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                                 else Address_Reg<=std_logic_vector(SP);Address_Bank_Reg<=MBASE;end if;
+                                 if Stream_Long='1' then Frame_State<=frame_long;
+                                 elsif DI_Reg(0)='1' then Frame_State<=frame_upper;
+                                 else Frame_State<=frame_short;end if;
+                             else Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);end if;
+                         when frame_upper =>
+-                            Ctrl_Target(23 downto 16)<=DI_Reg;SPL<=SPL+1;Frame_State<=frame_short;Frame_Count<=0;
++                            Ctrl_Target(23 downto 16)<=DI_Reg;SPL<=Frame_Stack_Next;Frame_State<=frame_short;Frame_Count<=0;
+                             Address_Reg<=std_logic_vector(SP);Address_Bank_Reg<=MBASE;
+                         when frame_long =>
+-                            SPL<=SPL+1;
+-                            Address_Reg<=std_logic_vector(resize(SPL+1,16));Address_Bank_Reg<=std_logic_vector(resize(shift_right(SPL+1,16),8));
++                            SPL<=Frame_Stack_Next;
++                            Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                             if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;Frame_Count<=1;
+                             elsif Frame_Count=1 then
+                                 Ctrl_Target(15 downto 8)<=DI_Reg;
+@@ -799,8 +860,8 @@
+                                 ADL_Mode<='1';Frame_State<=frame_idle;
+                             end if;
+                         when frame_short =>
+-                            SP<=SP+1;
+-                            Address_Reg<=std_logic_vector(SP+1);Address_Bank_Reg<=MBASE;
++                            SP<=Frame_Stack_Next(15 downto 0);
++                            Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
+                             if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;Frame_Count<=1;
+                             else
+                                 PC<=unsigned(Ctrl_Target(23 downto 16)) & unsigned(DI_Reg) & unsigned(Ctrl_Target(7 downto 0));
+@@ -1659,7 +1720,7 @@
+             BusReq_s <= not BUSRQ_n;
+             INT_s <= not INT_n;
+ 
+-            if ADL_Mode='1' or MADL='1' then
++            if ADL_Mode='1' or MADL='1' or Frame_Active='1' then
+                 if NMI_n='0' and OldNMI_n='1' then NMI_s<='1';
+                 elsif NMI_Accept='1' then NMI_s<='0';end if;
+             else
+@@ -1700,7 +1761,7 @@
+                     Auto_Wait_t1<='0';Auto_Wait_t2<='0';No_BTR<='0';
+                     if Frame_Returning='1' and Frame_RetN='1' then IntE_FF1<=IntE_FF2;end if;
+                     if NMI_s='1' then NMICycle<='1';IntE_FF1<='0';IntE_FF2<=Frame_IEF;
+-                    elsif Frame_Returning='1' and Frame_IEF='1' and INT_s='1' and (IStatus="01" or IStatus="10") then
++                    elsif (Frame_Returning='1' or Frame_Is_Call='1') and Frame_IEF='1' and INT_s='1' and (IStatus="01" or IStatus="10") then
+                         IntCycle<='1';IntE_FF1<='0';IntE_FF2<='0';
+                     end if;
+                 end if;
+@@ -1768,7 +1829,7 @@
+                             NMICycle <= '0';
+                             if NMI_s = '1' and Prefix = "00" and Width_Pending='0' then
+                                 NMICycle <= '1';
+-                                if ADL_Mode='1' or MADL='1' then IntE_FF2<=Effective_IEF;end if;
++                                if ADL_Mode='1' or MADL='1' or Frame_Active='1' then IntE_FF2<=Effective_IEF;end if;
+                                 IntE_FF1 <= '0';
+                             elsif ((ADL_Mode='0' and MADL='0') or IStatus="01" or IStatus="10") and (Effective_IEF = '1' and INT_s = '1') and Prefix = "00" and Width_Pending='0' and SetEI = '0' then
+                                 IntCycle <= '1';
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -2225,6 +2225,11 @@
+                      (IR(2 downto 0)="100" or IR(2 downto 0)="000" or IR(2 downto 0)="111"))) then
+                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;
+                     Jump<='0';Call<='0';RstP<='0';IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
++                    if Mode=0 and IntCycle='0' and NMICycle='0' and
++                        (((IR=x"CD" or IR(2 downto 0)="100") and Data_Long=ADL_Mode) or
++                         ((IR=x"C9" or IR(2 downto 0)="000") and Data_Long='1')) then
++                        Halt<='0';Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';
++                    end if;
+                 end if;
+ 
+                 -- R11 native ADL interrupt frame. IRQ M1 remains a real IACK.
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -214,9 +214,9 @@
+             when x"C1"=>Diag_Read<=x"5A";
+             when x"C2"=>Diag_Read<=x"02";
+             when x"C3"=>Diag_Read<=x"A7";
+-            when x"C4"=>Diag_Read<=x"97";
++            when x"C4"=>Diag_Read<=x"9F";
+             when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"83";else Diag_Read<=x"03";end if;
+-            when x"C6"=>Diag_Read<=x"68";
++            when x"C6"=>Diag_Read<=x"60";
+             when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"7C";else Diag_Read<=x"FC";end if;
+             when x"C8"=>Diag_Read<=MBASE_i;
+             when x"C9"=>Diag_Read<="0000000" & MADL_i;

@@ -56,6 +56,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 package T80_eZ80_Pack is
+    function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
 
     component T80_eZ80
     generic(
@@ -88,6 +89,8 @@ package T80_eZ80_Pack is
         BUSAK_n     : out std_logic;
         A           : out std_logic_vector(15 downto 0);
         A_BANK : out std_logic_vector(7 downto 0);
+        MADL_State : out std_logic;
+        MBASE_State : out std_logic_vector(7 downto 0);
         Extension_State : out std_logic;
         update_addr	: out std_logic;
         DInst       : in std_logic_vector(7 downto 0);
@@ -135,7 +138,11 @@ package T80_eZ80_Pack is
     );
     port(
         IR          : in std_logic_vector(7 downto 0);
-                Ext_Active, Data_Long, Stream_Long : in std_logic;
+        Write_Class : in std_logic_vector(7 downto 0);
+                Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width : in std_logic;
+                Flow_Cond : out std_logic;
+                Branch_Condition : in std_logic;
+                Interrupt_Mode : in std_logic_vector(1 downto 0);
         ISet        : in std_logic_vector(1 downto 0);
         MCycle      : in std_logic_vector(2 downto 0);
         F           : in std_logic_vector(7 downto 0);
@@ -222,3 +229,39 @@ package T80_eZ80_Pack is
     end component;
 
 end;
+
+package body T80_eZ80_Pack is
+    -- R11.7: raw opcode classification, captured alongside every IR update.
+    -- Low nibble is the unprefixed class; high nibble is the ED class.
+    function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector is
+        variable c : std_logic_vector(7 downto 0) := x"00";
+    begin
+        if op=x"22" then c(3 downto 0):=x"1";
+        elsif op=x"2A" then c(3 downto 0):=x"2";
+        elsif op=x"32" then c(3 downto 0):=x"3";
+        elsif op=x"3A" then c(3 downto 0):=x"4";
+        elsif op(7 downto 6)="11" and op(3 downto 0)="0101" then c(3 downto 0):=x"5";
+        elsif op(7 downto 6)="11" and op(3 downto 0)="0001" then c(3 downto 0):=x"6";
+        elsif op=x"E3" then c(3 downto 0):=x"7";
+        elsif op(7 downto 6)="00" and op(3 downto 0)="1001" then c(3 downto 0):=x"8";
+        elsif op=x"C3" or (op(7 downto 6)="11" and op(2 downto 0)="010") then c(3 downto 0):=x"9";
+        elsif op=x"CD" then c(3 downto 0):=x"A";
+        elsif op(7 downto 6)="11" and op(2 downto 0)="100" then c(3 downto 0):=x"B";
+        elsif op=x"C9" then c(3 downto 0):=x"C";
+        elsif op(7 downto 6)="11" and op(2 downto 0)="000" then c(3 downto 0):=x"D";
+        elsif op(7 downto 6)="11" and op(2 downto 0)="111" then c(3 downto 0):=x"E";
+        end if;
+        if op(7 downto 6)="01" and op(2 downto 0)="011" then
+            if op(3)='0' then c(7 downto 4):=x"1";else c(7 downto 4):=x"2";end if;
+        elsif op(7 downto 6)="01" and op(2 downto 0)="010" then c(7 downto 4):=x"3";
+        elsif op(7 downto 6)="01" and op(3 downto 0)="1100" then c(7 downto 4):=x"4";
+        elsif op=x"65" or op=x"66" then c(7 downto 4):=x"6";
+        elsif op=x"02" or op=x"03" or op=x"12" or op=x"13" or op=x"22" or op=x"23" or
+              op=x"32" or op=x"33" or op=x"54" or op=x"55" then c(7 downto 4):=x"5";
+        elsif op=x"5D" or op=x"6D" or op=x"75" or op=x"7D" then c(7 downto 4):=x"7";
+        elsif op=x"45" or op=x"4D" then c(7 downto 4):=x"8";
+        elsif op=x"C7" or op=x"D7" then c(7 downto 4):=x"9";
+        end if;
+        return c;
+    end function;
+end package body;

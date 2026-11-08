@@ -1,0 +1,245 @@
+{
+  "name": "EZ80IM2",
+  "version": "P2",
+  "bytes": 2115,
+  "sha256": "65c1b9f86960f0c706274693b3e346f404d0d75926d88f0582b8cc83326b36eb",
+  "major_stage": 7,
+  "required_features": 32770,
+  "feature_bit": 1,
+  "diagnostic_hooks_required": true,
+  "labels": {
+    "START": 256,
+    "STAGE_A": 873,
+    "RETURN_0": 1135,
+    "OK_898": 1180,
+    "OK_943": 1225,
+    "OK_988": 1270,
+    "OK_1033": 1315,
+    "OK_1078": 1360,
+    "OK_1123": 1405,
+    "OK_1168": 1450,
+    "OK_1213": 1495,
+    "OK_1263": 1545,
+    "OK_1308": 1590,
+    "OK_1353": 1635,
+    "OK_1402": 1684,
+    "OK_1447": 1729,
+    "CHECK_OK_1500": 1772,
+    "CHECK_OK_1530": 1802,
+    "READY": 1813,
+    "NOT_READY": 1824,
+    "MSG_READY": 1835,
+    "MSG_NOT_READY": 1866,
+    "Z80_SUB": 1922,
+    "SUBROUTINE": 1929,
+    "FAIL": 1930,
+    "UNSUPPORTED": 1941,
+    "FINISH": 1949,
+    "NO_CLEANUP": 1973,
+    "PRINT_EXIT": 1990,
+    "FORMAT_DIAG": 2001,
+    "FORMAT_REG": 2032,
+    "FORMAT_VALUES": 2050,
+    "HEX_BYTE": 2069,
+    "HEX_NIBBLE": 2082,
+    "HEX_STORE": 2093,
+    "MSG_PASS": 2096,
+    "MSG_UNSUPPORTED": 2115,
+    "MSG_FAIL": 2141,
+    "FAIL_STAGE": 2164,
+    "HEX_ADDR": 2172,
+    "HEX_EXP": 2183,
+    "HEX_ACT": 2190,
+    "STATUS": 2195,
+    "GUARD": 2196,
+    "SP_SNAPSHOT": 2197,
+    "SP_SNAPSHOT1": 2198,
+    "SP_SNAPSHOT2": 2199,
+    "SPS_SNAPSHOT": 2200,
+    "SPS_SNAPSHOT1": 2201,
+    "SAVED_SPS": 2202,
+    "SAVED_SPS1": 2203,
+    "DIAG_MEM": 2204,
+    "DIAG_ADDR0": 2205,
+    "DIAG_ADDR1": 2206,
+    "DIAG_ADDR2": 2207,
+    "DIAG_EXP": 2208,
+    "DIAG_ACT": 2209,
+    "SAVED_AF": 2210,
+    "PAIR_SNAPSHOT": 2212,
+    "PAIR_SNAPSHOT1": 2213,
+    "LOCAL_PAIR": 2214,
+    "LOCAL_PAIR1": 2215,
+    "LOCAL_PAIR2": 2216,
+    "FLAGS": 2217,
+    "SNAP": 2219,
+    "CAP_LO": 2228,
+    "CAP_HI": 2229,
+    "CLEANUP": 2230,
+    "Z80_RESULT": 2231,
+    "SAVED_I16": 2232,
+    "SHORT_DATA": 2234,
+    "SHORT_STACK": 2242,
+    "SHORT_TOP": 2370
+  },
+  "cases": [
+    {
+      "index": 0,
+      "description": "EZ80IM2 native ADL variant=0, exact frame, EI delay/HALT or NMI IEF2",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655383
+      },
+      "checks": [
+        [
+          197633,
+          1
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          197632,
+          166
+        ],
+        [
+          327678,
+          23
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_0",
+      "resolved_checks": [
+        {
+          "address": "030401",
+          "expected": "01",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "030400",
+          "expected": "A6",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "17",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        255,
+        12,
+        0,
+        237,
+        199,
+        237,
+        94,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        62,
+        166,
+        243,
+        64,
+        195,
+        111,
+        4
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        33,
+        255,
+        12,
+        0,
+        237,
+        199,
+        237,
+        94,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        62,
+        166,
+        243,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "case_count": 1,
+  "default": "READY",
+  "R10_RUN": "NOT READY",
+  "future_feature_functionally_verified_on_RTL": false,
+  "ABI": "doc/TEST_ABI_P2.md"
+}

@@ -1,0 +1,28 @@
+COM stage A time=68250000
+COM stage B time=506330000
+COM stage C time=944410000
+IRQ entry case=          2 steps=          1
+COM stage D time=1540890000
+IRQ entry case=          3 steps=          1
+COM stage E time=2137370000
+COM stage F time=2545690000
+COM stage G time=2954010000
+IRQ entry case=          6 steps=          1
+COM stage H time=3436570000
+IRQ entry case=          7 steps=          3
+COM stage I time=3943770000
+IRQ entry case=          8 steps=          1
+COM stage J time=4431450000
+IRQ entry case=          9 steps=          1
+COM stage K time=4889370000
+COM stage L time=5431450000
+IRQ entry case=         11 steps=          1
+COM stage M time=6023130000
+COM stage N time=6461210000
+IRQ entry case=         13 steps=          1
+COM stage O time=7097050000
+IRQ entry case=         14 steps=          1
+EZ80B6 R6: PASS
+COVERAGE cases=15 IRQ=9 read_WAIT=145 write_WAIT=95 internal_WAIT=120
+PASS block_corners_r6 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=8816
+/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_block_corners_r6.sv:131: $finish called at 8014810000 (1ps)

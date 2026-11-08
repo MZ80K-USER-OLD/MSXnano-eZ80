@@ -35,13 +35,45 @@ module tb_mem_r4;
     wire [7:0] ext_di,wd,ramdata;
     // Hold INT active during high-address cycles. All such work must be DI.
     wire int_n = a[23:16]==0;
+    wire [15:0] cpu_msx_address;
+    wire cpu_extended;
+    always @(posedge c54 or negedge c54) begin
+        #0.001;
+        if(reset_n && (^a)!==1'bx) begin
+            if(cpu_extended !== (a[23:16]!=0)) $fatal(1,"registered MSX window mismatch %h",a);
+            if(cpu_msx_address !== (a[23:16]!=0 ? 16'h0000:a[15:0]))
+                $fatal(1,"registered MSX address isolation mismatch %h",a);
+        end
+    end
     G80A_eZ80 cpu(.RESET_n(reset_n),.CLK_n(c54),.clk_enable(divider==0),.clk_falling(divider==CPU_DIV/2),
         .WAIT_n(wait_n),.INT_n(int_n),.NMI_n(1'b1),.BUSRQ_n(1'b1),.DI(din),
-        .A24(a),.MREQ_n(mr),.IORQ_n(io),.RFSH_n(rf),.RD_n(rd),.WR_n(wr),.DO(dout),.M1_n(m1),.HALT_n(halt_n));
-    ez80_memory_bridge bridge(c54,reset_n,a,mr,io,rf,rd,wr,dout,
-        mm,ma,ext,wait_n,ext_di,req,rw,ra,wd,done,(FAULT==3 && ra==23'h67ffff && cpu.u0.ex_sp_long && cpu.u0.mcycle==2 ? ramdata^8'h01 : ramdata));
+        .A24(a),.A_MSX(cpu_msx_address),.Extended_Window(cpu_extended),.MREQ_n(mr),.IORQ_n(io),.RFSH_n(rf),.RD_n(rd),.WR_n(wr),.DO(dout),.M1_n(m1),.HALT_n(halt_n));
+    ez80_memory_bridge #(.REQUEST_BANK_QUALIFIED(1),.PREDECODED_MSX(1)) bridge(c54,reset_n,a,mr,io,rf,rd,wr,dout,
+        mm,ma,ext,wait_n,ext_di,req,rw,ra,wd,done,(FAULT==3 && ra==23'h67ffff && cpu.u0.ex_sp_long && cpu.u0.mcycle==2 ? ramdata^8'h01 : ramdata),cpu_msx_address,cpu_extended);
+    // Exercise the actual top-level secondary-slot register logic, with the
+    // expanded primary slot selected (the worst case for an unintended hit).
+    wire clk_54m=c54, clk_27m=c27, bus_reset_n=reset_n;
+    wire leak = ((FAULT==5 && !wr) || (FAULT==6 && !rd)) && a==24'h07ffff && rf;
+    wire [15:0] bus_addr = leak ? 16'hffff : ma;
+    wire bus_mreq_n = leak ? 1'b0 : mm;
+    wire bus_wr_n=wr, bus_rd_n=rd;
+    wire [7:0] cpu_dout=dout;
+    localparam SD_SLOT=3;
+    wire [3:0] pri_slot_num=4'b1000;
+    `include "secondary_slot_r11_4.vh"
+    always @(posedge c54) begin
+        #0.002;
+        if(reset_n && exp_slotx_req_r)
+            $fatal(1,"secondary slot read detected CPU=%h MSX=%h MREQ_n=%b",a,bus_addr,bus_mreq_n);
+        if(reset_n && exp_slotx_req_w)
+            $fatal(1,"secondary slot write detected CPU=%h MSX=%h MREQ_n=%b DATA=%h",a,bus_addr,bus_mreq_n,dout);
+    end
+    always @(posedge c27) begin
+        #0.002;
+        if(reset_n && exp_slotx!==8'h00)$fatal(1,"secondary slot register changed %h",exp_slotx);
+    end
     wire [22:0] fault_address = ra;
-    wire [7:0] fault_data = (FAULT==1 && ra==23'h6bfffe) || (FAULT==2 && ra==23'h67ffff && cpu.u0.ex_sp_long) ? wd^8'h01 : wd;
+    wire [7:0] fault_data = FAULT==4 && ra==23'h6bffff ? 8'hd6 : (FAULT==1 && ra==23'h6bfffe) || (FAULT==2 && ra==23'h67ffff && cpu.u0.ex_sp_long) ? wd^8'h01 : wd;
     wire cs,ras,cas,we,sc,cke;
     wire [31:0] dq;
     wire [10:0] sa;

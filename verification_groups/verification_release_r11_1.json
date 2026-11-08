@@ -1,0 +1,19 @@
+{
+  "changed_FPGA_files": [
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd",
+    "fpga/src/ez80_memory_bridge.v",
+    "fpga/tang20k.sdc",
+    "fpga/tn_vdp_v3_v9958/src/clockdiv.v",
+    "fpga/top_ez80.v"
+  ],
+  "replay_files": 8,
+  "project_references": 122,
+  "original_G80A_unchanged": true,
+  "CST_GPRJ_SDRAM_controller_unchanged": true,
+  "preloaded_COM_count": 20,
+  "preloaded_COM_unchanged": true,
+  "GOWIN_run": false
+}

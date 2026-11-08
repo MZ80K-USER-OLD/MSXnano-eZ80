@@ -1,0 +1,27 @@
+{
+  "changed_FPGA_files": [
+    "fpga/G80A_eZ80/t80_ez80.vhd"
+  ],
+  "changed_FPGA_file_count": 1,
+  "source_replay_files": 1,
+  "Upper_ordinary_shared_port": true,
+  "Upper_same_capture_edge": true,
+  "Upper_event_coverage_mask": 255,
+  "Upper_exchange_coverage": 1,
+  "CPU_baseline": "R11.9",
+  "SD_read_number_captured_with_select": true,
+  "SD_writes_unchanged": true,
+  "Write_Class_updated_at_all_IR_assignments": true,
+  "decoder_differential_combinations": 8388608,
+  "preloaded_COM_count": 20,
+  "preloaded_COM_unchanged": true,
+  "SDC_CST_GPRJ_top_bridge_wrapper_and_SDRAM_unchanged": true,
+  "separate_MSX16_and_extended24_buses_maintained": true,
+  "MSX_address_clamped_and_MREQ_blocked_for_extended_access": true,
+  "actual_secondary_slot_RTL_monitored": true,
+  "final_vector_and_isolation_decisions_captured_T1": true,
+  "project_references": 122,
+  "original_G80A_unchanged": true,
+  "GOWIN_run": false,
+  "hardware_run": false
+}

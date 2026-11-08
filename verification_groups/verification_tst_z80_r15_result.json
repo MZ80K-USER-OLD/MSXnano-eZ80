@@ -1,0 +1,57 @@
+{
+  "fresh_runs": 3,
+  "expected_failure_runs": 0,
+  "cases": [
+    {
+      "case": [
+        4,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS tst_r15 case=4 div=4 stress=0 checks=108 waits=0 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 242890000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS tst_r15 case=4 div=4 stress=1 checks=108 waits=1702 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 511630000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS tst_r15 case=4 div=16 stress=1 checks=108 waits=1462 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_r15.sv:52: $finish called at 1754910000 (1ps)\n"
+    }
+  ],
+  "A_values": 7,
+  "register_sources": 7,
+  "Z80_mode_with_extensions_enabled": true,
+  "immediate": true,
+  "memory": true,
+  "source_and_A_preserved": true,
+  "flags_SZHPNC_and_XY_checked": true,
+  "ED74_legacy_NEG": false,
+  "locked_ED64_legacy_NEG": false,
+  "all_four_width_suffixes": true,
+  "WAIT_and_CEN_pause": true,
+  "nonzero_MBASE": false,
+  "flat_24bit_RAM_not_board_mapping": true,
+  "sha256": {
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "fbcfd3507f34263e8ad2ae6c880a658bdde6005792f8a73d997b71beb816e743",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "43199aefd74c19e9e469a692ffe274d6a1c26c976767709f8c731858d03694ff",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "5aaee8651412c640579fd50c7b9f3279ff3a711850ff51c28d39d140c3b0a7a9",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "15e92d80e86b00f33e06aa33f4c4b81162fc145d9bd85ee450482c7fc0e57a84"
+  }
+}

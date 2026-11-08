@@ -1,0 +1,22 @@
+EZ80BN1 R15.2 START
+COM stage 1 time=574490000
+BN1 HL>HL 030000
+COM stage 2 time=1783770000
+BN2 IX+1>HL 030000
+COM stage 3 time=3095450000
+BN3 HL>IX+1 030000
+COM stage 4 time=4407450000
+BN4 IY-1>HL 02FFFF
+COM stage 5 time=5719450000
+BN5 HL>IY-1 02FFFF
+COM stage 6 time=7031450000
+BN6 IX+1>HL 040000
+COM stage 7 time=8343450000
+BN7 HL>IX+1 040000
+COM stage 8 time=9655130000
+BN8 IX+1>HL 020000
+COM stage 9 time=10966810000
+BN9 HL>IX+1 020000
+EZ80BN1 R15.2: PASS
+PASS boundary_diag_r15_2 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=13860
+/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_boundary_diag_r15_2.sv:127: $finish called at 12805530000 (1ps)

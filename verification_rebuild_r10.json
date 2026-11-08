@@ -1,0 +1,11 @@
+{
+  "reproduced_files": 6,
+  "sha256": {
+    "t80_ez80.vhd": "3d49549e612b04e5fd60c77d16c8f541ca771547f86379f09a714867fb232dc0",
+    "t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "t80_mcode_ez80.vhd": "3d5cb0d3e29a2cfcb6dab58b76f5935cb4f7f44d53b528f92467b4757baaea38",
+    "t80_pack_ez80.vhd": "c6c45f408dcf4b266d7fb77872298a5c212f66725b48ecb9b034a64a2fa6fef5",
+    "g80a_ez80.vhd": "976f07739d4fddef9b0f78b1da0149b7809a0078220f52abbbb134b2509947fe",
+    "t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  }
+}

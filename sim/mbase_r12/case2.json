@@ -1,0 +1,96 @@
+{
+  "case": 2,
+  "checks": [
+    {
+      "pc": 655374,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 1
+    },
+    {
+      "pc": 655386,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 1
+    },
+    {
+      "pc": 655388,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 1
+    },
+    {
+      "pc": 950784,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 0
+    },
+    {
+      "pc": 671744,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 1
+    },
+    {
+      "pc": 655373,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 1
+    },
+    {
+      "pc": 655385,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 1
+    },
+    {
+      "pc": 655387,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 1
+    },
+    {
+      "pc": 950789,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 0
+    },
+    {
+      "pc": 950799,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 0
+    },
+    {
+      "pc": 950801,
+      "acc": null,
+      "flags": null,
+      "mb": 14,
+      "adl": 0
+    }
+  ],
+  "labels": {
+    "after_adl": 655373,
+    "after_adl_im2": 655385,
+    "after_adl_nmi": 655387,
+    "after_im1": 950789,
+    "after_im2": 950799,
+    "after_nmi": 950801,
+    "halt0": 655372,
+    "halt1": 655384,
+    "halt2": 655386,
+    "halt3": 950788,
+    "halt4": 950798,
+    "halt5": 950800
+  }
+}

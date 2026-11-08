@@ -1,0 +1,26 @@
+{
+  "plan": {
+    "kind": "conditional_call",
+    "src": 1,
+    "dst": 0,
+    "mb": 14,
+    "madl": 0,
+    "cc": 1,
+    "take": 0
+  },
+  "checks": [
+    {
+      "pc": 688132,
+      "adl": 1,
+      "madl": 0,
+      "acc": 166,
+      "flags": 151,
+      "sp": 1,
+      "spl": 1,
+      "ief": 0,
+      "marker": 0
+    }
+  ],
+  "writes": [],
+  "entries": 1
+}

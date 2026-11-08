@@ -101,6 +101,8 @@ entity T80_eZ80 is
         BUSAK_n     : out std_logic;
         A           : out std_logic_vector(15 downto 0);
         A_BANK : out std_logic_vector(7 downto 0);
+        MADL_State : out std_logic;
+        MBASE_State : out std_logic_vector(7 downto 0);
         Extension_State : out std_logic;
 		update_addr	: out std_logic;
         DInst       : in std_logic_vector(7 downto 0);
@@ -112,10 +114,18 @@ entity T80_eZ80 is
         IntE        : out std_logic;
         Stop        : out std_logic
     );
+    -- GOWIN SUG550: avoid a clocked BSRAM ROM on the CPU control path.
+    attribute syn_romstyle : string;
+    attribute syn_romstyle of T80_eZ80 : entity is "logic";
 end T80_eZ80;
 
 architecture rtl of T80_eZ80 is
 
+    signal Address_Reg : std_logic_vector(15 downto 0);
+    signal Address_Bank_Reg, Data_Out_Reg : std_logic_vector(7 downto 0);
+    signal Write_Decode : std_logic;
+    signal Branch_Condition : std_logic;
+    signal Decode_Flags : std_logic_vector(7 downto 0);
     constant aNone  : std_logic_vector(2 downto 0) := "111";
     constant aBC    : std_logic_vector(2 downto 0) := "000";
     constant aDE    : std_logic_vector(2 downto 0) := "001";
@@ -126,8 +136,56 @@ architecture rtl of T80_eZ80 is
 
     -- R1: PC and SPS stay 16-bit. No ADL execution/interrupts in this stage.
     type upper_array is array(0 to 7) of std_logic_vector(7 downto 0);
+    signal MADL : std_logic;
+    type frame_state_type is (frame_idle, frame_push, frame_vector, frame_mode, frame_long, frame_upper, frame_short, frame_fault);
+    signal Frame_State : frame_state_type;
+    signal Frame_TS : unsigned(2 downto 0);
+    signal Frame_Count : integer range 0 to 3;
+    signal Frame_Mode_Bit, Frame_IM2, Frame_RetN : std_logic;
+    signal Frame_Calling, Frame_Is_Call, Frame_SPS, Frame_Take, Frame_Target_Last : std_logic;
+    signal Frame_Stack_Short, Frame_Stack_Down : std_logic;
+    signal Frame_Stack_Value, Frame_Stack_Delta, Frame_Stack_Next : unsigned(23 downto 0);
+    signal Frame_Stack_Bank : std_logic_vector(7 downto 0);
+    signal Frame_Active, Frame_Ready, Frame_Start, Frame_Unsupported, Frame_Entry, Frame_Return, Frame_End, Frame_Returning, Frame_IEF, CPU_Run : std_logic;
+    signal NoRead_Base : std_logic;
+    signal MBASE : std_logic_vector(7 downto 0);
     signal Upper : upper_array;
+    signal Upper_Port_Events : std_logic_vector(7 downto 0);
+    signal Upper_Port_WE : std_logic;
+    signal Upper_Port_Index : std_logic_vector(2 downto 0);
+    signal Upper_Port_Data, Upper_Inc_Byte, Upper_Immediate_Byte : std_logic_vector(7 downto 0);
+    function Upper_Mask(v : std_logic_vector; en : std_logic) return std_logic_vector is
+        variable result : std_logic_vector(v'range);
+    begin
+        result:=(others=>'0');if en='1' then result:=v;end if;return result;
+    end function;
+
     signal Wide_Stack, Wide_IncDec : std_logic;
+    signal Write_Class : std_logic_vector(7 downto 0);
+    signal Opcode_Class : std_logic_vector(15 downto 0);
+    function Classify_Opcode(op : std_logic_vector(7 downto 0)) return std_logic_vector is
+        variable c : std_logic_vector(15 downto 0) := (others=>'0');
+    begin
+        if op=x"E3" then c(0):='1';end if;
+        if op(7 downto 6)="11" and (op(3 downto 0)="0101" or op(3 downto 0)="0001") then c(1):='1';end if;
+        if op(7 downto 6)="00" and (op(3 downto 0)="0011" or op(3 downto 0)="1011") then c(2):='1';end if;
+        if op=x"32" or op=x"3A" then c(3):='1';end if;
+        if op=x"22" or op=x"2A" then c(4):='1';end if;
+        if op(7 downto 6)="01" and op(2 downto 0)="011" then c(5):='1';end if;
+        if op(7 downto 6)="00" and op(3 downto 0)="1001" then c(6):='1';end if;
+        if op(7 downto 6)="01" and op(2 downto 0)="010" then c(7):='1';end if;
+        if op(7 downto 5)="101" and op(2 downto 1)="00" then c(8):='1';end if;
+        if op(7 downto 6)="01" and op(3 downto 0)="1100" then c(9):='1';end if;
+        if op=x"02" or op=x"03" or op=x"12" or op=x"13" or op=x"22" or op=x"23" or
+           op=x"32" or op=x"33" or op=x"54" or op=x"55" or op=x"65" or op=x"66" then c(10):='1';end if;
+        if op=x"65" or op=x"66" then c(11):='1';end if;
+        if op=x"C3" or (op(7 downto 6)="11" and op(2 downto 0)="010") then c(12):='1';end if;
+        if op=x"CD" or op=x"C9" or (op(7 downto 6)="11" and
+           (op(2 downto 0)="100" or op(2 downto 0)="000" or op(2 downto 0)="111")) then c(13):='1';end if;
+        if op=x"45" or op=x"4D" then c(14):='1';end if;
+        if op=x"D7" then c(15):='1';end if;
+        return c;
+    end function;
     signal Stack_Upper_Index : std_logic_vector(2 downto 0);
     signal Pair_Absolute, Pair_Read, Pair_SP : std_logic;
     signal Pair_Number : std_logic_vector(1 downto 0);
@@ -135,7 +193,7 @@ architecture rtl of T80_eZ80 is
     signal Pair_Address_Last : integer range 3 to 4;
     signal Byte_Absolute, EX_SP_Long, EX_SP_Result_WE : std_logic;
     signal EX_SP_Index : std_logic_vector(2 downto 0);
-    signal EX_SP_Read : std_logic_vector(23 downto 0);
+    signal EX_SP_Read, EX_SP_Source : std_logic_vector(23 downto 0);
     signal EX_SP_Address : unsigned(23 downto 0);
     signal Arith_Long, Arith_Commit, Arith_Sub, Arith_Carry : std_logic;
     signal Arith_Target, Arith_Source : std_logic_vector(2 downto 0);
@@ -155,6 +213,16 @@ architecture rtl of T80_eZ80 is
     signal Mul_Product : unsigned(15 downto 0);
     attribute syn_dspstyle : string;
     attribute syn_dspstyle of Mul_Product : signal is "dsp";
+    signal EA_Active, PEA_Active, PEA_Long, LEA_Commit : std_logic;
+    signal EA_Source, EA_Target, RegAddrC_Base : std_logic_vector(2 downto 0);
+    signal EA_Result : std_logic_vector(23 downto 0);
+    signal ADL_Mode, JP_Immediate, JP_Commit : std_logic;
+    signal Ctrl_Stack, Ctrl_Call, Ctrl_Ret, Ctrl_Rst, Ctrl_Taken, Flow_Cond : std_logic;
+    signal Ctrl_Target, Ctrl_Return : std_logic_vector(23 downto 0);
+    signal IRQ_Long, IRQ_Return, IRQ_IM2, Effective_IEF, IV_Read_Commit : std_logic;
+    signal IRQ_Vector : unsigned(23 downto 0);
+    signal I_Upper : std_logic_vector(7 downto 0);
+    signal NMI_Accept : std_logic;
     signal SPL : unsigned(23 downto 0);
     signal Extensions_Enabled, Unlock_Armed : std_logic;
     signal Width_Pending, Data_Long, Stream_Long : std_logic;
@@ -168,7 +236,8 @@ architecture rtl of T80_eZ80 is
     signal Ap, Fp           : std_logic_vector(7 downto 0);
     signal I                : std_logic_vector(7 downto 0);
     signal R                : unsigned(7 downto 0);
-    signal SP, PC           : unsigned(15 downto 0);
+    signal SP : unsigned(15 downto 0);
+    signal PC, PC_Increment : unsigned(23 downto 0);
     signal RegDIH           : std_logic_vector(7 downto 0);
     signal RegDIL           : std_logic_vector(7 downto 0);
     signal RegBusA          : std_logic_vector(15 downto 0);
@@ -283,7 +352,94 @@ architecture rtl of T80_eZ80 is
     signal Halt             : std_logic;
     signal XYbit_undoc      : std_logic;
 
-begin
+    function decode_branch(
+                F : std_logic_vector(7 downto 0);
+                cc : bit_vector(2 downto 0)
+                ) return boolean is
+        begin
+                if Mode = 3 then
+                        case cc is
+                        when "000" => return F(7) = '0'; -- NZ
+                        when "001" => return F(7) = '1'; -- Z
+                        when "010" => return F(4) = '0'; -- NC
+                        when "011" => return F(4) = '1'; -- C
+                        when "100" => return false;
+                        when "101" => return false;
+                        when "110" => return false;
+                        when "111" => return false;
+                        end case;
+                else
+                        case cc is
+                        when "000" => return F(6) = '0'; -- NZ
+                        when "001" => return F(6) = '1'; -- Z
+                        when "010" => return F(0) = '0'; -- NC
+                        when "011" => return F(0) = '1'; -- C
+                        when "100" => return F(2) = '0'; -- PO
+                        when "101" => return F(2) = '1'; -- PE
+                        when "110" => return F(7) = '0'; -- P
+                        when "111" => return F(7) = '1'; -- M
+                        end case;
+                end if;
+        end;
+    function PC_Width(value : unsigned(23 downto 0); wide : std_logic) return unsigned is
+        variable v : unsigned(23 downto 0);
+    begin
+        v:=value;if wide='0' then v(23 downto 16):=(others=>'0');end if;return v;
+    end function;begin
+    Frame_Active<='0' when Frame_State=frame_idle else '1';
+    Frame_Entry<='1' when MADL='1' and (IntCycle='1' or NMICycle='1') else '0';
+    Frame_Take<='1' when Write_Class(0)='0' else Branch_Condition;
+    Frame_Calling<='1' when Mode=0 and ISet="00" and Instruction_Has_Width='1' and Data_Long=ADL_Mode and
+        Write_Class(3 downto 1)="101" and IntCycle='0' and NMICycle='0' else '0';
+    Frame_Return<='1' when Instruction_Has_Width='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
+        ((MADL='1' and ISet="10" and (IR=x"45" or IR=x"4D")) or
+         (Mode=0 and ISet="00" and Frame_Take='1' and Write_Class(3 downto 1)="110")) else '0';
+    Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0') or Frame_Count=2 else '0';
+    -- MADL RST suffix/native frame variants are not enabled in this stage.
+    Frame_Unsupported<='1' when MADL='1' and ISet="00" and IntCycle='0' and NMICycle='0' and
+        Write_Class(3 downto 0)=x"E" else '0';
+    Frame_Ready<='1' when Extensions_Enabled='1' and Frame_State=frame_idle and MCycle="001" and TState=4 and
+        (Frame_Entry='1' or Frame_Return='1' or Frame_Calling='1' or Frame_Unsupported='1') else '0';
+    Frame_Start<=Frame_Ready and not BusAck;
+    CPU_Run<=CEN and not Frame_Active and not Frame_Start;
+    Frame_Returning<='1' when Frame_State=frame_mode or Frame_State=frame_long or Frame_State=frame_upper or Frame_State=frame_short else '0';
+    Frame_End<='1' when Frame_TS=3 and
+        ((Frame_State=frame_push and Frame_Count=0 and Frame_SPS='0' and Frame_IM2='0') or
+         (Frame_State=frame_vector and ((Frame_Is_Call='0' and Frame_Count=2) or (Frame_Is_Call='1' and Frame_Target_Last='1' and Frame_Take='0'))) or
+         (Frame_State=frame_long and ((Frame_Mode_Bit='0' and Frame_Count=1) or Frame_Count=2)) or
+         (Frame_State=frame_short and Frame_Count=1)) else '0';
+    Frame_IEF<=IntE_FF2 when Frame_Returning='1' and Frame_RetN='1' else IntE_FF1 when Frame_Returning='1' or Frame_Is_Call='1' else '0';
+    -- One carry chain for both stack widths and both push/pop directions.
+    -- SPS wraps at 16 bits; its bank comes from MBASE, never from carry-out.
+    Frame_Stack_Short<='1' when Frame_State=frame_short or
+        (Frame_State=frame_push and Frame_SPS='1' and Frame_Count=2) or
+        (Frame_State=frame_vector and Frame_Is_Call='1' and Stream_Long='0') else '0';
+    Frame_Stack_Down<='1' when Frame_State=frame_push or
+        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' else '0';
+    Frame_Stack_Value<=resize(SP,24) when Frame_Stack_Short='1' else SPL;
+    Frame_Stack_Delta<=(others=>'1') when Frame_Stack_Down='1' else to_unsigned(1,24);
+    Frame_Stack_Next<=Frame_Stack_Value+Frame_Stack_Delta;
+    Frame_Stack_Bank<=MBASE when Frame_Stack_Short='1' else std_logic_vector(Frame_Stack_Next(23 downto 16));
+    -- R13.1: both engines drive the shared registered bus payload.
+    A<=Address_Reg;
+    A_BANK<=Address_Bank_Reg;
+    MBASE_State <= MBASE;
+    MADL_State <= MADL;
+    DO<=Data_Out_Reg;
+    Write<='1' when Frame_State=frame_push and Frame_TS/=4 else '0' when Frame_Active='1' else Write_Decode;
+    NoRead<='1' when Frame_Active='1' and (Frame_TS=4 or Frame_State=frame_fault) else '0' when Frame_Active='1' else NoRead_Base;
+    -- The previous instruction's delayed flag write completes at fetch T1.
+    -- Capture at accepted fetch T2, alongside IR, and hold for the instruction.
+    process(RESET_n, CLK_n)
+    begin
+        if RESET_n='0' then Decode_Flags <= (others=>'1');Branch_Condition<='0';
+        elsif rising_edge(CLK_n) then
+            if ClkEn='1' and MCycle="001" and TState=2 and WAIT_n='1' then
+                Decode_Flags <= F;
+                if decode_branch(F,to_bitvector(DInst(5 downto 3))) then Branch_Condition<='1';else Branch_Condition<='0';end if;
+            end if;
+        end if;
+    end process;
 
     mcode : T80_MCode_eZ80
         generic map(
@@ -297,11 +453,11 @@ begin
             Flag_Z => Flag_Z,
             Flag_S => Flag_S)
         port map(
-            IR => IR,
-            Ext_Active=>Extensions_Enabled, Data_Long=>Data_Long, Stream_Long=>Stream_Long,
+            IR => IR, Write_Class=>Write_Class,
+            Ext_Active=>Extensions_Enabled, Data_Long=>Data_Long, Stream_Long=>Stream_Long, ADL_Mode=>ADL_Mode, Has_Width=>Instruction_Has_Width, Flow_Cond=>Flow_Cond, Branch_Condition=>Branch_Condition, Interrupt_Mode=>IStatus,
             ISet => ISet,
             MCycle => MCycle,
-            F => F,
+            F => Decode_Flags,
             NMICycle => NMICycle,
             IntCycle => IntCycle,
             XY_State => XY_State,
@@ -350,8 +506,8 @@ begin
             SetEI => SetEI,
             IMode => IMode,
             Halt => Halt,
-            NoRead => NoRead,
-            Write => Write,
+            NoRead => NoRead_Base,
+            Write => Write_Decode,
             XYbit_undoc => XYbit_undoc);
 
     alu : T80_ALU_eZ80
@@ -381,34 +537,27 @@ begin
     Load_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
     Indexed_Address<=(signed(Upper(to_integer(unsigned(RegAddrC)))) & signed(RegBusC))+resize(signed(DI_Reg),24);
     Wide_Stack<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and
-        IntCycle='0' and NMICycle='0' and IR(7 downto 6)="11" and
-        (IR(3 downto 0)="0101" or IR(3 downto 0)="0001") else '0';
+        IntCycle='0' and NMICycle='0' and Opcode_Class(1)='1' else '0';
     Wide_IncDec<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and
-        IntCycle='0' and NMICycle='0' and IR(7 downto 6)="00" and
-        (IR(3 downto 0)="0011" or IR(3 downto 0)="1011") else '0';
+        IntCycle='0' and NMICycle='0' and Opcode_Class(2)='1' else '0';
     Stack_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
     Pair_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and IntCycle='0' and NMICycle='0' and
-        ((ISet="00" and (IR=x"22" or IR=x"2A")) or (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="011")) else '0';
+        ((ISet="00" and Opcode_Class(4)='1') or (ISet="10" and Opcode_Class(5)='1')) else '0';
     Pair_Read<=IR(3);
     Pair_Number<="10" when ISet="00" else IR(5 downto 4);
     Pair_SP<='1' when Pair_Number="11" else '0';
     Pair_Upper_Index<=XY_State(1) & "11" when Pair_Number="10" and XY_State/="00" else Alternate & Pair_Number;
     Pair_Address_Last<=4 when Stream_Long='1' else 3;
     Byte_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and ISet="00" and
-        (IR=x"32" or IR=x"3A") and IntCycle='0' and NMICycle='0' else '0';
-    EX_SP_Long<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and IR=x"E3" and IntCycle='0' and NMICycle='0' else '0';
+        Opcode_Class(3)='1' and IntCycle='0' and NMICycle='0' else '0';
+    EX_SP_Long<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and Opcode_Class(0)='1' and IntCycle='0' and NMICycle='0' else '0';
     EX_SP_Index<=XY_State(1) & "11" when XY_State/="00" else Alternate & "10";
     EX_SP_Result_WE<='1' when EX_SP_Long='1' and MCycle="111" and TState=3 else '0';
-    process(SPL,MCycle) variable offset:natural range 0 to 2;
-    begin
-        offset:=0;
-        if MCycle="010" or MCycle="101" then offset:=1;
-        elsif MCycle="011" or MCycle="110" then offset:=2;end if;
-        EX_SP_Address<=SPL+offset;
-    end process;
+    -- Address work register advances only after an accepted T2.
+    -- M1/T3 prepares the first read before the M1/T4 address latch.
     Arith_Long<='1' when Mode=0 and Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
-        ((ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="1001") or
-         (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="010")) else '0';
+        ((ISet="00" and Opcode_Class(6)='1') or
+         (ISet="10" and Opcode_Class(7)='1')) else '0';
     Arith_Target<=XY_State(1) & "11" when ISet="00" and XY_State/="00" else Alternate & "10";
     Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Alternate & IR(5 downto 4);
     Arith_Sub<='1' when ISet="10" and IR(3)='0' else '0';
@@ -423,21 +572,51 @@ begin
     Arith_Half<=Arith_Left(12) xor Arith_Right(12) xor Arith_Result(12);
     Arith_Carry_Out<=Arith_Sum(24) xor Arith_Sub_Latched;
     Arith_Overflow<=(not (Arith_Left(23) xor Arith_Right(23) xor Arith_Sub_Latched)) and (Arith_Left(23) xor Arith_Result(23));
-    Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and IR(7 downto 5)="101" and
-        IR(2 downto 1)="00" and IntCycle='0' and NMICycle='0' else '0';
+    Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and Opcode_Class(8)='1' and IntCycle='0' and NMICycle='0' else '0';
     Block_Long<=Block_Instruction and Data_Long;
     Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
         else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
     Mul_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
-        IR(7 downto 6)="01" and IR(3 downto 0)="1100" and IntCycle='0' and NMICycle='0' else '0';
+        Opcode_Class(9)='1' and IntCycle='0' and NMICycle='0' else '0';
     Mul_Target<=Alternate & IR(5 downto 4);
     Mul_Operand<=SPL(15 downto 0) when IR(5 downto 4)="11" and Data_Long='1' else
         SP when IR(5 downto 4)="11" else unsigned(RegBusA);
     Mul_Commit<='1' when Mul_Active='1' and MCycle="001" and TState=7 else '0';
     Mul_Reg_Commit<=Mul_Commit when IR(5 downto 4)/="11" else '0';
+    EA_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
+        Opcode_Class(10)='1' else '0';
+    PEA_Active<=EA_Active when Opcode_Class(11)='1' else '0';
+    PEA_Long<=PEA_Active and Data_Long;
+    EA_Source<="111" when IR=x"03" or IR=x"13" or IR=x"23" or IR=x"33" or IR=x"54" or IR=x"66" else "011";
+    EA_Target<="011" when IR=x"32" or IR=x"54" else "111" when IR=x"33" or IR=x"55" else Alternate & IR(5 downto 4);
+    LEA_Commit<='1' when EA_Active='1' and PEA_Active='0' and MCycle="010" and TState=5 else '0';
+    RegAddrC<=EA_Source when EA_Active='1' else RegAddrC_Base;
+    PC_Increment<=PC+1;
+    JP_Immediate<='1' when Extensions_Enabled='1' and ISet="00" and Opcode_Class(12)='1' and
+        Data_Long=Stream_Long and IntCycle='0' and NMICycle='0' else '0';
+    JP_Commit<='1' when JP_Immediate='1' and (IR=x"C3" or Flow_Cond='1') and TState=3 and
+        ((Stream_Long='1' and MCycle="100") or (Stream_Long='0' and MCycle="011")) else '0';
+    -- Acknowledge exactly at the dispatch boundary; Address_Reg new edge at that same
+    -- clock wins in the input latch and remains pending for Address_Reg subsequent entry.
+    NMI_Accept<='1' when (Frame_End='1' and NMI_s='1') or (Frame_Active='0' and Frame_Start='0' and NMI_s='1' and Prefix="00" and Width_Pending='0' and BusReq_s='0' and T_Res='1' and NextIs_XY_Fetch='0' and
+        not ((MCycle="111" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0') or
+             (MCycle="110" and Mode=1 and ISet/="01" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0')) and
+        (MCycle=MCycles or No_BTR='1' or (MCycle="010" and I_DJNZ='1' and IncDecZ='1'))) else '0';
+    IRQ_Long <= Extensions_Enabled and ADL_Mode and (IntCycle or NMICycle);
+    IRQ_IM2 <= '1' when IRQ_Long='1' and IntCycle='1' and IStatus="10" else '0';
+    IRQ_Return <= '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="10" and
+        Opcode_Class(14)='1' and IntCycle='0' and NMICycle='0' else '0';
+    Effective_IEF <= '1' when ADL_Mode='1' and SetEI='1' else IntE_FF2 when IRQ_Return='1' and IR=x"45" and MCycle="100" else IntE_FF1;
+    IV_Read_Commit <= '1' when Extensions_Enabled='1' and ISet="10" and Opcode_Class(15)='1' and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' else '0';
+    Ctrl_Stack<='1' when IRQ_Long='1' or IRQ_Return='1' else '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="00" and
+        IntCycle='0' and NMICycle='0' and Opcode_Class(13)='1' else '0';
+    Ctrl_Call<=Ctrl_Stack when IRQ_Long='0' and IRQ_Return='0' and ( IR=x"CD" or IR(2 downto 0)="100") else '0';
+    Ctrl_Ret<='1' when IRQ_Return='1' else Ctrl_Stack when IRQ_Long='0' and ( IR=x"C9" or IR(2 downto 0)="000") else '0';
+    Ctrl_Rst<='1' when IRQ_Long='1' else Ctrl_Stack when IRQ_Return='0' and IR(2 downto 0)="111" else '0';
+    Ctrl_Taken<='1' when IRQ_Return='1' or IR=x"CD" or IR=x"C9" or Ctrl_Rst='1' else Flow_Cond;
     Extension_State<=Extensions_Enabled;
     SP_Readback<='1' when ISet="10" and IR=x"73" and Data_Long='1' and Stream_Long='0' else '0';
-    ClkEn <= CEN and not BusAck;
+    ClkEn <= CPU_Run and not BusAck;
 
     T_Res <= '1' when TState = unsigned(TStates) else '0';
 
@@ -450,28 +629,78 @@ begin
         DI_Reg when Save_ALU_r = '0' else
         ALU_Q;
 
+    -- R11.10: ordinary upper-byte commits share one combinational write port.
+    -- These eight events belong to disjoint opcode families. No pipeline
+    -- stage is added: the original enabled rising edge performs the commit.
+    Upper_Port_Events(0)<='1' when Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
+        TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 else '0';
+    Upper_Port_Events(1)<=LEA_Commit and Data_Long;
+    Upper_Port_Events(2)<=Arith_Commit;
+    Upper_Port_Events(3)<=EX_SP_Result_WE;
+    Upper_Port_Events(4)<='1' when Block_Long='1' and IncDec_16(2)='1' and
+        ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) else '0';
+    Upper_Port_Events(5)<='1' when Wide_IncDec='1' and MCycle="001" and TState=3 and IR(5 downto 4)/="11" and
+        ((IncDec_16(3)='1' and RegBusA=x"0000") or (IncDec_16(3)='0' and RegBusA=x"FFFF")) else '0';
+    Upper_Port_Events(6)<='1' when Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" else '0';
+    Upper_Port_Events(7)<='1' when TState=3 and IntCycle='0' and NMICycle='0' and Extensions_Enabled='1' and
+        ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" and IR(5 downto 4)/="11" and
+        ((MCycle="011" and Stream_Long='0' and Data_Long='1') or (MCycle="100" and Stream_Long='1')) else '0';
+    Upper_Port_WE<='1' when Upper_Port_Events/=x"00" else '0';
+    Upper_Port_Index<=Upper_Mask(Pair_Upper_Index,Upper_Port_Events(0)) or Upper_Mask(EA_Target,Upper_Port_Events(1)) or
+        Upper_Mask(Arith_Target,Upper_Port_Events(2)) or Upper_Mask(EX_SP_Index,Upper_Port_Events(3)) or
+        Upper_Mask(RegAddrA,Upper_Port_Events(4)) or Upper_Mask(RegAddrA,Upper_Port_Events(5)) or
+        Upper_Mask(Stack_Upper_Index,Upper_Port_Events(6)) or Upper_Mask(Load_Upper_Index,Upper_Port_Events(7));
+    Upper_Inc_Byte<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1) when IncDec_16(3)='1'
+        else std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))+1);
+    Upper_Immediate_Byte<=DI_Reg when Stream_Long='1' and Data_Long='1' else x"00";
+    Upper_Port_Data<=Upper_Mask(DI_Reg,Upper_Port_Events(0)) or Upper_Mask(EA_Result(23 downto 16),Upper_Port_Events(1)) or
+        Upper_Mask(std_logic_vector(Arith_Result(23 downto 16)),Upper_Port_Events(2)) or Upper_Mask(EX_SP_Read(23 downto 16),Upper_Port_Events(3)) or
+        Upper_Mask(std_logic_vector(Block_Inc_Result(23 downto 16)),Upper_Port_Events(4)) or Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(5)) or
+        Upper_Mask(DI_Reg,Upper_Port_Events(6)) or Upper_Mask(Upper_Immediate_Byte,Upper_Port_Events(7));
+    process(RESET_n, CLK_n)
+    begin
+        if RESET_n='0' then Upper<=(others=>(others=>'0'));
+        elsif rising_edge(CLK_n) then
+            if ClkEn='1' then
+                -- EX DE,HL updates both entries from their old values.
+                if Extensions_Enabled='1' and Data_Long='1' and ExchangeDH='1' and TState=3 then
+                    Upper(to_integer(unsigned'(Alternate & "10")))<=Upper(to_integer(unsigned'(Alternate & "01")));
+                    Upper(to_integer(unsigned'(Alternate & "01")))<=Upper(to_integer(unsigned'(Alternate & "10")));
+                end if;
+                -- Preserve the original priority relative to the exchange.
+                if Upper_Port_WE='1' then Upper(to_integer(unsigned(Upper_Port_Index)))<=Upper_Port_Data;end if;
+            end if;
+        end if;
+    end process;
+
     process (RESET_n, CLK_n)
     begin
         if RESET_n = '0' then
+            MADL<='0';Frame_Is_Call<='0';Frame_SPS<='0';Frame_State<=frame_idle;Frame_TS<=to_unsigned(1,3);Frame_Count<=0;
+            Frame_Mode_Bit<='0';Frame_IM2<='0';Frame_RetN<='0';
             Mul_Left<=(others=>'0');Mul_Right<=(others=>'0');Mul_Product<=(others=>'0');
+            EA_Result<=(others=>'0');
+            I_Upper<=(others=>'0');IRQ_Vector<=(others=>'0');
+            Ctrl_Target<=(others=>'0');Ctrl_Return<=(others=>'0');
+            ADL_Mode<='0';
             Instruction_Has_Width<='0';
             Arith_Left<=(others=>'0');Arith_Right<=(others=>'0');Arith_Flags<=(others=>'0');
             Arith_Sub_Latched<='0';Arith_Carry_Latched<='0';Arith_Is_ADD<='0';
-            EX_SP_Read<=(others=>'0');
-            Upper <= (others=>(others=>'0')); SPL <= (others=>'1');
+            EX_SP_Read<=(others=>'0');EX_SP_Source<=(others=>'0');EX_SP_Address<=(others=>'0');
+            SPL <= (others=>'1');
             Extensions_Enabled<='0'; Unlock_Armed<='0';
             Width_Pending<='0'; Width_Code<=x"40"; Data_Long<='0'; Stream_Long<='0';
-            A_BANK<=x"00"; Index_Bank<=x"00";
+            Address_Bank_Reg<=x"00"; Index_Bank<=x"00";MBASE<=x"00";
             PC <= (others => '0');  -- Program Counter
-            A <= (others => '0');
+            Address_Reg <= (others => '0');
 			update_addr <= '0';
             TmpAddr <= (others => '0');
-            IR <= "00000000";
+            IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
             ISet <= "00";
             XY_State <= "00";
             IStatus <= "00";
             MCycles <= "000";
-            DO <= "00000000";
+            Data_Out_Reg <= "00000000";
 
             ACC <= (others => '1');
             F <= (others => '1');
@@ -495,7 +724,156 @@ begin
 
         elsif CLK_n'event and CLK_n = '1' then
 
-            if ClkEn = '1' then
+            if CEN='1' and Frame_Start='1' then
+                -- Finish the fetch/refresh phase before starting a memory T1.
+                Frame_TS<=to_unsigned(4,3);Frame_Count<=0;Frame_RetN<='0';Frame_IM2<='0';Frame_Is_Call<='0';Frame_SPS<='0';
+                if Frame_Unsupported='1' then Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);
+                elsif Frame_Calling='1' then
+                    -- Reuse the three-byte vector reader for CALL immediates.
+                    Frame_State<=frame_vector;Frame_Is_Call<='1';Frame_Mode_Bit<=ADL_Mode;Ctrl_Target<=(others=>'0');
+                    Address_Reg<=std_logic_vector(PC(15 downto 0));
+                    Address_Bank_Reg<=MBASE;if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));end if;
+                elsif Frame_Entry='1' then
+                    Frame_State<=frame_push;Frame_Mode_Bit<=ADL_Mode;Ctrl_Return<=std_logic_vector(PC);
+                    if ADL_Mode='1' then Frame_Count<=3;else Frame_Count<=2;end if;
+                    SPL<=Frame_Stack_Next;
+                    Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                    if ADL_Mode='1' then Data_Out_Reg<=std_logic_vector(PC(23 downto 16));
+                    else Data_Out_Reg<=std_logic_vector(PC(15 downto 8));end if;
+                    if NMICycle='1' then Ctrl_Target<=x"000066";else Ctrl_Target<=x"000038";end if;
+                    IRQ_Vector<=unsigned(I_Upper) & unsigned(I) & unsigned(DI_Reg);
+                    if IntCycle='1' and IStatus="10" then Frame_IM2<='1';end if;
+                else
+                    Frame_State<=frame_mode;Ctrl_Target<=(others=>'0');
+                    if ISet="10" then Frame_RetN<=not IR(3);end if;
+                    Address_Reg<=std_logic_vector(SPL(15 downto 0));Address_Bank_Reg<=std_logic_vector(SPL(23 downto 16));
+                end if;
+            elsif CEN='1' and Frame_Active='1' then
+                if Frame_End='1' then
+                    -- The engine completes the instruction outside the normal T_Res path.
+                    -- Discard its decoder state before fetching the return/entry target.
+                    IR<=x"00";ISet<="00";Opcode_Class<=Classify_Opcode(x"00");Write_Class<=Classify_Write(x"00");
+                    Width_Pending<='0';Instruction_Has_Width<='0';
+                    XY_State<="00";XY_Ind<='0';
+                    Read_To_Reg_r<="00000";Save_ALU_r<='0';ALU_Op_r<="0000";
+                end if;
+                if Frame_State/=frame_fault then
+                    if Frame_TS=4 then Frame_TS<=to_unsigned(1,3);
+                    elsif Frame_TS=1 then Frame_TS<=to_unsigned(2,3);
+                    elsif Frame_TS=2 then
+                        if Wait_n='1' then Frame_TS<=to_unsigned(3,3);end if;
+                    elsif Frame_TS=3 then
+                        Frame_TS<=to_unsigned(1,3);
+                        case Frame_State is
+                        when frame_push =>
+                            if Frame_SPS='1' then
+                                if Frame_Count=2 then
+                                    Frame_Count<=1;SP<=Frame_Stack_Next(15 downto 0);Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
+                                    Data_Out_Reg<=Ctrl_Return(7 downto 0);
+                                else
+                                    Frame_SPS<='0';SPL<=Frame_Stack_Next;
+                                    Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                                    if Frame_Mode_Bit='1' then Frame_Count<=1;Data_Out_Reg<=Ctrl_Return(23 downto 16);
+                                    else Frame_Count<=0;Data_Out_Reg<=x"02";end if;
+                                end if;
+                            elsif Frame_Count>0 then
+                                Frame_Count<=Frame_Count-1;SPL<=Frame_Stack_Next;
+                                Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                                if Frame_Count=3 then Data_Out_Reg<=Ctrl_Return(15 downto 8);
+                                elsif Frame_Count=2 then Data_Out_Reg<=Ctrl_Return(7 downto 0);
+                                else Data_Out_Reg<="0000001" & Frame_Mode_Bit;end if;
+                            elsif Frame_IM2='1' then
+                                Frame_State<=frame_vector;Frame_Count<=0;
+                                Address_Reg<=std_logic_vector(IRQ_Vector(15 downto 0));Address_Bank_Reg<=std_logic_vector(IRQ_Vector(23 downto 16));
+                            else
+                                PC<=unsigned(Ctrl_Target);Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=Ctrl_Target(23 downto 16);
+                                ADL_Mode<='1';Frame_State<=frame_idle;
+                                if Frame_Is_Call='1' then
+                                    ADL_Mode<=Stream_Long;
+                                    if Stream_Long='0' then PC(23 downto 16)<=(others=>'0');Address_Bank_Reg<=MBASE;end if;
+                                end if;
+                            end if;
+                        when frame_vector =>
+                            if Frame_Is_Call='1' then
+                                PC<=PC_Width(PC_Increment,ADL_Mode);
+                                if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;
+                                elsif Frame_Count=1 then Ctrl_Target(15 downto 8)<=DI_Reg;
+                                else Ctrl_Target(23 downto 16)<=DI_Reg;end if;
+                                if Frame_Target_Last='0' then
+                                    Frame_Count<=Frame_Count+1;
+                                    Address_Reg<=std_logic_vector(resize(PC_Increment,16));Address_Bank_Reg<=MBASE;
+                                    if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));end if;
+                                elsif Frame_Take='0' then
+                                    Frame_State<=frame_idle;
+                                    Address_Reg<=std_logic_vector(resize(PC_Increment,16));Address_Bank_Reg<=MBASE;
+                                    if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));end if;
+                                else
+                                    Ctrl_Return<=std_logic_vector(PC_Width(PC_Increment,ADL_Mode));Frame_State<=frame_push;
+                                    if Stream_Long='0' then
+                                        Frame_SPS<='1';Frame_Count<=2;SP<=Frame_Stack_Next(15 downto 0);
+                                        Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
+                                        Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,8),8));
+                                    else
+                                        SPL<=Frame_Stack_Next;Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                                        if Frame_Mode_Bit='1' then Frame_Count<=3;Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));
+                                        else Frame_Count<=2;Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,8),8));end if;
+                                    end if;
+                                end if;
+                            else
+                            if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;
+                            elsif Frame_Count=1 then Ctrl_Target(15 downto 8)<=DI_Reg;
+                            else
+                                PC<=unsigned(DI_Reg) & unsigned(Ctrl_Target(15 downto 0));Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=DI_Reg;
+                                ADL_Mode<='1';Frame_State<=frame_idle;
+                            end if;
+                            if Frame_Count<2 then
+                                Frame_Count<=Frame_Count+1;IRQ_Vector<=IRQ_Vector+1;
+                                Address_Reg<=std_logic_vector(resize(IRQ_Vector+1,16));Address_Bank_Reg<=std_logic_vector(resize(shift_right(IRQ_Vector+1,16),8));
+                            end if;
+                            end if;
+                        when frame_mode =>
+                            if DI_Reg=x"02" or DI_Reg=x"03" then
+                                Frame_Mode_Bit<=DI_Reg(0);SPL<=Frame_Stack_Next;Frame_Count<=0;
+                                if Stream_Long='1' or DI_Reg(0)='1' then
+                                    Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                                else Address_Reg<=std_logic_vector(SP);Address_Bank_Reg<=MBASE;end if;
+                                if Stream_Long='1' then Frame_State<=frame_long;
+                                elsif DI_Reg(0)='1' then Frame_State<=frame_upper;
+                                else Frame_State<=frame_short;end if;
+                            else Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);end if;
+                        when frame_upper =>
+                            Ctrl_Target(23 downto 16)<=DI_Reg;SPL<=Frame_Stack_Next;Frame_State<=frame_short;Frame_Count<=0;
+                            Address_Reg<=std_logic_vector(SP);Address_Bank_Reg<=MBASE;
+                        when frame_long =>
+                            SPL<=Frame_Stack_Next;
+                            Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                            if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;Frame_Count<=1;
+                            elsif Frame_Count=1 then
+                                Ctrl_Target(15 downto 8)<=DI_Reg;
+                                if Frame_Mode_Bit='1' then Frame_Count<=2;
+                                else
+                                    PC<=to_unsigned(0,8) & unsigned(DI_Reg) & unsigned(Ctrl_Target(7 downto 0));
+                                    Address_Reg<=DI_Reg & Ctrl_Target(7 downto 0);Address_Bank_Reg<=MBASE;ADL_Mode<='0';Frame_State<=frame_idle;
+                                end if;
+                            else
+                                PC<=unsigned(DI_Reg) & unsigned(Ctrl_Target(15 downto 0));Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=DI_Reg;
+                                ADL_Mode<='1';Frame_State<=frame_idle;
+                            end if;
+                        when frame_short =>
+                            SP<=Frame_Stack_Next(15 downto 0);
+                            Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
+                            if Frame_Count=0 then Ctrl_Target(7 downto 0)<=DI_Reg;Frame_Count<=1;
+                            else
+                                PC<=unsigned(Ctrl_Target(23 downto 16)) & unsigned(DI_Reg) & unsigned(Ctrl_Target(7 downto 0));
+                                Address_Bank_Reg<=Ctrl_Target(23 downto 16);
+                                if Frame_Mode_Bit='0' then PC(23 downto 16)<=(others=>'0');Address_Bank_Reg<=MBASE;end if;
+                                Address_Reg<=DI_Reg & Ctrl_Target(7 downto 0);ADL_Mode<=Frame_Mode_Bit;Frame_State<=frame_idle;
+                            end if;
+                        when others=>null;
+                        end case;
+                    end if;
+                end if;
+            elsif ClkEn = '1' then
 
 			update_addr <= '0';
             ALU_Op_r <= "0000";
@@ -504,33 +882,40 @@ begin
             Read_To_Reg_r <= "00000";
 
             MCycles <= MCycles_d;
-            if MCycle="001" and TState=2 and Wait_n='1' then A_BANK<=x"00";
+            if MCycle="001" and TState=2 and Wait_n='1' then Address_Bank_Reg<=x"00";
             elsif T_Res='1' then
-                A_BANK<=x"00";
+                -- R12: short data and Z80 instruction addresses use MBASE.
+                Address_Bank_Reg<=x"00";
+                if Extensions_Enabled='1' then Address_Bank_Reg<=MBASE;end if;
+                -- Instruction stream stays PC24 even for Address_Reg short data-width prefix.
+                if ADL_Mode='1' and (Set_Addr_To=aNone or (Set_Addr_To=aXY and NextIs_XY_Fetch='1')) then
+                    Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));
+                end if;
                 if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and IORQ_i='0' then
-                    if EX_SP_Long='1' and Set_Addr_To=aSP then A_BANK<=std_logic_vector(EX_SP_Address(23 downto 16));
+                    if EX_SP_Long='1' and Set_Addr_To=aSP then Address_Bank_Reg<=std_logic_vector(EX_SP_Address(23 downto 16));
                     elsif (Pair_Absolute='1' or Byte_Absolute='1') and Set_Addr_To=aZI then
                         if Inc_WZ='1' then
-                            A_BANK<=A_BANK;
-                            if Data_Long='1' and A=x"FFFF" then A_BANK<=std_logic_vector(unsigned(A_BANK)+1);end if;
-                        elsif Data_Long='1' and Stream_Long='1' then A_BANK<=DI_Reg;
-                        else A_BANK<=x"00";end if;
-                    elsif Set_Addr_To=aSP and Wide_Stack='1' then
-                        A_BANK<=std_logic_vector(SPL(23 downto 16));
+                            Address_Bank_Reg<=Address_Bank_Reg;
+                            if Data_Long='1' and Address_Reg=x"FFFF" then Address_Bank_Reg<=std_logic_vector(unsigned(Address_Bank_Reg)+1);end if;
+                        elsif Data_Long='1' and Stream_Long='1' then Address_Bank_Reg<=DI_Reg;
+                        else Address_Bank_Reg<=x"00";end if;
+                    elsif Set_Addr_To=aSP and (Wide_Stack='1' or PEA_Long='1' or Ctrl_Stack='1') then
+                        Address_Bank_Reg<=std_logic_vector(SPL(23 downto 16));
                     elsif Set_Addr_To=aBC or Set_Addr_To=aDE then
-                        A_BANK<=Upper(to_integer(unsigned(RegAddrC)));
+                        Address_Bank_Reg<=Upper(to_integer(unsigned(RegAddrC)));
                     elsif Set_Addr_To=aXY then
-                        if XY_State="00" then A_BANK<=Upper(to_integer(unsigned(RegAddrC)));
-                        elsif NextIs_XY_Fetch='0' then A_BANK<=Index_Bank;end if;
+                        if XY_State="00" then Address_Bank_Reg<=Upper(to_integer(unsigned(RegAddrC)));
+                        elsif NextIs_XY_Fetch='0' then Address_Bank_Reg<=Index_Bank;end if;
                     end if;
                 end if;
             end if;
-            -- Explicit local gate, not a Zilog architectural register.
-            if T_Res='1' and IORQ_i='1' and Write='1' then
-                if DATA_EXTENDED and A=x"E7E7" then
-                    if DO=x"00" then Extensions_Enabled<='0'; Unlock_Armed<='0';
-                    elsif DO=x"A5" then Unlock_Armed<='1';
-                    elsif DO=x"5A" and Unlock_Armed='1' then Extensions_Enabled<='1';Unlock_Armed<='0';
+            -- Explicit local gate, not Address_Reg Zilog architectural register.
+            if T_Res='1' and IORQ_i='1' and Write_Decode='1' then
+                if DATA_EXTENDED and Address_Reg=x"E7E7" then
+                    if Data_Out_Reg=x"00" then
+                        if ADL_Mode='0' then Extensions_Enabled<='0';MBASE<=x"00";MADL<='0';end if;Unlock_Armed<='0';
+                    elsif Data_Out_Reg=x"A5" then Unlock_Armed<='1';
+                    elsif Data_Out_Reg=x"5A" and Unlock_Armed='1' then Extensions_Enabled<='1';Unlock_Armed<='0';
                     else Unlock_Armed<='0';end if;
                 else Unlock_Armed<='0';end if;
             end if;
@@ -553,13 +938,13 @@ begin
                 if TState = 2 and Wait_n = '1' then
                     if Mode < 2 then
 						update_addr <= '1';
-                        A(7 downto 0) <= std_logic_vector(R);
-                        A(15 downto 8) <= I;
+                        Address_Reg(7 downto 0) <= std_logic_vector(R);
+                        Address_Reg(15 downto 8) <= I;
                         R(6 downto 0) <= R(6 downto 0) + 1;
                     end if;
 
                     if Jump = '0' and Call = '0' and NMICycle = '0' and IntCycle = '0' and not (Halt_FF = '1' or Halt = '1') then
-                        PC <= PC + 1;
+                        PC <= PC_Width(PC_Increment,ADL_Mode);
                     end if;
 
                     if Extensions_Enabled='1' and IntCycle='0' and NMICycle='0' and Halt_FF='0' then
@@ -568,17 +953,17 @@ begin
                             Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';
                         elsif DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB" then
                             Instruction_Has_Width<=Width_Pending;
-                            Data_Long<=Width_Pending and Width_Code(3);
-                            Stream_Long<=Width_Pending and Width_Code(4);
+                            if Width_Pending='1' then Data_Long<=Width_Code(3);Stream_Long<=Width_Code(4);
+                            else Data_Long<=ADL_Mode;Stream_Long<=ADL_Mode;end if;
                             Width_Pending<='0';
                         end if;
                     else Width_Pending<='0';Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';end if;
                     if IntCycle = '1' and IStatus = "01" then
-                        IR <= "11111111";
+                        IR <= "11111111"; Opcode_Class<=Classify_Opcode(x"FF"); Write_Class<=Classify_Write(x"FF");
                     elsif Halt_FF = '1' or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' then
-                        IR <= "00000000";
+                        IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
                     else
-                        IR <= DInst;
+                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
                     end if;
 
                     ISet <= "00";
@@ -606,7 +991,7 @@ begin
             else
             -- either (MCycle > 1) OR (MCycle = 1 AND TState > 3)
 
-                if MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' then
+                if MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0' then
                     XY_Ind <= '1';
                     if Prefix = "01" then
                         ISet <= "01";
@@ -617,69 +1002,74 @@ begin
 					update_addr <= '1';
                     BTR_r <= (I_BT or I_BC or I_BTR) and not No_BTR;
                     if Jump = '1' then
-                        A(15 downto 8) <= DI_Reg;
-                        A(7 downto 0) <= TmpAddr(7 downto 0);
+                        Address_Reg(15 downto 8) <= DI_Reg;
+                        Address_Reg(7 downto 0) <= TmpAddr(7 downto 0);
                         PC(15 downto 8) <= unsigned(DI_Reg);
                         PC(7 downto 0) <= unsigned(TmpAddr(7 downto 0));
                     elsif JumpXY = '1' then
-                        A <= RegBusC;
-                        PC <= unsigned(RegBusC);
+                        Address_Reg <= RegBusC;
+                        if Extensions_Enabled='1' and ISet="00" and IR=x"E9" then
+                            if Data_Long='1' then
+                                PC<=unsigned(Upper(to_integer(unsigned(RegAddrC)))) & unsigned(RegBusC);
+                                Address_Bank_Reg<=Upper(to_integer(unsigned(RegAddrC)));ADL_Mode<='1';
+                            else PC<=resize(unsigned(RegBusC),24);Address_Bank_Reg<=MBASE;ADL_Mode<='0';end if;
+                        else PC <= resize(unsigned(RegBusC),24);end if;
                     elsif Call = '1' or RstP = '1' then
-                        A <= TmpAddr;
-                        PC <= unsigned(TmpAddr);
-                    elsif MCycle = MCycles and NMICycle = '1' then
-                        A <= "0000000001100110";
-                        PC <= "0000000001100110";
-                    elsif MCycle = "011" and IntCycle = '1' and IStatus = "10" then
-                        A(15 downto 8) <= I;
-                        A(7 downto 0) <= TmpAddr(7 downto 0);
+                        Address_Reg <= TmpAddr;
+                        PC <= resize(unsigned(TmpAddr),24);
+                    elsif MCycle = MCycles and NMICycle = '1' and IRQ_Long='0' then
+                        Address_Reg <= "0000000001100110";
+                        PC <= to_unsigned(16#66#,24);
+                    elsif MCycle = "011" and IntCycle = '1' and IStatus = "10" and IRQ_Long='0' then
+                        Address_Reg(15 downto 8) <= I;
+                        Address_Reg(7 downto 0) <= TmpAddr(7 downto 0);
                         PC(15 downto 8) <= unsigned(I);
                         PC(7 downto 0) <= unsigned(TmpAddr(7 downto 0));
                     else
                         case Set_Addr_To is
                         when aXY =>
                             if XY_State = "00" then
-                                A <= RegBusC;
+                                Address_Reg <= RegBusC;
                             else
                                 if NextIs_XY_Fetch = '1' then
-                                    A <= std_logic_vector(PC);
+                                    Address_Reg <= std_logic_vector(PC(15 downto 0));
                                 else
-                                    A <= TmpAddr;
+                                    Address_Reg <= TmpAddr;
                                 end if;
                             end if;
                         when aIOA =>
                             if Mode = 3 then
                                 -- Memory map I/O on GBZ80
-                                A(15 downto 8) <= (others => '1');
+                                Address_Reg(15 downto 8) <= (others => '1');
                             elsif Mode = 2 then
                                 -- Duplicate I/O address on 8080
-                                A(15 downto 8) <= DI_Reg;
+                                Address_Reg(15 downto 8) <= DI_Reg;
                             else
-                                A(15 downto 8) <= ACC;
+                                Address_Reg(15 downto 8) <= ACC;
                             end if;
-                            A(7 downto 0) <= DI_Reg;
+                            Address_Reg(7 downto 0) <= DI_Reg;
                         when aSP =>
-                            if EX_SP_Long='1' then A<=std_logic_vector(EX_SP_Address(15 downto 0));elsif Wide_Stack='1' then A<=std_logic_vector(SPL(15 downto 0));else A <= std_logic_vector(SP);end if;
+                            if EX_SP_Long='1' then Address_Reg<=std_logic_vector(EX_SP_Address(15 downto 0));elsif Wide_Stack='1' or PEA_Long='1' or Ctrl_Stack='1' then Address_Reg<=std_logic_vector(SPL(15 downto 0));else Address_Reg <= std_logic_vector(SP);end if;
                         when aBC =>
                             if Mode = 3 and IORQ_i = '1' then
                                 -- Memory map I/O on GBZ80
-                                A(15 downto 8) <= (others => '1');
-                                A(7 downto 0) <= RegBusC(7 downto 0);
+                                Address_Reg(15 downto 8) <= (others => '1');
+                                Address_Reg(7 downto 0) <= RegBusC(7 downto 0);
                             else
-                                A <= RegBusC;
+                                Address_Reg <= RegBusC;
                             end if;
                         when aDE =>
-                            A <= RegBusC;
+                            Address_Reg <= RegBusC;
                         when aZI =>
                             if Inc_WZ = '1' then
-                                if Pair_Absolute='1' then A<=std_logic_vector(unsigned(A)+1);elsif SP_Readback='1' and MCycle="101" then A<=std_logic_vector(unsigned(A)+1);else A <= std_logic_vector(unsigned(TmpAddr) + 1);end if;
-                            elsif (Pair_Absolute='1' or Byte_Absolute='1') and Stream_Long='1' then A<=TmpAddr;
+                                if Pair_Absolute='1' then Address_Reg<=std_logic_vector(unsigned(Address_Reg)+1);elsif SP_Readback='1' and MCycle="101" then Address_Reg<=std_logic_vector(unsigned(Address_Reg)+1);else Address_Reg <= std_logic_vector(unsigned(TmpAddr) + 1);end if;
+                            elsif (Pair_Absolute='1' or Byte_Absolute='1') and Stream_Long='1' then Address_Reg<=TmpAddr;
                             else
-                                A(15 downto 8) <= DI_Reg;
-                                A(7 downto 0) <= TmpAddr(7 downto 0);
+                                Address_Reg(15 downto 8) <= DI_Reg;
+                                Address_Reg(7 downto 0) <= TmpAddr(7 downto 0);
                             end if;
                         when others =>
-                            A <= std_logic_vector(PC);
+                            Address_Reg <= std_logic_vector(PC(15 downto 0));
                         end case;
                     end if;
 
@@ -715,25 +1105,25 @@ begin
 
                 if TState = 2 and Wait_n = '1' then
                     if ISet = "01" and MCycle = "111" then
-                        IR <= DInst;
+                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
                     end if;
                     if JumpE = '1' then
-                        PC <= unsigned(signed(PC) + signed(DI_Reg));
+                        PC <= PC_Width(unsigned(signed(PC) + signed(DI_Reg)),ADL_Mode);
                     elsif Inc_PC = '1' then
-                        PC <= PC + 1;
+                        PC <= PC_Width(PC_Increment,ADL_Mode);
                     end if;
                     if BTR_r = '1' then
                         -- Refetch the width prefix as well as ED and the block opcode.
-                        -- This also gives an interrupt a restart PC including the suffix.
-                        if Block_Instruction='1' and Instruction_Has_Width='1' then PC<=PC-3;
-                        else PC <= PC - 2;end if;
+                        -- This also gives an interrupt Address_Reg restart PC including the suffix.
+                        if Block_Instruction='1' and Instruction_Has_Width='1' then PC<=PC_Width(PC-3,ADL_Mode);
+                        else PC <= PC_Width(PC-2,ADL_Mode);end if;
                     end if;
                     if RstP = '1' then
                         TmpAddr <= (others =>'0');
                         TmpAddr(5 downto 3) <= IR(5 downto 3);
                     end if;
                 end if;
-                if TState = 3 and MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' then
+                if TState = 3 and MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0' then
                     TmpAddr <= std_logic_vector(signed(RegBusC) + signed(DI_Reg));
                     if Data_Long='1' then
                         TmpAddr<=std_logic_vector(Indexed_Address(15 downto 0));
@@ -743,7 +1133,7 @@ begin
 
                 if (TState = 2 and Wait_n = '1') or (TState = 4 and MCycle = "001") then
                     if IncDec_16(2 downto 0) = "111" then
-                        if Wide_Stack='1' or Wide_IncDec='1' then
+                        if Wide_Stack='1' or Wide_IncDec='1' or PEA_Long='1' or Ctrl_Stack='1' then
                             if IncDec_16(3)='1' then SPL<=SPL-1;else SPL<=SPL+1;end if;
                         elsif IncDec_16(3) = '1' then
                             SP <= SP - 1;
@@ -769,14 +1159,75 @@ begin
             end if;
 
             if Extensions_Enabled='1' and Data_Long='1' and ExchangeDH='1' and TState=3 then
-                Upper(to_integer(unsigned'(Alternate & "10")))<=Upper(to_integer(unsigned'(Alternate & "01")));
-                Upper(to_integer(unsigned'(Alternate & "01")))<=Upper(to_integer(unsigned'(Alternate & "10")));
+                null;
+                null;
             end if;
             if Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 then
                 if Pair_SP='1' then SPL(23 downto 16)<=unsigned(DI_Reg);
-                else Upper(to_integer(unsigned(Pair_Upper_Index)))<=DI_Reg;end if;
+                else null;end if;
             end if;
             -- Capture source before computing: no combinational CPU bus reaches DSP output.
+            if Ctrl_Call='1' and TState=3 then
+                case MCycle is
+                when "010"=>Ctrl_Target(7 downto 0)<=DI_Reg;
+                when "011"=>Ctrl_Target(15 downto 8)<=DI_Reg;
+                when "100"=>Ctrl_Target(23 downto 16)<=DI_Reg;Ctrl_Return<=std_logic_vector(PC);
+                when others=>null;
+                end case;
+            end if;
+            if Ctrl_Rst='1' and IRQ_Long='0' and MCycle="001" and TState=4 then
+                Ctrl_Return<=std_logic_vector(PC);Ctrl_Target<=x"0000" & "00" & IR(5 downto 3) & "000";
+            end if;
+            if Ctrl_Ret='1' and TState=3 then
+                if MCycle="010" then Ctrl_Target(7 downto 0)<=DI_Reg;
+                elsif MCycle="011" then Ctrl_Target(15 downto 8)<=DI_Reg;end if;
+            end if;
+            if Ctrl_Taken='1' and TState=3 and
+                ((Ctrl_Call='1' and MCycle="111") or (Ctrl_Rst='1' and IRQ_IM2='0' and MCycle="100") or (Ctrl_Ret='1' and MCycle="100")) then
+                if Ctrl_Ret='1' then
+                    PC<=unsigned(DI_Reg) & unsigned(Ctrl_Target(15 downto 0));
+                    Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=DI_Reg;
+                else PC<=unsigned(Ctrl_Target);Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=Ctrl_Target(23 downto 16);end if;
+            end if;
+            if IRQ_Long='1' then
+                if MCycle="001" and TState=4 then
+                    Ctrl_Return<=std_logic_vector(PC);
+                    if NMICycle='1' then Ctrl_Target<=x"000066";else Ctrl_Target<=x"000038";end if;
+                    IRQ_Vector<=unsigned(I_Upper) & unsigned(I) & unsigned(DI_Reg);
+                end if;
+                if T_Res='1' and unsigned(MCycle)<=3 then
+                    Address_Reg<=std_logic_vector(SPL(15 downto 0));Address_Bank_Reg<=std_logic_vector(SPL(23 downto 16));
+                end if;
+                if IRQ_IM2='1' then
+                    if TState=2 and Wait_n='1' and (MCycle="101" or MCycle="110") then IRQ_Vector<=IRQ_Vector+1;end if;
+                    if T_Res='1' and (MCycle="100" or MCycle="101" or MCycle="110") then
+                        Address_Reg<=std_logic_vector(IRQ_Vector(15 downto 0));Address_Bank_Reg<=std_logic_vector(IRQ_Vector(23 downto 16));
+                    end if;
+                    if TState=3 then
+                        if MCycle="101" then Ctrl_Target(7 downto 0)<=DI_Reg;
+                        elsif MCycle="110" then Ctrl_Target(15 downto 8)<=DI_Reg;
+                        elsif MCycle="111" then
+                            PC<=unsigned(DI_Reg) & unsigned(Ctrl_Target(15 downto 0));
+                            Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=DI_Reg;
+                        end if;
+                    end if;
+                end if;
+            end if;
+            if Extensions_Enabled='1' and ISet="10" and IR=x"C7" and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' then
+                I_Upper<=RegBusA(15 downto 8);I<=RegBusA(7 downto 0);
+            end if;
+            if JP_Commit='1' then
+                if Stream_Long='1' then
+                    PC<=(unsigned(DI_Reg) & unsigned(TmpAddr));Address_Reg<=TmpAddr;Address_Bank_Reg<=DI_Reg;ADL_Mode<='1';
+                else
+                    PC<=(to_unsigned(0,8) & unsigned(DI_Reg) & unsigned(TmpAddr(7 downto 0)));
+                    Address_Reg<=DI_Reg & TmpAddr(7 downto 0);Address_Bank_Reg<=MBASE;ADL_Mode<='0';
+                end if;
+            end if;
+            -- The displacement is stable after the external read's falling T3 edge.
+            -- Share Indexed_Address, then hold all 24 bits through destination/stack writes.
+            if EA_Active='1' and MCycle="010" and TState=3 then EA_Result<=std_logic_vector(Indexed_Address);end if;
+            if LEA_Commit='1' and Data_Long='1' then null;end if;
             if Mul_Active='1' and MCycle="001" then
                 if TState=4 then Mul_Left<=Mul_Operand(15 downto 8);Mul_Right<=Mul_Operand(7 downto 0);end if;
                 if TState=5 then Mul_Product<=Mul_Left*Mul_Right;end if;
@@ -792,7 +1243,20 @@ begin
                 if ISet="00" then Arith_Is_ADD<='1';else Arith_Is_ADD<='0';end if;
             end if;
             if Arith_Commit='1' then
-                Upper(to_integer(unsigned(Arith_Target)))<=std_logic_vector(Arith_Result(23 downto 16));
+                null;
+            end if;
+            if EX_SP_Long='1' then
+                if MCycle="001" and TState=3 then EX_SP_Address<=SPL;end if;
+                if MCycle="001" and TState=4 then
+                    EX_SP_Source<=Upper(to_integer(unsigned(EX_SP_Index))) & RegBusA;
+                end if;
+                if TState=2 and Wait_n='1' then
+                    case MCycle is
+                    when "010"|"011"|"101"|"110"=>EX_SP_Address<=EX_SP_Address+1;
+                    when "100"=>EX_SP_Address<=SPL;
+                    when others=>null;
+                    end case;
+                end if;
             end if;
             if EX_SP_Long='1' and TState=3 then
                 case MCycle is
@@ -802,33 +1266,33 @@ begin
                 when others=>null;
                 end case;
             end if;
-            if EX_SP_Result_WE='1' then Upper(to_integer(unsigned(EX_SP_Index)))<=EX_SP_Read(23 downto 16);end if;
-            -- Use exactly the original lower16 register write edge: once per byte,
+            if EX_SP_Result_WE='1' then null;end if;
+            -- Use exactly the original lower16 register Write_Decode edge: once per byte,
             -- never while T2 is held by WAIT. BC decrements in M1/T3; HL/DE in data T2.
             if Block_Long='1' and IncDec_16(2)='1' and
                ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) then
-                Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(Block_Inc_Result(23 downto 16));
+                null;
             end if;
             if Wide_IncDec='1'   and MCycle="001" and TState=3 and IR(5 downto 4)/="11" then
                 if IncDec_16(3)='1' and RegBusA=x"0000" then
-                    Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1);
+                    null;
                 elsif IncDec_16(3)='0' and RegBusA=x"FFFF" then
-                    Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))+1);
+                    null;
                 end if;
             end if;
             if Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" then
-                Upper(to_integer(unsigned(Stack_Upper_Index)))<=DI_Reg;
+                null;
             end if;
             if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
                 if MCycle="011" and Stream_Long='0' and Data_Long='1' then
                     if IR(5 downto 4)="11" then SPL(23 downto 16)<=(others=>'0');
-                    else Upper(to_integer(unsigned(Load_Upper_Index)))<=x"00";end if;
+                    else null;end if;
                 elsif MCycle="100" and Stream_Long='1' then
                     if IR(5 downto 4)="11" then
                         if Data_Long='1' then SPL(23 downto 16)<=unsigned(DI_Reg);end if;
                     else
-                        if Data_Long='1' then Upper(to_integer(unsigned(Load_Upper_Index)))<=DI_Reg;
-                        else Upper(to_integer(unsigned(Load_Upper_Index)))<=x"00";end if;
+                        if Data_Long='1' then null;
+                        else null;end if;
                     end if;
                 end if;
             end if;
@@ -895,18 +1359,47 @@ begin
                 end if;
             end if;
             if TState = 1 and Auto_Wait_t1 = '0' then
-                DO <= BusB;
+                Data_Out_Reg <= BusB;
                 if Wide_Stack='1' and IR(3 downto 0)="0101" and MCycle="010" then
-                    if IR(5 downto 4)="11" then DO<=x"00";
-                    else DO<=Upper(to_integer(unsigned(Stack_Upper_Index)));end if;
+                    if IR(5 downto 4)="11" then Data_Out_Reg<=x"00";
+                    else Data_Out_Reg<=Upper(to_integer(unsigned(Stack_Upper_Index)));end if;
+                end if;
+                if Ctrl_Call='1' then
+                    if MCycle="101" then Data_Out_Reg<=Ctrl_Return(23 downto 16);
+                    elsif MCycle="110" then Data_Out_Reg<=Ctrl_Return(15 downto 8);
+                    elsif MCycle="111" then Data_Out_Reg<=Ctrl_Return(7 downto 0);end if;
+                elsif Ctrl_Rst='1' then
+                    if MCycle="010" then Data_Out_Reg<=Ctrl_Return(23 downto 16);
+                    elsif MCycle="011" then Data_Out_Reg<=Ctrl_Return(15 downto 8);
+                    elsif MCycle="100" then Data_Out_Reg<=Ctrl_Return(7 downto 0);end if;
+                end if;
+                if PEA_Active='1' then
+                    if Data_Long='1' then
+                        case MCycle is
+                        when "011"=>Data_Out_Reg<=EA_Result(23 downto 16);
+                        when "100"=>Data_Out_Reg<=EA_Result(15 downto 8);
+                        when "101"=>Data_Out_Reg<=EA_Result(7 downto 0);
+                        when others=>null;
+                        end case;
+                    else
+                        if MCycle="011" then Data_Out_Reg<=EA_Result(15 downto 8);elsif MCycle="100" then Data_Out_Reg<=EA_Result(7 downto 0);end if;
+                    end if;
+                end if;
+                if EX_SP_Long='1' then
+                    case MCycle is
+                    when "101"=>Data_Out_Reg<=EX_SP_Source(7 downto 0);
+                    when "110"=>Data_Out_Reg<=EX_SP_Source(15 downto 8);
+                    when "111"=>Data_Out_Reg<=EX_SP_Source(23 downto 16);
+                    when others=>null;
+                    end case;
                 end if;
                 if I_RLD = '1' then
-                    DO(3 downto 0) <= BusA(3 downto 0);
-                    DO(7 downto 4) <= BusB(3 downto 0);
+                    Data_Out_Reg(3 downto 0) <= BusA(3 downto 0);
+                    Data_Out_Reg(7 downto 4) <= BusB(3 downto 0);
                 end if;
                 if I_RRD = '1' then
-                    DO(3 downto 0) <= BusB(7 downto 4);
-                    DO(7 downto 4) <= BusA(3 downto 0);
+                    Data_Out_Reg(3 downto 0) <= BusB(7 downto 4);
+                    Data_Out_Reg(7 downto 4) <= BusA(3 downto 0);
                 end if;
             end if;
 
@@ -935,7 +1428,7 @@ begin
                 when "10111" =>
                     ACC <= Save_Mux;
                 when "10110" =>
-                    DO <= Save_Mux;
+                    Data_Out_Reg <= Save_Mux;
                 when "11000" =>
                     if Data_Long='1' and ((ISet="00" and IR=x"31") or (Pair_Absolute='1' and Pair_Read='1' and Pair_SP='1')) then SPL(7 downto 0)<=unsigned(Save_Mux);
                     else SP(7 downto 0)<=unsigned(Save_Mux);end if;
@@ -947,8 +1440,18 @@ begin
                 when others =>
                 end case;
                 if XYbit_undoc='1' then
-                    DO <= ALU_Q;
+                    Data_Out_Reg <= ALU_Q;
                 end if;
+            end if;
+
+            if Extensions_Enabled='1' and ISet="10" and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' then
+                if IR=x"7D" then MADL<='1';elsif IR=x"7E" then MADL<='0';end if;
+            end if;
+            -- LD MB,A / LD A,MB are ADL-only; Z80 mode is a NOP.
+            if Extensions_Enabled='1' and ADL_Mode='1' and ISet="10" and
+                MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' then
+                if IR=x"6D" then MBASE<=ACC;
+                elsif IR=x"6E" then ACC<=MBASE;end if;
             end if;
 
         end if;
@@ -966,7 +1469,7 @@ begin
     begin
         if CLK_n'event and CLK_n = '1' then
             if ClkEn = '1' then
-                -- Bus A / Write
+                -- Bus Address_Reg / Write_Decode
                 RegAddrA_r <= Alternate & Set_BusA_To(2 downto 1);
                 if XY_Ind = '0' and XY_State /= "00" and Set_BusA_To(2 downto 1) = "10" then
                     RegAddrA_r <= XY_State(1) & "11";
@@ -979,13 +1482,13 @@ begin
                 end if;
 
                 -- Address from register
-                RegAddrC <= Alternate & Set_Addr_To(1 downto 0);
+                RegAddrC_Base <= Alternate & Set_Addr_To(1 downto 0);
                 -- Jump (HL), LD SP,HL
                 if (JumpXY = '1' or LDSPHL = '1') then
-                    RegAddrC <= Alternate & "10";
+                    RegAddrC_Base <= Alternate & "10";
                 end if;
-                if ((JumpXY = '1' or LDSPHL = '1') and XY_State /= "00") or (MCycle = "110") then
-                    RegAddrC <= XY_State(1) & "11";
+                if ((JumpXY = '1' or LDSPHL = '1') and XY_State /= "00") or (MCycle = "110" and Ctrl_Stack='0') then
+                    RegAddrC_Base <= XY_State(1) & "11";
                 end if;
 
                 if I_DJNZ = '1' and Save_ALU_r = '1' and Mode < 2 then
@@ -1006,7 +1509,7 @@ begin
         end if;
     end process;
 
-    RegAddrA <= Mul_Target when Mul_Active='1' else Arith_Target when Arith_Long='1' else EX_SP_Index when EX_SP_Long='1' else
+    RegAddrA <= EA_Target when LEA_Commit='1' else Mul_Target when Mul_Active='1' else Arith_Target when Arith_Long='1' else EX_SP_Index when EX_SP_Long='1' else
             -- 16 bit increment/decrement
             Alternate & IncDec_16(1 downto 0) when (TState = 2 or
                 (TState = 3 and MCycle = "001" and IncDec_16(2) = '1')) and XY_State = "00" else
@@ -1015,7 +1518,7 @@ begin
             -- EX HL,DL
             Alternate & "10" when ExchangeDH = '1' and TState = 3 else
             Alternate & "01" when ExchangeDH = '1' and TState = 4 else
-            -- Bus A / Write
+            -- Bus Address_Reg / Write_Decode
             RegAddrA_r;
 
     RegAddrB <= Arith_Source when Arith_Long='1' else
@@ -1028,10 +1531,10 @@ begin
             signed(RegBusA) + 1;
 
     process (Save_ALU_r, Auto_Wait_t1, ALU_OP_r, Read_To_Reg_r,
-            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, Arith_Commit, Mul_Reg_Commit)
+            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, Arith_Commit, Mul_Reg_Commit, LEA_Commit, IV_Read_Commit)
     begin
-        RegWEH <= EX_SP_Result_WE or Arith_Commit or Mul_Reg_Commit;
-        RegWEL <= EX_SP_Result_WE or Arith_Commit or Mul_Reg_Commit;
+        RegWEH <= EX_SP_Result_WE or Arith_Commit or Mul_Reg_Commit or LEA_Commit or IV_Read_Commit;
+        RegWEL <= EX_SP_Result_WE or Arith_Commit or Mul_Reg_Commit or LEA_Commit or IV_Read_Commit;
         if (TState = 1 and Save_ALU_r = '0' and Auto_Wait_t1 = '0') or
             (Save_ALU_r = '1' and ALU_OP_r /= "0111") then
             case Read_To_Reg_r is
@@ -1058,9 +1561,11 @@ begin
     end process;
 
     process (Save_Mux, RegBusB, RegBusA_r, ID16,
-            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, EX_SP_Read, Arith_Commit, Arith_Result, Mul_Reg_Commit, Mul_Product)
+            ExchangeDH, IncDec_16, MCycle, TState, Wait_n, EX_SP_Result_WE, EX_SP_Read, Arith_Commit, Arith_Result, Mul_Reg_Commit, Mul_Product, LEA_Commit, EA_Result, IV_Read_Commit, I_Upper, I)
     begin
-        if Mul_Reg_Commit='1' then RegDIH<=std_logic_vector(Mul_Product(15 downto 8));RegDIL<=std_logic_vector(Mul_Product(7 downto 0));
+        if IV_Read_Commit='1' then RegDIH<=I_Upper;RegDIL<=I;
+        elsif LEA_Commit='1' then RegDIH<=EA_Result(15 downto 8);RegDIL<=EA_Result(7 downto 0);
+        elsif Mul_Reg_Commit='1' then RegDIH<=std_logic_vector(Mul_Product(15 downto 8));RegDIL<=std_logic_vector(Mul_Product(7 downto 0));
         elsif Arith_Commit='1' then RegDIH<=std_logic_vector(Arith_Result(15 downto 8));RegDIL<=std_logic_vector(Arith_Result(7 downto 0));
         elsif EX_SP_Result_WE='1' then RegDIH<=EX_SP_Read(15 downto 8);RegDIL<=EX_SP_Read(7 downto 0);
         else RegDIH <= Save_Mux;RegDIL <= Save_Mux;end if;
@@ -1187,14 +1692,14 @@ begin
         end if;
     end process;
 
-    MC <= std_logic_vector(MCycle);
-    TS <= std_logic_vector(TState);
+    MC<="001" when Frame_Active='1' and Frame_TS=4 else "010" when Frame_Active='1' else std_logic_vector(MCycle);
+    TS<=std_logic_vector(Frame_TS) when Frame_Active='1' else std_logic_vector(TState);
     DI_Reg <= DI;
-    HALT_n <= not Halt_FF;
+    HALT_n<='0' when Frame_State=frame_fault else not Halt_FF;
     BUSAK_n <= not BusAck;
-    IntCycle_n <= not IntCycle;
+    IntCycle_n<='1' when Frame_Active='1' else not IntCycle;
     IntE <= IntE_FF1;
-    IORQ <= IORQ_i;
+    IORQ<='0' when Frame_Active='1' else IORQ_i;
     Stop <= I_DJNZ;
 
 -------------------------------------------------------------------------
@@ -1214,10 +1719,13 @@ begin
             if CEN = '1' then
             BusReq_s <= not BUSRQ_n;
             INT_s <= not INT_n;
-            if NMICycle = '1' then
-                NMI_s <= '0';
-            elsif NMI_n = '0' and OldNMI_n = '1' then
-                NMI_s <= '1';
+
+            if ADL_Mode='1' or MADL='1' or Frame_Active='1' then
+                if NMI_n='0' and OldNMI_n='1' then NMI_s<='1';
+                elsif NMI_Accept='1' then NMI_s<='0';end if;
+            else
+                if NMICycle='1' then NMI_s<='0';
+                elsif NMI_n='0' and OldNMI_n='1' then NMI_s<='1';end if;
             end if;
             OldNMI_n := NMI_n;
             end if;
@@ -1247,6 +1755,19 @@ begin
             M1_n <= '1';
         elsif CLK_n'event and CLK_n = '1' then
             if CEN = '1' then
+            if Frame_Active='1' then
+                if Frame_End='1' then
+                    MCycle<="001";TState<="001";M1_n<='0';IntCycle<='0';NMICycle<='0';
+                    Auto_Wait_t1<='0';Auto_Wait_t2<='0';No_BTR<='0';
+                    if Frame_Returning='1' and Frame_RetN='1' then IntE_FF1<=IntE_FF2;end if;
+                    if NMI_s='1' then NMICycle<='1';IntE_FF1<='0';IntE_FF2<=Frame_IEF;
+                    elsif (Frame_Returning='1' or Frame_Is_Call='1') and Frame_IEF='1' and INT_s='1' and (IStatus="01" or IStatus="10") then
+                        IntCycle<='1';IntE_FF1<='0';IntE_FF2<='0';
+                    end if;
+                end if;
+            elsif Frame_Ready='1' then
+                if BusAck='1' and BusReq_s='0' then BusAck<='0';end if;
+            else
             if T_Res = '1' then
                 Auto_Wait_t1 <= '0';
             else
@@ -1271,6 +1792,7 @@ begin
                     IntE_FF2 <= '0';
                 end if;
             end if;
+            if IRQ_Return='1' and IR=x"45" and MCycle="100" and T_Res='1' then IntE_FF1<=IntE_FF2;end if;
             if IntCycle = '1' or NMICycle = '1' then
                 Halt_FF <= '0';
             end if;
@@ -1295,8 +1817,8 @@ begin
                             if IR = "00110110" and Mode = 0 then
                                 Pre_XY_F_M <= "010";
                             end if;
-                        elsif (MCycle = "111" and Pair_Absolute='0' and EX_SP_Long='0') or
-                            (MCycle = "110" and Mode = 1 and ISet /= "01" and Pair_Absolute='0' and EX_SP_Long='0') then
+                        elsif (MCycle = "111" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0') or
+                            (MCycle = "110" and Mode = 1 and ISet /= "01" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0') then
                             MCycle <= std_logic_vector(unsigned(Pre_XY_F_M) + 1);
                         elsif (MCycle = MCycles) or
                             No_BTR = '1' or
@@ -1307,8 +1829,9 @@ begin
                             NMICycle <= '0';
                             if NMI_s = '1' and Prefix = "00" and Width_Pending='0' then
                                 NMICycle <= '1';
+                                if ADL_Mode='1' or MADL='1' or Frame_Active='1' then IntE_FF2<=Effective_IEF;end if;
                                 IntE_FF1 <= '0';
-                            elsif (IntE_FF1 = '1' and INT_s = '1') and Prefix = "00" and Width_Pending='0' and SetEI = '0' then
+                            elsif ((ADL_Mode='0' and MADL='0') or IStatus="01" or IStatus="10") and (Effective_IEF = '1' and INT_s = '1') and Prefix = "00" and Width_Pending='0' and SetEI = '0' then
                                 IntCycle <= '1';
                                 IntE_FF1 <= '0';
                                 IntE_FF2 <= '0';
@@ -1326,6 +1849,7 @@ begin
             end if;
             if TState = 0 then
                 M1_n <= '0';
+            end if;
             end if;
             end if;
         end if;

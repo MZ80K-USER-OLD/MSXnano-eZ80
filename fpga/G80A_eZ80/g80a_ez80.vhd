@@ -70,6 +70,7 @@ entity G80A_eZ80 is
     generic(
         Mode        : integer := 0;     -- 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
         DATA_EXTENDED : boolean := true;
+        DIAGNOSTICS : boolean := false;
         IOWait      : integer := 1      -- 0 => Single I/O cycle, 1 => Std I/O cycle
     );
     port(
@@ -94,14 +95,23 @@ entity G80A_eZ80 is
 		update_addr	: out std_logic;
         DI           : in std_logic_vector(7 downto 0);
         DO           : out std_logic_vector(7 downto 0);
-        Data_Reverse: out std_logic
+        Data_Reverse: out std_logic;
+        A_MSX : out std_logic_vector(15 downto 0);
+        Extended_Window : out std_logic
     );
 end G80A_eZ80;
 
 architecture rtl of G80A_eZ80 is
 
+    signal Diag_Select : std_logic_vector(7 downto 0);
+    signal Diag_Read : std_logic_vector(7 downto 0);
+    signal Diag_Active, Diag_IRQ, Diag_NMI_Arm, HALT_i : std_logic;
+    signal Diag_NMI_Count : unsigned(3 downto 0);
+    signal INT_Input_n, NMI_Input_n, Vector_Window : std_logic;
     signal Bank_i : std_logic_vector(7 downto 0);
     signal Extension_State_i : std_logic;
+    signal MADL_i : std_logic;
+    signal MBASE_i : std_logic_vector(7 downto 0);
     signal CEN          : std_logic;
     signal Reset_s      : std_logic;
     signal IntCycle_n   : std_logic;
@@ -121,7 +131,11 @@ architecture rtl of G80A_eZ80 is
     signal RFSH_n_i     : std_logic;
     signal BUSAK_n_i    : std_logic;
     signal A_i          : std_logic_vector(15 downto 0);
-    --signal DO           : std_logic_vector(7 downto 0);
+    signal Core_DO, Request_Data : std_logic_vector(7 downto 0);
+    signal Request_Address : std_logic_vector(23 downto 0);
+    signal Request_Write, Request_IO : std_logic;
+    signal Request_MSX_Address : std_logic_vector(15 downto 0);
+    signal Request_Extended : std_logic;
     signal DI_Reg       : std_logic_vector (7 downto 0);    -- Input synchroniser
     signal Wait_s       : std_logic;
     signal MCycle       : std_logic_vector(2 downto 0);
@@ -142,10 +156,109 @@ begin
     RD_n <= RD_n_i when BUSAK_n_i = '1' else 'Z';
     WR_n <= WR_n_j when BUSAK_n_i = '1' else 'Z';                       -- 0247a
     RFSH_n <= RFSH_n_i when BUSAK_n_i = '1' else 'Z';
-    A24<=Bank_i & A_i when BUSAK_n_i='1' else (others=>'Z');
+    -- Decode read intent before MREQ/T1, so the existing bridge can assert
+    -- WAIT before RD. Captured SDRAM requests remain untouched downstream.
+    Vector_Window <= '1' when DIAGNOSTICS and Diag_Active='1' and Bank_i=x"00" and A_i(15 downto 7)="000000000" and
+        Write='0' and IORQ='0' and IntCycle_n='1' and RFSH_n_i='1' else '0';
+    -- R11.6: latch the final read-only vector decision in one bit at T1.
+    -- Low16 address payload registers do not depend on the core Write decode.
+    -- Only the refresh phase uses the core's refresh address directly.
+    -- All ordinary requests retain their T1 address through WAIT and bus release.
+    A24 <= x"00" & A_i when RFSH_n_i='0' and BUSAK_n_i='1' else
+           Request_Address when BUSAK_n_i='1' else (others=>'Z');
+    -- R11.6: capture MSX payload and final isolation at the same T1 edge.
+    -- Refresh remains bank zero; ordinary addresses never use a live bank mux.
+    A_MSX <= A_i when RFSH_n_i='0' and BUSAK_n_i='1' else
+             x"0000" when Request_Extended='1' and BUSAK_n_i='1' else
+             Request_MSX_Address when BUSAK_n_i='1' else (others=>'Z');
+    Extended_Window <= '0' when RFSH_n_i='0' else Request_Extended;
+    DO <= Request_Data;
+    process(RESET_n, CLK_n)
+    begin
+        if RESET_n='0' then
+            Request_Address <= (others=>'0'); Request_Data <= (others=>'0');
+            Request_Write <= '0'; Request_IO <= '0';
+            Request_MSX_Address <= (others=>'0'); Request_Extended <= '0';
+        elsif falling_edge(CLK_n) then
+            if clk_falling='1' then
+                if TState="001" then
+                    Request_Address <= Bank_i & A_i;
+                    if Vector_Window='1' then
+                        Request_Address <= x"0F" & A_i;
+                    end if;
+                    Request_MSX_Address <= (others=>'0'); Request_Extended <= '1';
+                    if Bank_i=x"00" then
+                        Request_MSX_Address <= A_i; Request_Extended <= Vector_Window;
+                    end if;
+                    if IORQ='1' or (IntCycle_n='0' and MCycle="001") then
+                        Request_Address <= x"00" & A_i;
+                        Request_MSX_Address <= A_i; Request_Extended <= '0';
+                    end if;
+                    Request_Write <= Write; Request_IO <= IORQ;
+                end if;
+                -- Core data can be refreshed during an automatic T1 wait.
+                -- It is final before the memory write strobe at T2.
+                if TState="001" or TState="010" then Request_Data <= Core_DO; end if;
+            end if;
+        end if;
+    end process;
+    HALT_n<=HALT_i;
+    INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
+    NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 else NMI_n;
+    process(Diag_Select, Extension_State_i, MBASE_i, MADL_i)
+    begin
+        Diag_Read<="1110000" & Extension_State_i;
+        if Extension_State_i='1' then
+            case Diag_Select is
+            when x"C0"=>Diag_Read<=x"45";
+            when x"C1"=>Diag_Read<=x"5A";
+            when x"C2"=>Diag_Read<=x"02";
+            when x"C3"=>Diag_Read<=x"A7";
+            when x"C4"=>Diag_Read<=x"BF";
+            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"83";else Diag_Read<=x"03";end if;
+            when x"C6"=>Diag_Read<=x"40";
+            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"7C";else Diag_Read<=x"FC";end if;
+            when x"C8"=>Diag_Read<=MBASE_i;
+            when x"C9"=>Diag_Read<="0000000" & MADL_i;
+            when others=>null;
+            end case;
+        end if;
+    end process;
+    process(RESET_n, CLK_n)
+    begin
+        if RESET_n='0' then
+            Diag_Select<=x"FF";Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+        elsif rising_edge(CLK_n) then
+            if clk_enable='1' then
+                if Diag_NMI_Count/=0 then Diag_NMI_Count<=Diag_NMI_Count-1;end if;
+                if DIAGNOSTICS and Diag_Active='1' and Diag_NMI_Arm='1' and HALT_i='0' then
+                    Diag_NMI_Count<=to_unsigned(8,4);Diag_NMI_Arm<='0';
+                end if;
+                if Extension_State_i='0' then
+                    Diag_Select<=x"FF";Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+                end if;
+                if IORQ='1' and Write='1' and A_i=x"E7E7" and TState="011" then
+                    if Core_DO=x"A5" or Core_DO=x"5A" or Core_DO=x"00" then Diag_Select<=x"FF";
+                    elsif Extension_State_i='1' then
+                        if Core_DO(7 downto 4)=x"C" then Diag_Select<=Core_DO;
+                        elsif DIAGNOSTICS then
+                            case Core_DO is
+                            when x"D8"=>Diag_Active<='1';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+                            when x"D1"=>if Diag_Active='1' then Diag_IRQ<='1';end if;
+                            when x"D2"=>if Diag_Active='1' then Diag_NMI_Arm<='1';end if;
+                            when x"D4"=>Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+                            when x"D0"=>Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+                            when others=>null;
+                            end case;
+                        end if;
+                    end if;
+                end if;
+            end if;
+        end if;
+    end process;
     A <= A_i when BUSAK_n_i = '1' else (others => 'Z');
     --D <= DO when Write = '1' and BUSAK_n_i = '1' else (others => 'Z');
-    Data_Reverse <= Write;
+    Data_Reverse <= Request_Write;
 
     process (RESET_n, CLK_n)
     begin
@@ -170,19 +283,19 @@ begin
             NoRead => NoRead,
             Write => Write,
             RFSH_n => RFSH_n_i,
-            HALT_n => HALT_n,
+            HALT_n => HALT_i,
             WAIT_n => Wait_s,
-            INT_n => INT_n,
-            NMI_n => NMI_n,
+            INT_n => INT_Input_n,
+            NMI_n => NMI_Input_n,
             RESET_n => Reset_s,
             BUSRQ_n => BUSRQ_n,
             BUSAK_n => BUSAK_n_i,
             CLK_n => CLK_n,
-            A => A_i, A_BANK=>Bank_i, Extension_State=>Extension_State_i,
+            A => A_i, A_BANK=>Bank_i, Extension_State=>Extension_State_i, MBASE_State=>MBASE_i, MADL_State=>MADL_i,
 			update_addr => update_addr,
             DInst => DI,
             DI => DI_Reg,
-            DO => DO,
+            DO => Core_DO,
             MC => MCycle,
             TS => TState,
             IntCycle_n => IntCycle_n);
@@ -193,7 +306,8 @@ begin
 			if clk_falling = '1' then
 				Wait_s <= WAIT_n;
 				if TState = "011" and BUSAK_n_i = '1' then
-					if A_i=x"E7E7" and IORQ='1' and Write='0' then DI_Reg<="1110000" & Extension_State_i;
+					if Request_Address(15 downto 0)=x"E7E7" and Request_IO='1' and Request_Write='0' and IntCycle_n='1' then DI_Reg<=Diag_Read;
+                    elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=x"FE";
                     else DI_Reg <= to_x01(DI);end if;
 				end if;
 			end if;
@@ -218,13 +332,13 @@ begin
 			if clk_falling = '1' then
 				if (IORQ = '0') then
 					if TState = "010" then
-						WR_n_i <= not Write;
+						WR_n_i <= not Request_Write;
 					elsif Tstate = "011" then
 						WR_n_i <= '1';
 					end if;
 				else
 					if TState = "001" and IORQ_n_i = '0' then
-						WR_n_i <= not Write;
+						WR_n_i <= not Request_Write;
 					elsif Tstate = "011" then
 						WR_n_i <= '1';
 					end if;
