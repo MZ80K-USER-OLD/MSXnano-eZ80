@@ -19,4 +19,4 @@ COM stage 9 time=10966810000
 BN9 HL>IX+1 020000
 EZ80BN1 R15.2: PASS
 PASS boundary_diag_r15_2 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=13860
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_boundary_diag_r15_2.sv:127: $finish called at 12805530000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_boundary_diag_r15_2.sv:127: $finish called at 12805530000 (1ps)

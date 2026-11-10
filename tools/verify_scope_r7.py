@@ -5,6 +5,10 @@ r=Path(__file__).resolve().parent.parent
 s=(r/'fpga/G80A_eZ80/t80_mcode_ez80.vhd').read_text();ed=s[s.index('--      ED prefixed instructions'):];a=ed.index('case IRB is');z=ed.index('null; -- NOP, undocumented',a)
 nop={int(x,2) for x in re.findall(r'"([01]{8})"',ed[a:z])}
 excluded=list(range(0,0x40,8))+list(range(1,0x40,8))+[0x82,0x92,0x8a,0x9a,0x83,0x93,0x8b,0x9b]
+# ED31 is LD IY,(HL) on eZ80, not a supported OUT0 register encoding.
+excluded.remove(0x31)
+row=s[s.index('-- R16: pair-indirect'):s.index('                        when "00000100"',s.index('-- R16: pair-indirect'))]
+assert 'IORQ' not in row
 assert set(excluded)<=nop
 # Extension overrides only use already-supported data/arithmetic classes plus MLT.
 # Verify no added IORQ assignment follows the inherited opcode decoder.

@@ -1,2 +1,2 @@
 PASS timing_platform_r11_1 config reset capture/hold and         327 audio rises min=        612 max=        613 parent clocks
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_timing_platform_r11_1.sv:35: $finish called at 2000100000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_timing_platform_r11_1.sv:35: $finish called at 2000100000 (1ps)

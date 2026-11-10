@@ -262,6 +262,9 @@ package body T80_eZ80_Pack is
         elsif op=x"45" or op=x"4D" then c(7 downto 4):=x"8";
         elsif op=x"C7" or op=x"D7" then c(7 downto 4):=x"9";
         end if;
+        -- R16: reuse the existing registered write-class field.
+        if op=x"0F" or op=x"1F" or op=x"2F" or op=x"3F" or op=x"3E" then c(7 downto 4):=x"A";
+        elsif op=x"07" or op=x"17" or op=x"27" or op=x"37" or op=x"31" then c(7 downto 4):=x"B";end if;
         return c;
     end function;
 end package body;

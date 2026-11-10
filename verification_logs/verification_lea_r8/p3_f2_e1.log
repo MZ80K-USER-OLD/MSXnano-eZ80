@@ -3,4 +3,4 @@ COM stage 2 time=2059230000
 EZ80LEA P1: FAIL stage 2
 ADDR=04FFFF EXP=00 ACT=01
 PASS lea_r8 phase=3 fault=2 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=3137
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_lea_r8.sv:120: $finish called at 3563870000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_lea_r8.sv:120: $finish called at 3563870000 (1ps)

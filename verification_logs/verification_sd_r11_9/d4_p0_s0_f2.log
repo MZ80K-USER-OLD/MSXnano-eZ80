@@ -1,2 +1,2 @@
-FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/verification_sd_r11_9/tb.sv:93: SD read mismatch offset=00000010 old=11 new=01 expected=11
+FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r17/verification_sd_r11_9/tb.sv:93: SD read mismatch offset=00000010 old=11 new=01 expected=11
        Time: 3120000  Scope: tb_sd_r11_9

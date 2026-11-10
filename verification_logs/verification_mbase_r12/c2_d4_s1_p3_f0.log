@@ -1,2 +1,2 @@
 PASS mbase_r12 case=2 div=4 stress=1 checks=11 waits=330 banked_fetches=29
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mbase_r12.sv:50: $finish called at 99790000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mbase_r12.sv:50: $finish called at 99790000 (1ps)

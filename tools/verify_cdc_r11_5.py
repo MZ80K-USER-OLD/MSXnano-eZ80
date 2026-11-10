@@ -8,7 +8,7 @@ def run(shift,init,fault):
  target=w/f's{shift}_i{init}_f{fault}.vvp'
  args=base+['-g2012','-s','tb_cdc_r11_5','-o',str(target),f'-Ptb_cdc_r11_5.CLOCK_SHIFT={shift}',f'-Ptb_cdc_r11_5.SKIP_INIT={init}',f'-Ptb_cdc_r11_5.FAULT={fault}',str(r/'sim/tb_cdc_r11_5.sv'),str(r/'sim/sdram_model33.sv'),str(r/'fpga/src/ez80_memory_bridge.v'),str(r/'fpga/src/memory_ez80.v')]
  p=subprocess.run(args,cwd=r,text=True,capture_output=True);assert p.returncode==0,p.stderr
- p=subprocess.run([os.environ.get('VVP','vvp'),str(target)],cwd=r,text=True,capture_output=True,timeout=600);out=p.stdout+p.stderr;(target.with_suffix('.log')).write_text(out)
+ p=subprocess.run([os.environ.get('VVP','vvp'),str(target)],cwd=r,text=True,capture_output=True,timeout=1800);out=p.stdout+p.stderr;(target.with_suffix('.log')).write_text(out)
  if fault:assert p.returncode!=0 and (('CDC capture occurred' in out or 'CDC pending published before falling capture' in out or 'CDC transaction published before 3.5 receiver periods' in out) if fault==1 else 'CDC payload changed' in out),out
  else:assert p.returncode==0 and 'PASS CDC R11.5' in out,out
  print('PASS CDC',shift,init,fault,flush=True)

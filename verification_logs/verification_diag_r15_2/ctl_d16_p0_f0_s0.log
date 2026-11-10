@@ -6,4 +6,4 @@ CT3 RUN
 CT4 CHECK
 EZ80CT1 R10: PASS
 PASS ctl_diag_r15_2 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=641 WAIT_ticks=148312
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_ctl_diag_r15_2.sv:137: $finish called at 126532570000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ctl_diag_r15_2.sv:137: $finish called at 126532570000 (1ps)

@@ -12,7 +12,7 @@
         0,
         0
       ],
-      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=2381530000\nMX1 HL>HL\nCOM stage 2 time=4017690000\nMX2 HL>IX\nCOM stage 3 time=5706330000\nMX3 IX>HL\nCOM stage 4 time=7361690000\nMX4 IX>IX\nCOM stage 5 time=9052890000\nMX5 IY>HL\nCOM stage 6 time=10691610000\nMX6 HL>IY\nCOM stage 7 time=12346970000\nMX7 IY>IY\nCOM stage 8 time=14038170000\nMX8 LANES HL>ALL\nCOM stage 9 time=18629530000\nMX9 LANES IX/IY>HL\nEZ80MX1 R15.1: PASS\nPASS mem_diag_r15_1 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=7028\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mem_diag_r15_1.sv:127: $finish called at 24416090000 (1ps)\n"
+      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=2381530000\nMX1 HL>HL\nCOM stage 2 time=4017690000\nMX2 HL>IX\nCOM stage 3 time=5706330000\nMX3 IX>HL\nCOM stage 4 time=7361690000\nMX4 IX>IX\nCOM stage 5 time=9052890000\nMX5 IY>HL\nCOM stage 6 time=10691610000\nMX6 HL>IY\nCOM stage 7 time=12346970000\nMX7 IY>IY\nCOM stage 8 time=14038170000\nMX8 LANES HL>ALL\nCOM stage 9 time=18629530000\nMX9 LANES IX/IY>HL\nEZ80MX1 R15.1: PASS\nPASS mem_diag_r15_1 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=7028\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mem_diag_r15_1.sv:127: $finish called at 24416090000 (1ps)\n"
     },
     {
       "case": [
@@ -21,7 +21,7 @@
         3,
         0
       ],
-      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=156230000\nMX1 HL>HL\nCOM stage 2 time=325910000\nMX2 HL>IX\nCOM stage 3 time=500470000\nMX3 IX>HL\nCOM stage 4 time=675030000\nMX4 IX>IX\nCOM stage 5 time=862710000\nMX5 IY>HL\nCOM stage 6 time=1041430000\nMX6 HL>IY\nCOM stage 7 time=1220150000\nMX7 IY>IY\nCOM stage 8 time=1407830000\nMX8 LANES HL>ALL\nCOM stage 9 time=2201270000\nMX9 LANES IX/IY>HL\nEZ80MX1 R15.1: PASS\nPASS mem_diag_r15_1 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_ticks=0 WAIT_ticks=3674\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mem_diag_r15_1.sv:127: $finish called at 2799270000 (1ps)\n"
+      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=156230000\nMX1 HL>HL\nCOM stage 2 time=325910000\nMX2 HL>IX\nCOM stage 3 time=500470000\nMX3 IX>HL\nCOM stage 4 time=675030000\nMX4 IX>IX\nCOM stage 5 time=862710000\nMX5 IY>HL\nCOM stage 6 time=1041430000\nMX6 HL>IY\nCOM stage 7 time=1220150000\nMX7 IY>IY\nCOM stage 8 time=1407830000\nMX8 LANES HL>ALL\nCOM stage 9 time=2201270000\nMX9 LANES IX/IY>HL\nEZ80MX1 R15.1: PASS\nPASS mem_diag_r15_1 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_ticks=0 WAIT_ticks=3674\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mem_diag_r15_1.sv:127: $finish called at 2799270000 (1ps)\n"
     },
     {
       "case": [
@@ -30,7 +30,7 @@
         7,
         1
       ],
-      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=2381710000\nMX1 HL>HL\nCOM stage 2 time=4017870000\nMX2 HL>IX\nCOM stage 3 time=5706510000\nMX3 IX>HL\nEZ80MX1 R15.1: FAIL stage 3\nADDR=020102 EXP=A2 ACT=A3\nPASS mem_diag_r15_1 phase=7 fault=1 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=750\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mem_diag_r15_1.sv:127: $finish called at 13458190000 (1ps)\n"
+      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=2381710000\nMX1 HL>HL\nCOM stage 2 time=4017870000\nMX2 HL>IX\nCOM stage 3 time=5706510000\nMX3 IX>HL\nEZ80MX1 R15.1: FAIL stage 3\nADDR=020102 EXP=A2 ACT=A3\nPASS mem_diag_r15_1 phase=7 fault=1 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=750\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mem_diag_r15_1.sv:127: $finish called at 13458190000 (1ps)\n"
     },
     {
       "case": [
@@ -39,7 +39,7 @@
         3,
         2
       ],
-      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=156230000\nMX1 HL>HL\nCOM stage 2 time=325910000\nMX2 HL>IX\nEZ80MX1 R15.1: FAIL stage 2\nADDR=020102 EXP=A2 ACT=A3\nPASS mem_diag_r15_1 phase=3 fault=2 extended=1 cpu_div=4 status=2 high_fetch_ticks=0 WAIT_ticks=212\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mem_diag_r15_1.sv:127: $finish called at 892230000 (1ps)\n"
+      "output": "EZ80MX1 R15.1 START\nCOM stage 1 time=156230000\nMX1 HL>HL\nCOM stage 2 time=325910000\nMX2 HL>IX\nEZ80MX1 R15.1: FAIL stage 2\nADDR=020102 EXP=A2 ACT=A3\nPASS mem_diag_r15_1 phase=3 fault=2 extended=1 cpu_div=4 status=2 high_fetch_ticks=0 WAIT_ticks=212\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mem_diag_r15_1.sv:127: $finish called at 892230000 (1ps)\n"
     },
     {
       "case": [
@@ -48,7 +48,7 @@
         0,
         0
       ],
-      "output": "EZ80TS1 R15.1 START\nTS01\nCOM stage A time=3520090000\nTS02\nCOM stage B time=4769370000\nTS03\nCOM stage C time=6002010000\nTS04\nCOM stage D time=7251290000\nTS05\nCOM stage E time=8483930000\nTS06\nCOM stage F time=9716570000\nTS07\nCOM stage G time=10965850000\nTS08\nCOM stage H time=12215450000\nTS09\nCOM stage I time=13448090000\nTS10\nCOM stage J time=14680730000\nTS11\nCOM stage K time=15930010000\nTS12\nCOM stage L time=17162650000\nTS13\nCOM stage M time=18411930000\nTS14\nCOM stage N time=19644570000\nTS15\nCOM stage O time=20894170000\nTS16\nCOM stage P time=22126810000\nTS17\nCOM stage Q time=23376090000\nTS18\nCOM stage R time=24608730000\nTS19\nCOM stage S time=25858010000\nTS20\nCOM stage T time=27090650000\nTS21\nCOM stage U time=28339930000\nTS22\nCOM stage V time=29572570000\nTS23\nCOM stage W time=30821850000\nTS24\nCOM stage X time=32054490000\nTS25\nCOM stage Y time=33303770000\nTS26\nCOM stage Z time=34576410000\nTS27\nCOM stage A time=35849050000\nTS28\nCOM stage B time=37138330000\nTS29\nCOM stage C time=38410970000\nTS30\nCOM stage D time=39663450000\nTS31\nCOM stage E time=40932570000\nTS32\nCOM stage F time=42185050000\nTS33\nCOM stage G time=43416090000\nTS34\nCOM stage H time=44688090000\nTS35\nCOM stage I time=45976730000\nTS36\nCOM stage J time=47248730000\nEZ80TS1 P2: PASS\nPASS tst_diag_r15_1 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=460 WAIT_ticks=64872\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_diag_r15_1.sv:136: $finish called at 49963290000 (1ps)\n"
+      "output": "EZ80TS1 R15.1 START\nTS01\nCOM stage A time=3520090000\nTS02\nCOM stage B time=4769370000\nTS03\nCOM stage C time=6002010000\nTS04\nCOM stage D time=7251290000\nTS05\nCOM stage E time=8483930000\nTS06\nCOM stage F time=9716570000\nTS07\nCOM stage G time=10965850000\nTS08\nCOM stage H time=12215450000\nTS09\nCOM stage I time=13448090000\nTS10\nCOM stage J time=14680730000\nTS11\nCOM stage K time=15930010000\nTS12\nCOM stage L time=17162650000\nTS13\nCOM stage M time=18411930000\nTS14\nCOM stage N time=19644570000\nTS15\nCOM stage O time=20894170000\nTS16\nCOM stage P time=22126810000\nTS17\nCOM stage Q time=23376090000\nTS18\nCOM stage R time=24608730000\nTS19\nCOM stage S time=25858010000\nTS20\nCOM stage T time=27090650000\nTS21\nCOM stage U time=28339930000\nTS22\nCOM stage V time=29572570000\nTS23\nCOM stage W time=30821850000\nTS24\nCOM stage X time=32054490000\nTS25\nCOM stage Y time=33303770000\nTS26\nCOM stage Z time=34576410000\nTS27\nCOM stage A time=35849050000\nTS28\nCOM stage B time=37138330000\nTS29\nCOM stage C time=38410970000\nTS30\nCOM stage D time=39663450000\nTS31\nCOM stage E time=40932570000\nTS32\nCOM stage F time=42185050000\nTS33\nCOM stage G time=43416090000\nTS34\nCOM stage H time=44688090000\nTS35\nCOM stage I time=45976730000\nTS36\nCOM stage J time=47248730000\nEZ80TS1 P2: PASS\nPASS tst_diag_r15_1 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=460 WAIT_ticks=64872\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_tst_diag_r15_1.sv:136: $finish called at 49963290000 (1ps)\n"
     },
     {
       "case": [
@@ -57,7 +57,7 @@
         7,
         0
       ],
-      "output": "EZ80TS1 R15.1 START\nTS01\nCOM stage A time=299910000\nTS02\nCOM stage B time=482710000\nTS03\nCOM stage C time=665430000\nTS04\nCOM stage D time=848070000\nTS05\nCOM stage E time=1030870000\nTS06\nCOM stage F time=1213590000\nTS07\nCOM stage G time=1396310000\nTS08\nCOM stage H time=1578950000\nTS09\nCOM stage I time=1761750000\nTS10\nCOM stage J time=1944470000\nTS11\nCOM stage K time=2127190000\nTS12\nCOM stage L time=2309830000\nTS13\nCOM stage M time=2492630000\nTS14\nCOM stage N time=2675350000\nTS15\nCOM stage O time=2862230000\nTS16\nCOM stage P time=3044870000\nTS17\nCOM stage Q time=3227670000\nTS18\nCOM stage R time=3410390000\nTS19\nCOM stage S time=3593030000\nTS20\nCOM stage T time=3775750000\nTS21\nCOM stage U time=3958550000\nTS22\nCOM stage V time=4141270000\nTS23\nCOM stage W time=4323910000\nTS24\nCOM stage X time=4506630000\nTS25\nCOM stage Y time=4689430000\nTS26\nCOM stage Z time=4865110000\nTS27\nCOM stage A time=5036630000\nTS28\nCOM stage B time=5212310000\nTS29\nCOM stage C time=5387990000\nTS30\nCOM stage D time=5567110000\nTS31\nCOM stage E time=5742230000\nTS32\nCOM stage F time=5921430000\nTS33\nCOM stage G time=6103590000\nTS34\nCOM stage H time=6296870000\nTS35\nCOM stage I time=6490230000\nTS36\nCOM stage J time=6683510000\nEZ80TS1 P2: PASS\nPASS tst_diag_r15_1 phase=7 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=460 WAIT_ticks=35468\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_diag_r15_1.sv:136: $finish called at 6955430000 (1ps)\n"
+      "output": "EZ80TS1 R15.1 START\nTS01\nCOM stage A time=299910000\nTS02\nCOM stage B time=482710000\nTS03\nCOM stage C time=665430000\nTS04\nCOM stage D time=848070000\nTS05\nCOM stage E time=1030870000\nTS06\nCOM stage F time=1213590000\nTS07\nCOM stage G time=1396310000\nTS08\nCOM stage H time=1578950000\nTS09\nCOM stage I time=1761750000\nTS10\nCOM stage J time=1944470000\nTS11\nCOM stage K time=2127190000\nTS12\nCOM stage L time=2309830000\nTS13\nCOM stage M time=2492630000\nTS14\nCOM stage N time=2675350000\nTS15\nCOM stage O time=2862230000\nTS16\nCOM stage P time=3044870000\nTS17\nCOM stage Q time=3227670000\nTS18\nCOM stage R time=3410390000\nTS19\nCOM stage S time=3593030000\nTS20\nCOM stage T time=3775750000\nTS21\nCOM stage U time=3958550000\nTS22\nCOM stage V time=4141270000\nTS23\nCOM stage W time=4323910000\nTS24\nCOM stage X time=4506630000\nTS25\nCOM stage Y time=4689430000\nTS26\nCOM stage Z time=4865110000\nTS27\nCOM stage A time=5036630000\nTS28\nCOM stage B time=5212310000\nTS29\nCOM stage C time=5387990000\nTS30\nCOM stage D time=5567110000\nTS31\nCOM stage E time=5742230000\nTS32\nCOM stage F time=5921430000\nTS33\nCOM stage G time=6103590000\nTS34\nCOM stage H time=6296870000\nTS35\nCOM stage I time=6490230000\nTS36\nCOM stage J time=6683510000\nEZ80TS1 P2: PASS\nPASS tst_diag_r15_1 phase=7 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=460 WAIT_ticks=35468\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_tst_diag_r15_1.sv:136: $finish called at 6955430000 (1ps)\n"
     },
     {
       "case": [
@@ -66,17 +66,17 @@
         3,
         1
       ],
-      "output": "EZ80TS1 R15.1 START\nTS01\nCOM stage A time=299910000\nEZ80TS1 P2: FAIL stage A\nADDR=030400 EXP=54 ACT=55\nPASS tst_diag_r15_1 phase=3 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=13 WAIT_ticks=972\n/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_diag_r15_1.sv:136: $finish called at 836870000 (1ps)\n"
+      "output": "EZ80TS1 R15.1 START\nTS01\nCOM stage A time=299910000\nEZ80TS1 P2: FAIL stage A\nADDR=030400 EXP=54 ACT=55\nPASS tst_diag_r15_1 phase=3 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=13 WAIT_ticks=972\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_tst_diag_r15_1.sv:136: $finish called at 836870000 (1ps)\n"
     }
   ],
   "sha256": {
-    "fpga/G80A_eZ80/g80a_ez80.vhd": "fbcfd3507f34263e8ad2ae6c880a658bdde6005792f8a73d997b71beb816e743",
-    "fpga/G80A_eZ80/t80_ez80.vhd": "43199aefd74c19e9e469a692ffe274d6a1c26c976767709f8c731858d03694ff",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "1d272c3268fe9bef73dc4d1da19701d10fc58ff2697107b66dd231b3860dffb7",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "bc70a0b2c419311b93037d2613c7b3c77630357a304738afc185e78467c9725c",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5",
     "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
-    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "5aaee8651412c640579fd50c7b9f3279ff3a711850ff51c28d39d140c3b0a7a9",
-    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
-    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "15e92d80e86b00f33e06aa33f4c4b81162fc145d9bd85ee450482c7fc0e57a84"
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
   },
-  "CPU_revision": "restart R15.3",
+  "CPU_revision": "restart R17",
   "diagnostic_program_bytes_unchanged": true
 }

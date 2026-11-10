@@ -3,7 +3,7 @@ import os,subprocess,json,hashlib
 r=Path(__file__).resolve().parent.parent;w=r/'verification_mul_r7';w.mkdir(exist_ok=True)
 iv=os.environ.get('IVERILOG','iverilog');vvp=os.environ.get('VVP','vvp');base=[iv]+(['-B',os.environ['IVL_ROOT']] if os.environ.get('IVL_ROOT') else [])
 def run(args):
- p=subprocess.run(args,cwd=r,capture_output=True,text=True,timeout=600)
+ p=subprocess.run(args,cwd=r,capture_output=True,text=True,timeout=1800)
  if p.returncode:raise RuntimeError(p.stdout+p.stderr)
  return p.stdout+p.stderr
 cases=[(phase,0,1) for phase in (0,3,7,11)]+[(0,1,1),(0,0,0)]

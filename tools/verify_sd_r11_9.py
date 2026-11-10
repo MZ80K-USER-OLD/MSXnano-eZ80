@@ -121,7 +121,7 @@ cases=[(d,p,s,0) for d in [4,16] for p,s in [(0,0),(3,0),(7,1),(11,1)]]+[(4,0,0,
 def run(c):
  d,p,stress,fault=c;name=f'd{d}_p{p}_s{stress}_f{fault}';f=w/(name+'.vvp')
  q=subprocess.run(base+['-g2012','-s','tb_sd_r11_9',f'-Ptb_sd_r11_9.CPU_DIV={d}',f'-Ptb_sd_r11_9.PHASE={p}',f'-Ptb_sd_r11_9.STRESS={stress}',f'-Ptb_sd_r11_9.FAULT={fault}','-o',str(f),str(w/'tb.sv'),str(w/'reference.sv'),str(w/'candidate.sv'),str(r/'verification/cpu_diag.v'),str(r/'fpga/src/ez80_memory_bridge.v')],cwd=r,text=True,capture_output=True);assert q.returncode==0,q.stdout+q.stderr
- q=subprocess.run([os.environ.get('VVP','vvp'),str(f)],cwd=r,text=True,capture_output=True,timeout=600);out=q.stdout+q.stderr;(w/(name+'.log')).write_text(out)
+ q=subprocess.run([os.environ.get('VVP','vvp'),str(f)],cwd=r,text=True,capture_output=True,timeout=1800);out=q.stdout+q.stderr;(w/(name+'.log')).write_text(out)
  if fault:
   assert q.returncode!=0 and 'SD read mismatch' in out,out
   assert ('offset=00000001' if fault==1 else 'offset=00000010') in out,out

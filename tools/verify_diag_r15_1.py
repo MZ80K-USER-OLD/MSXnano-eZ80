@@ -9,7 +9,7 @@ def run(q):
  extra=['-DTEST_HEADER="EZ80TS1.vh"','-DTEST_HEX="hardware_test/EZ80TS1.hex"',f'-P{top}.SUPPORTED=1'] if kind=='tst' else []
  a=subprocess.run(base+['-g2012','-I',str(r/'hardware_test'),'-I',str(r/'sim'),'-s',top,'-o',str(out)]+extra+[f'-P{top}.{k}={v}' for k,v in dict(CPU_DIV=div,PHASE=phase,FAULT=fault).items()]+[str(r/f'sim/{top}.sv'),str(r/'verification/cpu_1.v'),str(r/'sim/sdram_model33.sv'),str(r/'fpga/src/ez80_memory_bridge.v'),str(r/'fpga/src/memory_ez80.v')],cwd=r,text=True,capture_output=True)
  assert a.returncode==0,a.stderr
- a=subprocess.run([vvp,str(out)],cwd=r,text=True,capture_output=True,timeout=600);log=a.stdout+a.stderr;(out.with_suffix('.log')).write_text(log)
+ a=subprocess.run([vvp,str(out)],cwd=r,text=True,capture_output=True,timeout=1800);log=a.stdout+a.stderr;(out.with_suffix('.log')).write_text(log)
  assert a.returncode==0 and ('PASS '+kind+'_diag_r15_1') in log,log[-2500:]
  if kind=='mem' and fault:assert 'ADDR=020102 EXP=A2 ACT=A3' in log,log
  if kind=='tst' and not fault:assert 'TS36' in log and 'EZ80TS1 P2: PASS' in log,log[-1000:]

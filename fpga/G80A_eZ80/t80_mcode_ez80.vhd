@@ -188,10 +188,10 @@ architecture rtl of T80_MCode_eZ80 is
 
 begin
 
-        process (IR, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
+        process (IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
                 variable DDD : std_logic_vector(2 downto 0);
                 variable SSS : std_logic_vector(2 downto 0);
-                variable Tst_Active : boolean;
+                variable Tst_Active, Indexed_Pair_Active : boolean;
                 variable DPair : std_logic_vector(1 downto 0);
                 variable lastaddr, countdata, cycle : integer;
                 variable pairnum : std_logic_vector(1 downto 0);
@@ -205,6 +205,8 @@ begin
 
                 Tst_Active := Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
                     ((IR(7 downto 6)="00" and IR(2 downto 0)="100") or IR=x"64");
+                Indexed_Pair_Active:=Mode=0 and Ext_Active='1' and ISet="00" and XY_State/="00" and
+                    IntCycle='0' and NMICycle='0' and (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B");
                 Flow_Cond <= Branch_Condition;
                 MCycles <= "001";
                 if MCycle = "001" then
@@ -261,6 +263,16 @@ begin
 
                 case ISet is
                 when "00" =>
+                    -- R17: indexed pair memory is a decode branch, before legacy rotates/LDs.
+                    if Indexed_Pair_Active then
+                        if Data_Long='1' then MCycles<="101";else MCycles<="100";end if;
+                        if MCycle="010" then Inc_PC<='1';TStates<="100";end if;
+                        if Write_Class(7 downto 4)=x"B" then
+                            if MCycle="011" then Read_To_Reg<='1';Set_BusA_To<="0101";
+                            elsif MCycle="100" then Read_To_Reg<='1';Set_BusA_To<="0100";end if;
+                        end if;
+                    else
+
 
 ------------------------------------------------------------------------------
 --
@@ -1344,6 +1356,7 @@ begin
                         end if;
 
                 end case;
+                    end if; -- R17 indexed/legacy base decode
 
                 when "01" =>
 
@@ -1570,14 +1583,14 @@ begin
 ------------------------------------------------------------------------------
 
                         case IRB is
-                        when "00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"|"00000111"
-                                |"00001000"|"00001001"|"00001010"|"00001011"|"00001101"|"00001110"|"00001111"
-                                |"00010000"|"00010001"|"00010010"|"00010011"|"00010101"|"00010110"|"00010111"
-                                |"00011000"|"00011001"|"00011010"|"00011011"|"00011101"|"00011110"|"00011111"
-                                |"00100000"|"00100001"|"00100010"|"00100011"|"00100101"|"00100110"|"00100111"
-                                |"00101000"|"00101001"|"00101010"|"00101011"|"00101101"|"00101110"|"00101111"
-                                |"00110000"|"00110001"|"00110010"|"00110011"|"00110101"|"00110110"|"00110111"
-                                |"00111000"|"00111001"|"00111010"|"00111011"|"00111101"|"00111110"|"00111111"
+                        when "00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"
+                                |"00001000"|"00001001"|"00001010"|"00001011"|"00001101"|"00001110"
+                                |"00010000"|"00010001"|"00010010"|"00010011"|"00010101"|"00010110"
+                                |"00011000"|"00011001"|"00011010"|"00011011"|"00011101"|"00011110"
+                                |"00100000"|"00100001"|"00100010"|"00100011"|"00100101"|"00100110"
+                                |"00101000"|"00101001"|"00101010"|"00101011"|"00101101"|"00101110"
+                                |"00110000"|"00110010"|"00110011"|"00110101"|"00110110"
+                                |"00111000"|"00111001"|"00111010"|"00111011"|"00111101"
 
 
                                 |"10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000110"|"10000111"
@@ -1597,6 +1610,16 @@ begin
                                 |"11110000"|"11110001"|"11110010"|           "11110100"|"11110101"|"11110110"|"11110111"
                                 |"11111000"|"11111001"|"11111010"|"11111011"|"11111100"|"11111101"|"11111110"|"11111111" =>
                                 null; -- NOP, undocumented
+                        -- R16: pair-indirect transfers share the core's EX(SP) work registers.
+                        when x"07"|x"17"|x"27"|x"37"|x"31"|x"0F"|x"1F"|x"2F"|x"3F"|x"3E" =>
+                            if Mode=0 and ISet="10" and Ext_Active='1' and IntCycle='0' and NMICycle='0' then
+                                if Data_Long='1' then MCycles<="100";else MCycles<="011";end if;
+                                if MCycle="001" then TStates<="100";else TStates<="011";end if;
+                                if (IR=x"07" or IR=x"17" or IR=x"27" or IR=x"37" or IR=x"31") then
+                                    if MCycle="010" then Read_To_Reg<='1';Set_BusA_To<="0101";
+                                    elsif MCycle="011" then Read_To_Reg<='1';Set_BusA_To<="0100";end if;
+                                end if;
+                            end if;
                         when "00000100"|"00001100"|"00010100"|"00011100"|
                              "00100100"|"00101100"|"00110100"|"00111100" =>
                                 -- R15.3: TST is an ED decode row, not a global override.
@@ -1997,6 +2020,7 @@ begin
 
                 end case;
 
+                if not Indexed_Pair_Active then
                 if Mode = 1 then
                         if MCycle = "001" then
 --                              TStates <= "100";
@@ -2298,12 +2322,13 @@ begin
                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
                 end if;
+                end if; -- R17: legacy XY/extension overrides
         end process;
 
     -- The legacy writer is unchanged. Extension overrides select one opcode
     -- class in parallel instead of chaining every instruction's Write mux.
     process(Legacy_Write, Write_Class, ISet, MCycle, Ext_Active, Data_Long,
-            Stream_Long, ADL_Mode, Has_Width, IntCycle, NMICycle, Branch_Condition)
+            Stream_Long, ADL_Mode, Has_Width, IntCycle, NMICycle, Branch_Condition, XY_State)
         variable w : std_logic;
         variable base_kind, ed_kind : std_logic_vector(3 downto 0);
         variable lastaddr, cycle : integer range 0 to 7;
@@ -2338,6 +2363,8 @@ begin
                         w:='0';if ed_kind=x"1" and cycle>lastaddr then w:='1';end if;
                     end if;
                 when x"3" => if Data_Long='1' then w:='0';end if;
+                when x"A" => w:='0';if cycle>=2 and (cycle<=3 or (cycle=4 and Data_Long='1')) then w:='1';end if;
+                when x"B" => w:='0';
                 when x"4"|x"5" => w:='0';
                 when x"6" => w:='0';if cycle>=3 then w:='1';end if;
                 when others=>null;
@@ -2366,6 +2393,10 @@ begin
         end if;
         if Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' then
             if ed_kind=x"9" or (ed_kind=x"8" and (ADL_Mode='1' or Has_Width='1')) then w:='0';end if;
+        end if;
+        if Mode=0 and Ext_Active='1' and ISet="00" and XY_State/="00" and IntCycle='0' and NMICycle='0' and
+           (ed_kind=x"A" or ed_kind=x"B") then
+            w:='0';if ed_kind=x"A" and cycle>=3 and (cycle<=4 or (cycle=5 and Data_Long='1')) then w:='1';end if;
         end if;
         Write<=w;
     end process;

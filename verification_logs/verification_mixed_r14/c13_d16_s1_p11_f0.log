@@ -1,2 +1,2 @@
 PASS mixed_r14 case=13 div=16 stress=1 checks=1 frame_writes=4 entries=1 WAIT=155 frame_WAIT=6 pause=919 bus_grant=1
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mixed_r14.sv:57: $finish called at 191390000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mixed_r14.sv:57: $finish called at 191390000 (1ps)

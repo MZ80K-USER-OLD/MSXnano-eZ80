@@ -6,4 +6,4 @@ BN2 IX+1>HL 030000
 EZ80BN1 R15.2: FAIL stage 2
 ADDR=030000 EXP=96 ACT=97
 PASS boundary_diag_r15_2 phase=3 fault=1 extended=1 cpu_div=4 status=2 high_fetch_ticks=0 WAIT_ticks=781
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_boundary_diag_r15_2.sv:127: $finish called at 967830000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_boundary_diag_r15_2.sv:127: $finish called at 967830000 (1ps)

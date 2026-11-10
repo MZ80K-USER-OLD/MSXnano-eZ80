@@ -1,5 +1,5 @@
 {
-  "fresh_runs": 65,
+  "fresh_runs": 77,
   "cases": [
     {
       "name": "EZ80IRQ",
@@ -578,6 +578,60 @@
       "pause": 0
     },
     {
+      "name": "EZ80LDH",
+      "phase": 7,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDH",
+      "phase": 0,
+      "fault": 1,
+      "extended": 1,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDH",
+      "phase": 0,
+      "fault": 0,
+      "extended": 1,
+      "request": 0,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDH",
+      "phase": 0,
+      "fault": 0,
+      "extended": 0,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDH",
+      "phase": 3,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 4,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDH",
+      "phase": 7,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 4,
+      "pause": 1
+    },
+    {
       "name": "EZ80LDX",
       "phase": 0,
       "fault": 0,
@@ -585,6 +639,60 @@
       "request": 1,
       "div": 16,
       "pause": 0
+    },
+    {
+      "name": "EZ80LDX",
+      "phase": 7,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDX",
+      "phase": 0,
+      "fault": 1,
+      "extended": 1,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDX",
+      "phase": 0,
+      "fault": 0,
+      "extended": 1,
+      "request": 0,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDX",
+      "phase": 0,
+      "fault": 0,
+      "extended": 0,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDX",
+      "phase": 3,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 4,
+      "pause": 0
+    },
+    {
+      "name": "EZ80LDX",
+      "phase": 7,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 4,
+      "pause": 1
     }
   ],
   "COM_sha256": {

@@ -73,4 +73,4 @@ TS36
 COM stage J time=47248730000
 EZ80TS1 P2: PASS
 PASS tst_diag_r15_1 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=460 WAIT_ticks=64872
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_tst_diag_r15_1.sv:136: $finish called at 49963290000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_tst_diag_r15_1.sv:136: $finish called at 49963290000 (1ps)

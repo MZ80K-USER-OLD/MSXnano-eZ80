@@ -214,10 +214,10 @@ begin
             when x"C1"=>Diag_Read<=x"5A";
             when x"C2"=>Diag_Read<=x"02";
             when x"C3"=>Diag_Read<=x"A7";
-            when x"C4"=>Diag_Read<=x"BF";
-            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"83";else Diag_Read<=x"03";end if;
-            when x"C6"=>Diag_Read<=x"40";
-            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"7C";else Diag_Read<=x"FC";end if;
+            when x"C4"=>Diag_Read<=x"FF";
+            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"87";else Diag_Read<=x"07";end if;
+            when x"C6"=>Diag_Read<=x"00";
+            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"78";else Diag_Read<=x"F8";end if;
             when x"C8"=>Diag_Read<=MBASE_i;
             when x"C9"=>Diag_Read<="0000000" & MADL_i;
             when others=>null;

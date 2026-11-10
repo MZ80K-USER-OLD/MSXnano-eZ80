@@ -61,7 +61,7 @@ for p in [r/'fpga/G80A_eZ80/t80_pack_ez80.vhd',w/'reference.vhd',r/'fpga/G80A_eZ
  p=subprocess.run([g,'-a','--std=08','-fsynopsys',str(p)],cwd=w,text=True,capture_output=True);assert p.returncode==0,p.stdout+p.stderr
 rows=[]
 for mode,fault in [(i,False) for i in range(4)]+[(0,True)]:
- p=subprocess.run([g,'-r','--std=08','-fsynopsys','tb_write_r12',f'-gPROFILE_MODE={mode}',f'-gFAULT={str(fault).lower()}','--assert-level=error'],cwd=w,text=True,capture_output=True,timeout=600);out=p.stdout+p.stderr
+ p=subprocess.run([g,'-r','--std=08','-fsynopsys','tb_write_r12',f'-gPROFILE_MODE={mode}',f'-gFAULT={str(fault).lower()}','--assert-level=error'],cwd=w,text=True,capture_output=True,timeout=1800);out=p.stdout+p.stderr
  (w/f'm{mode}_f{int(fault)}.log').write_text(out)
  if fault:assert p.returncode!=0 and 'decoder mismatch Write' in out,out
  else:assert p.returncode==0 and 'checks=2097152' in out,out

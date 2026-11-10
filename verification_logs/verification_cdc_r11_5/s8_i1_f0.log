@@ -1,2 +1,2 @@
 PASS CDC R11.5 phase=0 transactions=517 WAIT_ticks=8276 VDP_reads=3151 contended=1034 refresh=3
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_cdc_r11_5.sv:150: $finish called at 505591000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_cdc_r11_5.sv:150: $finish called at 505591000 (1ps)

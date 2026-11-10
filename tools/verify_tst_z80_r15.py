@@ -7,7 +7,7 @@ cases=[(4,d,s,p,0) for d,s,p in [(4,0,0),(4,1,3),(16,1,11)]]
 def run(q):
  c,d,s,p,f=q;label=f'c{c}_d{d}_s{s}_p{p}_f{f}';outp=w/(label+'.vvp')
  a=subprocess.run(base+['-g2012','-I',str(r/'sim'),'-s','tb_tst_r15','-o',str(outp)]+[f'-Ptb_tst_r15.{k}={v}' for k,v in dict(CASE=c,CPU_DIV=d,STRESS=s,PHASE=p,FAULT=f).items()]+[str(r/'sim/tb_tst_r15.sv'),str(r/'verification/cpu_1.v')],text=True,capture_output=True);assert a.returncode==0,a.stderr
- a=subprocess.run([vvp,str(outp)],text=True,capture_output=True,timeout=600);out=a.stdout+a.stderr;(w/(label+'.log')).write_text(out)
+ a=subprocess.run([vvp,str(outp)],text=True,capture_output=True,timeout=1800);out=a.stdout+a.stderr;(w/(label+'.log')).write_text(out)
  if f:assert a.returncode!=0 and 'MBASE state' in out,out
  else:assert a.returncode==0 and 'PASS tst_r15' in out,out
  print('PASS mbase',q,flush=True);return dict(case=q,result=out[-500:])

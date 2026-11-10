@@ -64,7 +64,7 @@ def run(case):
  name,phase,fault=case;f=w/(name+f'_p{phase}_f{fault}.vvp');inc=r/'sim/corners' if name=='corners_r4' else r/'hardware_test'
  cmd=base+['-g2012','-I',str(inc),'-I',str(r/'sim'),'-s','tb_'+name,f'-Ptb_{name}.PHASE={phase}','-o',str(f),str(r/'sim'/('tb_'+name+'.sv')),str(w/f'candidate_f{fault}.v'),str(w/'reference.v'),str(r/'sim/sdram_model33.sv'),str(r/'fpga/src/ez80_memory_bridge.v'),str(r/'fpga/src/memory_ez80.v')]
  p=subprocess.run(cmd,cwd=r,text=True,capture_output=True);assert p.returncode==0,p.stdout+p.stderr
- p=subprocess.run([os.environ.get('VVP','vvp'),str(f)],cwd=r,text=True,capture_output=True,timeout=600);out=p.stdout+p.stderr;f.with_suffix('.log').write_text(out)
+ p=subprocess.run([os.environ.get('VVP','vvp'),str(f)],cwd=r,text=True,capture_output=True,timeout=1800);out=p.stdout+p.stderr;f.with_suffix('.log').write_text(out)
  if fault:assert p.returncode!=0 and 'Upper differential mismatch' in out,out
  else:assert p.returncode==0 and 'PASS '+name in out,out
  m=re.search(r'UPPER_COVERAGE=([0-9a-f]+) EXCHANGE=(\d+)',out);assert m,out

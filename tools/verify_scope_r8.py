@@ -24,7 +24,7 @@ for s in ["I_RETN<='0'",'IMode<="11"',"Jump<='0'","Save_ALU<='0'","Read_To_Acc<=
 assert not re.search(r"IORQ\s*<=\s*'1'",mcode[mcode.index('-- R1 only:'):])
 ed=mcode[mcode.index('--      ED prefixed instructions'):];a=ed.index('case IRB is');z=ed.index('null; -- NOP, undocumented',a)
 nop={int(x,2) for x in re.findall(r'"([01]{8})"',ed[a:z])}
-excluded=set(range(0,0x40,8))|set(range(1,0x40,8))|{0x82,0x92,0x8a,0x9a,0x83,0x93,0x8b,0x9b};assert excluded<=nop
+excluded=set(range(0,0x40,8))|set(range(1,0x40,8))|{0x82,0x92,0x8a,0x9a,0x83,0x93,0x8b,0x9b};excluded.discard(0x31);assert excluded<=nop # ED31 = LD IY,(HL), not OUT0
 for n,h in json.loads((r/'doc/provenance.json').read_text()).items():assert hashlib.sha256((r/'fpga/G80A'/(n+'.vhd')).read_bytes()).hexdigest()==h
 result=dict(EA_opcodes=[f'ED {v:02X}' for v in sorted(expected)],existing_indexed_adder_reused=True,source_read_port_reused=True,short_LEA_upper_preserved=True,RETN_IM_NEG_aliases_suppressed_only_while_enabled=True,no_new_IO=True,original_T80_unchanged=True,GOWIN_area_verified=False)
 (r/'verification_scope_r8.json').write_text(json.dumps(result,indent=2)+'\n');print('PASS R8 scope: shared indexed adder, 12 EA opcodes, no new I/O')

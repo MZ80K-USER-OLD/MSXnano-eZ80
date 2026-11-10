@@ -24,12 +24,12 @@
     "SofaRun_Space_Manbow_play": true
   },
   "sha256": {
-    "fpga/G80A_eZ80/g80a_ez80.vhd": "fbcfd3507f34263e8ad2ae6c880a658bdde6005792f8a73d997b71beb816e743",
-    "fpga/G80A_eZ80/t80_ez80.vhd": "43199aefd74c19e9e469a692ffe274d6a1c26c976767709f8c731858d03694ff",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "1d272c3268fe9bef73dc4d1da19701d10fc58ff2697107b66dd231b3860dffb7",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "bc70a0b2c419311b93037d2613c7b3c77630357a304738afc185e78467c9725c",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5",
     "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
-    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "5aaee8651412c640579fd50c7b9f3279ff3a711850ff51c28d39d140c3b0a7a9",
     "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
-    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "15e92d80e86b00f33e06aa33f4c4b81162fc145d9bd85ee450482c7fc0e57a84",
     "fpga/src/ez80_memory_bridge.v": "86df7f0b27e1b1df75d285f6df99b32114b2ed343fb35f4b316439cb9d89c061",
     "fpga/src/memory_ez80.v": "109277977452cac59d20611fa12d7af566efc95d1f9180a867753b590b4cf916",
     "fpga/top_ez80.v": "f72b28d4439fab86ea9a77ed5c7195d0b290c2a760383487dadda35d649da3f2",
@@ -40,7 +40,7 @@
     "sim/tb_fetch_r9.sv": "fb7795aa333a3a8abfe249689b8906f3f5d80f2a3ebbbb138f527ff3ba302ebe",
     "sim/fetch_plan.vh": "c073fa66367dc1b41ef5ffc7e869337c2fe28f75a65120c371d4a893dc7a240d",
     "sim/tb_pc_r9.sv": "4f7343bfbffd31437f8ed7428d766bf0ee606d88ae794a62adbf05e3a308f3e4",
-    "tools/verify_fetch_r9.py": "6d588508c0c2b2c43324656e0bb41a585af52898bf8dc7af3dcb02ec3c042cb1",
+    "tools/verify_fetch_r9.py": "5afd49bb02e4a5a4e00c2866bbfee7a9dda93aa2105ec609194dde79d6aa31c0",
     "tools/verify_pc_r9.py": "c561b899e20b4714eba286933af005856e37fce4b01810c49249be4b27f62da9",
     "tools/verify_scope_r9.py": "7e179beff76a5da9fbdaa5e532da30de12920d44dcff7fde59da9c0b15bf6287"
   }

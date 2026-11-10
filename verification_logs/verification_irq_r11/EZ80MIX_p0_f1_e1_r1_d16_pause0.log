@@ -3,4 +3,4 @@ COM stage B time=820890000
 EZ80MIX P2: FAIL stage B
 ADDR=030400 EXP=72 ACT=73
 PASS irq_r11 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=4 WAIT_ticks=694
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_irq_r11.sv:128: $finish called at 2299290000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 2299290000 (1ps)

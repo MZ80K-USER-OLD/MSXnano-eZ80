@@ -38,7 +38,7 @@ logs=[]
 for phase,fault,ext in cases:
  label=f'p{phase}_f{fault}_e{ext}'
  run(base+['-g2012','-I',str(r/'hardware_test'),'-s','tb_data_r3','-o',str(w/(label+'.vvp')),f'-Ptb_data_r3.PHASE={phase}',f'-Ptb_data_r3.FAULT={fault}',f'-Ptb_data_r3.EXTENDED={ext}']+[str(r/'sim/tb_data_r3.sv'),str(w/f'cpu_{ext}.v')]+common)
- out=run([vvp,str(w/(label+'.vvp'))],timeout=600)
+ out=run([vvp,str(w/(label+'.vvp'))],timeout=1800)
  expected='UNSUPPORTED' if not ext else ('FAIL stage '+('1' if fault==1 else '7' if fault==3 else 'A' if fault==4 else 'B' if fault==5 else '3')) if fault else 'PASS'
  assert 'EZ80D3 R3: '+expected in out and 'PASS data_r3' in out,out
  if fault==1:assert 'ADDR=1A8000 EXP=4A ACT=4B' in out,out

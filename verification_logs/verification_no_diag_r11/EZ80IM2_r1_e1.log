@@ -1,3 +1,3 @@
 EZ80IM2 P2: NOT READY - matching CPU feature required
 PASS R10 guard request=1 ext=1 status=5 WAIT=48590
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_no_diag_r11.sv:35: $finish called at 2554970000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_no_diag_r11.sv:35: $finish called at 2554970000 (1ps)

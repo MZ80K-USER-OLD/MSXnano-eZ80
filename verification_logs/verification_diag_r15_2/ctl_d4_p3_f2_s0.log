@@ -6,4 +6,4 @@ COM stage V time=5405830000
 EZ80CT1 R10: FAIL stage V
 ADDR=090000 EXP=31 ACT=30
 PASS ctl_diag_r15_2 phase=3 fault=2 extended=1 cpu_div=4 status=2 high_fetch_opcodes=0 WAIT_ticks=25125
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_ctl_diag_r15_2.sv:137: $finish called at 5779830000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ctl_diag_r15_2.sv:137: $finish called at 5779830000 (1ps)

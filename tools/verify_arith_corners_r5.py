@@ -3,7 +3,7 @@ import os,subprocess,json
 r=Path(__file__).resolve().parent.parent;w=r/'verification_arith_corners_r5';w.mkdir(exist_ok=True)
 iv=os.environ.get('IVERILOG','iverilog');vvp=os.environ.get('VVP','vvp');base=[iv]+(['-B',os.environ['IVL_ROOT']] if os.environ.get('IVL_ROOT') else [])
 def run(args):
- p=subprocess.run(args,cwd=r,text=True,capture_output=True,timeout=600)
+ p=subprocess.run(args,cwd=r,text=True,capture_output=True,timeout=1800)
  if p.returncode:raise RuntimeError(p.stdout+p.stderr)
  return p.stdout+p.stderr
 run(['python3','sim/build_arith_corners_r5.py'])

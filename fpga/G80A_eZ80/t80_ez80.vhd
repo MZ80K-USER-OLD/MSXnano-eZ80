@@ -187,6 +187,9 @@ architecture rtl of T80_eZ80 is
         return c;
     end function;
     signal Stack_Upper_Index : std_logic_vector(2 downto 0);
+    signal Pair_Indirect, Pair_Indexed, Indirect_Read, Indirect_Opposite : std_logic;
+    signal Indirect_Offset : integer range 0 to 1;
+    signal Indirect_Index, Pair_Commit_Index : std_logic_vector(2 downto 0);
     signal Pair_Absolute, Pair_Read, Pair_SP : std_logic;
     signal Pair_Number : std_logic_vector(1 downto 0);
     signal Pair_Upper_Index : std_logic_vector(2 downto 0);
@@ -194,7 +197,7 @@ architecture rtl of T80_eZ80 is
     signal Byte_Absolute, EX_SP_Long, EX_SP_Result_WE : std_logic;
     signal EX_SP_Index : std_logic_vector(2 downto 0);
     signal EX_SP_Read, EX_SP_Source : std_logic_vector(23 downto 0);
-    signal EX_SP_Address : unsigned(23 downto 0);
+    signal EX_SP_Address, EX_SP_Address_Next : unsigned(23 downto 0);
     signal Arith_Long, Arith_Commit, Arith_Sub, Arith_Carry : std_logic;
     signal Arith_Target, Arith_Source : std_logic_vector(2 downto 0);
     signal Arith_Left, Arith_Right : unsigned(23 downto 0);
@@ -543,6 +546,17 @@ architecture rtl of T80_eZ80 is
     Stack_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
     Pair_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and IntCycle='0' and NMICycle='0' and
         ((ISet="00" and Opcode_Class(4)='1') or (ISet="10" and Opcode_Class(5)='1')) else '0';
+    -- R16: no extra work register, FSM state, byte counter or ALU.
+    Pair_Indirect<='1' when Mode=0 and Extensions_Enabled='1' and (ISet="10" or Pair_Indexed='1') and IntCycle='0' and NMICycle='0' and
+        (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B") else '0';
+    Pair_Indexed<='1' when Mode=0 and Extensions_Enabled='1' and ISet="00" and XY_State/="00" and IntCycle='0' and NMICycle='0' and
+        (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B") else '0';
+    Indirect_Offset<=1 when Pair_Indexed='1' else 0;
+    Indirect_Opposite<='1' when IR=x"31" or IR=x"3E" else '0';
+    Indirect_Read<='1' when Write_Class(7 downto 4)=x"B" else '0';
+    Indirect_Index<=(Indirect_Opposite xor (XY_State(1) and Pair_Indexed)) & "11" when IR(5 downto 4)="11" else Alternate & IR(5 downto 4);
+    Pair_Commit_Index<=Indirect_Index when Pair_Indirect='1' else Pair_Upper_Index;
+    EX_SP_Address_Next<=EX_SP_Address+1;
     Pair_Read<=IR(3);
     Pair_Number<="10" when ISet="00" else IR(5 downto 4);
     Pair_SP<='1' when Pair_Number="11" else '0';
@@ -590,7 +604,7 @@ architecture rtl of T80_eZ80 is
     EA_Source<="111" when IR=x"03" or IR=x"13" or IR=x"23" or IR=x"33" or IR=x"54" or IR=x"66" else "011";
     EA_Target<="011" when IR=x"32" or IR=x"54" else "111" when IR=x"33" or IR=x"55" else Alternate & IR(5 downto 4);
     LEA_Commit<='1' when EA_Active='1' and PEA_Active='0' and MCycle="010" and TState=5 else '0';
-    RegAddrC<=EA_Source when EA_Active='1' else RegAddrC_Base;
+    RegAddrC<=XY_State(1) & "11" when Pair_Indexed='1' else Alternate & "10" when Pair_Indirect='1' else EA_Source when EA_Active='1' else RegAddrC_Base;
     PC_Increment<=PC+1;
     JP_Immediate<='1' when Extensions_Enabled='1' and ISet="00" and Opcode_Class(12)='1' and
         Data_Long=Stream_Long and IntCycle='0' and NMICycle='0' else '0';
@@ -632,7 +646,7 @@ architecture rtl of T80_eZ80 is
     -- R11.10: ordinary upper-byte commits share one combinational write port.
     -- These eight events belong to disjoint opcode families. No pipeline
     -- stage is added: the original enabled rising edge performs the commit.
-    Upper_Port_Events(0)<='1' when Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
+    Upper_Port_Events(0)<='1' when Pair_Indirect='1' and Indirect_Read='1' and Data_Long='1' and to_integer(unsigned(MCycle))=4+Indirect_Offset and TState=3 else '1' when Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
         TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 else '0';
     Upper_Port_Events(1)<=LEA_Commit and Data_Long;
     Upper_Port_Events(2)<=Arith_Commit;
@@ -646,7 +660,7 @@ architecture rtl of T80_eZ80 is
         ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" and IR(5 downto 4)/="11" and
         ((MCycle="011" and Stream_Long='0' and Data_Long='1') or (MCycle="100" and Stream_Long='1')) else '0';
     Upper_Port_WE<='1' when Upper_Port_Events/=x"00" else '0';
-    Upper_Port_Index<=Upper_Mask(Pair_Upper_Index,Upper_Port_Events(0)) or Upper_Mask(EA_Target,Upper_Port_Events(1)) or
+    Upper_Port_Index<=Upper_Mask(Pair_Commit_Index,Upper_Port_Events(0)) or Upper_Mask(EA_Target,Upper_Port_Events(1)) or
         Upper_Mask(Arith_Target,Upper_Port_Events(2)) or Upper_Mask(EX_SP_Index,Upper_Port_Events(3)) or
         Upper_Mask(RegAddrA,Upper_Port_Events(4)) or Upper_Mask(RegAddrA,Upper_Port_Events(5)) or
         Upper_Mask(Stack_Upper_Index,Upper_Port_Events(6)) or Upper_Mask(Load_Upper_Index,Upper_Port_Events(7));
@@ -1245,6 +1259,35 @@ architecture rtl of T80_eZ80 is
             if Arith_Commit='1' then
                 null;
             end if;
+            if Pair_Indirect='1' then
+                if Pair_Indexed='0' and MCycle="001" and TState=3 then
+                    EX_SP_Address(15 downto 0)<=unsigned(RegBusC);
+                    if Data_Long='1' then EX_SP_Address(23 downto 16)<=unsigned(Upper(to_integer(unsigned(RegAddrC))));
+                    else EX_SP_Address(23 downto 16)<=unsigned(MBASE);end if;
+                end if;
+                if MCycle="001" and TState=4 then EX_SP_Source<=Upper(to_integer(unsigned(Indirect_Index))) & RegBusA;end if;
+                if Pair_Indexed='1' and MCycle="010" and TState=3 then
+                    EX_SP_Address(15 downto 0)<=unsigned(Indexed_Address(15 downto 0));
+                    if Data_Long='1' then EX_SP_Address(23 downto 16)<=unsigned(Indexed_Address(23 downto 16));
+                    else EX_SP_Address(23 downto 16)<=unsigned(MBASE);end if;
+                end if;
+                -- Work address changes only once, on an accepted data T2.
+                if TState=2 and Wait_n='1' and (to_integer(unsigned(MCycle))=2+Indirect_Offset or to_integer(unsigned(MCycle))=3+Indirect_Offset) then
+                    if Data_Long='0' then EX_SP_Address(15 downto 0)<=EX_SP_Address_Next(15 downto 0);end if;
+                end if;
+                -- Latch the complete request payload at the end of the preceding cycle.
+                -- The final cycle restores PC fetch through the ordinary address logic.
+                if T_Res='1' and (to_integer(unsigned(MCycle))=1+Indirect_Offset or to_integer(unsigned(MCycle))=2+Indirect_Offset or (to_integer(unsigned(MCycle))=3+Indirect_Offset and Data_Long='1')) then
+                    Address_Reg<=std_logic_vector(EX_SP_Address(15 downto 0));
+                    Address_Bank_Reg<=std_logic_vector(EX_SP_Address(23 downto 16));
+                end if;
+            end if;
+            -- Shared incrementer for EX(SP) and indirect pair transfers.
+            if TState=2 and Wait_n='1' and
+               ((EX_SP_Long='1' and (MCycle="010" or MCycle="011" or MCycle="101" or MCycle="110")) or
+                (Pair_Indirect='1' and Data_Long='1' and (to_integer(unsigned(MCycle))=2+Indirect_Offset or to_integer(unsigned(MCycle))=3+Indirect_Offset))) then
+                EX_SP_Address<=EX_SP_Address_Next;
+            end if;
             if EX_SP_Long='1' then
                 if MCycle="001" and TState=3 then EX_SP_Address<=SPL;end if;
                 if MCycle="001" and TState=4 then
@@ -1252,7 +1295,7 @@ architecture rtl of T80_eZ80 is
                 end if;
                 if TState=2 and Wait_n='1' then
                     case MCycle is
-                    when "010"|"011"|"101"|"110"=>EX_SP_Address<=EX_SP_Address+1;
+                    when "010"|"011"|"101"|"110"=>null; -- shared increment above
                     when "100"=>EX_SP_Address<=SPL;
                     when others=>null;
                     end case;
@@ -1283,7 +1326,7 @@ architecture rtl of T80_eZ80 is
             if Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" then
                 null;
             end if;
-            if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
+            if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and Pair_Indexed='0' and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
                 if MCycle="011" and Stream_Long='0' and Data_Long='1' then
                     if IR(5 downto 4)="11" then SPL(23 downto 16)<=(others=>'0');
                     else null;end if;
@@ -1360,6 +1403,11 @@ architecture rtl of T80_eZ80 is
             end if;
             if TState = 1 and Auto_Wait_t1 = '0' then
                 Data_Out_Reg <= BusB;
+                if Pair_Indirect='1' and Indirect_Read='0' then
+                    if to_integer(unsigned(MCycle))=2+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(7 downto 0);
+                    elsif to_integer(unsigned(MCycle))=3+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(15 downto 8);
+                    elsif to_integer(unsigned(MCycle))=4+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(23 downto 16);end if;
+                end if;
                 if Wide_Stack='1' and IR(3 downto 0)="0101" and MCycle="010" then
                     if IR(5 downto 4)="11" then Data_Out_Reg<=x"00";
                     else Data_Out_Reg<=Upper(to_integer(unsigned(Stack_Upper_Index)));end if;
@@ -1471,9 +1519,13 @@ architecture rtl of T80_eZ80 is
             if ClkEn = '1' then
                 -- Bus Address_Reg / Write_Decode
                 RegAddrA_r <= Alternate & Set_BusA_To(2 downto 1);
+                -- R16: delayed byte commit must retain its destination across IRQ/NMI entry.
+                -- Reuse the existing registered port address; add no register.
                 if XY_Ind = '0' and XY_State /= "00" and Set_BusA_To(2 downto 1) = "10" then
                     RegAddrA_r <= XY_State(1) & "11";
                 end if;
+
+                if Pair_Indirect='1' then RegAddrA_r<=Indirect_Index;end if;
 
                 -- Bus B
                 RegAddrB_r <= Alternate & Set_BusB_To(2 downto 1);
@@ -1509,7 +1561,7 @@ architecture rtl of T80_eZ80 is
         end if;
     end process;
 
-    RegAddrA <= EA_Target when LEA_Commit='1' else Mul_Target when Mul_Active='1' else Arith_Target when Arith_Long='1' else EX_SP_Index when EX_SP_Long='1' else
+    RegAddrA <= Indirect_Index when Pair_Indirect='1' else EA_Target when LEA_Commit='1' else Mul_Target when Mul_Active='1' else Arith_Target when Arith_Long='1' else EX_SP_Index when EX_SP_Long='1' else
             -- 16 bit increment/decrement
             Alternate & IncDec_16(1 downto 0) when (TState = 2 or
                 (TState = 3 and MCycle = "001" and IncDec_16(2) = '1')) and XY_State = "00" else

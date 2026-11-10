@@ -5,4 +5,4 @@ COM stage I time=21895070000
 EZ80M7 R7: PASS
 COVERAGE MLT=71 IRQ=1 internal_WAIT=284 paused=342896
 PASS mul_corners_r7 phase=3 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_mul_corners_r7.sv:132: $finish called at 22892190000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mul_corners_r7.sv:132: $finish called at 22892190000 (1ps)

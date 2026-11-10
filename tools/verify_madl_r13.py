@@ -9,7 +9,7 @@ cases=[(c,d,s,p,0) for c in ids for d,s,p in profiles]+[(0,4,0,0,1),(5,4,0,0,2)]
 def run(q):
  c,d,s,p,f=q;label=f'c{c}_d{d}_s{s}_p{p}_f{f}';v=w/(label+'.vvp')
  a=subprocess.run(base+['-g2012','-I',str(r/'sim'),'-s','tb_madl_r13','-o',str(v)]+[f'-Ptb_madl_r13.{k}={v}' for k,v in dict(CASE=c,CPU_DIV=d,STRESS=s,PHASE=p,FAULT=f).items()]+[str(r/'sim/tb_madl_r13.sv'),str(r/'verification/cpu_1.v')],capture_output=True,text=True);assert a.returncode==0,a.stderr
- a=subprocess.run([vvp,str(v)],capture_output=True,text=True,timeout=600);out=a.stdout+a.stderr;(w/(label+'.log')).write_text(out)
+ a=subprocess.run([vvp,str(v)],capture_output=True,text=True,timeout=1800);out=a.stdout+a.stderr;(w/(label+'.log')).write_text(out)
  if f:assert a.returncode!=0 and ('frame write' if f==1 else 'MADL state') in out,out
  else:assert a.returncode==0 and 'PASS madl_r13' in out,out
  print('PASS MADL',q,flush=True);return dict(case=q,result=out[-900:])

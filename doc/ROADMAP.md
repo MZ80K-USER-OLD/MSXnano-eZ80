@@ -1,3 +1,11 @@
+# 現行：restart R17
+
+R16はGOWIN Logic93%、LDH/CT1/D3/TST/MEMと実装済みRUNALL全PASS、SofaRunからスペースマンボウPLAYを実機確認済み。R17でLDXを追加し、既存Indexed_AddressとLDH/EX(SP)の作業レジスタを共用。既存EZ80LDX P2:PASS、RUNALL全PASSを期待し、COM更新は不要。R17のGOWIN/実機/規模/タイミングは未確認。命令監査、ADL IM0、MADL/混在RST、工程10のタイミングと最終検証は残る。現行入口はREADMEとRESTART_R17.md、verify_r17.pyです。
+
+# 現行：restart R16
+
+R15.3は実機回帰・SofaRun/スペースマンボウPLAYまで確認済み。工程9のLDH（HL間接ペア転送）を追加し、EX(SP)のワークレジスタと加算器を共用。既存EZ80LDH P2:PASSを期待。残るNOT READYはLDXの1本。R16のGOWIN/実機、規模、タイミング収束は未確認。現行の入口はREADMEとRESTART_R16.mdです。
+
 # R15.3 現在の状況
 
 R15でEZ80CT1 Stage Vの不一致、R14で同一COM PASSを確認。今回、TSTをEDデコード内へ統合する回帰比較版を作成。機能はR15と同一で、実機回帰解消は未確認。工程9のLDH/LDX、工程8の残項目、工程10のタイミング/規模/最終実機確認は未完了。

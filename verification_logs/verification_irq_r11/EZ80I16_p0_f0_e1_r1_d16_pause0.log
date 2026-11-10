@@ -7,4 +7,4 @@ COM stage F time=3388890000
 COM stage G time=3991770000
 EZ80I16 P2: PASS
 PASS irq_r11 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=112 WAIT_ticks=17094
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_irq_r11.sv:128: $finish called at 5072730000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 5072730000 (1ps)

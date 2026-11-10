@@ -4,4 +4,4 @@ COM stage C time=281270000
 COM stage D time=424630000
 EZ80MIX P2: PASS
 PASS irq_r11 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=19 WAIT_ticks=1762
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_irq_r11.sv:128: $finish called at 701590000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 701590000 (1ps)

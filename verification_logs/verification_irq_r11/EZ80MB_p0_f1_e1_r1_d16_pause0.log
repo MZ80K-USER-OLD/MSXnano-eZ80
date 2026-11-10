@@ -2,4 +2,4 @@ COM stage A time=567770000
 EZ80MB P2: FAIL stage A
 ADDR=030400 EXP=0E ACT=0F
 PASS irq_r11 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=45 WAIT_ticks=4952
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_3/sim/tb_irq_r11.sv:128: $finish called at 3014810000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 3014810000 (1ps)
