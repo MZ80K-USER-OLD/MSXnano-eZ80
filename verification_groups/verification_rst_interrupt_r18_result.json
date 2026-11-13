@@ -1,0 +1,272 @@
+{
+  "fresh_runs": 24,
+  "expected_failure_runs": 0,
+  "cases": [
+    {
+      "case": [
+        104,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=104 div=4 stress=0 checks=2 frame_writes=6 entries=2 WAIT=0 frame_WAIT=0 pause=120 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 34410000 (1ps)\n"
+    },
+    {
+      "case": [
+        104,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=104 div=4 stress=1 checks=2 frame_writes=6 entries=2 WAIT=243 frame_WAIT=11 pause=305 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 72910000 (1ps)\n"
+    },
+    {
+      "case": [
+        104,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=104 div=16 stress=1 checks=2 frame_writes=6 entries=2 WAIT=203 frame_WAIT=10 pause=1070 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 247710000 (1ps)\n"
+    },
+    {
+      "case": [
+        105,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=105 div=4 stress=0 checks=2 frame_writes=7 entries=2 WAIT=0 frame_WAIT=0 pause=138 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 35130000 (1ps)\n"
+    },
+    {
+      "case": [
+        105,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=105 div=4 stress=1 checks=2 frame_writes=7 entries=2 WAIT=253 frame_WAIT=32 pause=310 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 74670000 (1ps)\n"
+    },
+    {
+      "case": [
+        105,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=105 div=16 stress=1 checks=2 frame_writes=7 entries=2 WAIT=203 frame_WAIT=13 pause=1285 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 247710000 (1ps)\n"
+    },
+    {
+      "case": [
+        106,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=106 div=4 stress=0 checks=2 frame_writes=7 entries=2 WAIT=0 frame_WAIT=0 pause=138 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 35130000 (1ps)\n"
+    },
+    {
+      "case": [
+        106,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=106 div=4 stress=1 checks=2 frame_writes=7 entries=2 WAIT=243 frame_WAIT=21 pause=353 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 73550000 (1ps)\n"
+    },
+    {
+      "case": [
+        106,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=106 div=16 stress=1 checks=2 frame_writes=7 entries=2 WAIT=203 frame_WAIT=15 pause=1395 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 247710000 (1ps)\n"
+    },
+    {
+      "case": [
+        107,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=107 div=4 stress=0 checks=2 frame_writes=8 entries=2 WAIT=0 frame_WAIT=0 pause=156 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 35850000 (1ps)\n"
+    },
+    {
+      "case": [
+        107,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=107 div=4 stress=1 checks=2 frame_writes=8 entries=2 WAIT=253 frame_WAIT=31 pause=401 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 75150000 (1ps)\n"
+    },
+    {
+      "case": [
+        107,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=107 div=16 stress=1 checks=2 frame_writes=8 entries=2 WAIT=215 frame_WAIT=15 pause=1485 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 262750000 (1ps)\n"
+    },
+    {
+      "case": [
+        108,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=108 div=4 stress=0 checks=2 frame_writes=6 entries=2 WAIT=0 frame_WAIT=0 pause=120 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 34410000 (1ps)\n"
+    },
+    {
+      "case": [
+        108,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=108 div=4 stress=1 checks=2 frame_writes=6 entries=2 WAIT=243 frame_WAIT=15 pause=321 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 72670000 (1ps)\n"
+    },
+    {
+      "case": [
+        108,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=108 div=16 stress=1 checks=2 frame_writes=6 entries=2 WAIT=201 frame_WAIT=9 pause=1023 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 243230000 (1ps)\n"
+    },
+    {
+      "case": [
+        109,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=109 div=4 stress=0 checks=2 frame_writes=6 entries=2 WAIT=0 frame_WAIT=0 pause=120 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 34650000 (1ps)\n"
+    },
+    {
+      "case": [
+        109,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=109 div=4 stress=1 checks=2 frame_writes=6 entries=2 WAIT=243 frame_WAIT=15 pause=321 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 72670000 (1ps)\n"
+    },
+    {
+      "case": [
+        109,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=109 div=16 stress=1 checks=2 frame_writes=6 entries=2 WAIT=201 frame_WAIT=7 pause=993 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 243230000 (1ps)\n"
+    },
+    {
+      "case": [
+        110,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=110 div=4 stress=0 checks=2 frame_writes=8 entries=2 WAIT=0 frame_WAIT=0 pause=156 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 35610000 (1ps)\n"
+    },
+    {
+      "case": [
+        110,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=110 div=4 stress=1 checks=2 frame_writes=8 entries=2 WAIT=253 frame_WAIT=21 pause=371 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 74670000 (1ps)\n"
+    },
+    {
+      "case": [
+        110,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=110 div=16 stress=1 checks=2 frame_writes=8 entries=2 WAIT=215 frame_WAIT=17 pause=1499 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 262750000 (1ps)\n"
+    },
+    {
+      "case": [
+        111,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=111 div=4 stress=0 checks=2 frame_writes=8 entries=2 WAIT=0 frame_WAIT=0 pause=156 bus_grant=0\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 35850000 (1ps)\n"
+    },
+    {
+      "case": [
+        111,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=111 div=4 stress=1 checks=2 frame_writes=8 entries=2 WAIT=253 frame_WAIT=16 pause=360 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 75150000 (1ps)\n"
+    },
+    {
+      "case": [
+        111,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=111 div=16 stress=1 checks=2 frame_writes=8 entries=2 WAIT=215 frame_WAIT=13 pause=1503 bus_grant=1\n/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:63: $finish called at 262750000 (1ps)\n"
+    }
+  ],
+  "logical_flat_RAM": true,
+  "not_board_mapping": true,
+  "canonical_suffix_cases": 8,
+  "NMI_during_RST": true,
+  "IRQ_during_RET": true,
+  "IEF_preservation": true,
+  "all_8_vectors": false,
+  "vectors": [
+    16
+  ],
+  "source_destination_modes": true,
+  "MADL_0_and_1": false,
+  "MADL": 1,
+  "MBASE_0_and_14": false,
+  "MBASE": 14,
+  "PC_stack_boundary": false,
+  "all_frame_writes_compared": true,
+  "WAIT_CEN_BUSRQ": true,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "e38c3af732dcf6ed2182991beca529429570fb4bd95aba2e5017f7be1c1d39cc",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "0ff08b302ebd00d9edea67328a4e5154cec3fa79dc349d3909be5336732d9820",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5"
+  }
+}

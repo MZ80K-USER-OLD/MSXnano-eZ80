@@ -1,0 +1,29 @@
+{
+  "fresh_runs": 4,
+  "expected_failure_runs": 1,
+  "checks_per_positive_run": 2097152,
+  "total_input_combinations": 8388608,
+  "legacy_equivalence_combinations": 8388608,
+  "excluded_combinations": 0,
+  "all_decoder_outputs_compared": 49,
+  "opcode_values": 256,
+  "ISet_values": 4,
+  "MCycle_values": 8,
+  "extension_width_ADL_suffix_branch_IRQ_NMI_profiles": 256,
+  "Mode_values": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "flags_and_XY_and_IM_varied_not_independently_exhaustive": true,
+  "baseline": "Exact R17 decoder; all outputs, no excluded input combinations",
+  "sha256": {
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "e38c3af732dcf6ed2182991beca529429570fb4bd95aba2e5017f7be1c1d39cc",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "0ff08b302ebd00d9edea67328a4e5154cec3fa79dc349d3909be5336732d9820",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5"
+  }
+}

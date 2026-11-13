@@ -108,6 +108,7 @@ architecture rtl of G80A_eZ80 is
     signal Diag_Active, Diag_IRQ, Diag_NMI_Arm, HALT_i : std_logic;
     signal Diag_NMI_Count : unsigned(3 downto 0);
     signal INT_Input_n, NMI_Input_n, Vector_Window : std_logic;
+    signal Diag_IACK_Byte, Instruction_Data : std_logic_vector(7 downto 0);
     signal Bank_i : std_logic_vector(7 downto 0);
     signal Extension_State_i : std_logic;
     signal MADL_i : std_logic;
@@ -142,8 +143,13 @@ architecture rtl of G80A_eZ80 is
     signal TState       : std_logic_vector(2 downto 0);
 
 begin
+    -- R19 test hook: use the existing selector FF, no extra opcode register.
+    Diag_IACK_Byte<="11" & Diag_Select(2 downto 0) & "111" when Diag_Select(7 downto 3)="11100" else
+        x"CD" when Diag_Select=x"E8" else x"76" when Diag_Select=x"E9" else
+        x"FB" when Diag_Select=x"EA" else x"5B" when Diag_Select=x"EB" else x"FE";
 
 	--CEN <= '1';
+    Instruction_Data<=Diag_IACK_Byte when DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" else DI;
     CEN <= clk_enable;
 
     BUSAK_n <= BUSAK_n_i;
@@ -215,11 +221,13 @@ begin
             when x"C2"=>Diag_Read<=x"02";
             when x"C3"=>Diag_Read<=x"A7";
             when x"C4"=>Diag_Read<=x"FF";
-            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"87";else Diag_Read<=x"07";end if;
+            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"8F";else Diag_Read<=x"0F";end if;
             when x"C6"=>Diag_Read<=x"00";
-            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"78";else Diag_Read<=x"F8";end if;
+            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"70";else Diag_Read<=x"F0";end if;
             when x"C8"=>Diag_Read<=MBASE_i;
             when x"C9"=>Diag_Read<="0000000" & MADL_i;
+            when x"CA"=>Diag_Read<=x"01"; -- R19 ADL/MADL IM0 engine
+            when x"CB"=>Diag_Read<=x"FE";
             when others=>null;
             end case;
         end if;
@@ -240,7 +248,7 @@ begin
                 if IORQ='1' and Write='1' and A_i=x"E7E7" and TState="011" then
                     if Core_DO=x"A5" or Core_DO=x"5A" or Core_DO=x"00" then Diag_Select<=x"FF";
                     elsif Extension_State_i='1' then
-                        if Core_DO(7 downto 4)=x"C" then Diag_Select<=Core_DO;
+                        if Core_DO(7 downto 4)=x"C" or (DIAGNOSTICS and Diag_Active='1' and Core_DO(7 downto 4)=x"E") then Diag_Select<=Core_DO;
                         elsif DIAGNOSTICS then
                             case Core_DO is
                             when x"D8"=>Diag_Active<='1';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
@@ -293,7 +301,7 @@ begin
             CLK_n => CLK_n,
             A => A_i, A_BANK=>Bank_i, Extension_State=>Extension_State_i, MBASE_State=>MBASE_i, MADL_State=>MADL_i,
 			update_addr => update_addr,
-            DInst => DI,
+            DInst => Instruction_Data,
             DI => DI_Reg,
             DO => Core_DO,
             MC => MCycle,
@@ -307,7 +315,7 @@ begin
 				Wait_s <= WAIT_n;
 				if TState = "011" and BUSAK_n_i = '1' then
 					if Request_Address(15 downto 0)=x"E7E7" and Request_IO='1' and Request_Write='0' and IntCycle_n='1' then DI_Reg<=Diag_Read;
-                    elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=x"FE";
+                    elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=Diag_IACK_Byte;
                     else DI_Reg <= to_x01(DI);end if;
 				end if;
 			end if;

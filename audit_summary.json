@@ -1,0 +1,42 @@
+{
+  "input_archive": "impl(20261111-144114).zip",
+  "archive_sha256": "fbc1f7a943025c5f815465cb1ae1f6ff8644f155c0c9ee3c1e48f8ad00cb2ffb",
+  "tool": "GOWIN V1.9.12.04",
+  "reported_creation": "Wed Nov 11 22:00:30 2026",
+  "device": "GW2AR-LV18QN88C8/I7",
+  "Logic_used": 19250,
+  "Logic_total": 20736,
+  "Logic_percent": 93,
+  "LUT": 17019,
+  "ALU": 1877,
+  "SSRAM": 59,
+  "Register_used": 7351,
+  "Register_total": 15915,
+  "Register_percent": 47,
+  "CLS_used": 10142,
+  "CLS_total": 10368,
+  "CLS_percent": 98,
+  "setup_violated_endpoints": 716,
+  "hold_violated_endpoints": 42,
+  "same_clock54_setup_TNS_ns": -698.852,
+  "same_clock54_setup_endpoints": 355,
+  "Fmax_MHz": {
+    "clock_108m": 148.187,
+    "clock_54m": 38.427,
+    "clock_27m": 66.74
+  },
+  "setup_paths_exported": 400,
+  "hold_paths_exported": 25,
+  "RTL_change": false,
+  "new_false_paths": 0,
+  "new_multicycle_paths": 0,
+  "SDC_only_changed_clocks": [
+    "clock_27m",
+    "clock_54m"
+  ],
+  "baseline_sdc_sha256": "7fbd059042ead01f3d145f93364d613ec5b90b62b74cd80b98d79be4caef00e0",
+  "patched_sdc_sha256": "239f96ee9675bddcb25eb4163d1d0d76bcf5457071bc8fe7bdebdc51f49e9418",
+  "source_parent_graph_verified_against_uploaded_synthesis_netlist": true,
+  "GOWIN_run_on_patch": false,
+  "hardware_cause_confirmed": false
+}

@@ -1,0 +1,3166 @@
+{
+  "fresh_runs": 312,
+  "expected_failure_runs": 2,
+  "cases": [
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=0 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=0 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=0 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=1 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=1 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=1 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=2 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=2 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=2 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        3,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=3 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        3,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=3 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        3,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=3 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=4 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=4 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=4 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        5,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=5 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        5,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=5 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        5,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=5 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        6,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=6 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        6,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=6 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        6,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=6 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        7,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=7 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24330000 (1ps)\n"
+    },
+    {
+      "case": [
+        7,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=7 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=190 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        7,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=7 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        8,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=8 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        8,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=8 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        8,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=8 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        9,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=9 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        9,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=9 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        9,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=9 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        10,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=10 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        10,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=10 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        10,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=10 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        11,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=11 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        11,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=11 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        11,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=11 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        12,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=12 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        12,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=12 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        12,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=12 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        13,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=13 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        13,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=13 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        13,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=13 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        14,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=14 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        14,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=14 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        14,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=14 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=15 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=15 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=15 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        16,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=16 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        16,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=16 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        16,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=16 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        17,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=17 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        17,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=17 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        17,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=17 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        18,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=18 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        18,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=18 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        18,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=18 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        19,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=19 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        19,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=19 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        19,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=19 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        20,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=20 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        20,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=20 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        20,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=20 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        21,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=21 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        21,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=21 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        21,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=21 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        22,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=22 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        22,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=22 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        22,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=22 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        23,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=23 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24570000 (1ps)\n"
+    },
+    {
+      "case": [
+        23,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=23 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=18 pause=266 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        23,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=23 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=8 pause=580 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        24,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=24 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        24,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=24 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        24,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=24 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        25,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=25 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        25,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=25 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        25,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=25 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        26,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=26 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        26,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=26 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        26,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=26 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        27,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=27 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        27,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=27 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        27,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=27 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        28,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=28 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        28,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=28 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        28,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=28 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        29,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=29 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        29,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=29 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        29,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=29 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        30,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=30 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        30,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=30 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        30,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=30 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        31,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=31 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        31,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=31 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        31,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=31 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        32,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=32 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        32,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=32 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        32,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=32 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        33,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=33 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        33,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=33 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        33,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=33 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        34,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=34 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        34,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=34 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        34,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=34 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        35,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=35 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        35,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=35 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        35,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=35 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        36,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=36 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        36,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=36 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        36,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=36 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        37,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=37 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        37,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=37 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        37,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=37 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        38,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=38 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        38,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=38 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        38,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=38 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        39,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=39 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        39,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=39 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        39,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=39 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=11 pause=875 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        40,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=40 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        40,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=40 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        40,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=40 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        41,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=41 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        41,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=41 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        41,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=41 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        42,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=42 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        42,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=42 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        42,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=42 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        43,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=43 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        43,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=43 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        43,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=43 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        44,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=44 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        44,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=44 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        44,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=44 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        45,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=45 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        45,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=45 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        45,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=45 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        46,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=46 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        46,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=46 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        46,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=46 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        47,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=47 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        47,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=47 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        47,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=47 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        48,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=48 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        48,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=48 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        48,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=48 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        49,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=49 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        49,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=49 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        49,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=49 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        50,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=50 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        50,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=50 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        50,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=50 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        51,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=51 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        51,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=51 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        51,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=51 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        52,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=52 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        52,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=52 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        52,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=52 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        53,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=53 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        53,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=53 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        53,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=53 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        54,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=54 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        54,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=54 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        54,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=54 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        55,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=55 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        55,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=55 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=177 frame_WAIT=0 pause=154 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52510000 (1ps)\n"
+    },
+    {
+      "case": [
+        55,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=55 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=10 pause=860 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        56,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=56 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        56,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=56 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        56,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=56 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        57,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=57 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        57,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=57 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        57,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=57 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        58,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=58 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        58,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=58 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        58,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=58 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        59,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=59 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        59,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=59 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        59,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=59 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        60,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=60 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        60,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=60 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        60,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=60 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        61,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=61 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        61,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=61 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        61,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=61 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        62,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=62 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        62,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=62 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        62,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=62 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        63,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=63 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        63,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=63 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        63,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=63 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        64,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=64 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        64,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=64 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        64,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=64 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        65,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=65 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        65,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=65 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        65,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=65 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        66,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=66 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        66,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=66 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        66,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=66 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        67,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=67 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        67,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=67 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        67,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=67 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        68,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=68 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        68,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=68 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        68,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=68 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        69,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=69 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        69,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=69 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        69,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=69 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        70,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=70 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        70,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=70 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        70,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=70 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        71,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=71 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 24730000 (1ps)\n"
+    },
+    {
+      "case": [
+        71,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=71 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52270000 (1ps)\n"
+    },
+    {
+      "case": [
+        71,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=71 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=142 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 173150000 (1ps)\n"
+    },
+    {
+      "case": [
+        72,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=72 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        72,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=72 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        72,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=72 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        73,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=73 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        73,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=73 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        73,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=73 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        74,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=74 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        74,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=74 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        74,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=74 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        75,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=75 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        75,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=75 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        75,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=75 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        76,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=76 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        76,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=76 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        76,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=76 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        77,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=77 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        77,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=77 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        77,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=77 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        78,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=78 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        78,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=78 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        78,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=78 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        79,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=79 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25690000 (1ps)\n"
+    },
+    {
+      "case": [
+        79,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=79 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=10 pause=108 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        79,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=79 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=7 pause=815 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        80,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=80 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        80,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=80 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        80,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=80 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        81,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=81 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        81,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=81 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        81,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=81 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        82,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=82 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        82,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=82 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        82,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=82 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        83,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=83 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        83,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=83 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        83,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=83 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        84,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=84 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        84,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=84 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        84,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=84 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        85,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=85 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        85,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=85 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        85,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=85 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        86,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=86 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        86,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=86 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        86,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=86 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        87,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=87 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        87,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=87 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        87,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=87 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        88,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=88 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        88,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=88 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        88,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=88 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        89,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=89 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25050000 (1ps)\n"
+    },
+    {
+      "case": [
+        89,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=89 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=0 pause=60 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 52830000 (1ps)\n"
+    },
+    {
+      "case": [
+        89,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=89 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=144 frame_WAIT=6 pause=550 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 177630000 (1ps)\n"
+    },
+    {
+      "case": [
+        90,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=90 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        90,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=90 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        90,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=90 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        91,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=91 div=4 stress=0 checks=2 frame_writes=3 entries=1 WAIT=0 frame_WAIT=0 pause=60 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25290000 (1ps)\n"
+    },
+    {
+      "case": [
+        91,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=91 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)\n"
+    },
+    {
+      "case": [
+        91,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=91 div=16 stress=1 checks=2 frame_writes=3 entries=1 WAIT=150 frame_WAIT=6 pause=630 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        92,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=92 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        92,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=92 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        92,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=92 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        93,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=93 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 25770000 (1ps)\n"
+    },
+    {
+      "case": [
+        93,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=93 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=20 pause=138 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        93,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=93 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=150 frame_WAIT=9 pause=765 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 183390000 (1ps)\n"
+    },
+    {
+      "case": [
+        94,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=94 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        94,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=94 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        94,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=94 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        95,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 case=95 div=4 stress=0 checks=2 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 26010000 (1ps)\n"
+    },
+    {
+      "case": [
+        95,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 case=95 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 54590000 (1ps)\n"
+    },
+    {
+      "case": [
+        95,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 case=95 div=16 stress=1 checks=2 frame_writes=4 entries=1 WAIT=154 frame_WAIT=9 pause=749 bus_grant=1\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:63: $finish called at 187870000 (1ps)\n"
+    },
+    {
+      "case": [
+        96,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=96\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 15130000 (1ps)\n"
+    },
+    {
+      "case": [
+        96,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=96\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 28910000 (1ps)\n"
+    },
+    {
+      "case": [
+        96,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=96\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 108190000 (1ps)\n"
+    },
+    {
+      "case": [
+        97,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=97\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 15130000 (1ps)\n"
+    },
+    {
+      "case": [
+        97,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=97\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 28910000 (1ps)\n"
+    },
+    {
+      "case": [
+        97,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=97\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 108190000 (1ps)\n"
+    },
+    {
+      "case": [
+        98,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=98\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 15850000 (1ps)\n"
+    },
+    {
+      "case": [
+        98,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=98\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 32590000 (1ps)\n"
+    },
+    {
+      "case": [
+        98,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=98\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 110430000 (1ps)\n"
+    },
+    {
+      "case": [
+        99,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=99\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 15850000 (1ps)\n"
+    },
+    {
+      "case": [
+        99,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=99\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 32590000 (1ps)\n"
+    },
+    {
+      "case": [
+        99,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=99\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 110430000 (1ps)\n"
+    },
+    {
+      "case": [
+        100,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=100\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 15370000 (1ps)\n"
+    },
+    {
+      "case": [
+        100,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=100\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 32270000 (1ps)\n"
+    },
+    {
+      "case": [
+        100,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=100\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 108190000 (1ps)\n"
+    },
+    {
+      "case": [
+        101,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=101\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 15370000 (1ps)\n"
+    },
+    {
+      "case": [
+        101,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=101\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 32270000 (1ps)\n"
+    },
+    {
+      "case": [
+        101,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=101\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 108190000 (1ps)\n"
+    },
+    {
+      "case": [
+        102,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=102\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 16090000 (1ps)\n"
+    },
+    {
+      "case": [
+        102,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=102\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 32830000 (1ps)\n"
+    },
+    {
+      "case": [
+        102,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=102\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 110430000 (1ps)\n"
+    },
+    {
+      "case": [
+        103,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS rst_r18 guard=103\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 16090000 (1ps)\n"
+    },
+    {
+      "case": [
+        103,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS rst_r18 guard=103\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 32830000 (1ps)\n"
+    },
+    {
+      "case": [
+        103,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS rst_r18 guard=103\n/workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:69: $finish called at 110430000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        1
+      ],
+      "result": "FATAL: /workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:73: frame write ADDR=0ec000 EXP_ADDR=0ec000 EXP=82 ACT=00 n=0\n       Time: 14930000  Scope: tb_rst_r18\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        2
+      ],
+      "result": "FATAL: /workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_rst_r18.sv:73: frame write ADDR=050000 EXP_ADDR=0ebfff EXP=02 ACT=02 n=1\n       Time: 15170000  Scope: tb_rst_r18\n"
+    }
+  ],
+  "logical_flat_RAM": true,
+  "not_board_mapping": true,
+  "canonical_suffix_cases": 80,
+  "bare_MADL_cases": 16,
+  "noncanonical_guard_cases": 8,
+  "all_8_vectors": true,
+  "source_destination_modes": true,
+  "MADL_0_and_1": true,
+  "MBASE_0_and_14": true,
+  "PC_stack_boundary": true,
+  "all_frame_writes_compared": true,
+  "WAIT_CEN_BUSRQ": true,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "e38c3af732dcf6ed2182991beca529429570fb4bd95aba2e5017f7be1c1d39cc",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "546b7b7eedc475d4e899a0e57d8f9d0eb972596bded49b598c1aba1b47b5dc84"
+  }
+}

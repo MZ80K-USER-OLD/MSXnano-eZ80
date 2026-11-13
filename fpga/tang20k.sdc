@@ -3,8 +3,8 @@
 // R11.1 clock tree: no new false paths or multicycle exceptions.
 create_clock -name clock_input -period 37.037 [get_ports {ex_clk_27m}]
 create_generated_clock -name clock_108m -source [get_ports {ex_clk_27m}] -master_clock clock_input -multiply_by 4 [get_pins {clk_main/rpll_inst/CLKOUT}]
-create_generated_clock -name clock_27m -source [get_ports {ex_clk_27m}] -master_clock clock_input -divide_by 1 [get_nets {clk_27m}]
-create_generated_clock -name clock_54m -source [get_ports {ex_clk_27m}] -master_clock clock_input -multiply_by 2 [get_nets {clk_54m}]
+create_generated_clock -name clock_27m -source [get_pins {clk_main/rpll_inst/CLKOUT}] -master_clock clock_108m -divide_by 4 [get_pins {div4/clkdiv_inst/CLKOUT}]
+create_generated_clock -name clock_54m -source [get_pins {clk_main/rpll_inst/CLKOUT}] -master_clock clock_108m -divide_by 2 [get_pins {div2/clkdiv_inst/CLKOUT}]
 // Fractional 44.1 kHz divider: minimum interval 612 parent periods.
 create_generated_clock -name clock_audio -source [get_nets {clk_27m}] -master_clock clock_27m -divide_by 612 [get_nets {vdp4/clk_audio}]
 // VideoDHClk and VideoDLClk remain timing data from their actual 27 MHz FFs.

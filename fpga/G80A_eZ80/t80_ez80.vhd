@@ -143,6 +143,8 @@ architecture rtl of T80_eZ80 is
     signal Frame_Count : integer range 0 to 3;
     signal Frame_Mode_Bit, Frame_IM2, Frame_RetN : std_logic;
     signal Frame_Calling, Frame_Is_Call, Frame_SPS, Frame_Take, Frame_Target_Last : std_logic;
+    signal Frame_Rst, Frame_Rst_Ready, Frame_Destination_Long : std_logic;
+    signal Frame_Rst_Pending : std_logic; -- R18.3: request decoded at fetch T3, before the T4 start gate.
     signal Frame_Stack_Short, Frame_Stack_Down : std_logic;
     signal Frame_Stack_Value, Frame_Stack_Delta, Frame_Stack_Next : unsigned(23 downto 0);
     signal Frame_Stack_Bank : std_logic_vector(7 downto 0);
@@ -222,7 +224,7 @@ architecture rtl of T80_eZ80 is
     signal ADL_Mode, JP_Immediate, JP_Commit : std_logic;
     signal Ctrl_Stack, Ctrl_Call, Ctrl_Ret, Ctrl_Rst, Ctrl_Taken, Flow_Cond : std_logic;
     signal Ctrl_Target, Ctrl_Return : std_logic_vector(23 downto 0);
-    signal IRQ_Long, IRQ_Return, IRQ_IM2, Effective_IEF, IV_Read_Commit : std_logic;
+    signal IRQ_Long, IRQ_Return, IRQ_IM2, IRQ_IM0, Effective_IEF, IV_Read_Commit : std_logic;
     signal IRQ_Vector : unsigned(23 downto 0);
     signal I_Upper : std_logic_vector(7 downto 0);
     signal NMI_Accept : std_logic;
@@ -397,28 +399,50 @@ architecture rtl of T80_eZ80 is
     Frame_Return<='1' when Instruction_Has_Width='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
         ((MADL='1' and ISet="10" and (IR=x"45" or IR=x"4D")) or
          (Mode=0 and ISet="00" and Frame_Take='1' and Write_Class(3 downto 1)="110")) else '0';
-    Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0') or Frame_Count=2 else '0';
-    -- MADL RST suffix/native frame variants are not enabled in this stage.
-    Frame_Unsupported<='1' when MADL='1' and ISet="00" and IntCycle='0' and NMICycle='0' and
-        Write_Class(3 downto 0)=x"E" else '0';
+    Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0' and IRQ_IM0='0') or Frame_Count=2 else '0';
+    -- R18: RST reuses the call-like frame writer, but has no immediate target.
+    -- For RST, the first suffix letter chooses the destination mode.
+    Frame_Rst<='1' when Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and Write_Class(3 downto 0)=x"E" else '0';
+    Frame_Rst_Ready<=Frame_Rst when (Instruction_Has_Width='1' and Stream_Long=ADL_Mode) or
+        (Instruction_Has_Width='0' and MADL='1') else '0';
+    Frame_Destination_Long<='1' when IRQ_IM0='1' else Data_Long when Frame_Rst='1' else Stream_Long;
+    -- Noncanonical full suffixes retain the guarded, no-stack-change behavior.
+    Frame_Unsupported<=Frame_Rst when Instruction_Has_Width='1' and Stream_Long/=ADL_Mode else '0';
     Frame_Ready<='1' when Extensions_Enabled='1' and Frame_State=frame_idle and MCycle="001" and TState=4 and
-        (Frame_Entry='1' or Frame_Return='1' or Frame_Calling='1' or Frame_Unsupported='1') else '0';
+        (Frame_Entry='1' or Frame_Return='1' or Frame_Calling='1' or Frame_Rst_Pending='1') else '0';
+    -- R18.3: canonical and guarded RST forms both need a frame start.
+    -- Their union is simply RST and (explicit width or MADL); the width
+    -- comparison remains in the dispatch, outside the normal CPU run gate.
+    -- IR/width state is accepted at fetch T2 and is stable at accepted T3.
+    -- Hold through CEN gaps, WAIT and BUSRQ; consume at fetch T4 as before.
+    process(RESET_n, CLK_n)
+    begin
+        if RESET_n='0' then Frame_Rst_Pending<='0';
+        elsif rising_edge(CLK_n) then
+            if CEN='1' and Frame_End='1' then Frame_Rst_Pending<='0';
+            elsif ClkEn='1' and MCycle="001" and TState=3 then
+                Frame_Rst_Pending<=(Frame_Rst and (Instruction_Has_Width or MADL)) or IRQ_IM0;
+            end if;
+        end if;
+    end process;
     Frame_Start<=Frame_Ready and not BusAck;
     CPU_Run<=CEN and not Frame_Active and not Frame_Start;
     Frame_Returning<='1' when Frame_State=frame_mode or Frame_State=frame_long or Frame_State=frame_upper or Frame_State=frame_short else '0';
     Frame_End<='1' when Frame_TS=3 and
-        ((Frame_State=frame_push and Frame_Count=0 and Frame_SPS='0' and Frame_IM2='0') or
+        ((Frame_State=frame_push and Frame_SPS='0' and Frame_IM2='0' and
+          (Frame_Count=0 or (IRQ_IM0='1' and MADL='0' and Frame_Count=1))) or
+         (Frame_State=frame_mode and IRQ_IM0='1') or
          (Frame_State=frame_vector and ((Frame_Is_Call='0' and Frame_Count=2) or (Frame_Is_Call='1' and Frame_Target_Last='1' and Frame_Take='0'))) or
          (Frame_State=frame_long and ((Frame_Mode_Bit='0' and Frame_Count=1) or Frame_Count=2)) or
          (Frame_State=frame_short and Frame_Count=1)) else '0';
     Frame_IEF<=IntE_FF2 when Frame_Returning='1' and Frame_RetN='1' else IntE_FF1 when Frame_Returning='1' or Frame_Is_Call='1' else '0';
     -- One carry chain for both stack widths and both push/pop directions.
     -- SPS wraps at 16 bits; its bank comes from MBASE, never from carry-out.
-    Frame_Stack_Short<='1' when Frame_State=frame_short or
+    Frame_Stack_Short<='1' when Frame_State=frame_short or (Frame_State=frame_idle and Frame_Rst_Ready='1' and Frame_Destination_Long='0') or
         (Frame_State=frame_push and Frame_SPS='1' and Frame_Count=2) or
-        (Frame_State=frame_vector and Frame_Is_Call='1' and Stream_Long='0') else '0';
+        (Frame_State=frame_vector and Frame_Is_Call='1' and Frame_Destination_Long='0') else '0';
     Frame_Stack_Down<='1' when Frame_State=frame_push or
-        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' else '0';
+        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' or (Frame_State=frame_idle and (Frame_Rst_Ready='1' or IRQ_IM0='1')) else '0';
     Frame_Stack_Value<=resize(SP,24) when Frame_Stack_Short='1' else SPL;
     Frame_Stack_Delta<=(others=>'1') when Frame_Stack_Down='1' else to_unsigned(1,24);
     Frame_Stack_Next<=Frame_Stack_Value+Frame_Stack_Delta;
@@ -430,7 +454,7 @@ architecture rtl of T80_eZ80 is
     MADL_State <= MADL;
     DO<=Data_Out_Reg;
     Write<='1' when Frame_State=frame_push and Frame_TS/=4 else '0' when Frame_Active='1' else Write_Decode;
-    NoRead<='1' when Frame_Active='1' and (Frame_TS=4 or Frame_State=frame_fault) else '0' when Frame_Active='1' else NoRead_Base;
+    NoRead<='1' when Frame_Active='1' and (Frame_TS=4 or Frame_State=frame_fault or (Frame_State=frame_mode and IRQ_IM0='1')) else '0' when Frame_Active='1' else NoRead_Base;
     -- The previous instruction's delayed flag write completes at fetch T1.
     -- Capture at accepted fetch T2, alongside IR, and hold for the instruction.
     process(RESET_n, CLK_n)
@@ -616,6 +640,10 @@ architecture rtl of T80_eZ80 is
         not ((MCycle="111" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0') or
              (MCycle="110" and Mode=1 and ISet/="01" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0')) and
         (MCycle=MCycles or No_BTR='1' or (MCycle="010" and I_DJNZ='1' and IncDecZ='1'))) else '0';
+    -- R19: IM0 in ADL/MADL uses the shared frame engine. Locked/ordinary
+    -- Z80 IM0 retains the original T80 peripheral-instruction path.
+    IRQ_IM0<='1' when Mode=0 and Extensions_Enabled='1' and IntCycle='1' and NMICycle='0' and
+        IStatus="00" and (ADL_Mode='1' or MADL='1') else '0';
     IRQ_Long <= Extensions_Enabled and ADL_Mode and (IntCycle or NMICycle);
     IRQ_IM2 <= '1' when IRQ_Long='1' and IntCycle='1' and IStatus="10" else '0';
     IRQ_Return <= '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="10" and
@@ -741,7 +769,37 @@ architecture rtl of T80_eZ80 is
             if CEN='1' and Frame_Start='1' then
                 -- Finish the fetch/refresh phase before starting a memory T1.
                 Frame_TS<=to_unsigned(4,3);Frame_Count<=0;Frame_RetN<='0';Frame_IM2<='0';Frame_Is_Call<='0';Frame_SPS<='0';
-                if Frame_Unsupported='1' then Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);
+                if IRQ_IM0='1' then
+                    -- Only CD and the eight RST encodings survive IACK decode.
+                    -- Operand reads use the interrupted stream, never extra IACKs.
+                    Frame_Mode_Bit<=ADL_Mode;Ctrl_Return<=std_logic_vector(PC);
+                    if IR=x"CD" then
+                        Frame_State<=frame_vector;Frame_Is_Call<='1';Ctrl_Target<=(others=>'0');
+                        Address_Reg<=std_logic_vector(PC(15 downto 0));Address_Bank_Reg<=MBASE;
+                        if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));end if;
+                    elsif Write_Class(3 downto 0)=x"E" then
+                        Frame_State<=frame_push;Ctrl_Target<=x"0000" & "00" & IR(5 downto 3) & "000";
+                        SPL<=Frame_Stack_Next;Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                        if ADL_Mode='1' then Frame_Count<=3;Data_Out_Reg<=std_logic_vector(PC(23 downto 16));
+                        else Frame_Count<=2;Data_Out_Reg<=std_logic_vector(PC(15 downto 8));end if;
+                    else
+                        -- Reuse frame_mode as a bus-idle NOP completion, not a
+                        -- mode-byte read. No new FSM encoding or data register.
+                        Frame_State<=frame_mode;
+                    end if;
+                elsif Frame_Unsupported='1' then Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);
+                elsif Frame_Rst_Ready='1' then
+                    Frame_State<=frame_push;Frame_Is_Call<='1';Frame_Mode_Bit<=ADL_Mode;Ctrl_Return<=std_logic_vector(PC);
+                    Ctrl_Target<=x"0000" & "00" & IR(5 downto 3) & "000";
+                    if Frame_Destination_Long='0' then
+                        Frame_SPS<='1';Frame_Count<=2;SP<=Frame_Stack_Next(15 downto 0);
+                        Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
+                        Data_Out_Reg<=std_logic_vector(PC(15 downto 8));
+                    else
+                        SPL<=Frame_Stack_Next;Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                        if ADL_Mode='1' then Frame_Count<=3;Data_Out_Reg<=std_logic_vector(PC(23 downto 16));
+                        else Frame_Count<=2;Data_Out_Reg<=std_logic_vector(PC(15 downto 8));end if;
+                    end if;
                 elsif Frame_Calling='1' then
                     -- Reuse the three-byte vector reader for CALL immediates.
                     Frame_State<=frame_vector;Frame_Is_Call<='1';Frame_Mode_Bit<=ADL_Mode;Ctrl_Target<=(others=>'0');
@@ -790,7 +848,7 @@ architecture rtl of T80_eZ80 is
                                     if Frame_Mode_Bit='1' then Frame_Count<=1;Data_Out_Reg<=Ctrl_Return(23 downto 16);
                                     else Frame_Count<=0;Data_Out_Reg<=x"02";end if;
                                 end if;
-                            elsif Frame_Count>0 then
+                            elsif Frame_Count>0 and not (IRQ_IM0='1' and MADL='0' and Frame_Count=1) then
                                 Frame_Count<=Frame_Count-1;SPL<=Frame_Stack_Next;
                                 Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
                                 if Frame_Count=3 then Data_Out_Reg<=Ctrl_Return(15 downto 8);
@@ -803,8 +861,8 @@ architecture rtl of T80_eZ80 is
                                 PC<=unsigned(Ctrl_Target);Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=Ctrl_Target(23 downto 16);
                                 ADL_Mode<='1';Frame_State<=frame_idle;
                                 if Frame_Is_Call='1' then
-                                    ADL_Mode<=Stream_Long;
-                                    if Stream_Long='0' then PC(23 downto 16)<=(others=>'0');Address_Bank_Reg<=MBASE;end if;
+                                    ADL_Mode<=Frame_Destination_Long;
+                                    if Frame_Destination_Long='0' then PC(23 downto 16)<=(others=>'0');Address_Bank_Reg<=MBASE;end if;
                                 end if;
                             end if;
                         when frame_vector =>
@@ -823,7 +881,7 @@ architecture rtl of T80_eZ80 is
                                     if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));end if;
                                 else
                                     Ctrl_Return<=std_logic_vector(PC_Width(PC_Increment,ADL_Mode));Frame_State<=frame_push;
-                                    if Stream_Long='0' then
+                                    if Frame_Destination_Long='0' then
                                         Frame_SPS<='1';Frame_Count<=2;SP<=Frame_Stack_Next(15 downto 0);
                                         Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
                                         Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,8),8));
@@ -846,7 +904,10 @@ architecture rtl of T80_eZ80 is
                             end if;
                             end if;
                         when frame_mode =>
-                            if DI_Reg=x"02" or DI_Reg=x"03" then
+                            if IRQ_IM0='1' then
+                                Frame_State<=frame_idle;Address_Reg<=std_logic_vector(PC(15 downto 0));Address_Bank_Reg<=MBASE;
+                                if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));end if;
+                            elsif DI_Reg=x"02" or DI_Reg=x"03" then
                                 Frame_Mode_Bit<=DI_Reg(0);SPL<=Frame_Stack_Next;Frame_Count<=0;
                                 if Stream_Long='1' or DI_Reg(0)='1' then
                                     Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
@@ -974,7 +1035,8 @@ architecture rtl of T80_eZ80 is
                     else Width_Pending<='0';Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';end if;
                     if IntCycle = '1' and IStatus = "01" then
                         IR <= "11111111"; Opcode_Class<=Classify_Opcode(x"FF"); Write_Class<=Classify_Write(x"FF");
-                    elsif Halt_FF = '1' or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' then
+                    elsif (Halt_FF = '1' and IRQ_IM0='0') or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' or
+                        (IRQ_IM0='1' and DInst/=x"CD" and not (DInst(7 downto 6)="11" and DInst(2 downto 0)="111")) then
                         IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
                     else
                         IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
@@ -1813,7 +1875,7 @@ architecture rtl of T80_eZ80 is
                     Auto_Wait_t1<='0';Auto_Wait_t2<='0';No_BTR<='0';
                     if Frame_Returning='1' and Frame_RetN='1' then IntE_FF1<=IntE_FF2;end if;
                     if NMI_s='1' then NMICycle<='1';IntE_FF1<='0';IntE_FF2<=Frame_IEF;
-                    elsif (Frame_Returning='1' or Frame_Is_Call='1') and Frame_IEF='1' and INT_s='1' and (IStatus="01" or IStatus="10") then
+                    elsif (Frame_Returning='1' or Frame_Is_Call='1') and Frame_IEF='1' and INT_s='1' and (IStatus/="11") then
                         IntCycle<='1';IntE_FF1<='0';IntE_FF2<='0';
                     end if;
                 end if;
@@ -1883,7 +1945,7 @@ architecture rtl of T80_eZ80 is
                                 NMICycle <= '1';
                                 if ADL_Mode='1' or MADL='1' or Frame_Active='1' then IntE_FF2<=Effective_IEF;end if;
                                 IntE_FF1 <= '0';
-                            elsif ((ADL_Mode='0' and MADL='0') or IStatus="01" or IStatus="10") and (Effective_IEF = '1' and INT_s = '1') and Prefix = "00" and Width_Pending='0' and SetEI = '0' then
+                            elsif ((ADL_Mode='0' and MADL='0') or IStatus/="11") and (Effective_IEF = '1' and INT_s = '1') and Prefix = "00" and Width_Pending='0' and SetEI = '0' then
                                 IntCycle <= '1';
                                 IntE_FF1 <= '0';
                                 IntE_FF2 <= '0';

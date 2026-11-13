@@ -1,3 +1,5 @@
+> R18更新：R17はLogic94%、RUNALL全PASS、D3 R3:PASS、SofaRun/スペースマンボウPLAYを実機確認済み。R18で工程8の正規混在/MADL RSTを追加。ADL IM0・SLP・未定義オペコードの扱い・残I/O監査と工程10は未完。最新詳細はISA_AUDIT_R18.mdとRESTART_R18.md。以下の旧版記述は当時の履歴。
+
 # 現行：restart R17
 
 R16はGOWIN Logic93%、LDH/CT1/D3/TST/MEMと実装済みRUNALL全PASS、SofaRunからスペースマンボウPLAYを実機確認済み。R17でLDXを追加し、既存Indexed_AddressとLDH/EX(SP)の作業レジスタを共用。既存EZ80LDX P2:PASS、RUNALL全PASSを期待し、COM更新は不要。R17のGOWIN/実機/規模/タイミングは未確認。命令監査、ADL IM0、MADL/混在RST、工程10のタイミングと最終検証は残る。現行入口はREADMEとRESTART_R17.md、verify_r17.pyです。

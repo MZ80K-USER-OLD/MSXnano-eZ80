@@ -12,4 +12,4 @@ for adl,stress,guard in cases:
  run(base+['-g2012','-s','tb_mixed_guard_r10','-o',str(p),f'-Ptb_mixed_guard_r10.TARGET_ADL={adl}',f'-Ptb_mixed_guard_r10.STRESS={stress}',f'-Ptb_mixed_guard_r10.GUARD={guard}',str(r/'sim/tb_mixed_guard_r10.sv'),str(r/'verification/cpu_1.v')])
  out=run([vvp,str(p)]);assert 'PASS '+('pc_r9' if guard<0 else 'mixed_guard_r10') in out,out
  (w/(label+'.log')).write_text(out);print('PASS PC unit',label,flush=True)
-(r/'verification_mixed_guard_r10_result.json').write_text(json.dumps(dict(fresh_runs=len(cases),cases=cases,mock_full_address_ROM=True,mixed_suffix_guard_cases=8,prefixes=[64,73,82,91],instruction_classes=["CALL","RET","RST"],ADL_IRQ_implemented=False),indent=2)+'\n')
+(r/'verification_mixed_guard_r10_result.json').write_text(json.dumps(dict(fresh_runs=len(cases),cases=cases,mock_full_address_ROM=True,mixed_suffix_guard_cases=8,prefixes=[64,73,82,91],instruction_classes=["CALL","RET","RST"],native_ADL_IM0_implemented=False,R18_retired_canonical_RST_guards=[16,19],replacement_RST_guards='ADL-source SIS RST08 and LIS RST10' ),indent=2)+'\n')

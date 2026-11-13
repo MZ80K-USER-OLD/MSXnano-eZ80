@@ -21,6 +21,9 @@ module tb_mixed_guard_r10;
   else if(GUARD>=0 && adr==24'h010001)data_at=0;
   else if(GUARD>=0 && adr==24'h010002)begin
    if(GUARD>=8)begin
+    // R18: canonical SIL/LIL RSTs now use frames. Keep no-write tests
+    // as different-vector noncanonical SIS/LIS guards instead.
+    if(GUARD==16)data_at=8'h40;else if(GUARD==19)data_at=8'h49;else
     case((GUARD-8)/3) 0:data_at=8'h40;1:data_at=8'h49;2:data_at=8'h52;3:data_at=8'h5b;endcase
    end else case(GUARD)
    0:data_at=8'hcd;1:data_at=8'hc9;2:data_at=8'hc7;3:data_at=8'hc2;
@@ -28,6 +31,7 @@ module tb_mixed_guard_r10;
    default:data_at=0;endcase
   end else if(GUARD>=0 && adr==24'h010003)begin
    if(GUARD>=8)begin
+    if(GUARD==16)data_at=8'hcf;else if(GUARD==19)data_at=8'hd7;else
     case((GUARD-8)%3)0:data_at=8'hcd;1:data_at=8'hc9;2:data_at=8'hc7;endcase
    end else case(GUARD)5:data_at=8'he9;6:data_at=8'h4d;7:data_at=8'h45;default:data_at=0;endcase
   end else data_at=0;

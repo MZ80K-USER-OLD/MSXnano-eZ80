@@ -1,0 +1,10 @@
+EZ80MX1.COM 9722 bytes b7aa7e4fcaf963057c485660635f452810bbf6f608885c64c4d0c729e11ecffa
+EZ80TS1 15338 bytes 95020F33
+EZ80MX1 9722 bytes 48AB4663
+PASS ('mem', 4, 3, 0)
+PASS ('mem', 4, 3, 2)
+PASS ('mem', 16, 7, 1)
+PASS ('mem', 16, 0, 0)
+PASS ('tst', 4, 3, 1)
+PASS ('tst', 4, 7, 0)
+PASS ('tst', 16, 0, 0)

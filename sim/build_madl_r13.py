@@ -88,7 +88,7 @@ for case,plan in enumerate(plans):
  else:
   spl0=0x050001;ld(0x31,spl0);e(0xed,0x7d)
   if plan['guard']=='mode':poke(spl0,4);e(0x5b,0xed,0x4d)
-  elif plan['guard']=='rst':e(0xcf)
+  elif plan['guard']=='rst':e(0x40,0xcf) # R18: noncanonical ADL-source SIS; bare MADL RST now supported
   else:e(0x40,0xed,0x4d)
   labels['guard_pc']=p;fault_guard=1
  lines=[f"mem[24'h{a:06x}]=8'h{v:02x};" for a,v in sorted(m.items())]

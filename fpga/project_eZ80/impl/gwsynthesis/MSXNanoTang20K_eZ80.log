@@ -306,7 +306,7 @@ Returning to Verilog mode to proceed with elaboration("D:\users\HeroineFactory\D
 Switching to VHDL mode to elaborate design unit 'G80A_eZ80'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\top_ez80.v":846)
 Processing 'G80A_eZ80(diagnostics=true)(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\g80a_ez80.vhd":69)
 Processing 'T80_eZ80(iowait=1)(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd":73)
-Extracting RAM for identifier 'Upper'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd":152)
+Extracting RAM for identifier 'Upper'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd":154)
 Processing 'T80_MCode_eZ80(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd":71)
 Processing 'T80_ALU_eZ80(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_alu_ez80.vhd":65)
 Processing 'T80_Reg_eZ80(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_reg_ez80.vhd":61)
