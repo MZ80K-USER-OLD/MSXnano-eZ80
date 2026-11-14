@@ -1,0 +1,5 @@
+COM stage A time=909210000
+EZ80MAD P2: FAIL stage A
+ADDR=030400 EXP=A6 ACT=A7
+PASS irq_r11 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=14 WAIT_ticks=2198
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 2401370000 (1ps)

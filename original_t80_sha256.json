@@ -1,0 +1,10 @@
+{
+  "fpga/G80A/g80a.vhd": "b48b502531e357a46efc06d8f26011f9e1d0aed76811196f9329cc91445dc91a",
+  "fpga/G80A/t80.vhd": "c460df1f6b7094386a884e726836fb275f9ae666599c0e50bfa6ca8a815f6491",
+  "fpga/G80A/T80s.vhd": "a21853d2ada277822fb5ea77548270ddf4b6ec7e3bb0c15b28d403e8d089fcf6",
+  "fpga/G80A/t80_alu.vhd": "ab549fd5e5a4c0845c1cb6bed1c2926e9af3785a9b2d7a3ea727b231de41d3a1",
+  "fpga/G80A/t80_mcode.vhd": "94080a0827d6f542dde6efe973b16602efda0143d73fd45bb3ae14e51fe32540",
+  "fpga/G80A/t80_pack.vhd": "bb1f9628363b0d871932f9be5ed4dcf5228815c703f73a30ff8391487f2ed200",
+  "fpga/G80A/t80_reg.vhd": "d9c0a8b4f2945dd1e8a4e6a31b450358da66e75ea4de08825fb8dffa8f6dcf1d",
+  "fpga/G80A/T80_RegX.vhd": "4b3278df698789316e129caf863f33ec81e3d91edcfdced6c4802cd163d084fb"
+}

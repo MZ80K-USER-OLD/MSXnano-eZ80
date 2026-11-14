@@ -1,0 +1,80 @@
+{
+  "fresh_runs": 6,
+  "expected_failure_runs": 0,
+  "cases": [
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0
+      ],
+      "output": "PASS ldx_adl_irq_r17 NMI=          0 div=          4 stress=          0 checks=        210 entries=         40 waits=          0 frame_W=        120 frame_R=        120\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_adl_irq_r17.sv:43: $finish called at 1010970000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        3,
+        1
+      ],
+      "output": "PASS ldx_adl_irq_r17 NMI=          0 div=          4 stress=          1 checks=        210 entries=         40 waits=        319 frame_W=        120 frame_R=        120\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_adl_irq_r17.sv:43: $finish called at 2139310000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        16,
+        11,
+        1
+      ],
+      "output": "PASS ldx_adl_irq_r17 NMI=          0 div=         16 stress=          1 checks=        210 entries=         40 waits=        221 frame_W=        120 frame_R=        120\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_adl_irq_r17.sv:43: $finish called at 7315870000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        0,
+        0
+      ],
+      "output": "PASS ldx_adl_irq_r17 NMI=          1 div=          4 stress=          0 checks=        210 entries=         40 waits=          0 frame_W=        120 frame_R=        120\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_adl_irq_r17.sv:43: $finish called at 1010970000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        3,
+        1
+      ],
+      "output": "PASS ldx_adl_irq_r17 NMI=          1 div=          4 stress=          1 checks=        210 entries=         40 waits=        319 frame_W=        120 frame_R=        120\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_adl_irq_r17.sv:43: $finish called at 2139310000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        16,
+        11,
+        1
+      ],
+      "output": "PASS ldx_adl_irq_r17 NMI=          1 div=         16 stress=          1 checks=        210 entries=         40 waits=        221 frame_W=        120 frame_R=        120\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_adl_irq_r17.sv:43: $finish called at 7315870000 (1ps)\n"
+    }
+  ],
+  "instructions_per_run": 40,
+  "native_ADL_IM1_and_NMI": true,
+  "MBASE": 14,
+  "short_and_long": true,
+  "IX_and_IY": true,
+  "all_5_pairs": true,
+  "SPS_and_SPL_preserved": true,
+  "actual_frame_address_range": "05007D..05007F",
+  "frame_writes_per_run": 120,
+  "frame_reads_per_run": 120,
+  "interrupt_after_all_data_bytes": true,
+  "scope": "CPU/wrapper with flat RAM, not MSX BIOS",
+  "sha256": {
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "1d272c3268fe9bef73dc4d1da19701d10fc58ff2697107b66dd231b3860dffb7",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "bc70a0b2c419311b93037d2613c7b3c77630357a304738afc185e78467c9725c",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  }
+}

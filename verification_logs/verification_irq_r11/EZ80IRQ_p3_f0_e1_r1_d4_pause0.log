@@ -1,0 +1,5 @@
+COM stage A time=202710000
+COM stage B time=518070000
+EZ80IRQ P2: PASS
+PASS irq_r11 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=50 WAIT_ticks=3663
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 831670000 (1ps)

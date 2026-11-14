@@ -1,0 +1,10 @@
+EZ80CT1 R15.2 START
+CT1 LOAD
+COM stage C time=221350000
+CT2 VERIFY
+CT3 RUN
+CT4 CHECK
+EZ80CT1 R10: FAIL stage C
+ADDR=030200 EXP=22 ACT=23
+PASS ctl_diag_r15_2 phase=3 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=641 WAIT_ticks=81280
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ctl_diag_r15_2.sv:137: $finish called at 31598630000 (1ps)

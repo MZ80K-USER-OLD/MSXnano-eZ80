@@ -1,0 +1,9 @@
+{
+  "baseline_archive": "MSXnano_T80_eZ80_restart_R17.zip",
+  "baseline_archive_sha256": "e1865606d66b1c6ab91d6c2a1b4e02bb335a8608ec3119dc7ce6e4eb2ce4ff24",
+  "baseline_status": "User confirmed GOWIN success, Logic94%, all RUNALL PASS, Space Manbow playable",
+  "source_baseline": "doc/r17_baseline/*.vhd.txt",
+  "FPGA_hash_baseline": "doc/R17_FPGA_SHA256.json",
+  "patch": "doc/R18_RST.patch",
+  "Windows_git_commit": "not supplied; no invented commit identity"
+}

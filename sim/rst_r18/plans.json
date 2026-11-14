@@ -1,0 +1,906 @@
+[
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "bare",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 0
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 24
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 32
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 40
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 48
+  },
+  {
+    "kind": "bare",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 0,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 0,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 0,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 0,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 0,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 0,
+    "vec": 56
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 0,
+    "vec": 0
+  },
+  {
+    "kind": "suffix",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 0,
+    "vec": 56
+  },
+  {
+    "kind": "boundary",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "boundary",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "boundary",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "boundary",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "boundary",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "boundary",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "boundary",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 8
+  },
+  {
+    "kind": "boundary",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56
+  },
+  {
+    "kind": "guard",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56,
+    "pref": 82
+  },
+  {
+    "kind": "guard",
+    "src": 0,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56,
+    "pref": 91
+  },
+  {
+    "kind": "guard",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56,
+    "pref": 82
+  },
+  {
+    "kind": "guard",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56,
+    "pref": 91
+  },
+  {
+    "kind": "guard",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56,
+    "pref": 64
+  },
+  {
+    "kind": "guard",
+    "src": 1,
+    "dst": 0,
+    "madl": 0,
+    "mb": 14,
+    "vec": 56,
+    "pref": 73
+  },
+  {
+    "kind": "guard",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56,
+    "pref": 64
+  },
+  {
+    "kind": "guard",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 56,
+    "pref": 73
+  },
+  {
+    "kind": "pending_nmi",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "pending_nmi",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "pending_nmi",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "pending_nmi",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "pending_irq",
+    "src": 0,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "pending_irq",
+    "src": 0,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "pending_irq",
+    "src": 1,
+    "dst": 0,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  },
+  {
+    "kind": "pending_irq",
+    "src": 1,
+    "dst": 1,
+    "madl": 1,
+    "mb": 14,
+    "vec": 16
+  }
+]

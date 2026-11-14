@@ -1,0 +1,5 @@
+COM stage 1 time=132830000
+COM stage 2 time=2059230000
+EZ80LEA P1: PASS
+PASS lea_r8 phase=3 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=3276
+/workspace/scratch/db88d59b2a4d/cpu_restart_r9/sim/tb_lea_r8.sv:110: $finish called at 2768350000 (1ps)

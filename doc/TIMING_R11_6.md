@@ -1,0 +1,19 @@
+# R11.6 要求捕捉とタイミング
+
+## 捕捉と保持
+
+CLK54下降、clk_falling有効、TState=001の時に要求を捕捉する。Vector_Windowは診断有効、bank00、下位アドレス0000–007Fh、読出し、メモリ、通常サイクル、非refreshの論理積。Writeを含む判定は単一のRequest_Extendedと要求上位バンクへ入り、16bit Request_MSX_Addressの入力には入らない。I/OまたはIntCycle中MC1は最後の代入でbank00とMSX経路を優先する。
+
+捕捉後は次の有効T1まで保持する。T2のWAIT、clk_falling停止中に上流bank/address/Write/Diag_Activeが変わっても、要求アドレスと隔離判定は変わらない。refreshだけは元のbank00アドレスを一時表示し、終了後に保持済み要求へ戻る。データは従来どおり有効T1/T2で捕捉する。
+
+A24は保持済み24bit要求そのもの。A_MSXは保持済み16bit要求をRequest_Extendedで0000hへ遮断する。ブリッジのPREDECODED_MSX=1は同じ保持済みフラグでMSX_MREQを無効化する。拡張xxFFFFは16bitだけでFFFFhを判定する既存スロット回路へ到達しない。bank00:FFFFhは通常のMSX経路。
+
+## 比較と限界
+
+R11.5の先頭Setup経路はRequest_Vector→memory_bridge/physical_addr→メモリ制御→sdram_seqで−3.497ns。R11.6はRequest_Vector自体と要求保持後の読出し資格判定を除去する。ただしフラグの捕捉前にWriteデコードが必要で、その入力経路は新しい評価対象となる。物理配線と最適化の影響を含めた達成判定にはGOWINの新レポートが必要。
+
+SDC、CST、GPRJは変更なし。false-path／multicycleの追加なし。一般的な制約緩和で違反を隠していない。SDRAMとVDPの制御時系列は未変更であり、これらの残違反が解消したとは判断しない。
+
+## RTL検証
+
+実CPUのCOM回帰、割込み、WAIT、CEN停止、CDC、EX(SP)、全bankの要求隔離、実top由来のセカンダリスロットRTLを確認する。要求単体試験は診断あり／なし各86,016チェック。故障注入3は保持済み24bit要求を誤った0F0000hに固定し、誤ルーティングを検出する。旧Request_Write故障は保持後の判定廃止に伴い置換した。正確な実行数と結果はverification_result.jsonを参照。

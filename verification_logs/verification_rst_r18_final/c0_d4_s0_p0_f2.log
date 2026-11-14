@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:72: frame write ADDR=050000 EXP_ADDR=0ebfff EXP=02 ACT=02 n=1
+       Time: 15170000  Scope: tb_rst_r18

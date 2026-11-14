@@ -1,0 +1,2 @@
+PASS return_guard_r11 ADL=          1 suffix=00000040 opcode=0000004d alias=          0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_return_guard_r11.sv:14: $finish called at 39390000 (1ps)

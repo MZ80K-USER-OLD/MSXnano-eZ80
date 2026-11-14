@@ -1,0 +1,4 @@
+PASS legacy branch comparison false false
+PASS legacy branch comparison false true
+PASS legacy branch comparison true false
+PASS legacy branch comparison true true

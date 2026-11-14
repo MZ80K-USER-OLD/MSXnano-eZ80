@@ -1,0 +1,13 @@
+{
+  "active": "fpga/G80A_eZ80/t80_mcode_ez80.vhd",
+  "variants": {
+    "baseline": {
+      "path": "doc/r14_decode_baseline/t80_mcode_ez80.vhd.txt",
+      "sha256": "c3f1d7f27c8c61f074e058485ca05abeba4de360d152374fda937ba379e5a566"
+    },
+    "matrix": {
+      "path": "doc/r14_1_decode_variants/t80_mcode_matrix.vhd.txt",
+      "sha256": "df5992bc7e4ba91bef4ddecc4288b0b7096525807fcf6878182b099731701f6d"
+    }
+  }
+}

@@ -1,0 +1,2 @@
+PASS pc_r9 ADL=1 stress=1 WAIT=26 pauses=832
+/workspace/scratch/db88d59b2a4d/cpu_restart_r9/sim/tb_pc_r9.sv:54: $finish called at 57210000 (1ps)

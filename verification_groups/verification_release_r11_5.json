@@ -1,0 +1,18 @@
+{
+  "changed_FPGA_files": [
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/src/memory_ez80.v"
+  ],
+  "source_replay_files": 2,
+  "preloaded_COM_count": 20,
+  "preloaded_COM_unchanged": true,
+  "SDC_CST_GPRJ_top_bridge_CPU_datapath_unchanged": true,
+  "separate_MSX16_and_extended24_buses_maintained": true,
+  "MSX_address_clamped_and_MREQ_blocked_for_extended_access": true,
+  "actual_secondary_slot_RTL_monitored": true,
+  "diagnostic_write_qualification_uses_captured_request": true,
+  "project_references": 122,
+  "original_G80A_unchanged": true,
+  "GOWIN_run": false,
+  "hardware_run": false
+}

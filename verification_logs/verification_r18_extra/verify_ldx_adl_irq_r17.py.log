@@ -1,0 +1,7 @@
+PASS built 40 native ADL indexed transfers with IRQ/NMI boundaries
+PASS native ADL LDX IRQ (0, 4, 3, 1)
+PASS native ADL LDX IRQ (0, 4, 0, 0)
+PASS native ADL LDX IRQ (1, 4, 0, 0)
+PASS native ADL LDX IRQ (1, 4, 3, 1)
+PASS native ADL LDX IRQ (0, 16, 11, 1)
+PASS native ADL LDX IRQ (1, 16, 11, 1)

@@ -1,0 +1,21 @@
+{
+  "CPU_baseline": "R17",
+  "changed_FPGA_files": [
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd"
+  ],
+  "original_24_COM_unchanged": true,
+  "new_COM": "EZ80RS8.COM",
+  "COM_count": 25,
+  "additional_work_registers": 0,
+  "additional_FSM_states": 0,
+  "additional_control_FFs": 0,
+  "additional_combinational_selectors": 3,
+  "shared_frame_engine": true,
+  "shared_stack_incrementer_bits": 24,
+  "project_references": 122,
+  "separate_MSX16_extended24_buses": true,
+  "GPRJ_SDC_CST_top_bridge_SDRAM_VDP_unchanged": true,
+  "GOWIN_run": false,
+  "hardware_run": false
+}

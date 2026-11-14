@@ -1,0 +1,28 @@
+{
+  "source": "user upload impl(5).zip",
+  "logic_used": 17856,
+  "logic_capacity": 20736,
+  "logic_percent": 87,
+  "LUT": 15658,
+  "registers": 7310,
+  "latches": 0,
+  "CLS": 9719,
+  "CLS_capacity": 10368,
+  "BSRAM": 43,
+  "BSRAM_capacity": 46,
+  "Fmax54_MHz": 39.197,
+  "Fmax108_MHz": 121.81,
+  "Fmax27_MHz": 71.419,
+  "Setup_violated_endpoints": 852,
+  "Hold_violated_endpoints": 42,
+  "first_setup": {
+    "source": "cpu1/Request_Vector_s0/Q",
+    "destination": "mem1/sdram_seq_0_s1/CE",
+    "slack_ns": -3.497
+  },
+  "reported_VDP_setup_slack_ns": -6.45,
+  "first_hold_slack_ns": -2.827,
+  "hardware_MEM_PASS": true,
+  "hardware_supported_RUNALL_PASS": true,
+  "hardware_SofaRun_Space_Manbow_PLAY": true
+}

@@ -1,0 +1,29 @@
+{
+  "fresh_runs": 4,
+  "cases": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      7,
+      1,
+      0
+    ],
+    [
+      3,
+      0,
+      1
+    ],
+    [
+      11,
+      1,
+      1
+    ]
+  ],
+  "MLT_cases_per_run": 71,
+  "locked_NEG_alias_cases": 4,
+  "IRQs_per_run": 1,
+  "reference": "independent unsigned 8x8 integer products; full AF and upper-byte preservation; all prefixes and both register banks; SPS/SPL selection"
+}

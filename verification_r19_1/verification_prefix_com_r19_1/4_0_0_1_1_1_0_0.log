@@ -1,0 +1,5 @@
+COM stage 0 time=114610000
+EZ80PFX R19.1: FAIL stage 0
+ADDR=0A8100 EXP=00 ACT=01
+PASS prefix_com_r19_1 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=37 WAIT_ticks=2540
+/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_prefix_com_r19_1.sv:143: $finish called at 772050000 (1ps)

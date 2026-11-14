@@ -1,0 +1,1413 @@
+{
+  "bytes": 23296,
+  "sha256": "450c3ead441063cb54b0c6da5194b920e26dbbb0c540f0a76fe9ab70a8b1087d",
+  "labels": {
+    "START": 256,
+    "STAGE_C": 334,
+    "RETURN": 15410,
+    "CHECK_OK_15166": 15453,
+    "CHECK_OK_15209": 15496,
+    "CHECK_OK_15252": 15539,
+    "CHECK_OK_15295": 15582,
+    "CHECK_OK_15338": 15625,
+    "CHECK_OK_15381": 15668,
+    "CHECK_OK_15424": 15711,
+    "CHECK_OK_15467": 15754,
+    "CHECK_OK_15510": 15797,
+    "CHECK_OK_15553": 15840,
+    "CHECK_OK_15596": 15883,
+    "CHECK_OK_15639": 15926,
+    "CHECK_OK_15682": 15969,
+    "CHECK_OK_15725": 16012,
+    "CHECK_OK_15768": 16055,
+    "CHECK_OK_15811": 16098,
+    "CHECK_OK_15854": 16141,
+    "CHECK_OK_15897": 16184,
+    "CHECK_OK_15940": 16227,
+    "CHECK_OK_15983": 16270,
+    "CHECK_OK_16026": 16313,
+    "CHECK_OK_16069": 16356,
+    "CHECK_OK_16112": 16399,
+    "CHECK_OK_16155": 16442,
+    "CHECK_OK_16198": 16485,
+    "CHECK_OK_16241": 16528,
+    "CHECK_OK_16284": 16571,
+    "CHECK_OK_16327": 16614,
+    "CHECK_OK_16370": 16657,
+    "CHECK_OK_16413": 16700,
+    "CHECK_OK_16456": 16743,
+    "CHECK_OK_16499": 16786,
+    "CHECK_OK_16542": 16829,
+    "CHECK_OK_16585": 16872,
+    "CHECK_OK_16628": 16915,
+    "CHECK_OK_16671": 16958,
+    "CHECK_OK_16714": 17001,
+    "CHECK_OK_16757": 17044,
+    "CHECK_OK_16800": 17087,
+    "CHECK_OK_16843": 17130,
+    "CHECK_OK_16886": 17173,
+    "CHECK_OK_16929": 17216,
+    "CHECK_OK_16972": 17259,
+    "CHECK_OK_17015": 17302,
+    "CHECK_OK_17058": 17345,
+    "CHECK_OK_17101": 17388,
+    "CHECK_OK_17144": 17431,
+    "CHECK_OK_17187": 17474,
+    "CHECK_OK_17230": 17517,
+    "CHECK_OK_17273": 17560,
+    "CHECK_OK_17316": 17603,
+    "CHECK_OK_17359": 17646,
+    "CHECK_OK_17402": 17689,
+    "CHECK_OK_17445": 17732,
+    "CHECK_OK_17488": 17775,
+    "CHECK_OK_17531": 17818,
+    "CHECK_OK_17574": 17861,
+    "CHECK_OK_17617": 17904,
+    "CHECK_OK_17660": 17947,
+    "CHECK_OK_17703": 17990,
+    "CHECK_OK_17746": 18033,
+    "CHECK_OK_17789": 18076,
+    "CHECK_OK_17832": 18119,
+    "CHECK_OK_17875": 18162,
+    "CHECK_OK_17918": 18205,
+    "CHECK_OK_17961": 18248,
+    "CHECK_OK_18004": 18291,
+    "CHECK_OK_18047": 18334,
+    "CHECK_OK_18090": 18377,
+    "CHECK_OK_18133": 18420,
+    "CHECK_OK_18176": 18463,
+    "CHECK_OK_18219": 18506,
+    "CHECK_OK_18262": 18549,
+    "CHECK_OK_18305": 18592,
+    "CHECK_OK_18348": 18635,
+    "CHECK_OK_18391": 18678,
+    "CHECK_OK_18434": 18721,
+    "CHECK_OK_18477": 18764,
+    "CHECK_OK_18520": 18807,
+    "CHECK_OK_18563": 18850,
+    "CHECK_OK_18606": 18893,
+    "CHECK_OK_18649": 18936,
+    "CHECK_OK_18692": 18979,
+    "CHECK_OK_18735": 19022,
+    "CHECK_OK_18778": 19065,
+    "CHECK_OK_18821": 19108,
+    "CHECK_OK_18864": 19151,
+    "CHECK_OK_18907": 19194,
+    "CHECK_OK_18950": 19237,
+    "CHECK_OK_18993": 19280,
+    "CHECK_OK_19036": 19323,
+    "CHECK_OK_19079": 19366,
+    "CHECK_OK_19122": 19409,
+    "CHECK_OK_19165": 19452,
+    "CHECK_OK_19208": 19495,
+    "CHECK_OK_19251": 19538,
+    "CHECK_OK_19294": 19581,
+    "CHECK_OK_19337": 19624,
+    "CHECK_OK_19380": 19667,
+    "CHECK_OK_19423": 19710,
+    "CHECK_OK_19466": 19753,
+    "CHECK_OK_19509": 19796,
+    "CHECK_OK_19552": 19839,
+    "CHECK_OK_19595": 19882,
+    "CHECK_OK_19638": 19925,
+    "CHECK_OK_19681": 19968,
+    "CHECK_OK_19724": 20011,
+    "CHECK_OK_19767": 20054,
+    "CHECK_OK_19810": 20097,
+    "CHECK_OK_19853": 20140,
+    "CHECK_OK_19896": 20183,
+    "CHECK_OK_19939": 20226,
+    "CHECK_OK_19982": 20269,
+    "CHECK_OK_20025": 20312,
+    "CHECK_OK_20068": 20355,
+    "CHECK_OK_20111": 20398,
+    "CHECK_OK_20154": 20441,
+    "CHECK_OK_20197": 20484,
+    "CHECK_OK_20240": 20527,
+    "CHECK_OK_20283": 20570,
+    "CHECK_OK_20326": 20613,
+    "CHECK_OK_20369": 20656,
+    "CHECK_OK_20412": 20699,
+    "CHECK_OK_20455": 20742,
+    "CHECK_OK_20498": 20785,
+    "CHECK_OK_20541": 20828,
+    "CHECK_OK_20584": 20871,
+    "CHECK_OK_20627": 20914,
+    "CHECK_OK_20670": 20957,
+    "CHECK_OK_20713": 21000,
+    "CHECK_OK_20756": 21043,
+    "CHECK_OK_20799": 21086,
+    "CHECK_OK_20842": 21129,
+    "CHECK_OK_20885": 21172,
+    "CHECK_OK_20928": 21215,
+    "CHECK_OK_20971": 21258,
+    "CHECK_OK_21014": 21301,
+    "CHECK_OK_21057": 21344,
+    "CHECK_OK_21100": 21387,
+    "CHECK_OK_21143": 21430,
+    "CHECK_OK_21186": 21473,
+    "CHECK_OK_21229": 21516,
+    "CHECK_OK_21272": 21559,
+    "CHECK_OK_21315": 21602,
+    "CHECK_OK_21358": 21645,
+    "CHECK_OK_21401": 21688,
+    "CHECK_OK_21444": 21731,
+    "CHECK_OK_21487": 21774,
+    "CHECK_OK_21530": 21817,
+    "CHECK_OK_21573": 21860,
+    "CHECK_OK_21616": 21903,
+    "CHECK_OK_21659": 21946,
+    "CHECK_OK_21702": 21989,
+    "CHECK_OK_21745": 22032,
+    "CHECK_OK_21788": 22075,
+    "CHECK_OK_21831": 22118,
+    "CHECK_OK_21874": 22161,
+    "CHECK_OK_21917": 22204,
+    "CHECK_OK_21960": 22247,
+    "CHECK_OK_22003": 22290,
+    "CHECK_OK_22046": 22333,
+    "CHECK_OK_22089": 22376,
+    "CHECK_OK_22132": 22419,
+    "CHECK_OK_22175": 22462,
+    "CHECK_OK_22218": 22505,
+    "CHECK_OK_22261": 22548,
+    "CHECK_OK_22304": 22591,
+    "CHECK_OK_22347": 22634,
+    "CHECK_OK_22390": 22677,
+    "CHECK_OK_22433": 22720,
+    "CHECK_OK_22476": 22763,
+    "CHECK_OK_22519": 22806,
+    "CHECK_OK_22562": 22849,
+    "CHECK_OK_22605": 22892,
+    "CHECK_OK_22648": 22935,
+    "CHECK_OK_22691": 22978,
+    "CHECK_OK_22734": 23021,
+    "CHECK_OK_22778": 23065,
+    "CHECK_OK_22817": 23104,
+    "CHECK_OK_22856": 23143,
+    "CHECK_OK_22901": 23189,
+    "CHECK_OK_22943": 23231,
+    "READY": 23242,
+    "MSG_READY": 23253,
+    "SUBROUTINE": 23285,
+    "FAIL": 23286,
+    "UNSUPPORTED": 23297,
+    "FINISH": 23305,
+    "FORMAT_DIAG": 23333,
+    "FORMAT_REG": 23364,
+    "FORMAT_VALUES": 23382,
+    "HEX_BYTE": 23401,
+    "HEX_NIBBLE": 23414,
+    "HEX_STORE": 23425,
+    "MSG_PASS": 23428,
+    "MSG_UNSUPPORTED": 23448,
+    "MSG_FAIL": 23475,
+    "FAIL_STAGE": 23499,
+    "HEX_ADDR": 23507,
+    "HEX_EXP": 23518,
+    "HEX_ACT": 23525,
+    "STATUS": 23530,
+    "GUARD": 23531,
+    "SP_SNAPSHOT": 23532,
+    "SP_SNAPSHOT1": 23533,
+    "SP_SNAPSHOT2": 23534,
+    "SPS_SNAPSHOT": 23535,
+    "SPS_SNAPSHOT1": 23536,
+    "SAVED_SPS": 23537,
+    "SAVED_SPS1": 23538,
+    "DIAG_MEM": 23539,
+    "DIAG_ADDR0": 23540,
+    "DIAG_ADDR1": 23541,
+    "DIAG_ADDR2": 23542,
+    "DIAG_EXP": 23543,
+    "DIAG_ACT": 23544,
+    "SAVED_AF": 23545,
+    "PAIR_SNAPSHOT": 23547,
+    "PAIR_SNAPSHOT1": 23548,
+    "LOCAL_PAIR": 23549,
+    "LOCAL_PAIR1": 23550,
+    "LOCAL_PAIR2": 23551
+  },
+  "entry": 589824,
+  "payload_bytes": 1674,
+  "checks": [
+    {
+      "address": 197120,
+      "value": 34,
+      "description": "JP cc 0_0"
+    },
+    {
+      "address": 197121,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197122,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197123,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197124,
+      "value": 34,
+      "description": "CALL cc 0_0"
+    },
+    {
+      "address": 197125,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197126,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197127,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197128,
+      "value": 17,
+      "description": "RET cc 0_0"
+    },
+    {
+      "address": 197129,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197130,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197131,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197132,
+      "value": 17,
+      "description": "JP cc 0_64"
+    },
+    {
+      "address": 197133,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197134,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197135,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197136,
+      "value": 17,
+      "description": "CALL cc 0_64"
+    },
+    {
+      "address": 197137,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197138,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197139,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197140,
+      "value": 51,
+      "description": "RET cc 0_64"
+    },
+    {
+      "address": 197141,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197142,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197143,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197144,
+      "value": 17,
+      "description": "JP cc 1_0"
+    },
+    {
+      "address": 197145,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197146,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197147,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197148,
+      "value": 17,
+      "description": "CALL cc 1_0"
+    },
+    {
+      "address": 197149,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197150,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197151,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197152,
+      "value": 51,
+      "description": "RET cc 1_0"
+    },
+    {
+      "address": 197153,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197154,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197155,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197156,
+      "value": 34,
+      "description": "JP cc 1_64"
+    },
+    {
+      "address": 197157,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197158,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197159,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197160,
+      "value": 34,
+      "description": "CALL cc 1_64"
+    },
+    {
+      "address": 197161,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197162,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197163,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197164,
+      "value": 17,
+      "description": "RET cc 1_64"
+    },
+    {
+      "address": 197165,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197166,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197167,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197168,
+      "value": 34,
+      "description": "JP cc 2_0"
+    },
+    {
+      "address": 197169,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197170,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197171,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197172,
+      "value": 34,
+      "description": "CALL cc 2_0"
+    },
+    {
+      "address": 197173,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197174,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197175,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197176,
+      "value": 17,
+      "description": "RET cc 2_0"
+    },
+    {
+      "address": 197177,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197178,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197179,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197180,
+      "value": 17,
+      "description": "JP cc 2_1"
+    },
+    {
+      "address": 197181,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197182,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197183,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197184,
+      "value": 17,
+      "description": "CALL cc 2_1"
+    },
+    {
+      "address": 197185,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197186,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197187,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197188,
+      "value": 51,
+      "description": "RET cc 2_1"
+    },
+    {
+      "address": 197189,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197190,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197191,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197192,
+      "value": 17,
+      "description": "JP cc 3_0"
+    },
+    {
+      "address": 197193,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197194,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197195,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197196,
+      "value": 17,
+      "description": "CALL cc 3_0"
+    },
+    {
+      "address": 197197,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197198,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197199,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197200,
+      "value": 51,
+      "description": "RET cc 3_0"
+    },
+    {
+      "address": 197201,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197202,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197203,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197204,
+      "value": 34,
+      "description": "JP cc 3_1"
+    },
+    {
+      "address": 197205,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197206,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197207,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197208,
+      "value": 34,
+      "description": "CALL cc 3_1"
+    },
+    {
+      "address": 197209,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197210,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197211,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197212,
+      "value": 17,
+      "description": "RET cc 3_1"
+    },
+    {
+      "address": 197213,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197214,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197215,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197216,
+      "value": 34,
+      "description": "JP cc 4_0"
+    },
+    {
+      "address": 197217,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197218,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197219,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197220,
+      "value": 34,
+      "description": "CALL cc 4_0"
+    },
+    {
+      "address": 197221,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197222,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197223,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197224,
+      "value": 17,
+      "description": "RET cc 4_0"
+    },
+    {
+      "address": 197225,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197226,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197227,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197228,
+      "value": 17,
+      "description": "JP cc 4_4"
+    },
+    {
+      "address": 197229,
+      "value": 4,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197230,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197231,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197232,
+      "value": 17,
+      "description": "CALL cc 4_4"
+    },
+    {
+      "address": 197233,
+      "value": 4,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197234,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197235,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197236,
+      "value": 51,
+      "description": "RET cc 4_4"
+    },
+    {
+      "address": 197237,
+      "value": 4,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197238,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197239,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197240,
+      "value": 17,
+      "description": "JP cc 5_0"
+    },
+    {
+      "address": 197241,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197242,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197243,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197244,
+      "value": 17,
+      "description": "CALL cc 5_0"
+    },
+    {
+      "address": 197245,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197246,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197247,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197248,
+      "value": 51,
+      "description": "RET cc 5_0"
+    },
+    {
+      "address": 197249,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197250,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197251,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197252,
+      "value": 34,
+      "description": "JP cc 5_4"
+    },
+    {
+      "address": 197253,
+      "value": 4,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197254,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197255,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197256,
+      "value": 34,
+      "description": "CALL cc 5_4"
+    },
+    {
+      "address": 197257,
+      "value": 4,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197258,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197259,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197260,
+      "value": 17,
+      "description": "RET cc 5_4"
+    },
+    {
+      "address": 197261,
+      "value": 4,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197262,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197263,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197264,
+      "value": 34,
+      "description": "JP cc 6_0"
+    },
+    {
+      "address": 197265,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197266,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197267,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197268,
+      "value": 34,
+      "description": "CALL cc 6_0"
+    },
+    {
+      "address": 197269,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197270,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197271,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197272,
+      "value": 17,
+      "description": "RET cc 6_0"
+    },
+    {
+      "address": 197273,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197274,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197275,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197276,
+      "value": 17,
+      "description": "JP cc 6_128"
+    },
+    {
+      "address": 197277,
+      "value": 128,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197278,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197279,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197280,
+      "value": 17,
+      "description": "CALL cc 6_128"
+    },
+    {
+      "address": 197281,
+      "value": 128,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197282,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197283,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197284,
+      "value": 51,
+      "description": "RET cc 6_128"
+    },
+    {
+      "address": 197285,
+      "value": 128,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197286,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197287,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197288,
+      "value": 17,
+      "description": "JP cc 7_0"
+    },
+    {
+      "address": 197289,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197290,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197291,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197292,
+      "value": 17,
+      "description": "CALL cc 7_0"
+    },
+    {
+      "address": 197293,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197294,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197295,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197296,
+      "value": 51,
+      "description": "RET cc 7_0"
+    },
+    {
+      "address": 197297,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197298,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197299,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197300,
+      "value": 34,
+      "description": "JP cc 7_128"
+    },
+    {
+      "address": 197301,
+      "value": 128,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197302,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197303,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197304,
+      "value": 34,
+      "description": "CALL cc 7_128"
+    },
+    {
+      "address": 197305,
+      "value": 128,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197306,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197307,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197308,
+      "value": 17,
+      "description": "RET cc 7_128"
+    },
+    {
+      "address": 197309,
+      "value": 128,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197310,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197311,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197312,
+      "value": 68,
+      "description": "JP indirect ()"
+    },
+    {
+      "address": 197313,
+      "value": 68,
+      "description": "JP indirect (221,)"
+    },
+    {
+      "address": 197314,
+      "value": 68,
+      "description": "JP indirect (253,)"
+    },
+    {
+      "address": 197315,
+      "value": 85,
+      "description": "JR condition"
+    },
+    {
+      "address": 197316,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197317,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197318,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197319,
+      "value": 85,
+      "description": "JR condition"
+    },
+    {
+      "address": 197320,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197321,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197322,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197323,
+      "value": 85,
+      "description": "JR condition"
+    },
+    {
+      "address": 197324,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197325,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197326,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197327,
+      "value": 85,
+      "description": "JR condition"
+    },
+    {
+      "address": 197328,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197329,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197330,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197331,
+      "value": 102,
+      "description": "JR condition"
+    },
+    {
+      "address": 197332,
+      "value": 64,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197333,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197334,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197335,
+      "value": 102,
+      "description": "JR condition"
+    },
+    {
+      "address": 197336,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197337,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197338,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197339,
+      "value": 102,
+      "description": "JR condition"
+    },
+    {
+      "address": 197340,
+      "value": 1,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197341,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197342,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197343,
+      "value": 102,
+      "description": "JR condition"
+    },
+    {
+      "address": 197344,
+      "value": 0,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197345,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197346,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197347,
+      "value": 0,
+      "description": "DJNZ B decremented to zero"
+    },
+    {
+      "address": 197348,
+      "value": 197,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197349,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197350,
+      "value": 0,
+      "description": "AF upper padding"
+    },
+    {
+      "address": 197351,
+      "value": 119,
+      "description": "nested CALL RET"
+    },
+    {
+      "address": 197352,
+      "value": 197,
+      "description": "flow preserves F"
+    },
+    {
+      "address": 197353,
+      "value": null,
+      "description": "AF accumulator snapshot"
+    },
+    {
+      "address": 197354,
+      "value": 0,
+      "description": "AF upper padding"
+    }
+  ],
+  "stage": 6,
+  "requires_R10": true,
+  "RST_hardware_tested": false
+}

@@ -1,0 +1,2 @@
+PASS tst_r15 case=0 div=16 stress=1 checks=3840 waits=56739 banked_fetches=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_tst_r15.sv:52: $finish called at 68126110000 (1ps)

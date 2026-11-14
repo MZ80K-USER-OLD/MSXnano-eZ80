@@ -1,0 +1,11 @@
+PASS R4 aggregate 37
+PASS R5 aggregate 47
+PASS R6 aggregate 57 plus expected failures 2
+PASS R7 scope: page-0 I/O excluded; shared DSP-style MLT; original T80 unchanged
+PASS R7 aggregate 67 plus expected failures 2
+PASS R8 scope: shared indexed adder, 12 EA opcodes, no new I/O
+PASS R8 aggregate 78 plus expected failures 2
+PASS R9 scope: stage5 PC/ADL, native flow and IRQ enabled; mixed-frame limits, no new I/O
+PASS R9 aggregate 92 plus expected failures 2
+PASS R10 aggregate 122 plus expected failures 4
+PASS complete CPU regression leaf suites and ordered aggregation

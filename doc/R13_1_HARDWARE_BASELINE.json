@@ -1,0 +1,18 @@
+{
+  "user_report": true,
+  "GOWIN_succeeded": true,
+  "Logic_percent": 90,
+  "EZ80MEM": "P1: PASS",
+  "EZ80MAD": "P2: PASS",
+  "RUNALL_NOT_READY": [
+    "EZ80LDH",
+    "EZ80LDX",
+    "EZ80MIX",
+    "EZ80TST"
+  ],
+  "other_RUNALL_tests": "PASS",
+  "SofaRun_Space_Manbow_play": true,
+  "R13_MEM_failure_and_MADL_freeze_not_reproduced": true,
+  "root_cause_proven": false,
+  "new_STA_report_available": false
+}

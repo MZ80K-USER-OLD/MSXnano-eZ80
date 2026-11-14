@@ -1,0 +1,51 @@
+{
+  "cases": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      3,
+      0,
+      1
+    ],
+    [
+      7,
+      0,
+      1
+    ],
+    [
+      11,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      1
+    ],
+    [
+      3,
+      2,
+      1
+    ],
+    [
+      7,
+      3,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "fresh_runs": 8,
+  "flash_COM_changed": false,
+  "COM_sha256": "b55c88d01325afe073d5562810dc43a133a811a8edf71709a8d02ecddcc6a9ff",
+  "EX_reads_before_writes_checked": true,
+  "EX_request_count_per_nominal_run": 18,
+  "gowin_tested": false,
+  "hardware_tested": false
+}

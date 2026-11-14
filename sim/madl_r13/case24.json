@@ -1,0 +1,13 @@
+{
+  "plan": {
+    "type": "guard",
+    "guard": "rst",
+    "adl": 1,
+    "mb": 14
+  },
+  "checks": [],
+  "frames": [],
+  "labels": {
+    "guard_pc": 655382
+  }
+}

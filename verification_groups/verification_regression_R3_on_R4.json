@@ -1,0 +1,77 @@
+{
+  "series": "restart R3",
+  "locked_comparison_runs": 16,
+  "actual_COM_simulation_runs": 10,
+  "cases": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      3,
+      0,
+      1
+    ],
+    [
+      7,
+      0,
+      1
+    ],
+    [
+      11,
+      0,
+      1
+    ],
+    [
+      7,
+      1,
+      1
+    ],
+    [
+      0,
+      2,
+      1
+    ],
+    [
+      3,
+      3,
+      1
+    ],
+    [
+      7,
+      4,
+      1
+    ],
+    [
+      3,
+      5,
+      1
+    ],
+    [
+      0,
+      0,
+      0
+    ]
+  ],
+  "pc_bits": 16,
+  "sps_bits": 16,
+  "spl_bits": 24,
+  "gowin_tested": false,
+  "hardware_tested": false,
+  "full_DOS_simulated": false,
+  "full_BIOS_boot_simulated": false,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "1d272c3268fe9bef73dc4d1da19701d10fc58ff2697107b66dd231b3860dffb7",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "bc70a0b2c419311b93037d2613c7b3c77630357a304738afc185e78467c9725c",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/src/ez80_memory_bridge.v": "86df7f0b27e1b1df75d285f6df99b32114b2ed343fb35f4b316439cb9d89c061",
+    "fpga/src/memory_ez80.v": "109277977452cac59d20611fa12d7af566efc95d1f9180a867753b590b4cf916",
+    "fpga/top_ez80.v": "f72b28d4439fab86ea9a77ed5c7195d0b290c2a760383487dadda35d649da3f2",
+    "fpga/tang20k.sdc": "7fbd059042ead01f3d145f93364d613ec5b90b62b74cd80b98d79be4caef00e0",
+    "hardware_test/EZ80D3.COM": "ae8b63886b72057343d7e907a56ae339fbd2a5954a4289bd1f7a097e8e1a0cf8"
+  }
+}

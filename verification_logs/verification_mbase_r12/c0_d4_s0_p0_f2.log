@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mbase_r12.sv:57: MSX isolation ADDR=0a0000 MSX=0000 EW=0
+       Time: 7480002  Scope: tb_mbase_r12

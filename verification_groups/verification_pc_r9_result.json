@@ -1,0 +1,44 @@
+{
+  "fresh_runs": 4,
+  "cases": [
+    [
+      0,
+      0,
+      -1
+    ],
+    [
+      0,
+      1,
+      -1
+    ],
+    [
+      1,
+      0,
+      -1
+    ],
+    [
+      1,
+      1,
+      -1
+    ]
+  ],
+  "wrap_modes": [
+    16,
+    24
+  ],
+  "mock_full_address_ROM": true,
+  "ADL_control_guard_cases": 0,
+  "retired_stage6_guards": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "retired_stage7_guards": [
+    6,
+    7
+  ],
+  "ADL_IRQ_implemented": false
+}

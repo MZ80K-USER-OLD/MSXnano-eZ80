@@ -1,0 +1,3 @@
+EZ80RW2 R18.2: READY (use /RUN)
+PASS rw_diag_r18_2 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_rw_diag_r18_2.sv:145: $finish called at 186690000 (1ps)

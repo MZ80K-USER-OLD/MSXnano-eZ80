@@ -1,0 +1,16 @@
+{
+  "fresh_runs": 1,
+  "expected_failure_runs": 0,
+  "COM": "EZ80TST.COM",
+  "DIAGNOSTICS": false,
+  "actual_CPU_bridge_SDRAM": true,
+  "output": "COM stage A time=366490000\nCOM stage B time=805530000\nCOM stage C time=1244570000\nCOM stage D time=1683610000\nCOM stage E time=2122650000\nCOM stage F time=2561690000\nCOM stage G time=3000730000\nCOM stage H time=3439770000\nCOM stage I time=3878810000\nCOM stage J time=4317850000\nCOM stage K time=4756890000\nCOM stage L time=5195930000\nCOM stage M time=5634970000\nCOM stage N time=6074010000\nCOM stage O time=6513050000\nCOM stage P time=6952090000\nCOM stage Q time=7391130000\nCOM stage R time=7830170000\nCOM stage S time=8269210000\nCOM stage T time=8708250000\nCOM stage U time=9147290000\nCOM stage V time=9586330000\nCOM stage W time=10025370000\nCOM stage X time=10464410000\nCOM stage Y time=10903450000\nCOM stage Z time=11315930000\nCOM stage A time=11728410000\nCOM stage B time=12140890000\nCOM stage C time=12553370000\nCOM stage D time=12978970000\nCOM stage E time=13404570000\nCOM stage F time=13830170000\nCOM stage G time=14267610000\nCOM stage H time=14746010000\nCOM stage I time=15224410000\nCOM stage J time=15702810000\nEZ80TST P2: PASS\nPASS irq_r11 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=460 WAIT_ticks=64872\n/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 16639450000 (1ps)\n",
+  "sha256": {
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "a00073ccd8ecd2c2cb328e6eaae60a846401a5bff659520927b9803569681224",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "1d272c3268fe9bef73dc4d1da19701d10fc58ff2697107b66dd231b3860dffb7",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "bc70a0b2c419311b93037d2613c7b3c77630357a304738afc185e78467c9725c",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "02139e118d61fdcbf1175bf83eb60bff6da7ad5469c824a3028e53824ab3e9b5",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  }
+}

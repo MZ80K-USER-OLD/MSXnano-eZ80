@@ -1,0 +1,377 @@
+{
+  "name": "EZ80IRQ",
+  "version": "P2",
+  "bytes": 3115,
+  "sha256": "f1f78fa7116db9d40add92e991dc49f71cbf86bbf93133e80da38e52592a7dcf",
+  "major_stage": 7,
+  "required_features": 32769,
+  "feature_bit": 0,
+  "diagnostic_hooks_required": true,
+  "labels": {
+    "START": 256,
+    "STAGE_A": 841,
+    "RETURN_0": 1049,
+    "OK_812": 1094,
+    "OK_857": 1139,
+    "OK_902": 1184,
+    "OK_947": 1229,
+    "OK_992": 1274,
+    "OK_1037": 1319,
+    "OK_1082": 1364,
+    "OK_1127": 1409,
+    "OK_1177": 1459,
+    "OK_1222": 1504,
+    "OK_1267": 1549,
+    "OK_1316": 1598,
+    "OK_1361": 1643,
+    "STAGE_B": 1986,
+    "RETURN_1": 2185,
+    "OK_1948": 2230,
+    "OK_1993": 2275,
+    "OK_2038": 2320,
+    "OK_2083": 2365,
+    "OK_2128": 2410,
+    "OK_2173": 2455,
+    "OK_2218": 2500,
+    "OK_2268": 2550,
+    "OK_2313": 2595,
+    "OK_2358": 2640,
+    "OK_2407": 2689,
+    "OK_2452": 2734,
+    "CHECK_OK_2505": 2777,
+    "CHECK_OK_2535": 2807,
+    "READY": 2818,
+    "NOT_READY": 2829,
+    "MSG_READY": 2840,
+    "MSG_NOT_READY": 2871,
+    "Z80_SUB": 2927,
+    "SUBROUTINE": 2934,
+    "FAIL": 2935,
+    "UNSUPPORTED": 2946,
+    "FINISH": 2954,
+    "NO_CLEANUP": 2973,
+    "PRINT_EXIT": 2990,
+    "FORMAT_DIAG": 3001,
+    "FORMAT_REG": 3032,
+    "FORMAT_VALUES": 3050,
+    "HEX_BYTE": 3069,
+    "HEX_NIBBLE": 3082,
+    "HEX_STORE": 3093,
+    "MSG_PASS": 3096,
+    "MSG_UNSUPPORTED": 3115,
+    "MSG_FAIL": 3141,
+    "FAIL_STAGE": 3164,
+    "HEX_ADDR": 3172,
+    "HEX_EXP": 3183,
+    "HEX_ACT": 3190,
+    "STATUS": 3195,
+    "GUARD": 3196,
+    "SP_SNAPSHOT": 3197,
+    "SP_SNAPSHOT1": 3198,
+    "SP_SNAPSHOT2": 3199,
+    "SPS_SNAPSHOT": 3200,
+    "SPS_SNAPSHOT1": 3201,
+    "SAVED_SPS": 3202,
+    "SAVED_SPS1": 3203,
+    "DIAG_MEM": 3204,
+    "DIAG_ADDR0": 3205,
+    "DIAG_ADDR1": 3206,
+    "DIAG_ADDR2": 3207,
+    "DIAG_EXP": 3208,
+    "DIAG_ACT": 3209,
+    "SAVED_AF": 3210,
+    "PAIR_SNAPSHOT": 3212,
+    "PAIR_SNAPSHOT1": 3213,
+    "LOCAL_PAIR": 3214,
+    "LOCAL_PAIR1": 3215,
+    "LOCAL_PAIR2": 3216,
+    "FLAGS": 3217,
+    "SNAP": 3219,
+    "CAP_LO": 3228,
+    "CAP_HI": 3229,
+    "CLEANUP": 3230,
+    "Z80_RESULT": 3231,
+    "SAVED_I16": 3232,
+    "SHORT_DATA": 3234,
+    "SHORT_STACK": 3242,
+    "SHORT_TOP": 3370
+  },
+  "cases": [
+    {
+      "index": 0,
+      "description": "EZ80IRQ native ADL variant=0, exact frame, EI delay/HALT or NMI IEF2",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655377
+      },
+      "checks": [
+        [
+          197633,
+          1
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          197632,
+          166
+        ],
+        [
+          327678,
+          17
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_0",
+      "resolved_checks": [
+        {
+          "address": "030401",
+          "expected": "01",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "030400",
+          "expected": "A6",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "11",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        237,
+        86,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        62,
+        166,
+        243,
+        64,
+        195,
+        25,
+        4
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        237,
+        86,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        62,
+        166,
+        243,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "index": 1,
+      "description": "EZ80IRQ native ADL variant=1, exact frame, EI delay/HALT or NMI IEF2",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655376
+      },
+      "checks": [
+        [
+          197633,
+          1
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          327678,
+          16
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_1",
+      "resolved_checks": [
+        {
+          "address": "030401",
+          "expected": "01",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "10",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        237,
+        86,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        118,
+        243,
+        64,
+        195,
+        137,
+        8
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        237,
+        86,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        118,
+        243,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "case_count": 2,
+  "default": "READY",
+  "R10_RUN": "NOT READY",
+  "future_feature_functionally_verified_on_RTL": false,
+  "ABI": "doc/TEST_ABI_P2.md"
+}

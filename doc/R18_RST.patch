@@ -1,0 +1,89 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -143,6 +143,7 @@
+     signal Frame_Count : integer range 0 to 3;
+     signal Frame_Mode_Bit, Frame_IM2, Frame_RetN : std_logic;
+     signal Frame_Calling, Frame_Is_Call, Frame_SPS, Frame_Take, Frame_Target_Last : std_logic;
++    signal Frame_Rst, Frame_Rst_Ready, Frame_Destination_Long : std_logic;
+     signal Frame_Stack_Short, Frame_Stack_Down : std_logic;
+     signal Frame_Stack_Value, Frame_Stack_Delta, Frame_Stack_Next : unsigned(23 downto 0);
+     signal Frame_Stack_Bank : std_logic_vector(7 downto 0);
+@@ -398,11 +399,16 @@
+         ((MADL='1' and ISet="10" and (IR=x"45" or IR=x"4D")) or
+          (Mode=0 and ISet="00" and Frame_Take='1' and Write_Class(3 downto 1)="110")) else '0';
+     Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0') or Frame_Count=2 else '0';
+-    -- MADL RST suffix/native frame variants are not enabled in this stage.
+-    Frame_Unsupported<='1' when MADL='1' and ISet="00" and IntCycle='0' and NMICycle='0' and
+-        Write_Class(3 downto 0)=x"E" else '0';
++    -- R18: RST reuses the call-like frame writer, but has no immediate target.
++    -- For RST, the first suffix letter chooses the destination mode.
++    Frame_Rst<='1' when Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and Write_Class(3 downto 0)=x"E" else '0';
++    Frame_Rst_Ready<=Frame_Rst when (Instruction_Has_Width='1' and Stream_Long=ADL_Mode) or
++        (Instruction_Has_Width='0' and MADL='1') else '0';
++    Frame_Destination_Long<=Data_Long when Frame_Rst='1' else Stream_Long;
++    -- Noncanonical full suffixes retain the guarded, no-stack-change behavior.
++    Frame_Unsupported<=Frame_Rst when Instruction_Has_Width='1' and Stream_Long/=ADL_Mode else '0';
+     Frame_Ready<='1' when Extensions_Enabled='1' and Frame_State=frame_idle and MCycle="001" and TState=4 and
+-        (Frame_Entry='1' or Frame_Return='1' or Frame_Calling='1' or Frame_Unsupported='1') else '0';
++        (Frame_Entry='1' or Frame_Return='1' or Frame_Calling='1' or Frame_Rst_Ready='1' or Frame_Unsupported='1') else '0';
+     Frame_Start<=Frame_Ready and not BusAck;
+     CPU_Run<=CEN and not Frame_Active and not Frame_Start;
+     Frame_Returning<='1' when Frame_State=frame_mode or Frame_State=frame_long or Frame_State=frame_upper or Frame_State=frame_short else '0';
+@@ -414,11 +420,11 @@
+     Frame_IEF<=IntE_FF2 when Frame_Returning='1' and Frame_RetN='1' else IntE_FF1 when Frame_Returning='1' or Frame_Is_Call='1' else '0';
+     -- One carry chain for both stack widths and both push/pop directions.
+     -- SPS wraps at 16 bits; its bank comes from MBASE, never from carry-out.
+-    Frame_Stack_Short<='1' when Frame_State=frame_short or
++    Frame_Stack_Short<='1' when Frame_State=frame_short or (Frame_Ready='1' and Frame_Rst_Ready='1' and Frame_Destination_Long='0') or
+         (Frame_State=frame_push and Frame_SPS='1' and Frame_Count=2) or
+         (Frame_State=frame_vector and Frame_Is_Call='1' and Stream_Long='0') else '0';
+     Frame_Stack_Down<='1' when Frame_State=frame_push or
+-        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' else '0';
++        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' or (Frame_Ready='1' and Frame_Rst_Ready='1') else '0';
+     Frame_Stack_Value<=resize(SP,24) when Frame_Stack_Short='1' else SPL;
+     Frame_Stack_Delta<=(others=>'1') when Frame_Stack_Down='1' else to_unsigned(1,24);
+     Frame_Stack_Next<=Frame_Stack_Value+Frame_Stack_Delta;
+@@ -742,6 +748,18 @@
+                 -- Finish the fetch/refresh phase before starting a memory T1.
+                 Frame_TS<=to_unsigned(4,3);Frame_Count<=0;Frame_RetN<='0';Frame_IM2<='0';Frame_Is_Call<='0';Frame_SPS<='0';
+                 if Frame_Unsupported='1' then Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);
++                elsif Frame_Rst_Ready='1' then
++                    Frame_State<=frame_push;Frame_Is_Call<='1';Frame_Mode_Bit<=ADL_Mode;Ctrl_Return<=std_logic_vector(PC);
++                    Ctrl_Target<=x"0000" & "00" & IR(5 downto 3) & "000";
++                    if Frame_Destination_Long='0' then
++                        Frame_SPS<='1';Frame_Count<=2;SP<=Frame_Stack_Next(15 downto 0);
++                        Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
++                        Data_Out_Reg<=std_logic_vector(PC(15 downto 8));
++                    else
++                        SPL<=Frame_Stack_Next;Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
++                        if ADL_Mode='1' then Frame_Count<=3;Data_Out_Reg<=std_logic_vector(PC(23 downto 16));
++                        else Frame_Count<=2;Data_Out_Reg<=std_logic_vector(PC(15 downto 8));end if;
++                    end if;
+                 elsif Frame_Calling='1' then
+                     -- Reuse the three-byte vector reader for CALL immediates.
+                     Frame_State<=frame_vector;Frame_Is_Call<='1';Frame_Mode_Bit<=ADL_Mode;Ctrl_Target<=(others=>'0');
+@@ -803,8 +821,8 @@
+                                 PC<=unsigned(Ctrl_Target);Address_Reg<=Ctrl_Target(15 downto 0);Address_Bank_Reg<=Ctrl_Target(23 downto 16);
+                                 ADL_Mode<='1';Frame_State<=frame_idle;
+                                 if Frame_Is_Call='1' then
+-                                    ADL_Mode<=Stream_Long;
+-                                    if Stream_Long='0' then PC(23 downto 16)<=(others=>'0');Address_Bank_Reg<=MBASE;end if;
++                                    ADL_Mode<=Frame_Destination_Long;
++                                    if Frame_Destination_Long='0' then PC(23 downto 16)<=(others=>'0');Address_Bank_Reg<=MBASE;end if;
+                                 end if;
+                             end if;
+                         when frame_vector =>
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -215,9 +215,9 @@
+             when x"C2"=>Diag_Read<=x"02";
+             when x"C3"=>Diag_Read<=x"A7";
+             when x"C4"=>Diag_Read<=x"FF";
+-            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"87";else Diag_Read<=x"07";end if;
++            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"8F";else Diag_Read<=x"0F";end if;
+             when x"C6"=>Diag_Read<=x"00";
+-            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"78";else Diag_Read<=x"F8";end if;
++            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"70";else Diag_Read<=x"F0";end if;
+             when x"C8"=>Diag_Read<=MBASE_i;
+             when x"C9"=>Diag_Read<="0000000" & MADL_i;
+             when others=>null;

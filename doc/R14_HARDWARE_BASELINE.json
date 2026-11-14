@@ -1,0 +1,14 @@
+{
+  "GOWIN_succeeded": true,
+  "Logic_percent": 92,
+  "EZ80MEM": "PASS",
+  "EZ80MIX": "PASS",
+  "EZ80MAD": "PASS",
+  "RUNALL_NOT_READY": [
+    "EZ80LDH",
+    "EZ80LDX",
+    "EZ80TST"
+  ],
+  "SofaRun_Space_Manbow_play": "PASS",
+  "detailed_R14_timing_available": false
+}

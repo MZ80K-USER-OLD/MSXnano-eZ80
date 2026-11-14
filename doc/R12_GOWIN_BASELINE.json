@@ -1,0 +1,17 @@
+{
+  "user_report": true,
+  "GOWIN_succeeded": true,
+  "Logic_percent": 86,
+  "EZ80MB": "P2: PASS",
+  "EZ80MEM": "P1: PASS",
+  "RUNALL_NOT_READY": [
+    "EZ80LDH",
+    "EZ80LDX",
+    "EZ80MAD",
+    "EZ80MIX",
+    "EZ80TST"
+  ],
+  "other_RUNALL_tests": "PASS",
+  "SofaRun_Space_Manbow_play": true,
+  "new_timing_report_available": false
+}

@@ -1,0 +1,137 @@
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -2275,74 +2275,71 @@
+                 end if;
+         end process;
+ 
+-    -- The legacy writer is unchanged. Extension overrides select one opcode
+-    -- class in parallel instead of chaining every instruction's Write mux.
++    -- R14.1 comparison: sparse class x cycle matrix for extension Write.
++    -- The original Z80 writer and all other control outputs are unchanged.
+     process(Legacy_Write, Write_Class, ISet, MCycle, Ext_Active, Data_Long,
+             Stream_Long, ADL_Mode, Has_Width, IntCycle, NMICycle, Branch_Condition)
+-        variable w : std_logic;
++        type row_vector is array(0 to 14) of boolean;
++        variable en, val : row_vector;
+         variable base_kind, ed_kind : std_logic_vector(3 downto 0);
+-        variable lastaddr, cycle : integer range 0 to 7;
++        variable cycle, lastaddr : integer range 0 to 7;
++        variable base_active, ed_active, wide, normal, irq_native : boolean;
++        variable any_en, any_val : boolean;
++        variable legacy_gate, matrix_value : std_logic;
+     begin
+-        w:=Legacy_Write; base_kind:=Write_Class(3 downto 0);ed_kind:=Write_Class(7 downto 4);
++        base_kind:=Write_Class(3 downto 0);ed_kind:=Write_Class(7 downto 4);
+         cycle:=to_integer(unsigned(MCycle));
+         if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
+-        if Ext_Active='1' and Mode=0 and IntCycle='0' and NMICycle='0' then
+-            if ISet="00" then
+-                case base_kind is
+-                when x"1"|x"2" =>
+-                    if Data_Long='1' or Stream_Long='1' then
+-                        w:='0';if base_kind=x"1" and cycle>lastaddr then w:='1';end if;
+-                    end if;
+-                when x"3"|x"4" =>
+-                    if Data_Long='1' or Stream_Long='1' then
+-                        w:='0';if base_kind=x"3" and cycle=lastaddr+1 then w:='1';end if;
+-                    end if;
+-                when x"5"|x"6" =>
+-                    if Data_Long='1' then
+-                        w:='0';if base_kind=x"5" and cycle>=2 and cycle<=4 then w:='1';end if;
+-                    end if;
+-                when x"7" =>
+-                    if Data_Long='1' then w:='0';if cycle>=5 then w:='1';end if;end if;
+-                when x"8" => if Data_Long='1' then w:='0';end if;
+-                when others=>null;
+-                end case;
+-            elsif ISet="10" then
+-                case ed_kind is
+-                when x"1"|x"2" =>
+-                    if Data_Long='1' or Stream_Long='1' then
+-                        w:='0';if ed_kind=x"1" and cycle>lastaddr then w:='1';end if;
+-                    end if;
+-                when x"3" => if Data_Long='1' then w:='0';end if;
+-                when x"4"|x"5" => w:='0';
+-                when x"6" => w:='0';if cycle>=3 then w:='1';end if;
+-                when others=>null;
+-                end case;
+-            end if;
+-        end if;
+-        -- Preserve the original guards, including profiles with Mode/=0,
+-        -- a closed extension gate, or an interrupt coincident with a suffix.
+-        if Ext_Active='1' and ISet="00" and IntCycle='0' and NMICycle='0' then
+-            if base_kind=x"9" and Data_Long=Stream_Long then w:='0';end if;
+-            if ADL_Mode='1' and Has_Width='0' then
+-                case base_kind is
+-                when x"A"|x"B" =>
+-                    w:='0';if cycle>=5 and (base_kind=x"A" or Branch_Condition='1') then w:='1';end if;
+-                when x"C"|x"D" => w:='0';
+-                when x"E" => w:='0';if cycle>=2 then w:='1';end if;
+-                when others=>null;
+-                end case;
+-            end if;
+-        end if;
+-        if ADL_Mode='1' and ISet="10" and ed_kind=x"7" then w:='0';end if;
+-        if Ext_Active='1' and Has_Width='1' and ISet="00" and
+-           (base_kind=x"A" or base_kind=x"B" or base_kind=x"C" or base_kind=x"D" or base_kind=x"E") then w:='0';end if;
+-        if Ext_Active='1' and ADL_Mode='1' and (IntCycle='1' or NMICycle='1') then
+-            w:='0';if cycle>=2 and cycle<=4 then w:='1';end if;
+-        end if;
+-        if Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' then
+-            if ed_kind=x"9" or (ed_kind=x"8" and (ADL_Mode='1' or Has_Width='1')) then w:='0';end if;
+-        end if;
+-        Write<=w;
++        base_active:=Ext_Active='1' and ISet="00" and IntCycle='0' and NMICycle='0';
++        ed_active:=Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0';
++        wide:=Data_Long='1' or Stream_Long='1';normal:=Mode=0;
++        irq_native:=Ext_Active='1' and ADL_Mode='1' and (IntCycle='1' or NMICycle='1');
++        en:=(others=>false);val:=(others=>false);
++
++        -- Base instruction rows. Each class selects its own cycle window.
++        en(0):=normal and base_active and wide and (base_kind=x"1" or base_kind=x"2");
++        val(0):=en(0) and base_kind=x"1" and cycle>lastaddr;
++        en(1):=normal and base_active and wide and (base_kind=x"3" or base_kind=x"4");
++        val(1):=en(1) and base_kind=x"3" and cycle=lastaddr+1;
++        en(2):=normal and base_active and Data_Long='1' and (base_kind=x"5" or base_kind=x"6");
++        val(2):=en(2) and base_kind=x"5" and cycle>=2 and cycle<=4;
++        en(3):=normal and base_active and Data_Long='1' and base_kind=x"7";
++        val(3):=en(3) and cycle>=5;
++        en(4):=normal and base_active and Data_Long='1' and base_kind=x"8";
++
++        -- ED rows. Read-only operations explicitly suppress Legacy_Write.
++        en(5):=normal and ed_active and wide and (ed_kind=x"1" or ed_kind=x"2");
++        val(5):=en(5) and ed_kind=x"1" and cycle>lastaddr;
++        en(6):=normal and ed_active and Data_Long='1' and ed_kind=x"3";
++        en(7):=normal and ed_active and (ed_kind=x"4" or ed_kind=x"5");
++        en(8):=normal and ed_active and ed_kind=x"6";
++        val(8):=en(8) and cycle>=3;
++
++        -- Native ADL rows apply in the same generic Mode profiles as R14.
++        en(9):=base_active and ADL_Mode='1' and Has_Width='0' and
++            (base_kind=x"A" or base_kind=x"B" or base_kind=x"C" or base_kind=x"D" or base_kind=x"E");
++        val(9):=en(9) and (((base_kind=x"A" or (base_kind=x"B" and Branch_Condition='1')) and cycle>=5) or
++                           (base_kind=x"E" and cycle>=2));
++        en(10):=irq_native;
++        val(10):=en(10) and cycle>=2 and cycle<=4;
++
++        -- Zero-output rows. IRQ row 10 intentionally wins over rows 12/13,
++        -- matching R14's later native-IRQ override, including unusual profiles.
++        en(11):=base_active and base_kind=x"9" and Data_Long=Stream_Long;
++        en(12):=ADL_Mode='1' and ISet="10" and ed_kind=x"7";
++        en(13):=Ext_Active='1' and Has_Width='1' and ISet="00" and
++            (base_kind=x"A" or base_kind=x"B" or base_kind=x"C" or base_kind=x"D" or base_kind=x"E");
++        en(14):=ed_active and (ed_kind=x"9" or (ed_kind=x"8" and (ADL_Mode='1' or Has_Width='1')));
++
++        -- Explicit grouped reductions; no serial overwrite of a Write result.
++        any_en:=(en(0) or en(1) or en(2) or en(3)) or
++                (en(4) or en(5) or en(6) or en(7)) or
++                (en(8) or en(9) or en(10) or en(11)) or
++                (en(12) or en(13) or en(14));
++        any_val:=(val(0) or val(1) or val(2) or val(3)) or
++                 (val(5) or val(8) or val(9) or val(10));
++        legacy_gate:='1';if any_en then legacy_gate:='0';end if;
++        matrix_value:='0';if any_val then matrix_value:='1';end if;
++        Write<=(Legacy_Write and legacy_gate) or matrix_value;
+     end process;
+-
+ end;

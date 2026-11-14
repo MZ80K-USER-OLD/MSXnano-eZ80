@@ -1,0 +1,42 @@
+{
+  "runs": 4,
+  "RTL_scope": "R11 DIAGNOSTICS=false: hook-dependent programs reject before ADL",
+  "cases": [
+    {
+      "name": "EZ80IM2",
+      "COM_sha256": "65c1b9f86960f0c706274693b3e346f404d0d75926d88f0582b8cc83326b36eb",
+      "request": 1,
+      "extended": 1,
+      "stress": 1,
+      "expected": "NOT READY"
+    },
+    {
+      "name": "EZ80IRQ",
+      "COM_sha256": "f1f78fa7116db9d40add92e991dc49f71cbf86bbf93133e80da38e52592a7dcf",
+      "request": 1,
+      "extended": 1,
+      "stress": 1,
+      "expected": "NOT READY"
+    },
+    {
+      "name": "EZ80NMI",
+      "COM_sha256": "baec37bdb191df1565292427e225ae2ded67324614bfbf8b433939d24027221e",
+      "request": 1,
+      "extended": 1,
+      "stress": 1,
+      "expected": "NOT READY"
+    },
+    {
+      "name": "EZ80RST",
+      "COM_sha256": "d1213baa35013d45f90a2d3444dbfa5ef009538019d0145ff491ed53008e58b2",
+      "request": 1,
+      "extended": 1,
+      "stress": 1,
+      "expected": "NOT READY"
+    }
+  ],
+  "cpu_verilog_sha256": {
+    "0": "069ba54191d82738caa244451b031e6989949d5aab0fd132b2e9895f1094554f",
+    "1": "d08ffb9981b48c6f4132a932688848112b0dac5857ad6b2c7f95b1083ab041c7"
+  }
+}

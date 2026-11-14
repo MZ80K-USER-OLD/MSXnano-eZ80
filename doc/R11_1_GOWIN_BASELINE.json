@@ -1,0 +1,22 @@
+{
+  "source_archive": "impl(1).zip",
+  "source_archive_SHA256": "f9f0dc16036cb27eb3095fff5a7abb3fb82fbd551e306d18a9b2ac751710e0cc",
+  "GOWIN_version": "1.9.12.04",
+  "Logic_used": 17945,
+  "CLS_used": 9804,
+  "Register_used": 7519,
+  "latches": 0,
+  "BSRAM_used": 44,
+  "BSRAM_available": 46,
+  "DSP_used": 1.75,
+  "PLL_used": 2,
+  "clock_54m_Fmax_MHz": 28.424,
+  "setup_violated_endpoints": 1482,
+  "hold_violated_endpoints": 75,
+  "worst_reported_setup_ns": -8.414,
+  "worst_reported_hold_ns": -3.183,
+  "CPU_decoder_BSRAM": "Read_To_Reg_r_4_s43",
+  "PR1014_present": true,
+  "TA1132_present": false,
+  "R11_2_metrics_not_measured": true
+}

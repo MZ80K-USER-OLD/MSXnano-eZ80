@@ -1,0 +1,2 @@
+PASS rst_r18 guard=99
+/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:68: $finish called at 110430000 (1ps)

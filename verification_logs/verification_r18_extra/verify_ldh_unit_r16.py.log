@@ -1,0 +1,8 @@
+PASS built 40 indirect pair CPU cases, all four width prefixes, long carry/short wrap
+PASS built 40 indirect pair CPU cases, all four width prefixes, long carry/short wrap
+PASS LDH unit (4, 0, 0, 0, 0)
+PASS LDH unit (4, 3, 1, 0, 0)
+PASS LDH unit (4, 1, 1, 1, 0)
+PASS LDH unit (16, 7, 1, 0, 0)
+PASS LDH unit (4, 1, 1, 0, 2)
+PASS LDH unit (4, 3, 1, 0, 1)

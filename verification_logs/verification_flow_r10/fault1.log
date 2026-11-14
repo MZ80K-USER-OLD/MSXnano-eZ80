@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_flow_r10.sv:55: stack read           5 a=050000 exp=050000 data=00 exp=01
+       Time: 62970000  Scope: tb_flow_r10

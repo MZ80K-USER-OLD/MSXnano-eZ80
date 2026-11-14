@@ -1,0 +1,748 @@
+{
+  "bytes": 9058,
+  "sha256": "22c260a5c6d4b395488cfd2d215925d4e79767b6a4177a34d059fc51e7e71b80",
+  "labels": {
+    "START": 256,
+    "STAGE_1": 340,
+    "CHECK_OK_506": 793,
+    "CHECK_OK_549": 836,
+    "CHECK_OK_592": 879,
+    "CHECK_OK_635": 922,
+    "CHECK_OK_678": 965,
+    "CHECK_OK_721": 1008,
+    "CHECK_OK_764": 1051,
+    "CHECK_OK_807": 1094,
+    "CHECK_OK_850": 1137,
+    "CHECK_OK_893": 1180,
+    "CHECK_OK_936": 1223,
+    "CHECK_OK_979": 1266,
+    "CHECK_OK_1022": 1309,
+    "CHECK_OK_1065": 1352,
+    "CHECK_OK_1108": 1395,
+    "CHECK_OK_1151": 1438,
+    "CHECK_OK_1194": 1481,
+    "CHECK_OK_1237": 1524,
+    "CHECK_OK_1280": 1567,
+    "CHECK_OK_1323": 1610,
+    "CHECK_OK_1366": 1653,
+    "CHECK_OK_1409": 1696,
+    "CHECK_OK_1452": 1739,
+    "CHECK_OK_1495": 1782,
+    "CHECK_OK_1538": 1825,
+    "CHECK_OK_1581": 1868,
+    "CHECK_OK_1624": 1911,
+    "CHECK_OK_1667": 1954,
+    "CHECK_OK_1710": 1997,
+    "CHECK_OK_1753": 2040,
+    "CHECK_OK_1796": 2083,
+    "CHECK_OK_1839": 2126,
+    "CHECK_OK_1882": 2169,
+    "CHECK_OK_1925": 2212,
+    "CHECK_OK_1968": 2255,
+    "CHECK_OK_2011": 2298,
+    "CHECK_OK_2054": 2341,
+    "CHECK_OK_2097": 2384,
+    "CHECK_OK_2140": 2427,
+    "CHECK_OK_2183": 2470,
+    "CHECK_OK_2226": 2513,
+    "CHECK_OK_2269": 2556,
+    "CHECK_OK_2312": 2599,
+    "PAYLOAD_BYTE_OK_2362": 2644,
+    "PAYLOAD_BYTE_OK_2407": 2689,
+    "RETURN_1": 2699,
+    "CHECK_OK_2455": 2742,
+    "CHECK_OK_2498": 2785,
+    "CHECK_OK_2541": 2828,
+    "CHECK_OK_2584": 2871,
+    "CHECK_OK_2627": 2914,
+    "CHECK_OK_2670": 2957,
+    "CHECK_OK_2713": 3000,
+    "CHECK_OK_2756": 3043,
+    "CHECK_OK_2799": 3086,
+    "CHECK_OK_2842": 3129,
+    "CHECK_OK_2885": 3172,
+    "CHECK_OK_2928": 3215,
+    "CHECK_OK_2971": 3258,
+    "CHECK_OK_3012": 3300,
+    "STAGE_2": 3300,
+    "CHECK_OK_3250": 3537,
+    "CHECK_OK_3293": 3580,
+    "CHECK_OK_3336": 3623,
+    "CHECK_OK_3379": 3666,
+    "CHECK_OK_3422": 3709,
+    "CHECK_OK_3465": 3752,
+    "CHECK_OK_3508": 3795,
+    "CHECK_OK_3551": 3838,
+    "CHECK_OK_3594": 3881,
+    "CHECK_OK_3637": 3924,
+    "CHECK_OK_3680": 3967,
+    "CHECK_OK_3723": 4010,
+    "CHECK_OK_3766": 4053,
+    "CHECK_OK_3809": 4096,
+    "CHECK_OK_3852": 4139,
+    "CHECK_OK_3895": 4182,
+    "CHECK_OK_3938": 4225,
+    "CHECK_OK_3981": 4268,
+    "CHECK_OK_4024": 4311,
+    "PAYLOAD_BYTE_OK_4074": 4356,
+    "PAYLOAD_BYTE_OK_4119": 4401,
+    "RETURN_2": 4406,
+    "CHECK_OK_4162": 4449,
+    "CHECK_OK_4205": 4492,
+    "CHECK_OK_4246": 4534,
+    "STAGE_3": 4534,
+    "CHECK_OK_4457": 4744,
+    "CHECK_OK_4500": 4787,
+    "CHECK_OK_4543": 4830,
+    "PAYLOAD_BYTE_OK_4593": 4875,
+    "PAYLOAD_BYTE_OK_4638": 4920,
+    "CHECK_OK_4676": 4963,
+    "CHECK_OK_4719": 5006,
+    "CHECK_OK_4762": 5049,
+    "CHECK_OK_4805": 5092,
+    "CHECK_OK_4848": 5135,
+    "CHECK_OK_4891": 5178,
+    "CHECK_OK_4934": 5221,
+    "CHECK_OK_4977": 5264,
+    "CHECK_OK_5020": 5307,
+    "CHECK_OK_5063": 5350,
+    "CHECK_OK_5106": 5393,
+    "PAYLOAD_BYTE_OK_5156": 5438,
+    "PAYLOAD_BYTE_OK_5201": 5483,
+    "RETURN_3": 5493,
+    "CHECK_OK_5245": 5532,
+    "CHECK_OK_5284": 5571,
+    "CHECK_OK_5323": 5610,
+    "CHECK_OK_5366": 5653,
+    "CHECK_OK_5409": 5696,
+    "CHECK_OK_5452": 5739,
+    "CHECK_OK_5493": 5781,
+    "STAGE_4": 5781,
+    "CHECK_OK_5578": 5865,
+    "CHECK_OK_5621": 5908,
+    "PAYLOAD_BYTE_OK_5671": 5953,
+    "PAYLOAD_BYTE_OK_5716": 5998,
+    "RETURN_4": 6005,
+    "CHECK_OK_5754": 6026,
+    "CHECK_OK_5780": 6068,
+    "STAGE_5": 6068,
+    "CHECK_OK_6018": 6305,
+    "CHECK_OK_6061": 6348,
+    "CHECK_OK_6104": 6391,
+    "CHECK_OK_6147": 6434,
+    "CHECK_OK_6190": 6477,
+    "CHECK_OK_6233": 6520,
+    "CHECK_OK_6276": 6563,
+    "CHECK_OK_6319": 6606,
+    "CHECK_OK_6362": 6649,
+    "CHECK_OK_6405": 6692,
+    "CHECK_OK_6448": 6735,
+    "CHECK_OK_6491": 6778,
+    "CHECK_OK_6534": 6821,
+    "CHECK_OK_6577": 6864,
+    "CHECK_OK_6620": 6907,
+    "CHECK_OK_6663": 6950,
+    "CHECK_OK_6706": 6993,
+    "CHECK_OK_6749": 7036,
+    "CHECK_OK_6792": 7079,
+    "PAYLOAD_BYTE_OK_6842": 7124,
+    "PAYLOAD_BYTE_OK_6887": 7169,
+    "RETURN_5": 7174,
+    "CHECK_OK_6930": 7217,
+    "CHECK_OK_6973": 7260,
+    "CHECK_OK_7014": 7302,
+    "STAGE_6": 7302,
+    "CHECK_OK_7324": 7611,
+    "CHECK_OK_7367": 7654,
+    "CHECK_OK_7410": 7697,
+    "CHECK_OK_7453": 7740,
+    "CHECK_OK_7496": 7783,
+    "CHECK_OK_7539": 7826,
+    "CHECK_OK_7582": 7869,
+    "CHECK_OK_7625": 7912,
+    "CHECK_OK_7668": 7955,
+    "CHECK_OK_7711": 7998,
+    "CHECK_OK_7754": 8041,
+    "CHECK_OK_7797": 8084,
+    "CHECK_OK_7840": 8127,
+    "CHECK_OK_7883": 8170,
+    "CHECK_OK_7926": 8213,
+    "CHECK_OK_7969": 8256,
+    "CHECK_OK_8012": 8299,
+    "CHECK_OK_8055": 8342,
+    "CHECK_OK_8098": 8385,
+    "CHECK_OK_8141": 8428,
+    "CHECK_OK_8184": 8471,
+    "CHECK_OK_8227": 8514,
+    "CHECK_OK_8270": 8557,
+    "CHECK_OK_8313": 8600,
+    "CHECK_OK_8356": 8643,
+    "CHECK_OK_8399": 8686,
+    "CHECK_OK_8442": 8729,
+    "PAYLOAD_BYTE_OK_8492": 8774,
+    "PAYLOAD_BYTE_OK_8537": 8819,
+    "RETURN_6": 8824,
+    "CHECK_OK_8580": 8867,
+    "CHECK_OK_8621": 8909,
+    "CHECK_OK_8667": 8955,
+    "CHECK_OK_8709": 8997,
+    "READY": 9008,
+    "MSG_READY": 9019,
+    "SUBROUTINE": 9049,
+    "FAIL": 9050,
+    "UNSUPPORTED": 9061,
+    "FINISH": 9069,
+    "FORMAT_DIAG": 9097,
+    "FORMAT_REG": 9128,
+    "FORMAT_VALUES": 9146,
+    "HEX_BYTE": 9165,
+    "HEX_NIBBLE": 9178,
+    "HEX_STORE": 9189,
+    "MSG_PASS": 9192,
+    "MSG_UNSUPPORTED": 9210,
+    "MSG_FAIL": 9235,
+    "FAIL_STAGE": 9257,
+    "HEX_ADDR": 9265,
+    "HEX_EXP": 9276,
+    "HEX_ACT": 9283,
+    "STATUS": 9288,
+    "GUARD": 9289,
+    "SP_SNAPSHOT": 9290,
+    "SP_SNAPSHOT1": 9291,
+    "SP_SNAPSHOT2": 9292,
+    "SPS_SNAPSHOT": 9293,
+    "SPS_SNAPSHOT1": 9294,
+    "SAVED_SPS": 9295,
+    "SAVED_SPS1": 9296,
+    "DIAG_MEM": 9297,
+    "DIAG_ADDR0": 9298,
+    "DIAG_ADDR1": 9299,
+    "DIAG_ADDR2": 9300,
+    "DIAG_EXP": 9301,
+    "DIAG_ACT": 9302,
+    "SAVED_AF": 9303,
+    "PAIR_SNAPSHOT": 9305,
+    "PAIR_SNAPSHOT1": 9306,
+    "LOCAL_PAIR": 9307,
+    "LOCAL_PAIR1": 9308,
+    "LOCAL_PAIR2": 9309,
+    "SLOT_SAVED": 9310,
+    "LOW_PAIR": 9311,
+    "LOW_PAIR1": 9312,
+    "LOW_PAIR2": 9313
+  },
+  "cases": [
+    {
+      "case": 1,
+      "base": 196606,
+      "data": [
+        33,
+        86,
+        52,
+        18,
+        34,
+        0,
+        1,
+        6,
+        64,
+        33,
+        205,
+        171,
+        34,
+        4,
+        1,
+        6,
+        82,
+        17,
+        120,
+        86,
+        164,
+        237,
+        83,
+        8,
+        1,
+        6,
+        91,
+        33,
+        239,
+        205,
+        171,
+        34,
+        12,
+        1,
+        6,
+        62,
+        166,
+        50,
+        16,
+        1,
+        6,
+        64,
+        195,
+        139,
+        10
+      ],
+      "fetch": [
+        {
+          "address": 196606,
+          "byte": 33
+        },
+        {
+          "address": 196610,
+          "byte": 34
+        },
+        {
+          "address": 196614,
+          "byte": 64
+        },
+        {
+          "address": 196615,
+          "byte": 33
+        },
+        {
+          "address": 196618,
+          "byte": 34
+        },
+        {
+          "address": 196622,
+          "byte": 82
+        },
+        {
+          "address": 196623,
+          "byte": 17
+        },
+        {
+          "address": 196627,
+          "byte": 237
+        },
+        {
+          "address": 196628,
+          "byte": 83
+        },
+        {
+          "address": 196632,
+          "byte": 91
+        },
+        {
+          "address": 196633,
+          "byte": 33
+        },
+        {
+          "address": 196637,
+          "byte": 34
+        },
+        {
+          "address": 196641,
+          "byte": 62
+        },
+        {
+          "address": 196643,
+          "byte": 50
+        },
+        {
+          "address": 196647,
+          "byte": 64
+        },
+        {
+          "address": 196648,
+          "byte": 195
+        }
+      ],
+      "return_label": "RETURN_1",
+      "results": [
+        [
+          393472,
+          86
+        ],
+        [
+          393473,
+          52
+        ],
+        [
+          393474,
+          18
+        ],
+        [
+          393476,
+          205
+        ],
+        [
+          393477,
+          171
+        ],
+        [
+          393478,
+          18
+        ],
+        [
+          393480,
+          120
+        ],
+        [
+          393481,
+          86
+        ],
+        [
+          393482,
+          0
+        ],
+        [
+          393484,
+          239
+        ],
+        [
+          393485,
+          205
+        ],
+        [
+          393486,
+          171
+        ],
+        [
+          393488,
+          166
+        ]
+      ],
+      "return_pc": 2699
+    },
+    {
+      "case": 2,
+      "base": 262143,
+      "data": [
+        221,
+        33,
+        0,
+        128,
+        7,
+        62,
+        105,
+        221,
+        119,
+        1,
+        221,
+        126,
+        1,
+        50,
+        17,
+        1,
+        6,
+        64,
+        195,
+        54,
+        17
+      ],
+      "fetch": [
+        {
+          "address": 262143,
+          "byte": 221
+        },
+        {
+          "address": 262144,
+          "byte": 33
+        },
+        {
+          "address": 262148,
+          "byte": 62
+        },
+        {
+          "address": 262150,
+          "byte": 221
+        },
+        {
+          "address": 262151,
+          "byte": 119
+        },
+        {
+          "address": 262153,
+          "byte": 221
+        },
+        {
+          "address": 262154,
+          "byte": 126
+        },
+        {
+          "address": 262156,
+          "byte": 50
+        },
+        {
+          "address": 262160,
+          "byte": 64
+        },
+        {
+          "address": 262161,
+          "byte": 195
+        }
+      ],
+      "return_label": "RETURN_2",
+      "results": [
+        [
+          491521,
+          105
+        ],
+        [
+          393489,
+          105
+        ]
+      ],
+      "return_pc": 4406
+    },
+    {
+      "case": 3,
+      "base": 327678,
+      "data": [
+        73,
+        237,
+        67,
+        95,
+        36,
+        17,
+        51,
+        34,
+        17,
+        237,
+        83,
+        18,
+        1,
+        6,
+        64,
+        195,
+        117,
+        21
+      ],
+      "fetch": [
+        {
+          "address": 327678,
+          "byte": 73
+        },
+        {
+          "address": 327679,
+          "byte": 237
+        },
+        {
+          "address": 327680,
+          "byte": 67
+        },
+        {
+          "address": 327683,
+          "byte": 17
+        },
+        {
+          "address": 327687,
+          "byte": 237
+        },
+        {
+          "address": 327688,
+          "byte": 83
+        },
+        {
+          "address": 327692,
+          "byte": 64
+        },
+        {
+          "address": 327693,
+          "byte": 195
+        }
+      ],
+      "return_label": "RETURN_3",
+      "results": [
+        [
+          "LOW_PAIR",
+          52
+        ],
+        [
+          "LOW_PAIR1",
+          18
+        ],
+        [
+          "LOW_PAIR2",
+          11
+        ],
+        [
+          393490,
+          51
+        ],
+        [
+          393491,
+          34
+        ],
+        [
+          393492,
+          17
+        ]
+      ],
+      "return_pc": 5493
+    },
+    {
+      "case": 4,
+      "base": 393215,
+      "data": [
+        64,
+        195,
+        117,
+        23
+      ],
+      "fetch": [
+        {
+          "address": 393215,
+          "byte": 64
+        },
+        {
+          "address": 393216,
+          "byte": 195
+        }
+      ],
+      "return_label": "RETURN_4",
+      "results": [],
+      "return_pc": 6005
+    },
+    {
+      "case": 5,
+      "base": 524287,
+      "data": [
+        253,
+        33,
+        255,
+        255,
+        1,
+        62,
+        215,
+        253,
+        119,
+        1,
+        253,
+        126,
+        1,
+        50,
+        21,
+        1,
+        6,
+        64,
+        195,
+        6,
+        28
+      ],
+      "fetch": [
+        {
+          "address": 524287,
+          "byte": 253
+        },
+        {
+          "address": 524288,
+          "byte": 33
+        },
+        {
+          "address": 524292,
+          "byte": 62
+        },
+        {
+          "address": 524294,
+          "byte": 253
+        },
+        {
+          "address": 524295,
+          "byte": 119
+        },
+        {
+          "address": 524297,
+          "byte": 253
+        },
+        {
+          "address": 524298,
+          "byte": 126
+        },
+        {
+          "address": 524300,
+          "byte": 50
+        },
+        {
+          "address": 524304,
+          "byte": 64
+        },
+        {
+          "address": 524305,
+          "byte": 195
+        }
+      ],
+      "return_label": "RETURN_5",
+      "results": [
+        [
+          131072,
+          215
+        ],
+        [
+          393493,
+          215
+        ]
+      ],
+      "return_pc": 7174
+    },
+    {
+      "case": 6,
+      "base": 589821,
+      "data": [
+        195,
+        16,
+        0,
+        9,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        62,
+        150,
+        50,
+        22,
+        1,
+        6,
+        64,
+        195,
+        120,
+        34
+      ],
+      "fetch": [
+        {
+          "address": 589821,
+          "byte": 195
+        },
+        {
+          "address": 589840,
+          "byte": 62
+        },
+        {
+          "address": 589842,
+          "byte": 50
+        },
+        {
+          "address": 589846,
+          "byte": 64
+        },
+        {
+          "address": 589847,
+          "byte": 195
+        }
+      ],
+      "return_label": "RETURN_6",
+      "results": [
+        [
+          393494,
+          150
+        ]
+      ],
+      "return_pc": 8824
+    }
+  ],
+  "stage": 5,
+  "requires_R9": true,
+  "ADL_CALL_RET_required": false
+}

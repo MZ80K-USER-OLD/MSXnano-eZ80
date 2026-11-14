@@ -1,0 +1,264 @@
+--- R11.2/fpga/G80A_eZ80/g80a_ez80.vhd
++++ R11.3/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -95,7 +95,9 @@
+ 		update_addr	: out std_logic;
+         DI           : in std_logic_vector(7 downto 0);
+         DO           : out std_logic_vector(7 downto 0);
+-        Data_Reverse: out std_logic
++        Data_Reverse: out std_logic;
++        A_MSX : out std_logic_vector(15 downto 0);
++        Extended_Window : out std_logic
+     );
+ end G80A_eZ80;
+ 
+@@ -130,6 +132,8 @@
+     signal Core_DO, Request_Data : std_logic_vector(7 downto 0);
+     signal Request_Address : std_logic_vector(23 downto 0);
+     signal Request_Write, Request_IO : std_logic;
++    signal Request_MSX_Address : std_logic_vector(15 downto 0);
++    signal Request_Extended : std_logic;
+     signal DI_Reg       : std_logic_vector (7 downto 0);    -- Input synchroniser
+     signal Wait_s       : std_logic;
+     signal MCycle       : std_logic_vector(2 downto 0);
+@@ -158,20 +162,32 @@
+     -- All ordinary requests retain their T1 address through WAIT and bus release.
+     A24 <= x"00" & A_i when RFSH_n_i='0' and BUSAK_n_i='1' else
+            Request_Address when BUSAK_n_i='1' else (others=>'Z');
++    -- R11.3: isolate the MSX address at the same edge as the full request.
++    -- Refresh remains bank zero; ordinary addresses never use a live bank mux.
++    A_MSX <= A_i when RFSH_n_i='0' and BUSAK_n_i='1' else
++             Request_MSX_Address when BUSAK_n_i='1' else (others=>'Z');
++    Extended_Window <= '0' when RFSH_n_i='0' else Request_Extended;
+     DO <= Request_Data;
+     process(RESET_n, CLK_n)
+     begin
+         if RESET_n='0' then
+             Request_Address <= (others=>'0'); Request_Data <= (others=>'0');
+             Request_Write <= '0'; Request_IO <= '0';
++            Request_MSX_Address <= (others=>'0'); Request_Extended <= '0';
+         elsif falling_edge(CLK_n) then
+             if clk_falling='1' then
+                 if TState="001" then
+                     Request_Address <= Bank_i & A_i;
++                    Request_MSX_Address <= (others=>'0'); Request_Extended <= '1';
++                    if Bank_i=x"00" then
++                        Request_MSX_Address <= A_i; Request_Extended <= '0';
++                    end if;
+                     if IORQ='1' or (IntCycle_n='0' and MCycle="001") then
+                         Request_Address <= x"00" & A_i;
++                        Request_MSX_Address <= A_i; Request_Extended <= '0';
+                     elsif Vector_Window='1' then
+                         Request_Address <= x"0F" & A_i;
++                        Request_MSX_Address <= (others=>'0'); Request_Extended <= '1';
+                     end if;
+                     Request_Write <= Write; Request_IO <= IORQ;
+                 end if;
+--- R11.2/fpga/G80A_eZ80/t80_ez80.vhd
++++ R11.3/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -136,9 +136,9 @@
+     type upper_array is array(0 to 7) of std_logic_vector(7 downto 0);
+     signal Upper : upper_array;
+     signal Wide_Stack, Wide_IncDec : std_logic;
+-    signal Opcode_Class : std_logic_vector(5 downto 0);
++    signal Opcode_Class : std_logic_vector(15 downto 0);
+     function Classify_Opcode(op : std_logic_vector(7 downto 0)) return std_logic_vector is
+-        variable c : std_logic_vector(5 downto 0) := (others=>'0');
++        variable c : std_logic_vector(15 downto 0) := (others=>'0');
+     begin
+         if op=x"E3" then c(0):='1';end if;
+         if op(7 downto 6)="11" and (op(3 downto 0)="0101" or op(3 downto 0)="0001") then c(1):='1';end if;
+@@ -146,6 +146,18 @@
+         if op=x"32" or op=x"3A" then c(3):='1';end if;
+         if op=x"22" or op=x"2A" then c(4):='1';end if;
+         if op(7 downto 6)="01" and op(2 downto 0)="011" then c(5):='1';end if;
++        if op(7 downto 6)="00" and op(3 downto 0)="1001" then c(6):='1';end if;
++        if op(7 downto 6)="01" and op(2 downto 0)="010" then c(7):='1';end if;
++        if op(7 downto 5)="101" and op(2 downto 1)="00" then c(8):='1';end if;
++        if op(7 downto 6)="01" and op(3 downto 0)="1100" then c(9):='1';end if;
++        if op=x"02" or op=x"03" or op=x"12" or op=x"13" or op=x"22" or op=x"23" or
++           op=x"32" or op=x"33" or op=x"54" or op=x"55" or op=x"65" or op=x"66" then c(10):='1';end if;
++        if op=x"65" or op=x"66" then c(11):='1';end if;
++        if op=x"C3" or (op(7 downto 6)="11" and op(2 downto 0)="010") then c(12):='1';end if;
++        if op=x"CD" or op=x"C9" or (op(7 downto 6)="11" and
++           (op(2 downto 0)="100" or op(2 downto 0)="000" or op(2 downto 0)="111")) then c(13):='1';end if;
++        if op=x"45" or op=x"4D" then c(14):='1';end if;
++        if op=x"D7" then c(15):='1';end if;
+         return c;
+     end function;
+     signal Stack_Upper_Index : std_logic_vector(2 downto 0);
+@@ -480,8 +492,8 @@
+     -- Address work register advances only after an accepted T2.
+     -- M1/T3 prepares the first read before the M1/T4 address latch.
+     Arith_Long<='1' when Mode=0 and Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
+-        ((ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="1001") or
+-         (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="010")) else '0';
++        ((ISet="00" and Opcode_Class(6)='1') or
++         (ISet="10" and Opcode_Class(7)='1')) else '0';
+     Arith_Target<=XY_State(1) & "11" when ISet="00" and XY_State/="00" else Alternate & "10";
+     Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Alternate & IR(5 downto 4);
+     Arith_Sub<='1' when ISet="10" and IR(3)='0' else '0';
+@@ -496,29 +508,27 @@
+     Arith_Half<=Arith_Left(12) xor Arith_Right(12) xor Arith_Result(12);
+     Arith_Carry_Out<=Arith_Sum(24) xor Arith_Sub_Latched;
+     Arith_Overflow<=(not (Arith_Left(23) xor Arith_Right(23) xor Arith_Sub_Latched)) and (Arith_Left(23) xor Arith_Result(23));
+-    Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and IR(7 downto 5)="101" and
+-        IR(2 downto 1)="00" and IntCycle='0' and NMICycle='0' else '0';
++    Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and Opcode_Class(8)='1' and IntCycle='0' and NMICycle='0' else '0';
+     Block_Long<=Block_Instruction and Data_Long;
+     Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
+         else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
+     Mul_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
+-        IR(7 downto 6)="01" and IR(3 downto 0)="1100" and IntCycle='0' and NMICycle='0' else '0';
++        Opcode_Class(9)='1' and IntCycle='0' and NMICycle='0' else '0';
+     Mul_Target<=Alternate & IR(5 downto 4);
+     Mul_Operand<=SPL(15 downto 0) when IR(5 downto 4)="11" and Data_Long='1' else
+         SP when IR(5 downto 4)="11" else unsigned(RegBusA);
+     Mul_Commit<='1' when Mul_Active='1' and MCycle="001" and TState=7 else '0';
+     Mul_Reg_Commit<=Mul_Commit when IR(5 downto 4)/="11" else '0';
+     EA_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
+-        (IR=x"02" or IR=x"03" or IR=x"12" or IR=x"13" or IR=x"22" or IR=x"23" or
+-         IR=x"32" or IR=x"33" or IR=x"54" or IR=x"55" or IR=x"65" or IR=x"66") else '0';
+-    PEA_Active<=EA_Active when IR=x"65" or IR=x"66" else '0';
++        Opcode_Class(10)='1' else '0';
++    PEA_Active<=EA_Active when Opcode_Class(11)='1' else '0';
+     PEA_Long<=PEA_Active and Data_Long;
+     EA_Source<="111" when IR=x"03" or IR=x"13" or IR=x"23" or IR=x"33" or IR=x"54" or IR=x"66" else "011";
+     EA_Target<="011" when IR=x"32" or IR=x"54" else "111" when IR=x"33" or IR=x"55" else Alternate & IR(5 downto 4);
+     LEA_Commit<='1' when EA_Active='1' and PEA_Active='0' and MCycle="010" and TState=5 else '0';
+     RegAddrC<=EA_Source when EA_Active='1' else RegAddrC_Base;
+     PC_Increment<=PC+1;
+-    JP_Immediate<='1' when Extensions_Enabled='1' and ISet="00" and (IR=x"C3" or (IR(7 downto 6)="11" and IR(2 downto 0)="010")) and
++    JP_Immediate<='1' when Extensions_Enabled='1' and ISet="00" and Opcode_Class(12)='1' and
+         Data_Long=Stream_Long and IntCycle='0' and NMICycle='0' else '0';
+     JP_Commit<='1' when JP_Immediate='1' and (IR=x"C3" or Flow_Cond='1') and TState=3 and
+         ((Stream_Long='1' and MCycle="100") or (Stream_Long='0' and MCycle="011")) else '0';
+@@ -531,12 +541,11 @@
+     IRQ_Long <= Extensions_Enabled and ADL_Mode and (IntCycle or NMICycle);
+     IRQ_IM2 <= '1' when IRQ_Long='1' and IntCycle='1' and IStatus="10" else '0';
+     IRQ_Return <= '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="10" and
+-        (IR=x"45" or IR=x"4D") and IntCycle='0' and NMICycle='0' else '0';
++        Opcode_Class(14)='1' and IntCycle='0' and NMICycle='0' else '0';
+     Effective_IEF <= '1' when ADL_Mode='1' and SetEI='1' else IntE_FF2 when IRQ_Return='1' and IR=x"45" and MCycle="100" else IntE_FF1;
+-    IV_Read_Commit <= '1' when Extensions_Enabled='1' and ISet="10" and IR=x"D7" and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' else '0';
++    IV_Read_Commit <= '1' when Extensions_Enabled='1' and ISet="10" and Opcode_Class(15)='1' and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' else '0';
+     Ctrl_Stack<='1' when IRQ_Long='1' or IRQ_Return='1' else '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="00" and
+-        IntCycle='0' and NMICycle='0' and (IR=x"CD" or IR=x"C9" or (IR(7 downto 6)="11" and
+-        (IR(2 downto 0)="100" or IR(2 downto 0)="000" or IR(2 downto 0)="111"))) else '0';
++        IntCycle='0' and NMICycle='0' and Opcode_Class(13)='1' else '0';
+     Ctrl_Call<=Ctrl_Stack when IRQ_Long='0' and IRQ_Return='0' and ( IR=x"CD" or IR(2 downto 0)="100") else '0';
+     Ctrl_Ret<='1' when IRQ_Return='1' else Ctrl_Stack when IRQ_Long='0' and ( IR=x"C9" or IR(2 downto 0)="000") else '0';
+     Ctrl_Rst<='1' when IRQ_Long='1' else Ctrl_Stack when IRQ_Return='0' and IR(2 downto 0)="111" else '0';
+--- R11.2/fpga/src/ez80_memory_bridge.v
++++ R11.3/fpga/src/ez80_memory_bridge.v
+@@ -2,7 +2,8 @@
+ // The external data bus remains byte-wide. Width/suffix handling is in the CPU.
+ module ez80_memory_bridge #(
+     // Enable only with the R11.1 wrapper, which forces bank zero for I/O/IACK/refresh.
+-    parameter REQUEST_BANK_QUALIFIED = 0
++    parameter REQUEST_BANK_QUALIFIED = 0,
++    parameter PREDECODED_MSX = 0
+ ) (
+     input wire clk, reset_n,
+     input wire [23:0] cpu_addr,
+@@ -18,13 +19,16 @@
+     output reg [22:0] ram_addr,
+     output reg [7:0] ram_din,
+     input wire ram_done,
+-    input wire [7:0] ram_dout
++    input wire [7:0] ram_dout,
++    // Only enable PREDECODED_MSX with the R11.3 wrapper's registered outputs.
++    input wire [15:0] cpu_msx_addr,
++    input wire cpu_extended_window
+ );
+     wire [7:0] bank = cpu_addr[23:16];
+-    wire extended_window = bank != 8'h00 &&
++    wire extended_window = PREDECODED_MSX ? cpu_extended_window : bank != 8'h00 &&
+         (REQUEST_BANK_QUALIFIED || (cpu_iorq_n && cpu_rfsh_n));
+     assign msx_mreq_n = cpu_mreq_n | extended_window;
+-    assign msx_addr = extended_window ? 16'h0000 : cpu_addr[15:0];
++    assign msx_addr = PREDECODED_MSX ? cpu_msx_addr : extended_window ? 16'h0000 : cpu_addr[15:0];
+     assign extended_cycle = extended_window && !cpu_mreq_n &&
+                             (!cpu_rd_n || !cpu_wr_n);
+     wire private_ram = bank >= 8'h01 && bank <= 8'h1b;
+--- R11.2/fpga/src/memory_ez80.v
++++ R11.3/fpga/src/memory_ez80.v
+@@ -92,14 +92,13 @@
+         if (!bus_reset_n) begin
+             ext_meta<=0; ext_sync<=0; ext_capture_armed<=0; ext_pending<=0;
+             ext_selected<=0; ext_running<=0; ext_done<=0; ext_dout<=8'hff;
+-            ext_addr_latched<=0; ext_data_latched<=0; ext_write_latched<=0;
+         end else begin
+             ext_meta<=ext_req; ext_sync<=ext_meta;
+             if (!ext_sync && ext_done) ext_done<=0;
+             ext_capture_armed <= ext_sync && !ext_pending && !ext_selected && !ext_done && !ext_capture_armed;
+             if (ext_capture_armed) begin
+-                ext_addr_latched<=ext_addr; ext_data_latched<=ext_din;
+-                ext_write_latched<=ext_write; ext_pending<=1;
++                // Payload was captured on the intervening falling edge.
++                ext_pending<=1;
+             end
+             if (ext_pending && ff_sdr_seq==3'b111 && RstSeq[4:3]==2'b11) begin
+                 ext_pending<=0; ext_selected<=1;
+@@ -111,6 +110,18 @@
+                 ext_dout<=RamDbi; ext_done<=1;
+                 ext_running<=0; ext_selected<=0;
+             end
++        end
++    end
++
++    // R11.3: the sender launches on clk_54m rising edges. Capture held
++    // payload on clk_108m falling edges, after the synchronized arm.
++    // The following rising edge publishes pending; scheduling remains unchanged.
++    always @(negedge clk_108m or negedge bus_reset_n) begin
++        if (!bus_reset_n) begin
++            ext_addr_latched<=0; ext_data_latched<=0; ext_write_latched<=0;
++        end else if (ext_capture_armed) begin
++            ext_addr_latched<=ext_addr; ext_data_latched<=ext_din;
++            ext_write_latched<=ext_write;
+         end
+     end
+ 
+--- R11.2/fpga/top_ez80.v
++++ R11.3/fpga/top_ez80.v
+@@ -483,6 +483,8 @@
+     wire cpu_mreq_n;
+     wire [15:0] cpu_addr16;
+     wire [23:0] cpu_addr24;
++    wire [15:0] cpu_msx_addr;
++    wire cpu_extended_window;
+     wire ext_cycle, ext_wait_n;
+     wire [7:0] ext_cpu_din;
+     wire ext_ram_req, ext_ram_write, ext_ram_done;
+@@ -490,13 +492,14 @@
+     wire [7:0] ext_ram_din, ext_ram_dout;
+     ez80_memory_bridge #(
+ `ifdef MSXNANO_USE_EZ80
+-        .REQUEST_BANK_QUALIFIED(1)
++        .REQUEST_BANK_QUALIFIED(1), .PREDECODED_MSX(1)
+ `else
+         .REQUEST_BANK_QUALIFIED(0)
+ `endif
+     ) memory_bridge (
+         .clk(clk_54m), .reset_n(bus_reset_n & reset3_n),
+         .cpu_addr(cpu_addr24), .cpu_mreq_n(cpu_mreq_n),
++        .cpu_msx_addr(cpu_msx_addr), .cpu_extended_window(cpu_extended_window),
+         .cpu_iorq_n(bus_iorq_n), .cpu_rfsh_n(bus_rfsh_n),
+         .cpu_rd_n(bus_rd_n), .cpu_wr_n(bus_wr_n), .cpu_dout(cpu_dout),
+         .msx_mreq_n(bus_mreq_n), .msx_addr(bus_addr),
+@@ -835,6 +838,7 @@
+         .BUSAK_n   ( ),
+         .A         (cpu_addr16),
+         .A24       (cpu_addr24),
++        .A_MSX     (cpu_msx_addr), .Extended_Window(cpu_extended_window),
+         .update_addr(update_addr),
+         .DI         (cpu_din),
+         .DO         (cpu_dout),
+@@ -842,6 +846,8 @@
+     );
+ `else
+     assign cpu_addr24 = {8'h00,cpu_addr16};
++    assign cpu_msx_addr = cpu_addr16;
++    assign cpu_extended_window = 1'b0;
+     G80a  #(
+         .Mode    (0),     // 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
+         //.T2Write (0),     //0 => WR_n active in T3, /=0 => WR_n active in T2

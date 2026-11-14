@@ -1,0 +1,5 @@
+COM stage A time=132570000
+EZ80ADL P1: FAIL stage A
+ADDR=030100 EXP=56 ACT=57
+PASS adl_r10 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=9 WAIT_ticks=1714
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_adl_r10.sv:128: $finish called at 1966810000 (1ps)

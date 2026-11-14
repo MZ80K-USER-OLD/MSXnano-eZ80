@@ -1,0 +1,2 @@
+PASS mixed_r14 guard=61
+/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_mixed_r14.sv:63: $finish called at 37710000 (1ps)

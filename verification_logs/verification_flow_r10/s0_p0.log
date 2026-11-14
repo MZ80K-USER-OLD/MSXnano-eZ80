@@ -1,0 +1,2 @@
+PASS flow_r10 stress=0 phase=0 fetch=557 writes=183 reads=183 WAIT=0 pauses=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_flow_r10.sv:47: $finish called at 2258810000 (1ps)

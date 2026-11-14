@@ -1,0 +1,354 @@
+{
+  "name": "EZ80MAD",
+  "version": "P2",
+  "bytes": 3076,
+  "sha256": "559dcccbc5f2d38412e730cf6b362ae0aae1713c0e2627936c1334cd1f43c4c7",
+  "major_stage": 8,
+  "required_features": 33024,
+  "feature_bit": 8,
+  "diagnostic_hooks_required": true,
+  "labels": {
+    "START": 256,
+    "IRQ_AFTER_0": 862,
+    "STAGE_A": 865,
+    "OK_633": 915,
+    "OK_678": 960,
+    "OK_723": 1005,
+    "OK_768": 1050,
+    "OK_813": 1095,
+    "OK_858": 1140,
+    "OK_903": 1185,
+    "OK_948": 1230,
+    "OK_998": 1280,
+    "OK_1043": 1325,
+    "OK_1088": 1370,
+    "OK_1137": 1419,
+    "OK_1182": 1464,
+    "STAGE_B": 1818,
+    "RETURN_1": 2044,
+    "OK_1807": 2089,
+    "OK_1852": 2134,
+    "OK_1897": 2179,
+    "OK_1942": 2224,
+    "OK_1987": 2269,
+    "OK_2032": 2314,
+    "OK_2077": 2359,
+    "OK_2122": 2404,
+    "OK_2167": 2449,
+    "OK_2217": 2499,
+    "OK_2262": 2544,
+    "OK_2307": 2589,
+    "OK_2356": 2638,
+    "OK_2401": 2683,
+    "CHECK_OK_2454": 2726,
+    "CHECK_OK_2484": 2756,
+    "READY": 2767,
+    "NOT_READY": 2778,
+    "MSG_READY": 2789,
+    "MSG_NOT_READY": 2820,
+    "Z80_SUB": 2876,
+    "SUBROUTINE": 2883,
+    "FAIL": 2884,
+    "UNSUPPORTED": 2895,
+    "FINISH": 2903,
+    "NO_CLEANUP": 2924,
+    "PRINT_EXIT": 2941,
+    "FORMAT_DIAG": 2952,
+    "FORMAT_REG": 2983,
+    "FORMAT_VALUES": 3001,
+    "HEX_BYTE": 3020,
+    "HEX_NIBBLE": 3033,
+    "HEX_STORE": 3044,
+    "MSG_PASS": 3047,
+    "MSG_UNSUPPORTED": 3066,
+    "MSG_FAIL": 3092,
+    "FAIL_STAGE": 3115,
+    "HEX_ADDR": 3123,
+    "HEX_EXP": 3134,
+    "HEX_ACT": 3141,
+    "STATUS": 3146,
+    "GUARD": 3147,
+    "SP_SNAPSHOT": 3148,
+    "SP_SNAPSHOT1": 3149,
+    "SP_SNAPSHOT2": 3150,
+    "SPS_SNAPSHOT": 3151,
+    "SPS_SNAPSHOT1": 3152,
+    "SAVED_SPS": 3153,
+    "SAVED_SPS1": 3154,
+    "DIAG_MEM": 3155,
+    "DIAG_ADDR0": 3156,
+    "DIAG_ADDR1": 3157,
+    "DIAG_ADDR2": 3158,
+    "DIAG_EXP": 3159,
+    "DIAG_ACT": 3160,
+    "SAVED_AF": 3161,
+    "PAIR_SNAPSHOT": 3163,
+    "PAIR_SNAPSHOT1": 3164,
+    "LOCAL_PAIR": 3165,
+    "LOCAL_PAIR1": 3166,
+    "LOCAL_PAIR2": 3167,
+    "FLAGS": 3168,
+    "SNAP": 3170,
+    "CAP_LO": 3179,
+    "CAP_HI": 3180,
+    "CLEANUP": 3181,
+    "Z80_RESULT": 3182,
+    "SAVED_I16": 3183,
+    "SHORT_DATA": 3185,
+    "SHORT_STACK": 3193,
+    "SHORT_TOP": 3321
+  },
+  "cases": [
+    {
+      "index": 0,
+      "description": "MADL=1 Z80 IRQ to ADL ISR then RETI.L",
+      "checks": [
+        [
+          197632,
+          166
+        ],
+        [
+          197633,
+          1
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327679,
+          [
+            "IRQ_AFTER_0",
+            0,
+            0
+          ]
+        ],
+        [
+          327680,
+          [
+            "IRQ_AFTER_0",
+            0,
+            1
+          ]
+        ],
+        [
+          197648,
+          254
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ]
+      ],
+      "resolved_checks": [
+        {
+          "address": "030400",
+          "expected": "A6",
+          "mask": "FF"
+        },
+        {
+          "address": "030401",
+          "expected": "01",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "02",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "5E",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "03",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FE",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "description": "EZ80MAD native ADL variant=0, exact frame, EI delay/HALT or NMI IEF2",
+      "entry": 655360,
+      "labels": {
+        "AFTER": 655377
+      },
+      "checks": [
+        [
+          197633,
+          1
+        ],
+        [
+          197648,
+          253
+        ],
+        [
+          197649,
+          255
+        ],
+        [
+          197650,
+          4
+        ],
+        [
+          197632,
+          166
+        ],
+        [
+          327677,
+          3
+        ],
+        [
+          327678,
+          17
+        ],
+        [
+          327679,
+          0
+        ],
+        [
+          327680,
+          10
+        ]
+      ],
+      "return_label": "RETURN_1",
+      "resolved_checks": [
+        {
+          "address": "030401",
+          "expected": "01",
+          "mask": "FF"
+        },
+        {
+          "address": "030410",
+          "expected": "FD",
+          "mask": "FF"
+        },
+        {
+          "address": "030411",
+          "expected": "FF",
+          "mask": "FF"
+        },
+        {
+          "address": "030412",
+          "expected": "04",
+          "mask": "FF"
+        },
+        {
+          "address": "030400",
+          "expected": "A6",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFD",
+          "expected": "03",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFE",
+          "expected": "11",
+          "mask": "FF"
+        },
+        {
+          "address": "04FFFF",
+          "expected": "00",
+          "mask": "FF"
+        },
+        {
+          "address": "050000",
+          "expected": "0A",
+          "mask": "FF"
+        }
+      ],
+      "code_bytes": [
+        49,
+        1,
+        0,
+        5,
+        237,
+        86,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        62,
+        166,
+        243,
+        237,
+        126,
+        64,
+        195,
+        252,
+        7
+      ],
+      "code_template": [
+        49,
+        1,
+        0,
+        5,
+        237,
+        86,
+        1,
+        231,
+        231,
+        0,
+        62,
+        209,
+        237,
+        121,
+        251,
+        62,
+        166,
+        243,
+        237,
+        126,
+        64,
+        195,
+        [
+          "RETURN",
+          0,
+          0
+        ],
+        [
+          "RETURN",
+          0,
+          1
+        ]
+      ]
+    }
+  ],
+  "case_count": 2,
+  "default": "READY",
+  "R10_RUN": "NOT READY",
+  "future_feature_functionally_verified_on_RTL": true,
+  "ABI": "doc/TEST_ABI_P2.md",
+  "R13_startup": "DI; IM1; save IX/IY; jump to original 0105h",
+  "previous_COM_sha256": "22549536a7c53e0348023dbf1717dae92537aa6aa4e4d51506e27f8b815be4bd",
+  "R13_RUN": "PASS",
+  "R13_functionally_verified_on_RTL": true
+}

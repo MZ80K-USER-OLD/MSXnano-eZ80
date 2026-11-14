@@ -1,0 +1,2 @@
+PASS EXSP work pair=          0 NMI=          0 trigger_MC=          2 reads=          3 writes=          3 WAIT=         10
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_exsp_work_r11_2.sv:39: $finish called at 205970000 (1ps)

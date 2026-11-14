@@ -1,0 +1,8 @@
+PASS Upper reference ('mem_r4', 3, 0)
+PASS Upper reference ('blk_r6', 7, 0)
+PASS Upper reference ('alu_r5', 7, 0)
+PASS Upper reference ('lea_r8', 7, 0)
+PASS Upper reference ('data_r3', 0, 1)
+PASS Upper reference ('data_r3', 0, 2)
+PASS Upper reference ('data_r3', 7, 0)
+PASS Upper reference ('corners_r4', 7, 0)

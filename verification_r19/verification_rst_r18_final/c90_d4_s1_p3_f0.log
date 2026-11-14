@@ -1,0 +1,2 @@
+PASS rst_r18 case=90 div=4 stress=1 checks=2 frame_writes=3 entries=1 WAIT=177 frame_WAIT=10 pause=90 bus_grant=1
+/workspace/scratch/db88d59b2a4d/r19-work/MSXnano_T80_eZ80_restart_R19/sim/tb_rst_r18.sv:63: $finish called at 53150000 (1ps)

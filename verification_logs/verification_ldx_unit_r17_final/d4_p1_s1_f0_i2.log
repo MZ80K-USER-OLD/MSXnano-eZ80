@@ -1,0 +1,2 @@
+PASS ldx_unit_r17 instructions=80 WAIT=3053 pause=2284 fault=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_unit_r17.sv:39: $finish called at 8930850000 (1ps)

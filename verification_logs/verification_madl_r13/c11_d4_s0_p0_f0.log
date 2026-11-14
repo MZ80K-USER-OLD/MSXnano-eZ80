@@ -1,0 +1,2 @@
+PASS madl_r13 case=11 div=4 stress=0 checks=1 frame_writes=4 entries=1 WAIT=0 frame_WAIT=0 pause=78 bus_grant=0
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_madl_r13.sv:57: $finish called at 37210000 (1ps)

@@ -1,0 +1,2 @@
+PASS rst_r18 case=56 div=4 stress=1 checks=2 frame_writes=4 entries=1 WAIT=188 frame_WAIT=19 pause=135 bus_grant=1
+/workspace/scratch/db88d59b2a4d/cpu_restart_r18/sim/tb_rst_r18.sv:62: $finish called at 54590000 (1ps)

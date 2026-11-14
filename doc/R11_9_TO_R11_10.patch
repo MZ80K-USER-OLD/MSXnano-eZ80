@@ -1,0 +1,155 @@
+--- cpu_restart_r11_10/doc/r11_9_upper_baseline/t80_ez80.vhd.txt	2026-11-06 00:27:47.319196900 +0900
++++ cpu_restart_r11_10/fpga/G80A_eZ80/t80_ez80.vhd	2026-11-06 00:27:47.352268655 +0900
+@@ -135,6 +135,16 @@
+     -- R1: PC and SPS stay 16-bit. No ADL execution/interrupts in this stage.
+     type upper_array is array(0 to 7) of std_logic_vector(7 downto 0);
+     signal Upper : upper_array;
++    signal Upper_Port_Events : std_logic_vector(7 downto 0);
++    signal Upper_Port_WE : std_logic;
++    signal Upper_Port_Index : std_logic_vector(2 downto 0);
++    signal Upper_Port_Data, Upper_Inc_Byte, Upper_Immediate_Byte : std_logic_vector(7 downto 0);
++    function Upper_Mask(v : std_logic_vector; en : std_logic) return std_logic_vector is
++        variable result : std_logic_vector(v'range);
++    begin
++        result:=(others=>'0');if en='1' then result:=v;end if;return result;
++    end function;
++
+     signal Wide_Stack, Wide_IncDec : std_logic;
+     signal Write_Class : std_logic_vector(7 downto 0);
+     signal Opcode_Class : std_logic_vector(15 downto 0);
+@@ -566,6 +576,50 @@
+         DI_Reg when Save_ALU_r = '0' else
+         ALU_Q;
+ 
++    -- R11.10: ordinary upper-byte commits share one combinational write port.
++    -- These eight events belong to disjoint opcode families. No pipeline
++    -- stage is added: the original enabled rising edge performs the commit.
++    Upper_Port_Events(0)<='1' when Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
++        TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 else '0';
++    Upper_Port_Events(1)<=LEA_Commit and Data_Long;
++    Upper_Port_Events(2)<=Arith_Commit;
++    Upper_Port_Events(3)<=EX_SP_Result_WE;
++    Upper_Port_Events(4)<='1' when Block_Long='1' and IncDec_16(2)='1' and
++        ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) else '0';
++    Upper_Port_Events(5)<='1' when Wide_IncDec='1' and MCycle="001" and TState=3 and IR(5 downto 4)/="11" and
++        ((IncDec_16(3)='1' and RegBusA=x"0000") or (IncDec_16(3)='0' and RegBusA=x"FFFF")) else '0';
++    Upper_Port_Events(6)<='1' when Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" else '0';
++    Upper_Port_Events(7)<='1' when TState=3 and IntCycle='0' and NMICycle='0' and Extensions_Enabled='1' and
++        ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" and IR(5 downto 4)/="11" and
++        ((MCycle="011" and Stream_Long='0' and Data_Long='1') or (MCycle="100" and Stream_Long='1')) else '0';
++    Upper_Port_WE<='1' when Upper_Port_Events/=x"00" else '0';
++    Upper_Port_Index<=Upper_Mask(Pair_Upper_Index,Upper_Port_Events(0)) or Upper_Mask(EA_Target,Upper_Port_Events(1)) or
++        Upper_Mask(Arith_Target,Upper_Port_Events(2)) or Upper_Mask(EX_SP_Index,Upper_Port_Events(3)) or
++        Upper_Mask(RegAddrA,Upper_Port_Events(4)) or Upper_Mask(RegAddrA,Upper_Port_Events(5)) or
++        Upper_Mask(Stack_Upper_Index,Upper_Port_Events(6)) or Upper_Mask(Load_Upper_Index,Upper_Port_Events(7));
++    Upper_Inc_Byte<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1) when IncDec_16(3)='1'
++        else std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))+1);
++    Upper_Immediate_Byte<=DI_Reg when Stream_Long='1' and Data_Long='1' else x"00";
++    Upper_Port_Data<=Upper_Mask(DI_Reg,Upper_Port_Events(0)) or Upper_Mask(EA_Result(23 downto 16),Upper_Port_Events(1)) or
++        Upper_Mask(std_logic_vector(Arith_Result(23 downto 16)),Upper_Port_Events(2)) or Upper_Mask(EX_SP_Read(23 downto 16),Upper_Port_Events(3)) or
++        Upper_Mask(std_logic_vector(Block_Inc_Result(23 downto 16)),Upper_Port_Events(4)) or Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(5)) or
++        Upper_Mask(DI_Reg,Upper_Port_Events(6)) or Upper_Mask(Upper_Immediate_Byte,Upper_Port_Events(7));
++    process(RESET_n, CLK_n)
++    begin
++        if RESET_n='0' then Upper<=(others=>(others=>'0'));
++        elsif rising_edge(CLK_n) then
++            if ClkEn='1' then
++                -- EX DE,HL updates both entries from their old values.
++                if Extensions_Enabled='1' and Data_Long='1' and ExchangeDH='1' and TState=3 then
++                    Upper(to_integer(unsigned'(Alternate & "10")))<=Upper(to_integer(unsigned'(Alternate & "01")));
++                    Upper(to_integer(unsigned'(Alternate & "01")))<=Upper(to_integer(unsigned'(Alternate & "10")));
++                end if;
++                -- Preserve the original priority relative to the exchange.
++                if Upper_Port_WE='1' then Upper(to_integer(unsigned(Upper_Port_Index)))<=Upper_Port_Data;end if;
++            end if;
++        end if;
++    end process;
++
+     process (RESET_n, CLK_n)
+     begin
+         if RESET_n = '0' then
+@@ -578,7 +632,7 @@
+             Arith_Left<=(others=>'0');Arith_Right<=(others=>'0');Arith_Flags<=(others=>'0');
+             Arith_Sub_Latched<='0';Arith_Carry_Latched<='0';Arith_Is_ADD<='0';
+             EX_SP_Read<=(others=>'0');EX_SP_Source<=(others=>'0');EX_SP_Address<=(others=>'0');
+-            Upper <= (others=>(others=>'0')); SPL <= (others=>'1');
++            SPL <= (others=>'1');
+             Extensions_Enabled<='0'; Unlock_Armed<='0';
+             Width_Pending<='0'; Width_Code<=x"40"; Data_Long<='0'; Stream_Long<='0';
+             Address_Bank_Reg<=x"00"; Index_Bank<=x"00";
+@@ -899,12 +953,12 @@
+             end if;
+ 
+             if Extensions_Enabled='1' and Data_Long='1' and ExchangeDH='1' and TState=3 then
+-                Upper(to_integer(unsigned'(Alternate & "10")))<=Upper(to_integer(unsigned'(Alternate & "01")));
+-                Upper(to_integer(unsigned'(Alternate & "01")))<=Upper(to_integer(unsigned'(Alternate & "10")));
++                null;
++                null;
+             end if;
+             if Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 then
+                 if Pair_SP='1' then SPL(23 downto 16)<=unsigned(DI_Reg);
+-                else Upper(to_integer(unsigned(Pair_Upper_Index)))<=DI_Reg;end if;
++                else null;end if;
+             end if;
+             -- Capture source before computing: no combinational CPU bus reaches DSP output.
+             if Ctrl_Call='1' and TState=3 then
+@@ -967,7 +1021,7 @@
+             -- The displacement is stable after the external read's falling T3 edge.
+             -- Share Indexed_Address, then hold all 24 bits through destination/stack writes.
+             if EA_Active='1' and MCycle="010" and TState=3 then EA_Result<=std_logic_vector(Indexed_Address);end if;
+-            if LEA_Commit='1' and Data_Long='1' then Upper(to_integer(unsigned(EA_Target)))<=EA_Result(23 downto 16);end if;
++            if LEA_Commit='1' and Data_Long='1' then null;end if;
+             if Mul_Active='1' and MCycle="001" then
+                 if TState=4 then Mul_Left<=Mul_Operand(15 downto 8);Mul_Right<=Mul_Operand(7 downto 0);end if;
+                 if TState=5 then Mul_Product<=Mul_Left*Mul_Right;end if;
+@@ -983,7 +1037,7 @@
+                 if ISet="00" then Arith_Is_ADD<='1';else Arith_Is_ADD<='0';end if;
+             end if;
+             if Arith_Commit='1' then
+-                Upper(to_integer(unsigned(Arith_Target)))<=std_logic_vector(Arith_Result(23 downto 16));
++                null;
+             end if;
+             if EX_SP_Long='1' then
+                 if MCycle="001" and TState=3 then EX_SP_Address<=SPL;end if;
+@@ -1006,33 +1060,33 @@
+                 when others=>null;
+                 end case;
+             end if;
+-            if EX_SP_Result_WE='1' then Upper(to_integer(unsigned(EX_SP_Index)))<=EX_SP_Read(23 downto 16);end if;
++            if EX_SP_Result_WE='1' then null;end if;
+             -- Use exactly the original lower16 register Write_Decode edge: once per byte,
+             -- never while T2 is held by WAIT. BC decrements in M1/T3; HL/DE in data T2.
+             if Block_Long='1' and IncDec_16(2)='1' and
+                ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) then
+-                Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(Block_Inc_Result(23 downto 16));
++                null;
+             end if;
+             if Wide_IncDec='1'   and MCycle="001" and TState=3 and IR(5 downto 4)/="11" then
+                 if IncDec_16(3)='1' and RegBusA=x"0000" then
+-                    Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1);
++                    null;
+                 elsif IncDec_16(3)='0' and RegBusA=x"FFFF" then
+-                    Upper(to_integer(unsigned(RegAddrA)))<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))+1);
++                    null;
+                 end if;
+             end if;
+             if Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" then
+-                Upper(to_integer(unsigned(Stack_Upper_Index)))<=DI_Reg;
++                null;
+             end if;
+             if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
+                 if MCycle="011" and Stream_Long='0' and Data_Long='1' then
+                     if IR(5 downto 4)="11" then SPL(23 downto 16)<=(others=>'0');
+-                    else Upper(to_integer(unsigned(Load_Upper_Index)))<=x"00";end if;
++                    else null;end if;
+                 elsif MCycle="100" and Stream_Long='1' then
+                     if IR(5 downto 4)="11" then
+                         if Data_Long='1' then SPL(23 downto 16)<=unsigned(DI_Reg);end if;
+                     else
+-                        if Data_Long='1' then Upper(to_integer(unsigned(Load_Upper_Index)))<=DI_Reg;
+-                        else Upper(to_integer(unsigned(Load_Upper_Index)))<=x"00";end if;
++                        if Data_Long='1' then null;
++                        else null;end if;
+                     end if;
+                 end if;
+             end if;

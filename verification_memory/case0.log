@@ -1,0 +1,2 @@
+PASS bridge33 10240 decode/handshake checks plus reset
+/workspace/scratch/db88d59b2a4d/cpu_restart_r1/sim/tb_bridge33.sv:78: $finish called at 2083991000 (1ps)

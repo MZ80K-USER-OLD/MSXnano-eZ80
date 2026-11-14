@@ -1,0 +1,24 @@
+{
+  "plan": {
+    "type": "return",
+    "adl": 0,
+    "prefix": 91,
+    "target": 1,
+    "mb": 14
+  },
+  "checks": [
+    {
+      "pc": 852480,
+      "adl": 1,
+      "acc": 90,
+      "flags": 165,
+      "madl": 1,
+      "sp": 65535,
+      "spl": 3,
+      "ief": 1,
+      "marker": null
+    }
+  ],
+  "frames": [],
+  "labels": {}
+}

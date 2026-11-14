@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r16/sim/tb_ldh_unit_r16.sv:31: unit failed status=02 act=b2 exp=56 pc=0021a5
+       Time: 186250000  Scope: tb_ldh_unit_r16

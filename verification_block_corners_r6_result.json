@@ -1,0 +1,29 @@
+{
+  "fresh_runs": 4,
+  "expected_failure_runs": 2,
+  "cases": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      7,
+      1,
+      0
+    ],
+    [
+      3,
+      0,
+      1
+    ],
+    [
+      11,
+      7,
+      1
+    ]
+  ],
+  "block_cases_per_run": 15,
+  "IRQs_per_run": 9,
+  "reference": "independent count/address/flags; byte-boundary IRQ and saved prefix PC; WAIT register hold"
+}

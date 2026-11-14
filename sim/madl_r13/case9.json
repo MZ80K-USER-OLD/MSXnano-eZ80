@@ -1,0 +1,35 @@
+{
+  "plan": {
+    "type": "entry",
+    "adl": 1,
+    "kind": "IM2",
+    "mb": 14
+  },
+  "checks": [
+    {
+      "pc": 655391,
+      "adl": 1,
+      "acc": 166,
+      "flags": 215,
+      "madl": 1,
+      "sp": 61440,
+      "spl": 1,
+      "ief": 0,
+      "marker": 90
+    }
+  ],
+  "frames": [
+    {
+      "sp": 1,
+      "bytes": [
+        10,
+        0,
+        31,
+        3
+      ]
+    }
+  ],
+  "labels": {
+    "after": 655391
+  }
+}

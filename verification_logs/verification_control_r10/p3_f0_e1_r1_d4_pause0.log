@@ -1,0 +1,4 @@
+COM stage C time=33350000
+EZ80CTL R10: PASS
+PASS control_r10 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=641 WAIT_ticks=64802
+/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_control_r10.sv:128: $finish called at 7402390000 (1ps)

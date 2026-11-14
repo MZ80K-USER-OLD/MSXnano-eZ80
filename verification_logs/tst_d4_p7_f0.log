@@ -1,0 +1,76 @@
+EZ80TS1 R15.1 START
+TS01
+COM stage A time=299910000
+TS02
+COM stage B time=482710000
+TS03
+COM stage C time=665430000
+TS04
+COM stage D time=848070000
+TS05
+COM stage E time=1030870000
+TS06
+COM stage F time=1213590000
+TS07
+COM stage G time=1396310000
+TS08
+COM stage H time=1578950000
+TS09
+COM stage I time=1761750000
+TS10
+COM stage J time=1944470000
+TS11
+COM stage K time=2127190000
+TS12
+COM stage L time=2309830000
+TS13
+COM stage M time=2492630000
+TS14
+COM stage N time=2675350000
+TS15
+COM stage O time=2862230000
+TS16
+COM stage P time=3044870000
+TS17
+COM stage Q time=3227670000
+TS18
+COM stage R time=3410390000
+TS19
+COM stage S time=3593030000
+TS20
+COM stage T time=3775750000
+TS21
+COM stage U time=3958550000
+TS22
+COM stage V time=4141270000
+TS23
+COM stage W time=4323910000
+TS24
+COM stage X time=4506630000
+TS25
+COM stage Y time=4689430000
+TS26
+COM stage Z time=4865110000
+TS27
+COM stage A time=5036630000
+TS28
+COM stage B time=5212310000
+TS29
+COM stage C time=5387990000
+TS30
+COM stage D time=5567110000
+TS31
+COM stage E time=5742230000
+TS32
+COM stage F time=5921430000
+TS33
+COM stage G time=6103590000
+TS34
+COM stage H time=6296870000
+TS35
+COM stage I time=6490230000
+TS36
+COM stage J time=6683510000
+EZ80TS1 P2: PASS
+PASS tst_diag_r15_1 phase=7 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=460 WAIT_ticks=35468
+/workspace/scratch/db88d59b2a4d/cpu_restart_r15_1/sim/tb_tst_diag_r15_1.sv:136: $finish called at 6955430000 (1ps)

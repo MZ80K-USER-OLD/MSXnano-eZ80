@@ -1,0 +1,7 @@
+R10 bitstream first. GOWIN project: fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj
+EZ80ADL /RUN -> EZ80ADL P1: PASS (unchanged preloaded P1)
+EZ80CTL /RUN -> EZ80CTL R10: PASS (new control-flow test)
+EZ80F9 /RUN -> EZ80F9 R9: PASS (regression)
+Then SofaRun / Space Manbow play regression. Record LUT and post-route timing.
+Do not use EI/NMI while executing ADL. Mixed suffix CALL/RET/RST and ADL IRQ are not implemented.
+Memory mismatch diagnostics: stage, ADDR, EXP, ACT.

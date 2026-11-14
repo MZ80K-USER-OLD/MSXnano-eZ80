@@ -1,0 +1,165 @@
+[
+  {
+    "type": "entry",
+    "adl": 0,
+    "kind": "IM1",
+    "mb": 0
+  },
+  {
+    "type": "entry",
+    "adl": 0,
+    "kind": "IM1",
+    "mb": 14
+  },
+  {
+    "type": "entry",
+    "adl": 0,
+    "kind": "IM2",
+    "mb": 0
+  },
+  {
+    "type": "entry",
+    "adl": 0,
+    "kind": "IM2",
+    "mb": 14
+  },
+  {
+    "type": "entry",
+    "adl": 0,
+    "kind": "NMI",
+    "mb": 0
+  },
+  {
+    "type": "entry",
+    "adl": 0,
+    "kind": "NMI",
+    "mb": 14
+  },
+  {
+    "type": "entry",
+    "adl": 1,
+    "kind": "IM1",
+    "mb": 0
+  },
+  {
+    "type": "entry",
+    "adl": 1,
+    "kind": "IM1",
+    "mb": 14
+  },
+  {
+    "type": "entry",
+    "adl": 1,
+    "kind": "IM2",
+    "mb": 0
+  },
+  {
+    "type": "entry",
+    "adl": 1,
+    "kind": "IM2",
+    "mb": 14
+  },
+  {
+    "type": "entry",
+    "adl": 1,
+    "kind": "NMI",
+    "mb": 0
+  },
+  {
+    "type": "entry",
+    "adl": 1,
+    "kind": "NMI",
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 0,
+    "prefix": 73,
+    "target": 0,
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 0,
+    "prefix": 73,
+    "target": 1,
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 0,
+    "prefix": 91,
+    "target": 0,
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 0,
+    "prefix": 91,
+    "target": 1,
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 1,
+    "prefix": 73,
+    "target": 0,
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 1,
+    "prefix": 73,
+    "target": 1,
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 1,
+    "prefix": 91,
+    "target": 0,
+    "mb": 14
+  },
+  {
+    "type": "return",
+    "adl": 1,
+    "prefix": 91,
+    "target": 1,
+    "mb": 14
+  },
+  {
+    "type": "flags",
+    "adl": 1,
+    "mb": 0
+  },
+  {
+    "type": "pending_nmi",
+    "adl": 0,
+    "mb": 14,
+    "kind": "IM1"
+  },
+  {
+    "type": "pending_irq",
+    "adl": 1,
+    "mb": 14,
+    "kind": "NMI"
+  },
+  {
+    "type": "guard",
+    "guard": "mode",
+    "adl": 1,
+    "mb": 14
+  },
+  {
+    "type": "guard",
+    "guard": "rst",
+    "adl": 1,
+    "mb": 14
+  },
+  {
+    "type": "guard",
+    "guard": "short",
+    "adl": 1,
+    "mb": 14
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "changed_FPGA_files": [
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd"
+  ],
+  "source_replay_files": 4,
+  "preloaded_COM_count": 20,
+  "preloaded_COM_unchanged": true,
+  "CPU_baseline": "R11.10",
+  "MBASE_reset": 0,
+  "MBASE_transfers_ADL_only": true,
+  "Z80_6D_6E_NOP_while_enabled": true,
+  "separate_MSX16_and_extended24_buses_maintained": true,
+  "actual_secondary_slot_RTL_monitored": true,
+  "SDC_CST_GPRJ_top_bridge_SDRAM_VDP_unchanged": true,
+  "project_references": 122,
+  "original_G80A_unchanged": true,
+  "GOWIN_run": false,
+  "hardware_run": false
+}

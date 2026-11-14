@@ -1,0 +1,8 @@
+{
+  "runs": 2,
+  "long_EX_cases_per_run": 12,
+  "short_EX_cases_per_run": 6,
+  "byte_suffix_cases_per_run": 3,
+  "flag_preservation_checked": true,
+  "SPS_SPL_independence_checked": true
+}

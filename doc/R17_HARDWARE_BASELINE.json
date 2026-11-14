@@ -1,0 +1,13 @@
+{
+  "GOWIN_synthesis": "PASS",
+  "Logic_percent": 94,
+  "EZ80LDX": "P2: PASS",
+  "EZ80LDH": "P2: PASS",
+  "EZ80CT1": "R10: PASS",
+  "EZ80D3": "R3: PASS",
+  "EZ80TST": "P2: PASS",
+  "EZ80MEM": "P1: PASS",
+  "RUNALL": "all PASS",
+  "SofaRun_Space_Manbow_play": "PASS",
+  "timing_closure_verified": false
+}

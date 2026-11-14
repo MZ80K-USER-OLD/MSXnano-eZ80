@@ -1,0 +1,9 @@
+PASS mem_r4 p0_f0_e1
+PASS mem_r4 p3_f0_e1
+PASS mem_r4 p7_f0_e1
+PASS mem_r4 p11_f0_e1
+PASS mem_r4 p0_f1_e1
+PASS mem_r4 p3_f2_e1
+PASS mem_r4 p7_f3_e1
+PASS mem_r4 p0_f0_e0
+PASS mem_r4 p0_f4_e1
