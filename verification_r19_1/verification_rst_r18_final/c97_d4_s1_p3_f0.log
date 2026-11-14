@@ -1,0 +1,2 @@
+PASS rst_r18 guard=97
+/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_rst_r18.sv:69: $finish called at 28910000 (1ps)

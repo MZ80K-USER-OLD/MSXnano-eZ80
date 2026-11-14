@@ -1,0 +1,2 @@
+PASS irq_unit_r11 case=          5 stress=          0 phase=          0 entries=          1 writes=          0 waits=          0
+/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_irq_unit_r19.sv:53: $finish called at 64250000 (1ps)

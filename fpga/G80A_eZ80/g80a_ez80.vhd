@@ -228,6 +228,8 @@ begin
             when x"C9"=>Diag_Read<="0000000" & MADL_i;
             when x"CA"=>Diag_Read<=x"01"; -- R19 ADL/MADL IM0 engine
             when x"CB"=>Diag_Read<=x"FE";
+            when x"CC"=>Diag_Read<=x"01"; -- R19.1 indexed-CB width consumption
+            when x"CD"=>Diag_Read<=x"FE";
             when others=>null;
             end case;
         end if;

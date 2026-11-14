@@ -613,7 +613,7 @@
                 "SubInsts": [
                     {
                         "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/g80a_ez80.vhd",
-                        "InstLine": 282,
+                        "InstLine": 284,
                         "InstName": "u0",
                         "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
                         "ModuleLine": 73,
@@ -637,7 +637,7 @@
                             },
                             {
                                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-                                "InstLine": 1702,
+                                "InstLine": 1706,
                                 "InstName": "Regs",
                                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_reg_ez80.vhd",
                                 "ModuleLine": 61,

@@ -1,0 +1,3 @@
+PASS im0_r19 ctx=1 stress=0 opcode=000000c7
+PASS IM0 matrix cases=1
+/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_im0_r19.sv:135: $finish called at 46430000 (1ps)

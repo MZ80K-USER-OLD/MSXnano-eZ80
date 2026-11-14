@@ -1026,7 +1026,11 @@ architecture rtl of T80_eZ80 is
                         if Prefix/="10" and Prefix/="01" and (DInst=x"40" or DInst=x"49" or DInst=x"52" or DInst=x"5B") then
                             Width_Pending<='1'; Width_Code<=DInst;
                             Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';
-                        elsif DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB" then
+                        -- R19.1: DD/FD CB reads its final opcode in M7, not M1.
+                        -- Consume the width at the indexed CB fetch so M6 address
+                        -- calculation already uses it; never carry it to the next instruction.
+                        elsif (DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB") or
+                            (DInst=x"CB" and Prefix="11" and (IR=x"DD" or IR=x"FD")) then
                             Instruction_Has_Width<=Width_Pending;
                             if Width_Pending='1' then Data_Long<=Width_Code(3);Stream_Long<=Width_Code(4);
                             else Data_Long<=ADL_Mode;Stream_Long<=ADL_Mode;end if;

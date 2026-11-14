@@ -1,0 +1,35 @@
+COM stage 0 time=596950000
+COM stage 1 time=2135350000
+COM stage 2 time=3975850000
+COM stage 3 time=5511550000
+COM stage 4 time=7352950000
+COM stage 5 time=8890750000
+COM stage 6 time=10730350000
+COM stage 7 time=12266950000
+COM stage 8 time=14106250000
+COM stage 9 time=15643750000
+COM stage A time=17483350000
+COM stage B time=19020850000
+COM stage C time=20859850000
+COM stage D time=22397350000
+COM stage E time=24236950000
+COM stage F time=25774750000
+COM stage G time=27614950000
+COM stage H time=29210950000
+COM stage I time=31135450000
+COM stage J time=32729950000
+COM stage K time=34656550000
+COM stage L time=36250750000
+COM stage M time=38177350000
+COM stage N time=39771850000
+COM stage O time=41698150000
+COM stage P time=43292650000
+COM stage Q time=45218950000
+COM stage R time=46815550000
+COM stage S time=48738250000
+COM stage T time=50336650000
+COM stage U time=52268950000
+COM stage V time=53860150000
+EZ80PFX R19.1: PASS
+PASS prefix_com_r19_1 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=1456 WAIT_ticks=126086
+/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_prefix_com_r19_1.sv:143: $finish called at 56424550000 (1ps)

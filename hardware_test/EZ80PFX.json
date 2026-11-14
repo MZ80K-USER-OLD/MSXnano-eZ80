@@ -1,0 +1,1298 @@
+{
+  "name": "EZ80PFX",
+  "version": "R19.1",
+  "bytes": 42667,
+  "sha256": "b56e5da6095d1dfc13efe33fb19d87a408c02ac8232f95854925ba7d39062a23",
+  "crc32": "ABC368EA",
+  "labels": {
+    "START": 256,
+    "STAGE_0": 576,
+    "AFTER_0": 1228,
+    "CHECK_OK_992": 1279,
+    "CHECK_OK_1035": 1322,
+    "CHECK_OK_1078": 1365,
+    "CHECK_OK_1121": 1408,
+    "CHECK_OK_1164": 1451,
+    "CHECK_OK_1207": 1494,
+    "CHECK_OK_1250": 1537,
+    "CHECK_OK_1289": 1576,
+    "CHECK_OK_1328": 1615,
+    "CHECK_OK_1372": 1659,
+    "CHECK_OK_1411": 1698,
+    "CHECK_OK_1450": 1737,
+    "STAGE_1": 1737,
+    "AFTER_1": 2479,
+    "CHECK_OK_2243": 2530,
+    "CHECK_OK_2286": 2573,
+    "CHECK_OK_2329": 2616,
+    "CHECK_OK_2372": 2659,
+    "CHECK_OK_2415": 2702,
+    "CHECK_OK_2458": 2745,
+    "CHECK_OK_2501": 2788,
+    "CHECK_OK_2544": 2831,
+    "CHECK_OK_2587": 2874,
+    "CHECK_OK_2630": 2917,
+    "CHECK_OK_2669": 2956,
+    "CHECK_OK_2708": 2995,
+    "CHECK_OK_2752": 3039,
+    "CHECK_OK_2791": 3078,
+    "CHECK_OK_2830": 3117,
+    "STAGE_2": 3117,
+    "AFTER_2": 3769,
+    "CHECK_OK_3533": 3820,
+    "CHECK_OK_3576": 3863,
+    "CHECK_OK_3619": 3906,
+    "CHECK_OK_3662": 3949,
+    "CHECK_OK_3705": 3992,
+    "CHECK_OK_3748": 4035,
+    "CHECK_OK_3791": 4078,
+    "CHECK_OK_3830": 4117,
+    "CHECK_OK_3869": 4156,
+    "CHECK_OK_3913": 4200,
+    "CHECK_OK_3952": 4239,
+    "CHECK_OK_3991": 4278,
+    "STAGE_3": 4278,
+    "AFTER_3": 5020,
+    "CHECK_OK_4784": 5071,
+    "CHECK_OK_4827": 5114,
+    "CHECK_OK_4870": 5157,
+    "CHECK_OK_4913": 5200,
+    "CHECK_OK_4956": 5243,
+    "CHECK_OK_4999": 5286,
+    "CHECK_OK_5042": 5329,
+    "CHECK_OK_5085": 5372,
+    "CHECK_OK_5128": 5415,
+    "CHECK_OK_5171": 5458,
+    "CHECK_OK_5210": 5497,
+    "CHECK_OK_5249": 5536,
+    "CHECK_OK_5293": 5580,
+    "CHECK_OK_5332": 5619,
+    "CHECK_OK_5371": 5658,
+    "STAGE_4": 5658,
+    "AFTER_4": 6310,
+    "CHECK_OK_6074": 6361,
+    "CHECK_OK_6117": 6404,
+    "CHECK_OK_6160": 6447,
+    "CHECK_OK_6203": 6490,
+    "CHECK_OK_6246": 6533,
+    "CHECK_OK_6289": 6576,
+    "CHECK_OK_6332": 6619,
+    "CHECK_OK_6371": 6658,
+    "CHECK_OK_6410": 6697,
+    "CHECK_OK_6454": 6741,
+    "CHECK_OK_6493": 6780,
+    "CHECK_OK_6532": 6819,
+    "STAGE_5": 6819,
+    "AFTER_5": 7561,
+    "CHECK_OK_7325": 7612,
+    "CHECK_OK_7368": 7655,
+    "CHECK_OK_7411": 7698,
+    "CHECK_OK_7454": 7741,
+    "CHECK_OK_7497": 7784,
+    "CHECK_OK_7540": 7827,
+    "CHECK_OK_7583": 7870,
+    "CHECK_OK_7626": 7913,
+    "CHECK_OK_7669": 7956,
+    "CHECK_OK_7712": 7999,
+    "CHECK_OK_7751": 8038,
+    "CHECK_OK_7790": 8077,
+    "CHECK_OK_7834": 8121,
+    "CHECK_OK_7873": 8160,
+    "CHECK_OK_7912": 8199,
+    "STAGE_6": 8199,
+    "AFTER_6": 8851,
+    "CHECK_OK_8615": 8902,
+    "CHECK_OK_8658": 8945,
+    "CHECK_OK_8701": 8988,
+    "CHECK_OK_8744": 9031,
+    "CHECK_OK_8787": 9074,
+    "CHECK_OK_8830": 9117,
+    "CHECK_OK_8873": 9160,
+    "CHECK_OK_8912": 9199,
+    "CHECK_OK_8951": 9238,
+    "CHECK_OK_8995": 9282,
+    "CHECK_OK_9034": 9321,
+    "CHECK_OK_9073": 9360,
+    "STAGE_7": 9360,
+    "AFTER_7": 10102,
+    "CHECK_OK_9866": 10153,
+    "CHECK_OK_9909": 10196,
+    "CHECK_OK_9952": 10239,
+    "CHECK_OK_9995": 10282,
+    "CHECK_OK_10038": 10325,
+    "CHECK_OK_10081": 10368,
+    "CHECK_OK_10124": 10411,
+    "CHECK_OK_10167": 10454,
+    "CHECK_OK_10210": 10497,
+    "CHECK_OK_10253": 10540,
+    "CHECK_OK_10292": 10579,
+    "CHECK_OK_10331": 10618,
+    "CHECK_OK_10375": 10662,
+    "CHECK_OK_10414": 10701,
+    "CHECK_OK_10453": 10740,
+    "STAGE_8": 10740,
+    "AFTER_8": 11392,
+    "CHECK_OK_11156": 11443,
+    "CHECK_OK_11199": 11486,
+    "CHECK_OK_11242": 11529,
+    "CHECK_OK_11285": 11572,
+    "CHECK_OK_11328": 11615,
+    "CHECK_OK_11371": 11658,
+    "CHECK_OK_11414": 11701,
+    "CHECK_OK_11453": 11740,
+    "CHECK_OK_11492": 11779,
+    "CHECK_OK_11536": 11823,
+    "CHECK_OK_11575": 11862,
+    "CHECK_OK_11614": 11901,
+    "STAGE_9": 11901,
+    "AFTER_9": 12643,
+    "CHECK_OK_12407": 12694,
+    "CHECK_OK_12450": 12737,
+    "CHECK_OK_12493": 12780,
+    "CHECK_OK_12536": 12823,
+    "CHECK_OK_12579": 12866,
+    "CHECK_OK_12622": 12909,
+    "CHECK_OK_12665": 12952,
+    "CHECK_OK_12708": 12995,
+    "CHECK_OK_12751": 13038,
+    "CHECK_OK_12794": 13081,
+    "CHECK_OK_12833": 13120,
+    "CHECK_OK_12872": 13159,
+    "CHECK_OK_12916": 13203,
+    "CHECK_OK_12955": 13242,
+    "CHECK_OK_12994": 13281,
+    "STAGE_A": 13281,
+    "AFTER_10": 13933,
+    "CHECK_OK_13697": 13984,
+    "CHECK_OK_13740": 14027,
+    "CHECK_OK_13783": 14070,
+    "CHECK_OK_13826": 14113,
+    "CHECK_OK_13869": 14156,
+    "CHECK_OK_13912": 14199,
+    "CHECK_OK_13955": 14242,
+    "CHECK_OK_13994": 14281,
+    "CHECK_OK_14033": 14320,
+    "CHECK_OK_14077": 14364,
+    "CHECK_OK_14116": 14403,
+    "CHECK_OK_14155": 14442,
+    "STAGE_B": 14442,
+    "AFTER_11": 15184,
+    "CHECK_OK_14948": 15235,
+    "CHECK_OK_14991": 15278,
+    "CHECK_OK_15034": 15321,
+    "CHECK_OK_15077": 15364,
+    "CHECK_OK_15120": 15407,
+    "CHECK_OK_15163": 15450,
+    "CHECK_OK_15206": 15493,
+    "CHECK_OK_15249": 15536,
+    "CHECK_OK_15292": 15579,
+    "CHECK_OK_15335": 15622,
+    "CHECK_OK_15374": 15661,
+    "CHECK_OK_15413": 15700,
+    "CHECK_OK_15457": 15744,
+    "CHECK_OK_15496": 15783,
+    "CHECK_OK_15535": 15822,
+    "STAGE_C": 15822,
+    "AFTER_12": 16474,
+    "CHECK_OK_16238": 16525,
+    "CHECK_OK_16281": 16568,
+    "CHECK_OK_16324": 16611,
+    "CHECK_OK_16367": 16654,
+    "CHECK_OK_16410": 16697,
+    "CHECK_OK_16453": 16740,
+    "CHECK_OK_16496": 16783,
+    "CHECK_OK_16535": 16822,
+    "CHECK_OK_16574": 16861,
+    "CHECK_OK_16618": 16905,
+    "CHECK_OK_16657": 16944,
+    "CHECK_OK_16696": 16983,
+    "STAGE_D": 16983,
+    "AFTER_13": 17725,
+    "CHECK_OK_17489": 17776,
+    "CHECK_OK_17532": 17819,
+    "CHECK_OK_17575": 17862,
+    "CHECK_OK_17618": 17905,
+    "CHECK_OK_17661": 17948,
+    "CHECK_OK_17704": 17991,
+    "CHECK_OK_17747": 18034,
+    "CHECK_OK_17790": 18077,
+    "CHECK_OK_17833": 18120,
+    "CHECK_OK_17876": 18163,
+    "CHECK_OK_17915": 18202,
+    "CHECK_OK_17954": 18241,
+    "CHECK_OK_17998": 18285,
+    "CHECK_OK_18037": 18324,
+    "CHECK_OK_18076": 18363,
+    "STAGE_E": 18363,
+    "AFTER_14": 19015,
+    "CHECK_OK_18779": 19066,
+    "CHECK_OK_18822": 19109,
+    "CHECK_OK_18865": 19152,
+    "CHECK_OK_18908": 19195,
+    "CHECK_OK_18951": 19238,
+    "CHECK_OK_18994": 19281,
+    "CHECK_OK_19037": 19324,
+    "CHECK_OK_19076": 19363,
+    "CHECK_OK_19115": 19402,
+    "CHECK_OK_19159": 19446,
+    "CHECK_OK_19198": 19485,
+    "CHECK_OK_19237": 19524,
+    "STAGE_F": 19524,
+    "AFTER_15": 20266,
+    "CHECK_OK_20030": 20317,
+    "CHECK_OK_20073": 20360,
+    "CHECK_OK_20116": 20403,
+    "CHECK_OK_20159": 20446,
+    "CHECK_OK_20202": 20489,
+    "CHECK_OK_20245": 20532,
+    "CHECK_OK_20288": 20575,
+    "CHECK_OK_20331": 20618,
+    "CHECK_OK_20374": 20661,
+    "CHECK_OK_20417": 20704,
+    "CHECK_OK_20456": 20743,
+    "CHECK_OK_20495": 20782,
+    "CHECK_OK_20539": 20826,
+    "CHECK_OK_20578": 20865,
+    "CHECK_OK_20617": 20904,
+    "STAGE_G": 20904,
+    "AFTER_16": 21574,
+    "CHECK_OK_21338": 21625,
+    "CHECK_OK_21381": 21668,
+    "CHECK_OK_21424": 21711,
+    "CHECK_OK_21467": 21754,
+    "CHECK_OK_21510": 21797,
+    "CHECK_OK_21553": 21840,
+    "CHECK_OK_21596": 21883,
+    "CHECK_OK_21639": 21926,
+    "CHECK_OK_21678": 21965,
+    "CHECK_OK_21717": 22004,
+    "CHECK_OK_21761": 22048,
+    "CHECK_OK_21800": 22087,
+    "CHECK_OK_21839": 22126,
+    "STAGE_H": 22126,
+    "AFTER_17": 22886,
+    "CHECK_OK_22650": 22937,
+    "CHECK_OK_22693": 22980,
+    "CHECK_OK_22736": 23023,
+    "CHECK_OK_22779": 23066,
+    "CHECK_OK_22822": 23109,
+    "CHECK_OK_22865": 23152,
+    "CHECK_OK_22908": 23195,
+    "CHECK_OK_22951": 23238,
+    "CHECK_OK_22994": 23281,
+    "CHECK_OK_23037": 23324,
+    "CHECK_OK_23080": 23367,
+    "CHECK_OK_23123": 23410,
+    "CHECK_OK_23162": 23449,
+    "CHECK_OK_23201": 23488,
+    "CHECK_OK_23245": 23532,
+    "CHECK_OK_23284": 23571,
+    "CHECK_OK_23323": 23610,
+    "STAGE_I": 23610,
+    "AFTER_18": 24280,
+    "CHECK_OK_24044": 24331,
+    "CHECK_OK_24087": 24374,
+    "CHECK_OK_24130": 24417,
+    "CHECK_OK_24173": 24460,
+    "CHECK_OK_24216": 24503,
+    "CHECK_OK_24259": 24546,
+    "CHECK_OK_24302": 24589,
+    "CHECK_OK_24345": 24632,
+    "CHECK_OK_24384": 24671,
+    "CHECK_OK_24423": 24710,
+    "CHECK_OK_24467": 24754,
+    "CHECK_OK_24506": 24793,
+    "CHECK_OK_24545": 24832,
+    "STAGE_J": 24832,
+    "AFTER_19": 25592,
+    "CHECK_OK_25356": 25643,
+    "CHECK_OK_25399": 25686,
+    "CHECK_OK_25442": 25729,
+    "CHECK_OK_25485": 25772,
+    "CHECK_OK_25528": 25815,
+    "CHECK_OK_25571": 25858,
+    "CHECK_OK_25614": 25901,
+    "CHECK_OK_25657": 25944,
+    "CHECK_OK_25700": 25987,
+    "CHECK_OK_25743": 26030,
+    "CHECK_OK_25786": 26073,
+    "CHECK_OK_25829": 26116,
+    "CHECK_OK_25868": 26155,
+    "CHECK_OK_25907": 26194,
+    "CHECK_OK_25951": 26238,
+    "CHECK_OK_25990": 26277,
+    "CHECK_OK_26029": 26316,
+    "STAGE_K": 26316,
+    "AFTER_20": 26986,
+    "CHECK_OK_26750": 27037,
+    "CHECK_OK_26793": 27080,
+    "CHECK_OK_26836": 27123,
+    "CHECK_OK_26879": 27166,
+    "CHECK_OK_26922": 27209,
+    "CHECK_OK_26965": 27252,
+    "CHECK_OK_27008": 27295,
+    "CHECK_OK_27051": 27338,
+    "CHECK_OK_27090": 27377,
+    "CHECK_OK_27129": 27416,
+    "CHECK_OK_27173": 27460,
+    "CHECK_OK_27212": 27499,
+    "CHECK_OK_27251": 27538,
+    "STAGE_L": 27538,
+    "AFTER_21": 28298,
+    "CHECK_OK_28062": 28349,
+    "CHECK_OK_28105": 28392,
+    "CHECK_OK_28148": 28435,
+    "CHECK_OK_28191": 28478,
+    "CHECK_OK_28234": 28521,
+    "CHECK_OK_28277": 28564,
+    "CHECK_OK_28320": 28607,
+    "CHECK_OK_28363": 28650,
+    "CHECK_OK_28406": 28693,
+    "CHECK_OK_28449": 28736,
+    "CHECK_OK_28492": 28779,
+    "CHECK_OK_28535": 28822,
+    "CHECK_OK_28574": 28861,
+    "CHECK_OK_28613": 28900,
+    "CHECK_OK_28657": 28944,
+    "CHECK_OK_28696": 28983,
+    "CHECK_OK_28735": 29022,
+    "STAGE_M": 29022,
+    "AFTER_22": 29692,
+    "CHECK_OK_29456": 29743,
+    "CHECK_OK_29499": 29786,
+    "CHECK_OK_29542": 29829,
+    "CHECK_OK_29585": 29872,
+    "CHECK_OK_29628": 29915,
+    "CHECK_OK_29671": 29958,
+    "CHECK_OK_29714": 30001,
+    "CHECK_OK_29757": 30044,
+    "CHECK_OK_29796": 30083,
+    "CHECK_OK_29835": 30122,
+    "CHECK_OK_29879": 30166,
+    "CHECK_OK_29918": 30205,
+    "CHECK_OK_29957": 30244,
+    "STAGE_N": 30244,
+    "AFTER_23": 31004,
+    "CHECK_OK_30768": 31055,
+    "CHECK_OK_30811": 31098,
+    "CHECK_OK_30854": 31141,
+    "CHECK_OK_30897": 31184,
+    "CHECK_OK_30940": 31227,
+    "CHECK_OK_30983": 31270,
+    "CHECK_OK_31026": 31313,
+    "CHECK_OK_31069": 31356,
+    "CHECK_OK_31112": 31399,
+    "CHECK_OK_31155": 31442,
+    "CHECK_OK_31198": 31485,
+    "CHECK_OK_31241": 31528,
+    "CHECK_OK_31280": 31567,
+    "CHECK_OK_31319": 31606,
+    "CHECK_OK_31363": 31650,
+    "CHECK_OK_31402": 31689,
+    "CHECK_OK_31441": 31728,
+    "STAGE_O": 31728,
+    "AFTER_24": 32398,
+    "CHECK_OK_32162": 32449,
+    "CHECK_OK_32205": 32492,
+    "CHECK_OK_32248": 32535,
+    "CHECK_OK_32291": 32578,
+    "CHECK_OK_32334": 32621,
+    "CHECK_OK_32377": 32664,
+    "CHECK_OK_32420": 32707,
+    "CHECK_OK_32463": 32750,
+    "CHECK_OK_32502": 32789,
+    "CHECK_OK_32541": 32828,
+    "CHECK_OK_32585": 32872,
+    "CHECK_OK_32624": 32911,
+    "CHECK_OK_32663": 32950,
+    "STAGE_P": 32950,
+    "AFTER_25": 33710,
+    "CHECK_OK_33474": 33761,
+    "CHECK_OK_33517": 33804,
+    "CHECK_OK_33560": 33847,
+    "CHECK_OK_33603": 33890,
+    "CHECK_OK_33646": 33933,
+    "CHECK_OK_33689": 33976,
+    "CHECK_OK_33732": 34019,
+    "CHECK_OK_33775": 34062,
+    "CHECK_OK_33818": 34105,
+    "CHECK_OK_33861": 34148,
+    "CHECK_OK_33904": 34191,
+    "CHECK_OK_33947": 34234,
+    "CHECK_OK_33986": 34273,
+    "CHECK_OK_34025": 34312,
+    "CHECK_OK_34069": 34356,
+    "CHECK_OK_34108": 34395,
+    "CHECK_OK_34147": 34434,
+    "STAGE_Q": 34434,
+    "AFTER_26": 35104,
+    "CHECK_OK_34868": 35155,
+    "CHECK_OK_34911": 35198,
+    "CHECK_OK_34954": 35241,
+    "CHECK_OK_34997": 35284,
+    "CHECK_OK_35040": 35327,
+    "CHECK_OK_35083": 35370,
+    "CHECK_OK_35126": 35413,
+    "CHECK_OK_35169": 35456,
+    "CHECK_OK_35208": 35495,
+    "CHECK_OK_35247": 35534,
+    "CHECK_OK_35291": 35578,
+    "CHECK_OK_35330": 35617,
+    "CHECK_OK_35369": 35656,
+    "STAGE_R": 35656,
+    "AFTER_27": 36416,
+    "CHECK_OK_36180": 36467,
+    "CHECK_OK_36223": 36510,
+    "CHECK_OK_36266": 36553,
+    "CHECK_OK_36309": 36596,
+    "CHECK_OK_36352": 36639,
+    "CHECK_OK_36395": 36682,
+    "CHECK_OK_36438": 36725,
+    "CHECK_OK_36481": 36768,
+    "CHECK_OK_36524": 36811,
+    "CHECK_OK_36567": 36854,
+    "CHECK_OK_36610": 36897,
+    "CHECK_OK_36653": 36940,
+    "CHECK_OK_36692": 36979,
+    "CHECK_OK_36731": 37018,
+    "CHECK_OK_36775": 37062,
+    "CHECK_OK_36814": 37101,
+    "CHECK_OK_36853": 37140,
+    "STAGE_S": 37140,
+    "AFTER_28": 37810,
+    "CHECK_OK_37574": 37861,
+    "CHECK_OK_37617": 37904,
+    "CHECK_OK_37660": 37947,
+    "CHECK_OK_37703": 37990,
+    "CHECK_OK_37746": 38033,
+    "CHECK_OK_37789": 38076,
+    "CHECK_OK_37832": 38119,
+    "CHECK_OK_37875": 38162,
+    "CHECK_OK_37914": 38201,
+    "CHECK_OK_37953": 38240,
+    "CHECK_OK_37997": 38284,
+    "CHECK_OK_38036": 38323,
+    "CHECK_OK_38075": 38362,
+    "STAGE_T": 38362,
+    "AFTER_29": 39122,
+    "CHECK_OK_38886": 39173,
+    "CHECK_OK_38929": 39216,
+    "CHECK_OK_38972": 39259,
+    "CHECK_OK_39015": 39302,
+    "CHECK_OK_39058": 39345,
+    "CHECK_OK_39101": 39388,
+    "CHECK_OK_39144": 39431,
+    "CHECK_OK_39187": 39474,
+    "CHECK_OK_39230": 39517,
+    "CHECK_OK_39273": 39560,
+    "CHECK_OK_39316": 39603,
+    "CHECK_OK_39359": 39646,
+    "CHECK_OK_39398": 39685,
+    "CHECK_OK_39437": 39724,
+    "CHECK_OK_39481": 39768,
+    "CHECK_OK_39520": 39807,
+    "CHECK_OK_39559": 39846,
+    "STAGE_U": 39846,
+    "AFTER_30": 40516,
+    "CHECK_OK_40280": 40567,
+    "CHECK_OK_40323": 40610,
+    "CHECK_OK_40366": 40653,
+    "CHECK_OK_40409": 40696,
+    "CHECK_OK_40452": 40739,
+    "CHECK_OK_40495": 40782,
+    "CHECK_OK_40538": 40825,
+    "CHECK_OK_40581": 40868,
+    "CHECK_OK_40620": 40907,
+    "CHECK_OK_40659": 40946,
+    "CHECK_OK_40703": 40990,
+    "CHECK_OK_40742": 41029,
+    "CHECK_OK_40781": 41068,
+    "STAGE_V": 41068,
+    "AFTER_31": 41828,
+    "CHECK_OK_41592": 41879,
+    "CHECK_OK_41635": 41922,
+    "CHECK_OK_41678": 41965,
+    "CHECK_OK_41721": 42008,
+    "CHECK_OK_41764": 42051,
+    "CHECK_OK_41807": 42094,
+    "CHECK_OK_41850": 42137,
+    "CHECK_OK_41893": 42180,
+    "CHECK_OK_41936": 42223,
+    "CHECK_OK_41979": 42266,
+    "CHECK_OK_42022": 42309,
+    "CHECK_OK_42065": 42352,
+    "CHECK_OK_42104": 42391,
+    "CHECK_OK_42143": 42430,
+    "CHECK_OK_42187": 42474,
+    "CHECK_OK_42226": 42513,
+    "CHECK_OK_42265": 42552,
+    "READY": 42563,
+    "NOT_READY": 42574,
+    "FAIL": 42585,
+    "UNSUPPORTED": 42596,
+    "FINISH": 42604,
+    "FORMAT_DIAG": 42637,
+    "FORMAT_REG": 42668,
+    "FORMAT_VALUES": 42686,
+    "HEX_BYTE": 42705,
+    "HEX_NIBBLE": 42718,
+    "HEX_STORE": 42729,
+    "MSG_PASS": 42732,
+    "MSG_UNSUPPORTED": 42754,
+    "MSG_FAIL": 42783,
+    "FAIL_STAGE": 42809,
+    "HEX_ADDR": 42817,
+    "HEX_EXP": 42828,
+    "HEX_ACT": 42835,
+    "STATUS": 42840,
+    "GUARD": 42841,
+    "SP_SNAPSHOT": 42842,
+    "SP_SNAPSHOT1": 42843,
+    "SP_SNAPSHOT2": 42844,
+    "SPS_SNAPSHOT": 42845,
+    "SPS_SNAPSHOT1": 42846,
+    "SAVED_SPS": 42847,
+    "SAVED_SPS1": 42848,
+    "DIAG_MEM": 42849,
+    "DIAG_ADDR0": 42850,
+    "DIAG_ADDR1": 42851,
+    "DIAG_ADDR2": 42852,
+    "DIAG_EXP": 42853,
+    "DIAG_ACT": 42854,
+    "SAVED_AF": 42855,
+    "PAIR_SNAPSHOT": 42857,
+    "PAIR_SNAPSHOT1": 42858,
+    "LOCAL_PAIR": 42859,
+    "LOCAL_PAIR1": 42860,
+    "LOCAL_PAIR2": 42861,
+    "MSG_READY": 42862,
+    "MSG_NOT_READY": 42896
+  },
+  "cases": [
+    {
+      "index": 0,
+      "stage": "0",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 64,
+        "irq": 0
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 1,
+      "stage": "1",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 64,
+        "irq": 1
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 2,
+      "stage": "2",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 73,
+        "irq": 0
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 3,
+      "stage": "3",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 73,
+        "irq": 1
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 4,
+      "stage": "4",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 82,
+        "irq": 0
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 5,
+      "stage": "5",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 82,
+        "irq": 1
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 6,
+      "stage": "6",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 91,
+        "irq": 0
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 7,
+      "stage": "7",
+      "plan": {
+        "src": 0,
+        "iy": 0,
+        "pref": 91,
+        "irq": 1
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 8,
+      "stage": "8",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 64,
+        "irq": 0
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 9,
+      "stage": "9",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 64,
+        "irq": 1
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 10,
+      "stage": "A",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 73,
+        "irq": 0
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 11,
+      "stage": "B",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 73,
+        "irq": 1
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 12,
+      "stage": "C",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 82,
+        "irq": 0
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 13,
+      "stage": "D",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 82,
+        "irq": 1
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 14,
+      "stage": "E",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 91,
+        "irq": 0
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 950789,
+      "frame": []
+    },
+    {
+      "index": 15,
+      "stage": "F",
+      "plan": {
+        "src": 0,
+        "iy": 1,
+        "pref": 91,
+        "irq": 1
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 950799,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          15
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 16,
+      "stage": "G",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 64,
+        "irq": 0
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 17,
+      "stage": "H",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 64,
+        "irq": 1
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 18,
+      "stage": "I",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 73,
+        "irq": 0
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 19,
+      "stage": "J",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 73,
+        "irq": 1
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 20,
+      "stage": "K",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 82,
+        "irq": 0
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 21,
+      "stage": "L",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 82,
+        "irq": 1
+      },
+      "target": 917504,
+      "expected": 53,
+      "alias": 196608,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 22,
+      "stage": "M",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 91,
+        "irq": 0
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 23,
+      "stage": "N",
+      "plan": {
+        "src": 1,
+        "iy": 0,
+        "pref": 91,
+        "irq": 1
+      },
+      "target": 196608,
+      "expected": 53,
+      "alias": 917504,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 24,
+      "stage": "O",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 64,
+        "irq": 0
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 25,
+      "stage": "P",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 64,
+        "irq": 1
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 26,
+      "stage": "Q",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 73,
+        "irq": 0
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 27,
+      "stage": "R",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 73,
+        "irq": 1
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 28,
+      "stage": "S",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 82,
+        "irq": 0
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 29,
+      "stage": "T",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 82,
+        "irq": 1
+      },
+      "target": 983039,
+      "expected": 113,
+      "alias": 262143,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 30,
+      "stage": "U",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 91,
+        "irq": 0
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 688133,
+      "frame": []
+    },
+    {
+      "index": 31,
+      "stage": "V",
+      "plan": {
+        "src": 1,
+        "iy": 1,
+        "pref": 91,
+        "irq": 1
+      },
+      "target": 262143,
+      "expected": 113,
+      "alias": 983039,
+      "return_pc": 688143,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          15
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    }
+  ],
+  "expected_frame_entries": 16,
+  "diagnostic_hooks_required": true,
+  "no_MSX_vector_writes": true,
+  "DOS_may_EI": true,
+  "NMI_boundary_tested_on_board": false
+}
