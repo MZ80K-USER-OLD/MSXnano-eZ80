@@ -2,4 +2,4 @@ COM stage 1 time=141150000
 EZ80F9 R9: FAIL stage 1
 ADDR=060100 EXP=56 ACT=57
 PASS fetch_r9 phase=3 fault=2 extended=1 cpu_div=16 status=2 high_fetch_opcodes=16 WAIT_ticks=2865
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_fetch_r9.sv:128: $finish called at 3028190000 (1ps)
+/workspace/scratch/db88d59b2a4d/cpu_restart_r9/sim/tb_fetch_r9.sv:118: $finish called at 3028190000 (1ps)

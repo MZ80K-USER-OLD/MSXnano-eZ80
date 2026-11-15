@@ -45,7 +45,7 @@ architecture test of tb_locked_r1 is
  process(clk) begin if rising_edge(clk) then if reset_n='0' then phase<=0;else phase<=(phase+1) mod 16;end if;end if;end process;
  ce<='1' when phase=0 else '0';cf<='1' when phase=8 else '0';
  original:entity work.G80a port map(RESET_n=>reset_n,CLK_n=>clk,clk_enable=>ce,clk_falling=>cf,WAIT_n=>wait_n,INT_n=>'1',NMI_n=>'1',BUSRQ_n=>'1',M1_n=>ca(0),MREQ_n=>ca(1),IORQ_n=>ca(2),RD_n=>ca(3),WR_n=>ca(4),RFSH_n=>ca(5),HALT_n=>ca(6),BUSAK_n=>ca(7),A=>a,update_addr=>open,DI=>di,DO=>doa,Data_Reverse=>open);
- extended:entity work.G80A_eZ80 generic map(DATA_EXTENDED=>EXTENSIONS) port map(RESET_n=>reset_n,CLK_n=>clk,clk_enable=>ce,clk_falling=>cf,WAIT_n=>wait_n,INT_n=>'1',NMI_n=>'1',BUSRQ_n=>'1',M1_n=>cb(0),MREQ_n=>cb(1),IORQ_n=>cb(2),RD_n=>cb(3),WR_n=>cb(4),RFSH_n=>cb(5),HALT_n=>cb(6),BUSAK_n=>cb(7),A=>b,A24=>open,update_addr=>open,DI=>di,DO=>dob,Data_Reverse=>open);
+ extended:entity work.G80A_eZ80 generic map(DATA_EXTENDED=>EXTENSIONS) port map(Trace_Data=>x"00",Trace_Select=>open,RESET_n=>reset_n,CLK_n=>clk,clk_enable=>ce,clk_falling=>cf,WAIT_n=>wait_n,INT_n=>'1',NMI_n=>'1',BUSRQ_n=>'1',M1_n=>cb(0),MREQ_n=>cb(1),IORQ_n=>cb(2),RD_n=>cb(3),WR_n=>cb(4),RFSH_n=>cb(5),HALT_n=>cb(6),BUSAK_n=>cb(7),A=>b,A24=>open,update_addr=>open,DI=>di,DO=>dob,Data_Reverse=>open);
  process(all) begin di<=x"00";if not is_x(a) then if ca(2)='0' and a=x"E7E7" then di<=x"E0";else di<=mem(to_integer(unsigned(a)));end if;end if;end process;
  process(clk) begin if rising_edge(clk) and reset_n='1' and ca(1)='0' and ca(4)='0' and not is_x(a) then mem(to_integer(unsigned(a)))<=doa;end if;end process;
  process(clk) begin if falling_edge(clk) and reset_n='1' then

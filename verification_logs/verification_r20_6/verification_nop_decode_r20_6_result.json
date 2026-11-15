@@ -1,0 +1,8 @@
+{
+  "fresh_runs": 580,
+  "decoded_contexts": 576,
+  "control_cases": 4,
+  "output": "PASS NOP decode 576 contexts + HALT/IM controls = 580\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/verification_nop_decode_r20_6/tb.sv:77: $finish called at 580 (1s)\n",
+  "post_GHDL_decode_only": true,
+  "GOWIN_tested": false
+}

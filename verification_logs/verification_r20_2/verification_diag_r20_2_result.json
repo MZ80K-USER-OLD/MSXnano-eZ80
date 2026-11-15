@@ -1,0 +1,207 @@
+{
+  "fresh_runs": 14,
+  "cases": [
+    {
+      "profile": [
+        "EZ80SL2",
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "PASS",
+      "sha256": "c41cc10eea52f228110b8995befbfefe6d9a73864e78b608986f6ac0d1edbae2",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80SL2",
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "FAIL stage 0",
+      "sha256": "c41cc10eea52f228110b8995befbfefe6d9a73864e78b608986f6ac0d1edbae2",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80SL2",
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "UNSUPPORTED",
+      "sha256": "c41cc10eea52f228110b8995befbfefe6d9a73864e78b608986f6ac0d1edbae2",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80SL2",
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "READY",
+      "sha256": "c41cc10eea52f228110b8995befbfefe6d9a73864e78b608986f6ac0d1edbae2",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80SL2",
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "c41cc10eea52f228110b8995befbfefe6d9a73864e78b608986f6ac0d1edbae2",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80SL2",
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "c41cc10eea52f228110b8995befbfefe6d9a73864e78b608986f6ac0d1edbae2",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80RF2",
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "PASS",
+      "sha256": "afc7eb847f16acfe4a8405f145d90b07e08e09a6afffea5d3d35f9aae2f09bff",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80RF2",
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "FAIL stage 0",
+      "sha256": "afc7eb847f16acfe4a8405f145d90b07e08e09a6afffea5d3d35f9aae2f09bff",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80RF2",
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "UNSUPPORTED",
+      "sha256": "afc7eb847f16acfe4a8405f145d90b07e08e09a6afffea5d3d35f9aae2f09bff",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80RF2",
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "READY",
+      "sha256": "afc7eb847f16acfe4a8405f145d90b07e08e09a6afffea5d3d35f9aae2f09bff",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80RF2",
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "afc7eb847f16acfe4a8405f145d90b07e08e09a6afffea5d3d35f9aae2f09bff",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80RF2",
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "afc7eb847f16acfe4a8405f145d90b07e08e09a6afffea5d3d35f9aae2f09bff",
+      "receiver_delay_injected": false
+    },
+    {
+      "profile": [
+        "EZ80SL2",
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "status": "PASS",
+      "sha256": "c41cc10eea52f228110b8995befbfefe6d9a73864e78b608986f6ac0d1edbae2",
+      "receiver_delay_injected": true
+    },
+    {
+      "profile": [
+        "EZ80RF2",
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "status": "PASS",
+      "sha256": "afc7eb847f16acfe4a8405f145d90b07e08e09a6afffea5d3d35f9aae2f09bff",
+      "receiver_delay_injected": true
+    }
+  ],
+  "fractional_external_CPU_clock": true,
+  "SDRAM_model_clock_phase_fixed": true,
+  "PINFILTER_Z_hold_abstraction": true,
+  "external_CPU_clock": true,
+  "long_timer_acceleration": 128,
+  "physical_failure_reproduced": false
+}

@@ -1,0 +1,258 @@
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -114,6 +114,7 @@
+     signal MADL_i : std_logic;
+     signal MBASE_i : std_logic_vector(7 downto 0);
+     signal CEN          : std_logic;
++    signal Sleep_i, Sleep_Test_Release, M1_i : std_logic;
+     signal Reset_s      : std_logic;
+     signal IntCycle_n   : std_logic;
+     signal IORQ         : std_logic;
+@@ -151,17 +152,21 @@
+ 	--CEN <= '1';
+     Instruction_Data<=Diag_IACK_Byte when DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" else DI;
+     CEN <= clk_enable;
++    M1_n <= M1_i or Sleep_i;
++    -- Only D3, in the private diagnostic window, enables a test-only escape.
++    Sleep_Test_Release <= '1' when DIAGNOSTICS and Diag_Active='1' and
++        Sleep_i='1' and Diag_Select=x"D3" and Diag_NMI_Count=1 else '0';
+ 
+     BUSAK_n <= BUSAK_n_i;
+-    MREQ_n_i <= not MREQ or (Req_Inhibit and MReq_Inhibit);
+-    RD_n_i <= not RD or Req_Inhibit;
+-    WR_n_j <= WR_n_i;                                                   -- 0247a
++    MREQ_n_i <= not MREQ or (Req_Inhibit and MReq_Inhibit) or Sleep_i;
++    RD_n_i <= not RD or Req_Inhibit or Sleep_i;
++    WR_n_j <= WR_n_i or Sleep_i;                                                   -- 0247a
+ 
+     MREQ_n <= MREQ_n_i when BUSAK_n_i = '1' else 'Z';
+-    IORQ_n <= IORQ_n_i or IReq_Inhibit when BUSAK_n_i = '1' else 'Z';   -- 0247a
++    IORQ_n <= IORQ_n_i or IReq_Inhibit or Sleep_i when BUSAK_n_i = '1' else 'Z';   -- 0247a
+     RD_n <= RD_n_i when BUSAK_n_i = '1' else 'Z';
+     WR_n <= WR_n_j when BUSAK_n_i = '1' else 'Z';                       -- 0247a
+-    RFSH_n <= RFSH_n_i when BUSAK_n_i = '1' else 'Z';
++    RFSH_n <= RFSH_n_i or Sleep_i when BUSAK_n_i = '1' else 'Z';
+     -- Decode read intent before MREQ/T1, so the existing bridge can assert
+     -- WAIT before RD. Captured SDRAM requests remain untouched downstream.
+     Vector_Window <= '1' when DIAGNOSTICS and Diag_Active='1' and Bank_i=x"00" and A_i(15 downto 7)="000000000" and
+@@ -186,7 +191,7 @@
+             Request_Write <= '0'; Request_IO <= '0';
+             Request_MSX_Address <= (others=>'0'); Request_Extended <= '0';
+         elsif falling_edge(CLK_n) then
+-            if clk_falling='1' then
++            if clk_falling='1' and Sleep_i='0' then
+                 if TState="001" then
+                     Request_Address <= Bank_i & A_i;
+                     if Vector_Window='1' then
+@@ -210,7 +215,7 @@
+     end process;
+     HALT_n<=HALT_i;
+     INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
+-    NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 else NMI_n;
++    NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 and Diag_Select/=x"D3" else NMI_n;
+     process(Diag_Select, Extension_State_i, MBASE_i, MADL_i)
+     begin
+         Diag_Read<="1110000" & Extension_State_i;
+@@ -228,6 +233,10 @@
+             when x"C9"=>Diag_Read<="0000000" & MADL_i;
+             when x"CA"=>Diag_Read<=x"01"; -- R19 ADL/MADL IM0 engine
+             when x"CB"=>Diag_Read<=x"FE";
++            when x"D3"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"53";end if;
++            when x"D5"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"A7";end if;
++            when x"CE"=>Diag_Read<=x"01"; -- R20 CPU-local SLP
++            when x"CF"=>Diag_Read<=x"FE";
+             when x"CC"=>Diag_Read<=x"01"; -- R19.1 indexed-CB width consumption
+             when x"CD"=>Diag_Read<=x"FE";
+             when others=>null;
+@@ -240,6 +249,7 @@
+             Diag_Select<=x"FF";Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+         elsif rising_edge(CLK_n) then
+             if clk_enable='1' then
++                if Sleep_Test_Release='1' then Diag_Select<=x"D5";end if;
+                 if Diag_NMI_Count/=0 then Diag_NMI_Count<=Diag_NMI_Count-1;end if;
+                 if DIAGNOSTICS and Diag_Active='1' and Diag_NMI_Arm='1' and HALT_i='0' then
+                     Diag_NMI_Count<=to_unsigned(8,4);Diag_NMI_Arm<='0';
+@@ -255,6 +265,7 @@
+                             case Core_DO is
+                             when x"D8"=>Diag_Active<='1';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+                             when x"D1"=>if Diag_Active='1' then Diag_IRQ<='1';end if;
++                            when x"D3"=>if Diag_Active='1' then Diag_Select<=x"D3";Diag_NMI_Arm<='1';end if;
+                             when x"D2"=>if Diag_Active='1' then Diag_NMI_Arm<='1';end if;
+                             when x"D4"=>Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+                             when x"D0"=>Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+@@ -288,7 +299,8 @@
+             IOWait => IOWait)
+         port map(
+             CEN => CEN,
+-            M1_n => M1_n,
++            Sleep_State=>Sleep_i, Sleep_Test_Release=>Sleep_Test_Release,
++            M1_n => M1_i,
+             IORQ => IORQ,
+             NoRead => NoRead,
+             Write => Write,
+@@ -340,7 +352,8 @@
+             WR_n_i <= '1';
+         elsif CLK_n'event and CLK_n = '0' then
+ 			if clk_falling = '1' then
+-				if (IORQ = '0') then
++				if Sleep_i='1' then WR_n_i<='1';
++				elsif (IORQ = '0') then
+ 					if TState = "010" then
+ 						WR_n_i <= not Request_Write;
+ 					elsif Tstate = "011" then
+@@ -395,7 +408,8 @@
+             MREQ <= '0';
+         elsif CLK_n'event and CLK_n = '0' then
+ 			if clk_falling = '1' then
+-				if MCycle = "001" then
++				if Sleep_i='1' then RD<='0';IORQ_n_i<='1';MREQ<='0';
++				elsif MCycle = "001" then
+ 					if TState = "001" then
+ 						RD <= IntCycle_n;
+ 						MREQ <= IntCycle_n;
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -104,6 +104,8 @@
+         MADL_State : out std_logic;
+         MBASE_State : out std_logic_vector(7 downto 0);
+         Extension_State : out std_logic;
++        Sleep_State : out std_logic;
++        Sleep_Test_Release : in std_logic := '0';
+ 		update_addr	: out std_logic;
+         DInst       : in std_logic_vector(7 downto 0);
+         DI          : in std_logic_vector(7 downto 0);
+@@ -271,6 +273,7 @@
+     signal IntE_FF1         : std_logic;
+     signal IntE_FF2         : std_logic;
+     signal Halt_FF          : std_logic;
++    signal Sleep_FF, Sleep_Enter, Core_CEN : std_logic;
+     signal BusReq_s         : std_logic;
+     signal BusAck           : std_logic;
+     signal ClkEn            : std_logic;
+@@ -419,14 +422,14 @@
+     begin
+         if RESET_n='0' then Frame_Rst_Pending<='0';
+         elsif rising_edge(CLK_n) then
+-            if CEN='1' and Frame_End='1' then Frame_Rst_Pending<='0';
++            if Core_CEN='1' and Frame_End='1' then Frame_Rst_Pending<='0';
+             elsif ClkEn='1' and MCycle="001" and TState=3 then
+                 Frame_Rst_Pending<=(Frame_Rst and (Instruction_Has_Width or MADL)) or IRQ_IM0;
+             end if;
+         end if;
+     end process;
+     Frame_Start<=Frame_Ready and not BusAck;
+-    CPU_Run<=CEN and not Frame_Active and not Frame_Start;
++    CPU_Run<=Core_CEN and not Frame_Active and not Frame_Start;
+     Frame_Returning<='1' when Frame_State=frame_mode or Frame_State=frame_long or Frame_State=frame_upper or Frame_State=frame_short else '0';
+     Frame_End<='1' when Frame_TS=3 and
+         ((Frame_State=frame_push and Frame_SPS='0' and Frame_IM2='0' and
+@@ -766,7 +769,7 @@
+ 
+         elsif CLK_n'event and CLK_n = '1' then
+ 
+-            if CEN='1' and Frame_Start='1' then
++            if Core_CEN='1' and Frame_Start='1' then
+                 -- Finish the fetch/refresh phase before starting a memory T1.
+                 Frame_TS<=to_unsigned(4,3);Frame_Count<=0;Frame_RetN<='0';Frame_IM2<='0';Frame_Is_Call<='0';Frame_SPS<='0';
+                 if IRQ_IM0='1' then
+@@ -820,7 +823,7 @@
+                     if ISet="10" then Frame_RetN<=not IR(3);end if;
+                     Address_Reg<=std_logic_vector(SPL(15 downto 0));Address_Bank_Reg<=std_logic_vector(SPL(23 downto 16));
+                 end if;
+-            elsif CEN='1' and Frame_Active='1' then
++            elsif Core_CEN='1' and Frame_Active='1' then
+                 if Frame_End='1' then
+                     -- The engine completes the instruction outside the normal T_Res path.
+                     -- Discard its decoder state before fetching the return/entry target.
+@@ -1800,7 +1803,7 @@
+         if RESET_n = '0' then
+             RFSH_n <= '1';
+         elsif CLK_n'event and CLK_n = '1' then
+-            if CEN = '1' then
++            if Core_CEN = '1' then
+             if MCycle = "001" and ((TState = 2  and Wait_n = '1') or TState = 3) then
+                 RFSH_n <= '0';
+             else
+@@ -1812,8 +1815,26 @@
+ 
+     MC<="001" when Frame_Active='1' and Frame_TS=4 else "010" when Frame_Active='1' else std_logic_vector(MCycle);
+     TS<=std_logic_vector(Frame_TS) when Frame_Active='1' else std_logic_vector(TState);
++    -- R20: CPU-local, reset-only sleep. Diagnostic release is tied low
++    -- outside the wrapper's explicit test fixture. No generated clock.
++    Core_CEN <= CEN and not Sleep_FF;
++    Sleep_State <= Sleep_FF;
++    Sleep_Enter <= '1' when Mode=0 and Extensions_Enabled='1' and
++        ISet="10" and IR=x"76" and MCycle="001" and T_Res='1' and
++        IntCycle='0' and NMICycle='0' and Halt_FF='0' and
++        BusReq_s='0' else '0';
++    process(RESET_n,CLK_n)
++    begin
++        if RESET_n='0' then Sleep_FF<='0';
++        elsif rising_edge(CLK_n) then
++            if CEN='1' then
++                if Sleep_Test_Release='1' then Sleep_FF<='0';
++                elsif Sleep_Enter='1' then Sleep_FF<='1';end if;
++            end if;
++        end if;
++    end process;
+     DI_Reg <= DI;
+-    HALT_n<='0' when Frame_State=frame_fault else not Halt_FF;
++    HALT_n<='0' when Frame_State=frame_fault or Sleep_FF='1' else not Halt_FF;
+     BUSAK_n <= not BusAck;
+     IntCycle_n<='1' when Frame_Active='1' else not IntCycle;
+     IntE <= IntE_FF1;
+@@ -1834,7 +1855,7 @@
+             NMI_s <= '0';
+             OldNMI_n := '0';
+         elsif CLK_n'event and CLK_n = '1' then
+-            if CEN = '1' then
++            if Core_CEN = '1' then
+             BusReq_s <= not BUSRQ_n;
+             INT_s <= not INT_n;
+ 
+@@ -1872,7 +1893,7 @@
+             Auto_Wait_t2 <= '0';
+             M1_n <= '1';
+         elsif CLK_n'event and CLK_n = '1' then
+-            if CEN = '1' then
++            if Core_CEN = '1' then
+             if Frame_Active='1' then
+                 if Frame_End='1' then
+                     MCycle<="001";TState<="001";M1_n<='0';IntCycle<='0';NMICycle<='0';
+@@ -1945,7 +1966,8 @@
+                             MCycle <= "001";
+                             IntCycle <= '0';
+                             NMICycle <= '0';
+-                            if NMI_s = '1' and Prefix = "00" and Width_Pending='0' then
++                            if Sleep_Enter='1' then null;
++                            elsif NMI_s = '1' and Prefix = "00" and Width_Pending='0' then
+                                 NMICycle <= '1';
+                                 if ADL_Mode='1' or MADL='1' or Frame_Active='1' then IntE_FF2<=Effective_IEF;end if;
+                                 IntE_FF1 <= '0';
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -1794,9 +1794,12 @@
+                         when "01000110"|"01001110"|"01100110"|"01101110" =>
+                                 -- IM 0
+                                 IMode <= "00";
+-                        when "01010110"|"01110110" =>
++                        when "01010110" =>
+                                 -- IM 1
+                                 IMode <= "01";
++                        when "01110110" =>
++                                -- R20: ED76 is SLP when unlocked; retain Z80 alias.
++                                if Ext_Active='0' or Mode/=0 then IMode <= "01";end if;
+                         when "01011110"|"01110111" =>
+                                 -- IM 2
+                                 IMode <= "10";
+--- a/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -92,6 +92,8 @@
+         MADL_State : out std_logic;
+         MBASE_State : out std_logic_vector(7 downto 0);
+         Extension_State : out std_logic;
++        Sleep_State : out std_logic;
++        Sleep_Test_Release : in std_logic := '0';
+         update_addr	: out std_logic;
+         DInst       : in std_logic_vector(7 downto 0);
+         DI          : in std_logic_vector(7 downto 0);

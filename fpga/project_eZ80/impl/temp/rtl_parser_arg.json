@@ -182,6 +182,10 @@
             "Type": "verilog"
         },
         {
+            "Path": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/ez80_trace_mux.v",
+            "Type": "verilog"
+        },
+        {
             "Path": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/msx2p_debug.v",
             "Type": "verilog"
         },

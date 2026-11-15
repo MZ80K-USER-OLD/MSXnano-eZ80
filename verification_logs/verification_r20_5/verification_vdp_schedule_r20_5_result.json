@@ -1,0 +1,7 @@
+{
+  "fresh_runs": 4,
+  "SLEEP_REFRESH_enabled": true,
+  "cpu_sleep": 0,
+  "original_video_slot_pins_compared": true,
+  "all_legacy_CPU_pins_identical": false
+}

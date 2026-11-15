@@ -1,0 +1,8 @@
+PASS legacy refresh pins 0
+Traceback (most recent call last):
+  File "/workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/tools/verify_legacy_refresh_r20_1.py", line 6, in <module>
+    a=subprocess.run([os.environ['VVP'],str(v)],capture_output=True,text=True,timeout=300);(w/f'p{phase}.log').write_text(a.stdout+a.stderr);assert a.returncode==0 and 'PASS memory_compat33' in a.stdout,a.stdout+a.stderr
+                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: FATAL: /workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/sim/tb_memory_compat33.sv:52: legacy pin mismatch phase=1 seq=001 oldcmd=0011 newcmd=0011
+       Time: 1910000  Scope: tb_memory_compat33
+

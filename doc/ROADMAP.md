@@ -1,3 +1,25 @@
+# Current: R21.3 observation link
+
+R21.2 user hardware: MEM/IO2/RUNALL all PASS, SofaRun Space Manbow PLAY. MR3 observation records zero. R21.3 moves byte selection into Verilog and verifies 55/AA over the same link. New ISA work remains paused until this observation issue is resolved.
+
+# Current: R21.2 diagnostic build
+
+R21.1 hardware memory regression persists. MR2: local/HL match, extended RAM reads wrong in all test rows. R21.2 records bridge write/return values; new ISA work remains paused. See R21_2_README.md.
+
+# Current: R21.1 comparison build
+
+R21 hardware: EZ80MEM stage 1 FAIL 07FFFE EXP31 ACT7E; EZ80IO2 freezes at CASE 0.
+R21.1 removes the global opcode rewrite mux. Hardware and GOWIN validation pending.
+See R21_1_README.md and R21_IMPL_ANALYSIS.md. New instruction work is paused until the memory regression is resolved.
+
+# 現行：R21
+
+単発IO2の4命令を実装、GOWINと実機は未確認。残る優先順位はREMAINING_R21.md、監査はISA_AUDIT_R21.json。以下は履歴。
+
+# 現行方針：R20.6
+
+SLPは非対応・NOP、TRAPも非対応。実装優先順位は[REMAINING_R20_6.md](REMAINING_R20_6.md)、現行監査はISA_AUDIT_R20_6.jsonを参照。以下は過去の工程記録であり、SLP/TRAPが残項目という旧記述は現行方針では無効。
+
 > R18更新：R17はLogic94%、RUNALL全PASS、D3 R3:PASS、SofaRun/スペースマンボウPLAYを実機確認済み。R18で工程8の正規混在/MADL RSTを追加。ADL IM0・SLP・未定義オペコードの扱い・残I/O監査と工程10は未完。最新詳細はISA_AUDIT_R18.mdとRESTART_R18.md。以下の旧版記述は当時の履歴。
 
 # 現行：restart R17

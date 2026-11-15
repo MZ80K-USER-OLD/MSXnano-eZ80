@@ -1,0 +1,56 @@
+{
+  "fresh_runs": 5,
+  "expected_failure_runs": 1,
+  "cases": [
+    {
+      "profile": [
+        0,
+        0,
+        0
+      ],
+      "output": "PASS refresh phase=0 long=0 refreshes=128 max_gap_10ns=1024 VDP_reads=8254\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_r20_1.sv:50: $finish called at 1319640000 (1ps)\n"
+    },
+    {
+      "profile": [
+        1,
+        0,
+        0
+      ],
+      "output": "PASS refresh phase=1 long=0 refreshes=128 max_gap_10ns=1024 VDP_reads=8250\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_r20_1.sv:50: $finish called at 1319000000 (1ps)\n"
+    },
+    {
+      "profile": [
+        2,
+        0,
+        0
+      ],
+      "output": "PASS refresh phase=2 long=0 refreshes=128 max_gap_10ns=1024 VDP_reads=8246\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_r20_1.sv:50: $finish called at 1318360000 (1ps)\n"
+    },
+    {
+      "profile": [
+        3,
+        0,
+        0
+      ],
+      "output": "PASS refresh phase=3 long=0 refreshes=128 max_gap_10ns=1024 VDP_reads=8306\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_r20_1.sv:50: $finish called at 1327960000 (1ps)\n"
+    },
+    {
+      "profile": [
+        0,
+        1,
+        0
+      ],
+      "output": "PASS refresh phase=0 long=1 refreshes=8192 max_gap_10ns=1024 VDP_reads=524350\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_r20_1.sv:50: $finish called at 83895000000 (1ps)\n"
+    },
+    {
+      "profile": [
+        0,
+        0,
+        1
+      ],
+      "output": "FATAL: /workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_r20_1.sv:44: REFRESH missing autonomous commands\n       Time: 100320000  Scope: tb_refresh_r20_1\n"
+    }
+  ],
+  "clock_MHz": 100,
+  "physical_retention_measured": false
+}

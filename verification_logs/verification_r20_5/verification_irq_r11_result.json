@@ -1,0 +1,73 @@
+{
+  "fresh_runs": 7,
+  "cases": [
+    {
+      "name": "EZ80NMI",
+      "phase": 0,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80NMI",
+      "phase": 7,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80NMI",
+      "phase": 0,
+      "fault": 1,
+      "extended": 1,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80NMI",
+      "phase": 0,
+      "fault": 0,
+      "extended": 1,
+      "request": 0,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80NMI",
+      "phase": 0,
+      "fault": 0,
+      "extended": 0,
+      "request": 1,
+      "div": 16,
+      "pause": 0
+    },
+    {
+      "name": "EZ80NMI",
+      "phase": 3,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 4,
+      "pause": 0
+    },
+    {
+      "name": "EZ80NMI",
+      "phase": 7,
+      "fault": 0,
+      "extended": 1,
+      "request": 1,
+      "div": 4,
+      "pause": 1
+    }
+  ],
+  "COM_sha256": {
+    "EZ80NMI": "baec37bdb191df1565292427e225ae2ded67324614bfbf8b433939d24027221e"
+  },
+  "GOWIN_run": false,
+  "hardware_run": false
+}

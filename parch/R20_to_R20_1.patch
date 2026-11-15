@@ -1,0 +1,176 @@
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -89,6 +89,8 @@
+         WR_n        : out std_logic;
+         RFSH_n      : out std_logic;
+         HALT_n      : out std_logic;
++        CPU_Sleep : out std_logic;
++        Sleep_Timer : in std_logic := '0';
+         BUSAK_n     : out std_logic;
+         A           : out std_logic_vector(15 downto 0);
+         A24 : out std_logic_vector(23 downto 0);
+@@ -115,6 +117,8 @@
+     signal MBASE_i : std_logic_vector(7 downto 0);
+     signal CEN          : std_logic;
+     signal Sleep_i, Sleep_Test_Release, M1_i : std_logic;
++    signal Sleep_Timer_Meta, Sleep_Timer_Sync, Sleep_Timer_Old : std_logic;
++    signal Sleep_Timer_Rise : std_logic;
+     signal Reset_s      : std_logic;
+     signal IntCycle_n   : std_logic;
+     signal IORQ         : std_logic;
+@@ -152,10 +156,21 @@
+ 	--CEN <= '1';
+     Instruction_Data<=Diag_IACK_Byte when DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" else DI;
+     CEN <= clk_enable;
++    CPU_Sleep<=Sleep_i;
++    -- R20.1: synchronize a slow level, not a narrow pulse, into the CPU domain.
++    process(RESET_n,CLK_n)begin
++        if RESET_n='0' then Sleep_Timer_Meta<='0';Sleep_Timer_Sync<='0';Sleep_Timer_Old<='0';
++        elsif rising_edge(CLK_n) then
++            Sleep_Timer_Meta<=Sleep_Timer;Sleep_Timer_Sync<=Sleep_Timer_Meta;
++            if clk_enable='1' then Sleep_Timer_Old<=Sleep_Timer_Sync;end if;
++        end if;
++    end process;
++    Sleep_Timer_Rise<=Sleep_Timer_Sync and not Sleep_Timer_Old;
+     M1_n <= M1_i or Sleep_i;
+     -- Only D3, in the private diagnostic window, enables a test-only escape.
+     Sleep_Test_Release <= '1' when DIAGNOSTICS and Diag_Active='1' and
+-        Sleep_i='1' and Diag_Select=x"D3" and Diag_NMI_Count=1 else '0';
++        Sleep_i='1' and Diag_NMI_Count=1 and
++        (Diag_Select=x"D3" or (Diag_Select=x"D7" and Diag_NMI_Arm='1' and Sleep_Timer_Rise='1')) else '0';
+ 
+     BUSAK_n <= BUSAK_n_i;
+     MREQ_n_i <= not MREQ or (Req_Inhibit and MReq_Inhibit) or Sleep_i;
+@@ -215,7 +230,7 @@
+     end process;
+     HALT_n<=HALT_i;
+     INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
+-    NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 and Diag_Select/=x"D3" else NMI_n;
++    NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 and Diag_Select/=x"D3" and Diag_Select/=x"D7" else NMI_n;
+     process(Diag_Select, Extension_State_i, MBASE_i, MADL_i)
+     begin
+         Diag_Read<="1110000" & Extension_State_i;
+@@ -235,6 +250,8 @@
+             when x"CB"=>Diag_Read<=x"FE";
+             when x"D3"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"53";end if;
+             when x"D5"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"A7";end if;
++            when x"F0"=>Diag_Read<=x"01"; -- R20.1 long sleep fixture
++            when x"F1"=>Diag_Read<=x"FE";
+             when x"CE"=>Diag_Read<=x"01"; -- R20 CPU-local SLP
+             when x"CF"=>Diag_Read<=x"FE";
+             when x"CC"=>Diag_Read<=x"01"; -- R19.1 indexed-CB width consumption
+@@ -250,9 +267,17 @@
+         elsif rising_edge(CLK_n) then
+             if clk_enable='1' then
+                 if Sleep_Test_Release='1' then Diag_Select<=x"D5";end if;
+-                if Diag_NMI_Count/=0 then Diag_NMI_Count<=Diag_NMI_Count-1;end if;
+-                if DIAGNOSTICS and Diag_Active='1' and Diag_NMI_Arm='1' and HALT_i='0' then
+-                    Diag_NMI_Count<=to_unsigned(8,4);Diag_NMI_Arm<='0';
++                if Diag_NMI_Count/=0 then
++                    if Diag_Select/=x"D7" then Diag_NMI_Count<=Diag_NMI_Count-1;
++                    elsif Sleep_Timer_Rise='1' then
++                        if Diag_NMI_Count=1 and Diag_NMI_Arm='0' then
++                            Diag_NMI_Count<=to_unsigned(15,4);Diag_NMI_Arm<='1';
++                        else Diag_NMI_Count<=Diag_NMI_Count-1;end if;
++                    end if;
++                end if;
++                if DIAGNOSTICS and Diag_Active='1' and Diag_NMI_Arm='1' and Diag_NMI_Count=0 and HALT_i='0' then
++                    if Diag_Select=x"D7" then Diag_NMI_Count<=to_unsigned(15,4);
++                    else Diag_NMI_Count<=to_unsigned(8,4);end if;Diag_NMI_Arm<='0';
+                 end if;
+                 if Extension_State_i='0' then
+                     Diag_Select<=x"FF";Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+@@ -260,11 +285,12 @@
+                 if IORQ='1' and Write='1' and A_i=x"E7E7" and TState="011" then
+                     if Core_DO=x"A5" or Core_DO=x"5A" or Core_DO=x"00" then Diag_Select<=x"FF";
+                     elsif Extension_State_i='1' then
+-                        if Core_DO(7 downto 4)=x"C" or (DIAGNOSTICS and Diag_Active='1' and Core_DO(7 downto 4)=x"E") then Diag_Select<=Core_DO;
++                        if Core_DO(7 downto 4)=x"C" or Core_DO(7 downto 4)=x"F" or (DIAGNOSTICS and Diag_Active='1' and Core_DO(7 downto 4)=x"E") then Diag_Select<=Core_DO;
+                         elsif DIAGNOSTICS then
+                             case Core_DO is
+                             when x"D8"=>Diag_Active<='1';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+                             when x"D1"=>if Diag_Active='1' then Diag_IRQ<='1';end if;
++                            when x"D7"=>if Diag_Active='1' then Diag_Select<=x"D7";Diag_NMI_Arm<='1';end if;
+                             when x"D3"=>if Diag_Active='1' then Diag_Select<=x"D3";Diag_NMI_Arm<='1';end if;
+                             when x"D2"=>if Diag_Active='1' then Diag_NMI_Arm<='1';end if;
+                             when x"D4"=>Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+--- a/fpga/src/memory_ez80.v
++++ b/fpga/src/memory_ez80.v
+@@ -2,7 +2,9 @@
+ 
+ // v33: dedicated CPU slots, four-phase held request/acknowledge.
+ // VDP slots and refresh selection retain the original schedule.
+-module memory_ctrl_ez80 (
++module memory_ctrl_ez80 #(parameter SLEEP_REFRESH=0) (
++    input wire cpu_sleep,
++    output wire sleep_timer,
+     input wire ext_req, ext_write,
+     input wire [22:0] ext_addr,
+     input wire [7:0] ext_din,
+@@ -236,6 +238,21 @@
+     reg [7:0]  RamDbi;
+     reg [1:0] ff_mem_seq;
+     reg [15:0] FreeCounter = 0;
++    // R20.1: keep video slots intact; only an idle legacy CPU slot is eligible.
++    // The existing 27MHz FreeCounter supplies the 256-count refresh cadence.
++    assign sleep_timer=FreeCounter[15];
++    reg sleep_meta=0,sleep_sync=0,sleep_refresh_pending=0;
++    wire sleep_refresh_slot = SLEEP_REFRESH && sleep_sync && sleep_refresh_pending &&
++        video_dlclk && !enable_sdram && !mapper_req && !megaram_req && !ext_running;
++    always @(posedge clk_108m or negedge bus_reset_n) begin
++        if(!bus_reset_n)begin sleep_meta<=0;sleep_sync<=0;sleep_refresh_pending<=0;end
++        else begin
++            sleep_meta<=SLEEP_REFRESH && cpu_sleep;sleep_sync<=sleep_meta;
++            if(!sleep_sync || RstSeq[4:3]!=2'b11) sleep_refresh_pending<=0;
++            else if(ff_mem_seq==0 && FreeCounter[7:0]==0) sleep_refresh_pending<=1;
++            else if(ff_sdr_seq==7 && !video_dhclk && sleep_refresh_slot) sleep_refresh_pending<=0;
++        end
++    end
+ 
+ //    ----------------------------------------------------------------
+ //    -- SDRAM access
+@@ -303,6 +320,9 @@
+ //            else if( RstSeq[4:3] != 2'b11 ) begin
+ //                SdrSta <= 3'b101;                                                //-- Write (Initialize memory content)
+ //            end
++            else if(sleep_refresh_slot)begin
++                SdrSta<=3'b010;
++            end
+             else if( bus_rfsh_n == 0 && video_dlclk == 1 ) begin
+                 SdrSta <= 3'b010;                                                //-- refresh
+             end
+--- a/fpga/top_ez80.v
++++ b/fpga/top_ez80.v
+@@ -511,6 +511,7 @@
+     wire bus_rd_n;
+     wire bus_wr_n;
+     wire bus_rfsh_n;
++    wire cpu_sleep_state,sleep_timer;
+     reg [7:0] cpu_din;
+     wire [7:0] cpu_dout;
+     wire bus_mreq_disable;
+@@ -834,6 +835,7 @@
+         .RD_n      (bus_rd_n),
+         .WR_n      (bus_wr_n),
+         .RFSH_n    (bus_rfsh_n),
++        .CPU_Sleep(cpu_sleep_state),.Sleep_Timer(sleep_timer),
+         .HALT_n    ( ),
+         .BUSAK_n   ( ),
+         .A         (cpu_addr16),
+@@ -1240,7 +1242,7 @@
+ reg [15:0] VrmDbi2;
+ reg [7:0] megaram_dout;
+ 
+-memory_ctrl_ez80 mem1 (
++memory_ctrl_ez80 #(.SLEEP_REFRESH(1)) mem1 (
+     .ext_req(ext_ram_req), .ext_write(ext_ram_write), .ext_addr(ext_ram_addr),
+     .ext_din(ext_ram_din), .ext_done(ext_ram_done), .ext_dout(ext_ram_dout),
+     .clk_27m(clk_54m),
+@@ -1260,6 +1262,7 @@
+     .vram_write(~WeVdp_n),
+     .vram_addr(VdpAdr),
+     .bus_rfsh_n(bus_rfsh_n),
++    .cpu_sleep(cpu_sleep_state),.sleep_timer(sleep_timer),
+ 
+     .mapper_dout(mapper_dout),
+     .megaram_dout(megaram_dout),

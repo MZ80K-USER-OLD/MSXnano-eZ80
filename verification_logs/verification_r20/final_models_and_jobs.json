@@ -1,0 +1,73 @@
+{
+  "jobs": [
+    [
+      "sleep_com_r20",
+      0
+    ],
+    [
+      "im0_r19",
+      0
+    ],
+    [
+      "prefix_r19_1",
+      0
+    ],
+    [
+      "prefix_com_r19_1",
+      0
+    ],
+    [
+      "im0_com_r19",
+      0
+    ],
+    [
+      "rst_r18",
+      0
+    ],
+    [
+      "mixed_r14",
+      0
+    ],
+    [
+      "im0_edges_r19",
+      0
+    ],
+    [
+      "rst_interrupt_r18",
+      0
+    ],
+    [
+      "irq_unit_r19",
+      0
+    ],
+    [
+      "mem_r4",
+      0
+    ],
+    [
+      "rw_diag_r18_3",
+      0
+    ],
+    [
+      "board_r18_3",
+      0
+    ],
+    [
+      "rst_com_r18",
+      0
+    ],
+    [
+      "locked_r18_3",
+      0
+    ],
+    [
+      "vhdl93_r11_1",
+      0
+    ]
+  ],
+  "models": {
+    "cpu_0.v": "64a06a3a172b6035bc4a4b4d40e1c78ea2966fa980703449c6694bf51fa46824",
+    "cpu_1.v": "400f2f3bae3e7a3c0c2be183a162465e755e29ec4b8bd2da17d70201a94d50e0",
+    "cpu_diag.v": "c46f4302c77dd50625a41c95ff45adaf876de1170314a6b64239740707cb7077"
+  }
+}

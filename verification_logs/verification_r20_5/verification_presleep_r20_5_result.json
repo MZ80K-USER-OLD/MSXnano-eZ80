@@ -1,0 +1,21 @@
+{
+  "fresh_runs": 3,
+  "cases": [
+    {
+      "fault": 0,
+      "run": 1,
+      "output": "CASE 0\nCOM stage 0 time=399870000\nEZ80SP0 R20.3 PRE-SLP: PASS\nPASS diag_r20_2 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=49 WAIT_ticks=5177\n/workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/sim/tb_presleep_r20_5.sv:177: $finish called at 3557590000 (1ps)\n"
+    },
+    {
+      "fault": 1,
+      "run": 1,
+      "output": "CASE 0\nCOM stage 0 time=399870000\nEZ80SP0 R20.3 PRE-SLP: FAIL stage 0\nADDR=0A6004 EXP=3E ACT=3F\nPASS diag_r20_2 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=0 WAIT_ticks=2498\n/workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/sim/tb_presleep_r20_5.sv:177: $finish called at 2941490000 (1ps)\n"
+    },
+    {
+      "fault": 0,
+      "run": 0,
+      "output": "EZ80SP0 R20.3 PRE-SLP: READY (use /RUN)\nPASS diag_r20_2 phase=0 fault=0 extended=1 cpu_div=16 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/sim/tb_presleep_r20_5.sv:177: $finish called at 831010000 (1ps)\n"
+    }
+  ],
+  "physical_failure_reproduced": false
+}

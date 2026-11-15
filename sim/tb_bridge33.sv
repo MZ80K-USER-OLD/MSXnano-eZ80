@@ -12,8 +12,28 @@ module tb_bridge33;
     wire [7:0] di,wd;
     reg done=0;
     reg [7:0] ramdata=0;
-    ez80_memory_bridge #(.REQUEST_BANK_QUALIFIED(QUALIFIED)) dut(clk,reset_n,a,mr,io,rf,rd,wr,dout,
-        mm,ma,ext,wait_n,di,req,rw,ra,wd,done,ramdata,16'h0000,1'b0);
+    ez80_memory_bridge #(.REQUEST_BANK_QUALIFIED(QUALIFIED)) dut(.clk(clk),
+        .reset_n(reset_n),
+        .cpu_addr(a),
+        .cpu_mreq_n(mr),
+        .cpu_iorq_n(io),
+        .cpu_rfsh_n(rf),
+        .cpu_rd_n(rd),
+        .cpu_wr_n(wr),
+        .cpu_dout(dout),
+        .msx_mreq_n(mm),
+        .msx_addr(ma),
+        .extended_cycle(ext),
+        .wait_n(wait_n),
+        .cpu_din(di),
+        .ram_req(req),
+        .ram_write(rw),
+        .ram_addr(ra),
+        .ram_din(wd),
+        .ram_done(done),
+        .ram_dout(ramdata),
+        .cpu_msx_addr(16'h0000),
+        .cpu_extended_window(1'b0));
     integer bank,k,op,checks=0,timeout;
     reg [15:0] offset[0:7];
     reg [22:0] expected;

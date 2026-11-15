@@ -589,7 +589,15 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 499,
+                "InstLine": 494,
+                "InstName": "trace_mux",
+                "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/ez80_trace_mux.v",
+                "ModuleLine": 3,
+                "ModuleName": "ez80_trace_mux"
+            },
+            {
+                "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
+                "InstLine": 504,
                 "InstName": "memory_bridge",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/ez80_memory_bridge.v",
                 "ModuleLine": 3,
@@ -597,7 +605,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 597,
+                "InstLine": 603,
                 "InstName": "dock_joystick1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/msxnano_dock_joystick.vhd",
                 "ModuleLine": 30,
@@ -605,7 +613,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 809,
+                "InstLine": 815,
                 "InstName": "cpu1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/g80a_ez80.vhd",
                 "ModuleLine": 69,
@@ -613,7 +621,7 @@
                 "SubInsts": [
                     {
                         "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/g80a_ez80.vhd",
-                        "InstLine": 284,
+                        "InstLine": 309,
                         "InstName": "u0",
                         "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
                         "ModuleLine": 73,
@@ -637,7 +645,7 @@
                             },
                             {
                                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-                                "InstLine": 1706,
+                                "InstLine": 1713,
                                 "InstName": "Regs",
                                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_reg_ez80.vhd",
                                 "ModuleLine": 61,
@@ -649,7 +657,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1033,
+                "InstLine": 1040,
                 "InstName": "bios1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/bios_msx2p.v",
                 "ModuleLine": 1,
@@ -657,7 +665,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1058,
+                "InstLine": 1065,
                 "InstName": "subrom1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/subrom_msx2p.v",
                 "ModuleLine": 1,
@@ -665,7 +673,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1074,
+                "InstLine": 1081,
                 "InstName": "logo1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/logo_fm.v",
                 "ModuleLine": 1,
@@ -673,7 +681,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1100,
+                "InstLine": 1107,
                 "InstName": "rtc1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/ocm/rtc.v",
                 "ModuleLine": 53,
@@ -691,7 +699,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1126,
+                "InstLine": 1133,
                 "InstName": "vdp4",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/tn_vdp_v3_v9958/src/v9958_top.v",
                 "ModuleLine": 3,
@@ -1147,7 +1155,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1243,
+                "InstLine": 1250,
                 "InstName": "mem1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/memory_ez80.v",
                 "ModuleLine": 5,
@@ -1155,7 +1163,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1316,
+                "InstLine": 1323,
                 "InstName": "psg1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/PSG_YM2149/YM2149.vhdl",
                 "ModuleLine": 62,
@@ -1163,7 +1171,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1350,
+                "InstLine": 1357,
                 "InstName": "filter1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/psg_filter.v",
                 "ModuleLine": 1,
@@ -1205,7 +1213,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1366,
+                "InstLine": 1373,
                 "InstName": "opll",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/jtopl/jt2413.v",
                 "ModuleLine": 22,
@@ -1543,7 +1551,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1425,
+                "InstLine": 1432,
                 "InstName": "SccCh",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/ocm/scc_wave2.vhd",
                 "ModuleLine": 79,
@@ -1569,7 +1577,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1465,
+                "InstLine": 1472,
                 "InstName": "megaram1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/megaram.v",
                 "ModuleLine": 1,
@@ -1577,7 +1585,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1588,
+                "InstLine": 1595,
                 "InstName": "mono",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/monostable/monostable.vhd",
                 "ModuleLine": 7,
@@ -1585,7 +1593,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1700,
+                "InstLine": 1707,
                 "InstName": "flash1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/wondertang/flash.v",
                 "ModuleLine": 2,
@@ -1593,7 +1601,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1832,
+                "InstLine": 1839,
                 "InstName": "dpram1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/wondertang/dpram.v",
                 "ModuleLine": 1,
@@ -1601,7 +1609,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1851,
+                "InstLine": 1858,
                 "InstName": "sd1",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/wondertang/sd_reader.sv",
                 "ModuleLine": 11,
@@ -1627,7 +1635,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 1999,
+                "InstLine": 2006,
                 "InstName": "ocm_ports",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/ocm/swioports.vhd",
                 "ModuleLine": 38,
@@ -1635,7 +1643,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 2020,
+                "InstLine": 2027,
                 "InstName": "mono2",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/monostable/monostable.vhd",
                 "ModuleLine": 7,
@@ -1643,7 +1651,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 2026,
+                "InstLine": 2033,
                 "InstName": "debug",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/msx2p_debug.v",
                 "ModuleLine": 6,
@@ -1661,7 +1669,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 2071,
+                "InstLine": 2078,
                 "InstName": "ps2_hid_bridge_inst",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/usb/ps2_hid_bridge.vhd",
                 "ModuleLine": 14,
@@ -1669,7 +1677,7 @@
             },
             {
                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/top_ez80.v",
-                "InstLine": 2084,
+                "InstLine": 2091,
                 "InstName": "usb_keyboard_msx",
                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/src/usb/usb_keyboard_msx.vhd",
                 "ModuleLine": 9,

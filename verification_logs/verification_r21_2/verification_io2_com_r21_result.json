@@ -1,0 +1,113 @@
+{
+  "fresh_runs": 7,
+  "expected_failure_runs": 0,
+  "cases": [
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "CASE 0\nCOM stage 0 time=106210000\nCASE 1\nCOM stage 1 time=494450000\nCASE 2\nCOM stage 2 time=886290000\nCASE 3\nCOM stage 3 time=1274610000\nCASE 4\nCOM stage 4 time=1666450000\nCASE 5\nCOM stage 5 time=2112050000\nCASE 6\nCOM stage 6 time=2561170000\nCASE 7\nCOM stage 7 time=3006770000\nCASE 8\nCOM stage 8 time=3455890000\nCASE 9\nCOM stage 9 time=3847730000\nCASE 10\nCOM stage A time=4247410000\nCASE 11\nCOM stage B time=4643570000\nCASE 12\nCOM stage C time=5043250000\nCASE 13\nCOM stage D time=5496690000\nCASE 14\nCOM stage E time=5953650000\nCASE 15\nCOM stage F time=6407090000\nEZ80IO2 R21: PASS\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=752 WAIT_ticks=46844\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 6914770000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        7,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "CASE 0\nCOM stage 0 time=567250000\nCASE 1\nCOM stage 1 time=2495050000\nCASE 2\nCOM stage 2 time=4438450000\nCASE 3\nCOM stage 3 time=6364450000\nCASE 4\nCOM stage 4 time=8308450000\nCASE 5\nCOM stage 5 time=10513450000\nCASE 6\nCOM stage 6 time=12737650000\nCASE 7\nCOM stage 7 time=14944150000\nCASE 8\nCOM stage 8 time=17168050000\nCASE 9\nCOM stage 9 time=19108150000\nCASE 10\nCOM stage A time=21090250000\nCASE 11\nCOM stage B time=23058550000\nCASE 12\nCOM stage C time=25043350000\nCASE 13\nCOM stage D time=27286750000\nCASE 14\nCOM stage E time=29545750000\nCASE 15\nCOM stage F time=31792150000\nEZ80IO2 R21: PASS\nPASS io2_com_r21 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=752 WAIT_ticks=71024\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 34323250000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "CASE 0\nCOM stage 0 time=106210000\nEZ80IO2 R21: FAIL stage 0\nADDR=0A8100 EXP=E7 ACT=E6\nPASS io2_com_r21 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=42 WAIT_ticks=2544\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 751090000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "output": "EZ80IO2 R21: UNSUPPORTED\nPASS io2_com_r21 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 173890000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "output": "EZ80IO2 R21: READY (use /RUN)\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 177330000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "output": "EZ80IO2 R21: NOT READY\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 175890000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "output": "EZ80IO2 R21: NOT READY\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 171250000 (1ps)\n"
+    }
+  ],
+  "COM_sha256": "1ad62878905f2ea477ef6518c55996929ddafc1356a2fab239c299a5ef4c251f",
+  "actual_COM_bytes": true,
+  "board_bridge_SDRAM_model": true,
+  "BDOS_stub_deliberately_EI": true,
+  "no_MSX_vector_writes": true,
+  "private_16_IO2_cases": true,
+  "DOS_real_IM1_IRQ": true,
+  "old_feature_and_no_diagnostics_guard": true,
+  "sha256": {
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "4296b2e9db28aba0e3e0d02fcd9f0311544a56e068eaadb00d59291931dd85f0",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "5b7f16add7b2ff3c3f6d9f632d7b0933d32ba6ae5b8477b8962e9902c37265c1",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "e4201fc9db82dc003eb4a0710abe0c8b4dcccd6f8449f5c5b15a4bef2b3ce4ac",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "c789c1752b80f5c0b8cefcdf6d5cb21a97d908b1ddf66f312f2ff399ec2f6534"
+  }
+}

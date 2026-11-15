@@ -191,7 +191,7 @@ begin
         process (IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
                 variable DDD : std_logic_vector(2 downto 0);
                 variable SSS : std_logic_vector(2 downto 0);
-                variable Tst_Active, Indexed_Pair_Active : boolean;
+                variable Tst_Active, Indexed_Pair_Active, Block_IO2 : boolean;
                 variable DPair : std_logic_vector(1 downto 0);
                 variable lastaddr, countdata, cycle : integer;
                 variable pairnum : std_logic_vector(1 downto 0);
@@ -202,6 +202,10 @@ begin
                 SSS := IR(2 downto 0);
                 DPair := IR(5 downto 4);
                 IRB := to_bitvector(IR);
+                Block_IO2:=Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
+                    Write_Class(7 downto 4)=x"C";
+                -- R21.1: IRB remains the raw opcode for every instruction page.
+                -- Recognize IO2 only in its ED rows, avoiding a global opcode mux.
 
                 Tst_Active := Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
                     ((IR(7 downto 6)="00" and IR(2 downto 0)="100") or IR=x"64");
@@ -1593,12 +1597,12 @@ begin
                                 |"00111000"|"00111001"|"00111010"|"00111011"|"00111101"
 
 
-                                |"10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000110"|"10000111"
-                                |"10001000"|"10001001"|"10001010"|"10001011"|"10001100"|"10001101"|"10001110"|"10001111"
+                                |"10000000"|"10000001"|"10000010"|"10000011"|"10000101"|"10000110"|"10000111"
+                                |"10001000"|"10001001"|"10001010"|"10001011"|"10001101"|"10001110"|"10001111"
                                 |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010110"|"10010111"
                                 |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011110"|"10011111"
-                                |                                            "10100100"|"10100101"|"10100110"|"10100111"
-                                |                                            "10101100"|"10101101"|"10101110"|"10101111"
+                                |"10100101"|"10100110"|"10100111"
+                                |"10101101"|"10101110"|"10101111"
                                 |                                            "10110100"|"10110101"|"10110110"|"10110111"
                                 |                                            "10111100"|"10111101"|"10111110"|"10111111"
                                 |"11000000"|           "11000010"|           "11000100"|"11000101"|"11000110"|"11000111"
@@ -1794,9 +1798,13 @@ begin
                         when "01000110"|"01001110"|"01100110"|"01101110" =>
                                 -- IM 0
                                 IMode <= "00";
-                        when "01010110"|"01110110" =>
-                                -- IM 1
+                        when "01010110" =>
+                                -- IM 1 (ED56)
                                 IMode <= "01";
+                        when "01110110" =>
+                                -- R20.6: SLP unsupported, execute as NOP when unlocked.
+                                -- Locked Z80 retains its original ED76 IM1 alias.
+                                if Ext_Active='0' then IMode <= "01";end if;
                         when "01011110"|"01110111" =>
                                 -- IM 2
                                 IMode <= "10";
@@ -1952,17 +1960,20 @@ begin
                                         IORQ <= '1';
                                 when others =>
                                 end case;
-                        when "10100010" | "10101010" | "10110010" | "10111010" =>
-                                -- INI, IND, INIR, INDR
-                                MCycles <= "100";
+                        when "10100010" | "10101010" | "10110010" | "10111010" | "10000100" | "10001100" =>
+                                -- INI, IND, INIR, INDR; unlocked INI2/IND2.
+                                if IR(2)='0' or Block_IO2 then
+                                MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
                                 case to_integer(unsigned(MCycle)) is
                                 when 1 =>
                                         Set_Addr_To <= aBC;
+                                        if not Block_IO2 then
                                         Set_BusB_To <= "1010";
                                         Set_BusA_To <= "0000";
                                         Read_To_Reg <= '1';
                                         Save_ALU <= '1';
                                         ALU_Op <= "0010";
+                                        end if;
                                 when 2 =>
                                         IORQ <= '1';
                                         Set_BusB_To <= "0110";
@@ -1975,24 +1986,39 @@ begin
                                         end if;
                                         TStates <= "100";
                                         Legacy_Write <= '1';
-                                        I_BTR <= '1';
+                                        if not Block_IO2 then I_BTR <= '1';end if;
                                 when 4 =>
-                                        NoRead <= '1';
-                                        TStates <= "101";
+                                        NoRead <= '1';TStates <= "101";
+                                        if Block_IO2 then
+                                            Set_BusA_To<="0000";Set_BusB_To<="1010";ALU_Op<="0010";
+                                            Read_To_Reg<='1';Save_ALU<='1';
+                                        end if;
+                                when 5 =>
+                                        NoRead<='1';
+                                        if Block_IO2 then
+                                            Set_BusA_To<="0001";Set_BusB_To<="1010";
+                                            if IR(3)='0' then ALU_Op<="0000";else ALU_Op<="0010";end if;
+                                            Read_To_Reg<='1';Save_ALU<='1';
+                                        end if;
+                                when 6 => NoRead<='1';
                                 when others => null;
                                 end case;
-                        when "10100011" | "10101011" | "10110011" | "10111011" =>
-                                -- OUTI, OUTD, OTIR, OTDR
-                                MCycles <= "100";
+                        end if;
+                        when "10100011" | "10101011" | "10110011" | "10111011" | "10100100" | "10101100" =>
+                                -- OUTI, OUTD, OTIR, OTDR; unlocked OUTI2/OUTD2.
+                                if IR(2)='0' or Block_IO2 then
+                                MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
                                 case to_integer(unsigned(MCycle)) is
                                 when 1 =>
                                         TStates <= "101";
                                         Set_Addr_To <= aXY;
+                                        if not Block_IO2 then
                                         Set_BusB_To <= "1010";
                                         Set_BusA_To <= "0000";
                                         Read_To_Reg <= '1';
                                         Save_ALU <= '1';
                                         ALU_Op <= "0010";
+                                        end if;
                                 when 2 =>
                                         Set_BusB_To <= "0110";
                                         Set_Addr_To <= aBC;
@@ -2004,12 +2030,24 @@ begin
                                         end if;
                                         IORQ <= '1';
                                         Legacy_Write <= '1';
-                                        I_BTR <= '1';
+                                        if not Block_IO2 then I_BTR <= '1';end if;
                                 when 4 =>
-                                        NoRead <= '1';
-                                        TStates <= "101";
+                                        NoRead <= '1';TStates <= "101";
+                                        if Block_IO2 then
+                                            Set_BusA_To<="0000";Set_BusB_To<="1010";ALU_Op<="0010";
+                                            Read_To_Reg<='1';Save_ALU<='1';
+                                        end if;
+                                when 5 =>
+                                        NoRead<='1';
+                                        if Block_IO2 then
+                                            Set_BusA_To<="0001";Set_BusB_To<="1010";
+                                            if IR(3)='0' then ALU_Op<="0000";else ALU_Op<="0010";end if;
+                                            Read_To_Reg<='1';Save_ALU<='1';
+                                        end if;
+                                when 6 => NoRead<='1';
                                 when others => null;
                                 end case;
+                                end if;
                         when "11000001"|"11001001"|"11010001"|"11011001" =>
                                 --R800 MULUB
                                 null;
@@ -2020,7 +2058,7 @@ begin
 
                 end case;
 
-                if not Indexed_Pair_Active then
+                if not Indexed_Pair_Active and not Block_IO2 then
                 if Mode = 1 then
                         if MCycle = "001" then
 --                              TStates <= "100";

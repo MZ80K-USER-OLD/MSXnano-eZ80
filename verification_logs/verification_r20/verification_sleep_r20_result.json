@@ -1,0 +1,198 @@
+{
+  "fresh_runs": 244,
+  "expected_failure_runs": 1,
+  "profiles": [
+    {
+      "profile": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 1,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 1,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        2,
+        1,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        3,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        3,
+        1,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        4,
+        0,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        4,
+        1,
+        1,
+        0,
+        0
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "fresh_runs": 1,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "fresh_runs": 1,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        2,
+        0,
+        1,
+        0,
+        1
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        2,
+        1,
+        1,
+        0,
+        1
+      ],
+      "fresh_runs": 20,
+      "expected_failure_runs": 0
+    },
+    {
+      "profile": [
+        2,
+        0,
+        1,
+        1,
+        0
+      ],
+      "fresh_runs": 0,
+      "expected_failure_runs": 1
+    }
+  ],
+  "production_reset_only": true,
+  "IRQ_NMI_do_not_wake": true,
+  "WAIT_CEN_BUSRQ": true,
+  "PC_boundary": true,
+  "SDRAM_VDP_clock_stopped": false
+}

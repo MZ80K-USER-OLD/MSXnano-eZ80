@@ -3,7 +3,8 @@
 module ez80_memory_bridge #(
     // Enable only with the R11.1 wrapper, which forces bank zero for I/O/IACK/refresh.
     parameter REQUEST_BANK_QUALIFIED = 0,
-    parameter PREDECODED_MSX = 0
+    parameter PREDECODED_MSX = 0,
+    parameter TRACE_MEMORY = 0
 ) (
     input wire clk, reset_n,
     input wire [23:0] cpu_addr,
@@ -22,7 +23,8 @@ module ez80_memory_bridge #(
     input wire [7:0] ram_dout,
     // Only enable PREDECODED_MSX with the R11.3 wrapper's registered outputs.
     input wire [15:0] cpu_msx_addr,
-    input wire cpu_extended_window
+    input wire cpu_extended_window,
+    output wire [63:0] memory_trace
 );
     wire [7:0] bank = cpu_addr[23:16];
     wire extended_window = PREDECODED_MSX ? cpu_extended_window : bank != 8'h00 &&
@@ -44,6 +46,19 @@ module ez80_memory_bridge #(
     reg [1:0] state;
     reg done_meta, done_sync;
     reg [7:0] result;
+    // R21.2 observation only: retain the last accepted extended write.
+    // The read record reuses the existing request address/result registers.
+    generate if (TRACE_MEMORY) begin: trace_memory
+        reg [30:0] last_write;
+        always @(posedge clk or negedge reset_n) begin
+            if (!reset_n) last_write<=0;
+            else if (state==IDLE && extended_cycle && mapped && !done_sync && !cpu_wr_n)
+                last_write<={physical_addr,cpu_dout};
+        end
+        assign memory_trace={1'b0,ram_addr,result,1'b0,last_write};
+    end else begin: no_trace_memory
+        assign memory_trace=64'b0;
+    end endgenerate
     // ram_dout is held by the memory controller until the next request.
     always @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin done_meta<=0; done_sync<=0; end

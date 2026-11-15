@@ -49,6 +49,7 @@
         <File path="D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\src\megaram.v" type="verilog"/>
         <File path="D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\src\memory_ez80.v" type="verilog"/>
         <File path="D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\src\ez80_memory_bridge.v" type="verilog"/>
+        <File path="D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\src\ez80_trace_mux.v" type="verilog"/>
         <File path="D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\src\msx2p_debug.v" type="verilog"/>
         <File path="D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\src\ocm\rtc.v" type="verilog"/>
         <File path="D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\src\psg_filter.v" type="verilog"/>

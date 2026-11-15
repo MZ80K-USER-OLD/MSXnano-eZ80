@@ -1,0 +1,116 @@
+{
+  "fresh_runs": 7,
+  "expected_failure_runs": 0,
+  "cases": [
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "COM stage 0 time=50770000\nCOM stage 1 time=754050000\nEZ80REF R20.1: PASS\nPASS refresh_com_r20_1 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=106 WAIT_ticks=6012\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_com_r20_1.sv:154: $finish called at 1579730000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        7,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "COM stage 0 time=269950000\nCOM stage 1 time=2551750000\nEZ80REF R20.1: PASS\nPASS refresh_com_r20_1 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=106 WAIT_ticks=9351\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_com_r20_1.sv:154: $finish called at 5495950000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "COM stage 0 time=50770000\nEZ80REF R20.1: FAIL stage 0\nADDR=0A8100 EXP=D7 ACT=D6\nPASS refresh_com_r20_1 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=53 WAIT_ticks=2968\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_com_r20_1.sv:154: $finish called at 1101490000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "output": "EZ80REF R20.1: UNSUPPORTED\nPASS refresh_com_r20_1 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_com_r20_1.sv:154: $finish called at 182530000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "output": "EZ80REF R20.1: READY (use /RUN)\nPASS refresh_com_r20_1 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_com_r20_1.sv:154: $finish called at 185970000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "output": "EZ80REF R20.1: NOT READY\nPASS refresh_com_r20_1 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_com_r20_1.sv:154: $finish called at 184530000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "output": "EZ80REF R20.1: NOT READY\nPASS refresh_com_r20_1 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_refresh_com_r20_1.sv:154: $finish called at 179890000 (1ps)\n"
+    }
+  ],
+  "COM_sha256": "519e64bf807e884d32f0baa2f08da0dc3217eefa7e0420b8129095f90e896090",
+  "actual_COM_bytes": true,
+  "board_bridge_SDRAM_model": true,
+  "BDOS_stub_deliberately_EI": true,
+  "no_MSX_vector_writes": true,
+  "private_2_sleep_cases": true,
+  "simulation_sleep_timer_acceleration": 256,
+  "diagnostic_escape_used": true,
+  "reset_wake_tested_in_CPU_unit": true,
+  "DOS_real_IM1_IRQ": true,
+  "old_feature_and_no_diagnostics_guard": true,
+  "sha256": {
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "9cf96092ff1a8d2ff9c1971c2116872e3a369ac4faa35bd13a59925aa8acedb0",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "d0c47102874c58a6ab968908646c12fa4be63c188414691fde96724f22c3c9b3",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "075bf4c4d34ff3231a432f069e54398810064f33b35e74c76eebdfd8d139f1bc",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "a3f6fdf9f4e2cb8e6d977b7050b34c1a3d188162ce5238027d95ae3e10e651c6"
+  }
+}

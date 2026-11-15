@@ -1,0 +1,2 @@
+PASS memory_compat33 phase=2 compared video-slot pins within total edges=122884
+/workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/sim/tb_vdp_schedule_r20_5.sv:74: $finish called at 1230680000 (1ps)

@@ -1,0 +1,106 @@
+{
+  "fresh_runs": 8,
+  "cases": [
+    {
+      "case": [
+        4,
+        3,
+        1,
+        0,
+        1,
+        0
+      ],
+      "output": "EZ80RW2 START\nCOM stage R time=200870000\nEZ80RW2 REG PASS\nCOM stage F time=505670000\nEZ80RW2 SELF EXP=31 ACT=31\nCOM stage P time=763270000\nEZ80RW2 PATTERNS 0A6000\nEXP=31 IND=31 ABS=31\nEXP=33 IND=33 ABS=33\nEXP=00 IND=00 ABS=00\nEXP=01 IND=01 ABS=01\nEXP=02 IND=02 ABS=02\nEXP=03 IND=03 ABS=03\nEXP=55 IND=55 ABS=55\nEXP=AA IND=AA ABS=AA\nEXP=FF IND=FF ABS=FF\nCOM stage 1 time=2797670000\nEZ80RW2 1 INDIRECT WRITE\nCOM stage 2 time=3164230000\nEZ80RW2 2 ABSOLUTE WRITE\nCOM stage 3 time=3524150000\nEZ80RW2 3 BLOCK NO DOS\nCOM stage 4 time=4108550000\nEZ80RW2 4 BLOCK AFTER DOS\nCOM stage 5 time=4560870000\nEZ80RW2 5 CALL CHECKER\nCOM stage 6 time=5044710000\nEZ80RW2 6 ADDRESS ALIASES\nCOM stage 7 time=5331030000\nEZ80RW2 7 WINDOW OFF\nCOM stage 8 time=5903750000\nEZ80RW2 8 WINDOW ON\nEZ80RW2 8 AFTER DOS\nCOM stage 9 time=6647830000\nEZ80RW2 9 ORIGINAL ORDER\nCOM stage A time=7243990000\nEZ80RW2 A ORIGINAL AFTER DOS\nEZ80RW2 R18.2: PASS\nPASS rw_diag_r18_2 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=6985\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 7885270000 (1ps)\n"
+    },
+    {
+      "case": [
+        16,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "output": "EZ80RW2 START\nCOM stage R time=562330000\nEZ80RW2 REG PASS\nCOM stage F time=1418010000\nEZ80RW2 SELF EXP=31 ACT=31\nCOM stage P time=2140570000\nEZ80RW2 PATTERNS 0A6000\nEXP=31 IND=31 ABS=31\nEXP=33 IND=33 ABS=33\nEXP=00 IND=00 ABS=00\nEXP=01 IND=01 ABS=01\nEXP=02 IND=02 ABS=02\nEXP=03 IND=03 ABS=03\nEXP=55 IND=55 ABS=55\nEXP=AA IND=AA ABS=AA\nEXP=FF IND=FF ABS=FF\nCOM stage 1 time=7827290000\nEZ80RW2 1 INDIRECT WRITE\nCOM stage 2 time=8844250000\nEZ80RW2 2 ABSOLUTE WRITE\nCOM stage 3 time=9838170000\nEZ80RW2 3 BLOCK NO DOS\nCOM stage 4 time=11441690000\nEZ80RW2 4 BLOCK AFTER DOS\nCOM stage 5 time=12694490000\nEZ80RW2 5 CALL CHECKER\nCOM stage 6 time=14036890000\nEZ80RW2 6 ADDRESS ALIASES\nCOM stage 7 time=14832090000\nEZ80RW2 7 WINDOW OFF\nCOM stage 8 time=16410330000\nEZ80RW2 8 WINDOW ON\nEZ80RW2 8 AFTER DOS\nCOM stage 9 time=18462810000\nEZ80RW2 9 ORIGINAL ORDER\nCOM stage A time=20100890000\nEZ80RW2 A ORIGINAL AFTER DOS\nEZ80RW2 R18.2: PASS\nPASS rw_diag_r18_2 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=0 WAIT_ticks=11110\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 21884890000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "output": "EZ80RW2 START\nCOM stage R time=527190000\nEZ80RW2 REG PASS\nCOM stage F time=1329390000\nEZ80RW2 SELF EXP=31 ACT=31\nCOM stage P time=2006790000\nEZ80RW2 PATTERNS 0A6000\nEXP=31 IND=31 ABS=31\nEXP=33 IND=33 ABS=33\nEXP=00 IND=00 ABS=00\nEXP=01 IND=01 ABS=01\nEXP=02 IND=02 ABS=02\nEXP=03 IND=03 ABS=03\nEXP=55 IND=55 ABS=55\nEXP=AA IND=AA ABS=AA\nEXP=FF IND=FF ABS=FF\nCOM stage 1 time=7334790000\nEZ80RW2 1 INDIRECT WRITE\nCOM stage 2 time=8281890000\nEZ80RW2 2 ABSOLUTE WRITE\nCOM stage 3 time=9205890000\nEZ80RW2 3 BLOCK NO DOS\nCOM stage 4 time=10691790000\nEZ80RW2 4 BLOCK AFTER DOS\nCOM stage 5 time=11859090000\nEZ80RW2 5 CALL CHECKER\nCOM stage 6 time=13117590000\nEZ80RW2 6 ADDRESS ALIASES\nCOM stage 7 time=13859790000\nEZ80RW2 7 WINDOW OFF\nCOM stage 8 time=15322890000\nEZ80RW2 8 WINDOW ON\nEZ80RW2 8 AFTER DOS\nCOM stage 9 time=17229690000\nEZ80RW2 9 ORIGINAL ORDER\nCOM stage A time=18748590000\nEZ80RW2 A ORIGINAL AFTER DOS\nEZ80RW2 R18.2: PASS\nPASS rw_diag_r18_2 phase=0 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=0 WAIT_ticks=9105\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 20413890000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        7,
+        1,
+        0,
+        1,
+        0
+      ],
+      "output": "EZ80RW2 START\nCOM stage R time=752350000\nEZ80RW2 REG PASS\nCOM stage F time=1897750000\nEZ80RW2 SELF EXP=31 ACT=31\nCOM stage P time=2864650000\nEZ80RW2 PATTERNS 0A6000\nEXP=31 IND=31 ABS=31\nEXP=33 IND=33 ABS=33\nEXP=00 IND=00 ABS=00\nEXP=01 IND=01 ABS=01\nEXP=02 IND=02 ABS=02\nEXP=03 IND=03 ABS=03\nEXP=55 IND=55 ABS=55\nEXP=AA IND=AA ABS=AA\nEXP=FF IND=FF ABS=FF\nCOM stage 1 time=10472650000\nEZ80RW2 1 INDIRECT WRITE\nCOM stage 2 time=11828350000\nEZ80RW2 2 ABSOLUTE WRITE\nCOM stage 3 time=13149550000\nEZ80RW2 3 BLOCK NO DOS\nCOM stage 4 time=15277150000\nEZ80RW2 4 BLOCK AFTER DOS\nCOM stage 5 time=16944550000\nEZ80RW2 5 CALL CHECKER\nCOM stage 6 time=18733450000\nEZ80RW2 6 ADDRESS ALIASES\nCOM stage 7 time=19795750000\nEZ80RW2 7 WINDOW OFF\nCOM stage 8 time=21887050000\nEZ80RW2 8 WINDOW ON\nEZ80RW2 8 AFTER DOS\nCOM stage 9 time=24613150000\nEZ80RW2 9 ORIGINAL ORDER\nCOM stage A time=26784850000\nEZ80RW2 A ORIGINAL AFTER DOS\nEZ80RW2 R18.2: PASS\nPASS rw_diag_r18_2 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=0 WAIT_ticks=9705\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 29164750000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "output": "EZ80RW2 START\nCOM stage R time=140770000\nEZ80RW2 REG PASS\nCOM stage F time=354690000\nEZ80RW2 SELF EXP=31 ACT=31\nCOM stage P time=535330000\nEZ80RW2 PATTERNS 0A6000\nEXP=31 IND=33 ABS=33\nEXP=33 IND=31 ABS=31\nEXP=00 IND=02 ABS=02\nEXP=01 IND=03 ABS=03\nEXP=02 IND=00 ABS=00\nEXP=03 IND=01 ABS=01\nEXP=55 IND=57 ABS=57\nEXP=AA IND=A8 ABS=A8\nEXP=FF IND=FD ABS=FD\nCOM stage 1 time=1959410000\nEZ80RW2 1 INDIRECT WRITE\nEZ80RW2 R18.2: FAIL stage 1\nADDR=0A6000 EXP=31 ACT=33\nPASS rw_diag_r18_2 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=0 WAIT_ticks=456\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 2491650000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        2,
+        1,
+        0
+      ],
+      "output": "EZ80RW2 START\nCOM stage R time=140770000\nEZ80RW2 REG PASS\nCOM stage F time=354690000\nEZ80RW2 SELF EXP=31 ACT=31\nCOM stage P time=535330000\nEZ80RW2 PATTERNS 0A6000\nEXP=31 IND=31 ABS=31\nEXP=33 IND=33 ABS=33\nEXP=00 IND=00 ABS=00\nEXP=01 IND=01 ABS=01\nEXP=02 IND=02 ABS=02\nEXP=03 IND=03 ABS=03\nEXP=55 IND=55 ABS=55\nEXP=AA IND=AA ABS=AA\nEXP=FF IND=FF ABS=FF\nCOM stage 1 time=1960530000\nEZ80RW2 1 INDIRECT WRITE\nCOM stage 2 time=2216930000\nEZ80RW2 2 ABSOLUTE WRITE\nCOM stage 3 time=2467650000\nEZ80RW2 3 BLOCK NO DOS\nCOM stage 4 time=2874050000\nEZ80RW2 4 BLOCK AFTER DOS\nEZ80RW2 R18.2: FAIL stage 4\nADDR=0A6000 EXP=31 ACT=33\nPASS rw_diag_r18_2 phase=0 fault=2 extended=1 cpu_div=4 status=2 high_fetch_opcodes=0 WAIT_ticks=2124\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 3407650000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "output": "EZ80RW2 R18.2: READY (use /RUN)\nPASS rw_diag_r18_2 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 186690000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "output": "EZ80RW2 R18.2: NOT READY\nPASS rw_diag_r18_2 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_rw_diag_r18_2.sv:145: $finish called at 180610000 (1ps)\n"
+    }
+  ],
+  "COM_sha256": "d7cc5690f5e117ad7739fc395f4f77d6833705808d1cc9a7514d61f240ba048c",
+  "FPGA_changed": true,
+  "physical_root_cause_confirmed": false,
+  "R18_user_hardware": {
+    "GOWIN_synthesis": "PASS",
+    "EZ80RS8": "freeze and screen-top garbled text",
+    "EZ80RS0_R18_1": "FAIL stage0 ADDR=0A6000 EXP=31 ACT=33"
+  },
+  "BDOS_EI_and_real_IM1_IRQ": true,
+  "no_ADL_execution": true,
+  "no_RST": true,
+  "write_fault_31_to_33_detected": true,
+  "read_fault_after_DOS_31_to_33_detected": true
+}

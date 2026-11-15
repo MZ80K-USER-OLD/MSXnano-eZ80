@@ -1,0 +1,11 @@
+{
+  "profile": [
+    4,
+    0,
+    0,
+    0,
+    1,
+    1
+  ],
+  "output": "EZ80MR3 R21.2 START\nLOCAL EXP=31 ACT=31\nEZ80MR3 R21.2: NOT READY\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_mr3_r21_2.sv:172: $finish called at 400530000 (1ps)\n"
+}

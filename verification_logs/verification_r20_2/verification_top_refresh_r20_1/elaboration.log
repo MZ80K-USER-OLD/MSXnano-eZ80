@@ -1,0 +1,4 @@
+/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/verification_top_refresh_r20_1/top_specialized.v:804: warning: Port 7 (NMI_n) of G80A_eZ80 expects 1 bits, got 32.
+/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/verification_top_refresh_r20_1/top_specialized.v:804:        : Pruning (signed) 31 high bits of the expression.
+/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/verification_top_refresh_r20_1/top_specialized.v:804: warning: Port 8 (BUSRQ_n) of G80A_eZ80 expects 1 bits, got 32.
+/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/verification_top_refresh_r20_1/top_specialized.v:804:        : Pruning (signed) 31 high bits of the expression.

@@ -1,0 +1,2 @@
+FATAL: r20-work/MSXnano_T80_eZ80_restart_R20/sim/tb_sleep_r20.sv:46: SLP skipped after BUSRQ
+       Time: 18890000  Scope: tb_sleep_r20

@@ -1,0 +1,267 @@
+{
+  "fresh_runs": 16,
+  "cases": [
+    {
+      "profile": [
+        "EZ80SL4",
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "PASS",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80SL4",
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "FAIL stage 0",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80SL4",
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "UNSUPPORTED",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80SL4",
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "READY",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80SL4",
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80SL4",
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "PASS",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "FAIL stage 0",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "UNSUPPORTED",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "READY",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "status": "NOT READY",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80SL4",
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "status": "PASS",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": true,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "status": "PASS",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": true,
+      "internal_div30_CPU_clock": false
+    },
+    {
+      "profile": [
+        "EZ80SL4",
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "status": "PASS",
+      "sha256": "acd737f5cc101dcf6dfb78319afff5ef599503ae6f0c372d8ed668602e64bf83",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": true
+    },
+    {
+      "profile": [
+        "EZ80RF4",
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "status": "PASS",
+      "sha256": "026055a5817ff9d95374920e03d91f8f5e57bd2d2eff1a0870f31fc669e3a6f4",
+      "receiver_delay_injected": false,
+      "internal_div30_CPU_clock": true
+    }
+  ],
+  "fractional_external_CPU_clock": true,
+  "SDRAM_model_clock_phase_fixed": true,
+  "PINFILTER_Z_hold_abstraction": true,
+  "external_CPU_clock": true,
+  "long_timer_acceleration": 128,
+  "physical_failure_reproduced": false
+}

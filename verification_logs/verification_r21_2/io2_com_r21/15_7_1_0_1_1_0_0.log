@@ -1,0 +1,35 @@
+CASE 0
+COM stage 0 time=567250000
+CASE 1
+COM stage 1 time=2495050000
+CASE 2
+COM stage 2 time=4438450000
+CASE 3
+COM stage 3 time=6364450000
+CASE 4
+COM stage 4 time=8308450000
+CASE 5
+COM stage 5 time=10513450000
+CASE 6
+COM stage 6 time=12737650000
+CASE 7
+COM stage 7 time=14944150000
+CASE 8
+COM stage 8 time=17168050000
+CASE 9
+COM stage 9 time=19108150000
+CASE 10
+COM stage A time=21090250000
+CASE 11
+COM stage B time=23058550000
+CASE 12
+COM stage C time=25043350000
+CASE 13
+COM stage D time=27286750000
+CASE 14
+COM stage E time=29545750000
+CASE 15
+COM stage F time=31792150000
+EZ80IO2 R21: PASS
+PASS io2_com_r21 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=752 WAIT_ticks=71024
+/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_io2_com_r21.sv:170: $finish called at 34323250000 (1ps)

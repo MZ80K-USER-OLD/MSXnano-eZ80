@@ -1,0 +1,5 @@
+EZ80MR3 R21.2 START
+LOCAL EXP=31 ACT=31
+EZ80MR3 R21.2: UNSUPPORTED
+PASS io2_com_r21 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/r21_2-work/MSXnano_T80_eZ80_restart_R21_2/sim/tb_mr3_r21_2.sv:151: $finish called at 403730000 (1ps)

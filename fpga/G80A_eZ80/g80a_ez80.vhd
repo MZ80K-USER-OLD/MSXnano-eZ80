@@ -97,14 +97,17 @@ entity G80A_eZ80 is
         DO           : out std_logic_vector(7 downto 0);
         Data_Reverse: out std_logic;
         A_MSX : out std_logic_vector(15 downto 0);
-        Extended_Window : out std_logic
+        Extended_Window : out std_logic;
+        Trace_Data : in std_logic_vector(7 downto 0);
+        Trace_Select : out std_logic_vector(3 downto 0)
     );
 end G80A_eZ80;
 
 architecture rtl of G80A_eZ80 is
 
     signal Diag_Select : std_logic_vector(7 downto 0);
-    signal Diag_Read : std_logic_vector(7 downto 0);
+    signal Diag_Read, Diag_IO_Signature : std_logic_vector(7 downto 0);
+    signal Diag_IO_Cycle : std_logic;
     signal Diag_Active, Diag_IRQ, Diag_NMI_Arm, HALT_i : std_logic;
     signal Diag_NMI_Count : unsigned(3 downto 0);
     signal INT_Input_n, NMI_Input_n, Vector_Window : std_logic;
@@ -151,6 +154,10 @@ begin
 	--CEN <= '1';
     Instruction_Data<=Diag_IACK_Byte when DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" else DI;
     CEN <= clk_enable;
+    Trace_Select <= Diag_Select(3 downto 0);
+    -- Private test loopback is not emitted to the physical MSX I/O bus.
+    Diag_IO_Cycle<='1' when DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and
+        Request_Address(7 downto 0)=x"E6" and IntCycle_n='1' else '0';
 
     BUSAK_n <= BUSAK_n_i;
     MREQ_n_i <= not MREQ or (Req_Inhibit and MReq_Inhibit);
@@ -158,7 +165,7 @@ begin
     WR_n_j <= WR_n_i;                                                   -- 0247a
 
     MREQ_n <= MREQ_n_i when BUSAK_n_i = '1' else 'Z';
-    IORQ_n <= IORQ_n_i or IReq_Inhibit when BUSAK_n_i = '1' else 'Z';   -- 0247a
+    IORQ_n <= IORQ_n_i or IReq_Inhibit or Diag_IO_Cycle when BUSAK_n_i = '1' else 'Z';   -- 0247a
     RD_n <= RD_n_i when BUSAK_n_i = '1' else 'Z';
     WR_n <= WR_n_j when BUSAK_n_i = '1' else 'Z';                       -- 0247a
     RFSH_n <= RFSH_n_i when BUSAK_n_i = '1' else 'Z';
@@ -211,7 +218,7 @@ begin
     HALT_n<=HALT_i;
     INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
     NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 else NMI_n;
-    process(Diag_Select, Extension_State_i, MBASE_i, MADL_i)
+    process(Diag_Select, Extension_State_i, MBASE_i, MADL_i, Diag_IO_Signature, Diag_Active, Trace_Data)
     begin
         Diag_Read<="1110000" & Extension_State_i;
         if Extension_State_i='1' then
@@ -230,6 +237,20 @@ begin
             when x"CB"=>Diag_Read<=x"FE";
             when x"CC"=>Diag_Read<=x"01"; -- R19.1 indexed-CB width consumption
             when x"CD"=>Diag_Read<=x"FE";
+            -- R21.2 read-only observation: F0..F3 write data/address,
+            -- F4..F7 returned data/read address. No request or WAIT feedback.
+            when x"F0"|x"F1"|x"F2"|x"F3"|x"F4"|x"F5"|x"F6"|x"F7"=>
+                if DIAGNOSTICS then
+                    Diag_Read<=Trace_Data;
+                end if;
+            when x"FB"=>if DIAGNOSTICS then Diag_Read<=x"03";end if;
+            when x"FC"=>if DIAGNOSTICS then Diag_Read<=x"FC";end if;
+            when x"FD"|x"FE"=>if DIAGNOSTICS then Diag_Read<=Trace_Data;end if;
+            when x"F8"=>Diag_Read<=x"01"; -- R21 single-step extended block I/O
+            when x"F9"=>Diag_Read<=x"FE";
+            when x"FA"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=Diag_IO_Signature;end if;
+            when x"CE"=>Diag_Read<=x"02"; -- R20.6 unsupported SLP executes as NOP
+            when x"CF"=>Diag_Read<=x"FD";
             when others=>null;
             end case;
         end if;
@@ -237,9 +258,13 @@ begin
     process(RESET_n, CLK_n)
     begin
         if RESET_n='0' then
-            Diag_Select<=x"FF";Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+            Diag_Select<=x"FF";Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');Diag_IO_Signature<=x"00";
         elsif rising_edge(CLK_n) then
             if clk_enable='1' then
+                if DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and Request_Write='1' and
+                    Request_Address(7 downto 0)=x"E6" and TState="011" and IntCycle_n='1' then
+                    Diag_IO_Signature<=Request_Data xor Request_Address(15 downto 8);
+                end if;
                 if Diag_NMI_Count/=0 then Diag_NMI_Count<=Diag_NMI_Count-1;end if;
                 if DIAGNOSTICS and Diag_Active='1' and Diag_NMI_Arm='1' and HALT_i='0' then
                     Diag_NMI_Count<=to_unsigned(8,4);Diag_NMI_Arm<='0';
@@ -250,7 +275,7 @@ begin
                 if IORQ='1' and Write='1' and A_i=x"E7E7" and TState="011" then
                     if Core_DO=x"A5" or Core_DO=x"5A" or Core_DO=x"00" then Diag_Select<=x"FF";
                     elsif Extension_State_i='1' then
-                        if Core_DO(7 downto 4)=x"C" or (DIAGNOSTICS and Diag_Active='1' and Core_DO(7 downto 4)=x"E") then Diag_Select<=Core_DO;
+                        if Core_DO(7 downto 4)=x"C" or Core_DO(7 downto 4)=x"F" or (DIAGNOSTICS and Diag_Active='1' and Core_DO(7 downto 4)=x"E") then Diag_Select<=Core_DO;
                         elsif DIAGNOSTICS then
                             case Core_DO is
                             when x"D8"=>Diag_Active<='1';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
@@ -317,6 +342,9 @@ begin
 				Wait_s <= WAIT_n;
 				if TState = "011" and BUSAK_n_i = '1' then
 					if Request_Address(15 downto 0)=x"E7E7" and Request_IO='1' and Request_Write='0' and IntCycle_n='1' then DI_Reg<=Diag_Read;
+                    elsif DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and Request_Write='0' and
+                        Request_Address(7 downto 0)=x"E6" and IntCycle_n='1' then
+                        DI_Reg<=Request_Address(15 downto 8) xor x"5A";
                     elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=Diag_IACK_Byte;
                     else DI_Reg <= to_x01(DI);end if;
 				end if;

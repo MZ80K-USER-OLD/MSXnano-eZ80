@@ -488,11 +488,16 @@ wire [7:0] ex_bus_data;
     wire ext_cycle, ext_wait_n;
     wire [7:0] ext_cpu_din;
     wire ext_ram_req, ext_ram_write, ext_ram_done;
+    wire [63:0] ez80_memory_trace;
+    wire [3:0] ez80_trace_select;
+    wire [7:0] ez80_trace_data;
+    ez80_trace_mux trace_mux(.record_data(ez80_memory_trace),
+        .selector(ez80_trace_select), .byte_data(ez80_trace_data));
     wire [22:0] ext_ram_addr;
     wire [7:0] ext_ram_din, ext_ram_dout;
     ez80_memory_bridge #(
 `ifdef MSXNANO_USE_EZ80
-        .REQUEST_BANK_QUALIFIED(1), .PREDECODED_MSX(1)
+        .REQUEST_BANK_QUALIFIED(1), .PREDECODED_MSX(1), .TRACE_MEMORY(EZ80_EXTENDED)
 `else
         .REQUEST_BANK_QUALIFIED(0)
 `endif
@@ -505,7 +510,8 @@ wire [7:0] ex_bus_data;
         .msx_mreq_n(bus_mreq_n), .msx_addr(bus_addr),
         .extended_cycle(ext_cycle), .wait_n(ext_wait_n), .cpu_din(ext_cpu_din),
         .ram_req(ext_ram_req), .ram_write(ext_ram_write), .ram_addr(ext_ram_addr),
-        .ram_din(ext_ram_din), .ram_done(ext_ram_done), .ram_dout(ext_ram_dout)
+        .ram_din(ext_ram_din), .ram_done(ext_ram_done), .ram_dout(ext_ram_dout),
+        .memory_trace(ez80_memory_trace)
     );
     wire bus_iorq_n;
     wire bus_rd_n;
@@ -842,7 +848,8 @@ wire [7:0] mapper_read_data =
         .update_addr(update_addr),
         .DI         (cpu_din),
         .DO         (cpu_dout),
-        .Data_Reverse (bus_data_reverse)
+        .Data_Reverse (bus_data_reverse),
+        .Trace_Data(ez80_trace_data), .Trace_Select(ez80_trace_select)
     );
 `else
     assign cpu_addr24 = {8'h00,cpu_addr16};

@@ -176,7 +176,7 @@ architecture rtl of T80_eZ80 is
         if op(7 downto 6)="01" and op(2 downto 0)="011" then c(5):='1';end if;
         if op(7 downto 6)="00" and op(3 downto 0)="1001" then c(6):='1';end if;
         if op(7 downto 6)="01" and op(2 downto 0)="010" then c(7):='1';end if;
-        if op(7 downto 5)="101" and op(2 downto 1)="00" then c(8):='1';end if;
+        if (op(7 downto 5)="101" and op(2 downto 1)="00") or op=x"84" or op=x"8C" or op=x"A4" or op=x"AC" then c(8):='1';end if;
         if op(7 downto 6)="01" and op(3 downto 0)="1100" then c(9):='1';end if;
         if op=x"02" or op=x"03" or op=x"12" or op=x"13" or op=x"22" or op=x"23" or
            op=x"32" or op=x"33" or op=x"54" or op=x"55" or op=x"65" or op=x"66" then c(10):='1';end if;
@@ -209,7 +209,7 @@ architecture rtl of T80_eZ80 is
     signal Arith_Sum : unsigned(24 downto 0);
     signal Arith_Result : unsigned(23 downto 0);
     signal Arith_Overflow, Arith_Half, Arith_Carry_Out : std_logic;
-    signal Block_Instruction, Block_Long, Instruction_Has_Width : std_logic;
+    signal Block_Instruction, Block_Long, Instruction_Has_Width, Block_IO2 : std_logic;
     signal Block_Inc_Result : unsigned(23 downto 0);
     signal Mul_Active, Mul_Commit, Mul_Reg_Commit : std_logic;
     signal Mul_Target : std_logic_vector(2 downto 0);
@@ -612,6 +612,8 @@ architecture rtl of T80_eZ80 is
     Arith_Overflow<=(not (Arith_Left(23) xor Arith_Right(23) xor Arith_Sub_Latched)) and (Arith_Left(23) xor Arith_Result(23));
     Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and Opcode_Class(8)='1' and IntCycle='0' and NMICycle='0' else '0';
     Block_Long<=Block_Instruction and Data_Long;
+    Block_IO2<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
+        Write_Class(7 downto 4)=x"C" and IntCycle='0' and NMICycle='0' else '0';
     Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
         else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
     Mul_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
@@ -966,7 +968,7 @@ architecture rtl of T80_eZ80 is
                 if ADL_Mode='1' and (Set_Addr_To=aNone or (Set_Addr_To=aXY and NextIs_XY_Fetch='1')) then
                     Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));
                 end if;
-                if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and IORQ_i='0' then
+                if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and (IORQ_i='0' or (Block_IO2='1' and IR(5)='0' and MCycle="010")) then
                     if EX_SP_Long='1' and Set_Addr_To=aSP then Address_Bank_Reg<=std_logic_vector(EX_SP_Address(23 downto 16));
                     elsif (Pair_Absolute='1' or Byte_Absolute='1') and Set_Addr_To=aZI then
                         if Inc_WZ='1' then
@@ -1071,7 +1073,7 @@ architecture rtl of T80_eZ80 is
             else
             -- either (MCycle > 1) OR (MCycle = 1 AND TState > 3)
 
-                if MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0' then
+                if MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0' and Block_IO2='0' then
                     XY_Ind <= '1';
                     if Prefix = "01" then
                         ISet <= "01";
@@ -1203,7 +1205,7 @@ architecture rtl of T80_eZ80 is
                         TmpAddr(5 downto 3) <= IR(5 downto 3);
                     end if;
                 end if;
-                if TState = 3 and MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0' then
+                if TState = 3 and MCycle = "110" and SP_Readback='0' and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0' and Block_IO2='0' then
                     TmpAddr <= std_logic_vector(signed(RegBusC) + signed(DI_Reg));
                     if Data_Long='1' then
                         TmpAddr<=std_logic_vector(Indexed_Address(15 downto 0));
@@ -1429,7 +1431,7 @@ architecture rtl of T80_eZ80 is
                 end if;
             end if;
 
-            if (I_DJNZ = '0' and Save_ALU_r = '1') or ALU_Op_r = "1001" then
+            if Block_IO2='0' and ((I_DJNZ = '0' and Save_ALU_r = '1') or ALU_Op_r = "1001") then
                 if Mode = 3 then
                     F(6) <= F_Out(6);
                     F(5) <= F_Out(5);
@@ -1443,6 +1445,11 @@ architecture rtl of T80_eZ80 is
                         F(Flag_C) <= F_Out(0);
                     end if;
                 end if;
+            end if;
+            -- B/C arithmetic uses the existing byte ALU, preserving every other flag.
+            if Block_IO2='1' then
+                if MCycle="101" and Save_ALU_r='1' then F(Flag_Z)<=F_Out(Flag_Z);end if;
+                if MCycle="011" and T_Res='1' then F(Flag_N)<=Data_Out_Reg(7);end if;
             end if;
             if T_Res = '1' and I_INRC = '1' then
                 F(Flag_H) <= '0';
@@ -1605,7 +1612,7 @@ architecture rtl of T80_eZ80 is
                 if (JumpXY = '1' or LDSPHL = '1') then
                     RegAddrC_Base <= Alternate & "10";
                 end if;
-                if ((JumpXY = '1' or LDSPHL = '1') and XY_State /= "00") or (MCycle = "110" and Ctrl_Stack='0') then
+                if ((JumpXY = '1' or LDSPHL = '1') and XY_State /= "00") or (MCycle = "110" and Ctrl_Stack='0' and Block_IO2='0') then
                     RegAddrC_Base <= XY_State(1) & "11";
                 end if;
 

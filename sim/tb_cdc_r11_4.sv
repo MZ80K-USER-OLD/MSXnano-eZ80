@@ -27,8 +27,28 @@ module tb_cdc_r11_4;
     wire [15:0] ma;
     wire [22:0] ra;
     wire [7:0] di,wd,ramdata;
-    ez80_memory_bridge bridge(c54_sender,reset_n,a,mr,1'b1,rf,rd,wr,dout,
-        mm,ma,ext,wait_n,di,req,rw,ra,wd,done,ramdata,16'h0000,1'b0);
+    ez80_memory_bridge bridge(.clk(c54_sender),
+        .reset_n(reset_n),
+        .cpu_addr(a),
+        .cpu_mreq_n(mr),
+        .cpu_iorq_n(1'b1),
+        .cpu_rfsh_n(rf),
+        .cpu_rd_n(rd),
+        .cpu_wr_n(wr),
+        .cpu_dout(dout),
+        .msx_mreq_n(mm),
+        .msx_addr(ma),
+        .extended_cycle(ext),
+        .wait_n(wait_n),
+        .cpu_din(di),
+        .ram_req(req),
+        .ram_write(rw),
+        .ram_addr(ra),
+        .ram_din(wd),
+        .ram_done(done),
+        .ram_dout(ramdata),
+        .cpu_msx_addr(16'h0000),
+        .cpu_extended_window(1'b0));
     reg mapper_req=0,mapper_write=0,mega_req=0,mega_write=0;
     reg [21:0] mapper_addr=0;
     reg [20:0] mega_addr=0;

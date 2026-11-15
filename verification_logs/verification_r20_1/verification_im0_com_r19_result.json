@@ -1,0 +1,113 @@
+{
+  "fresh_runs": 7,
+  "expected_failure_runs": 0,
+  "cases": [
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "COM stage 0 time=1297170000\nCOM stage 1 time=1683330000\nCOM stage 2 time=2069410000\nCOM stage 3 time=2455490000\nCOM stage 4 time=2841570000\nCOM stage 5 time=3227650000\nCOM stage 6 time=3613730000\nCOM stage 7 time=3999810000\nCOM stage 8 time=4385890000\nCOM stage 9 time=4784930000\nCOM stage A time=5183970000\nCOM stage B time=5570210000\nCOM stage C time=5956450000\nCOM stage D time=6351170000\nCOM stage E time=6758850000\nCOM stage F time=7153730000\nCOM stage G time=7483170000\nCOM stage H time=7812610000\nCOM stage I time=8142050000\nCOM stage J time=8478690000\nCOM stage K time=8815330000\nCOM stage L time=9151970000\nCOM stage M time=9481570000\nCOM stage N time=9811170000\nEZ80IM0 R19: PASS\nPASS rst_com_r18 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=1296 WAIT_ticks=76308\n/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_im0_com_r19.sv:143: $finish called at 10251250000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        7,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "COM stage 0 time=6595150000\nCOM stage 1 time=8476150000\nCOM stage 2 time=10349350000\nCOM stage 3 time=12228850000\nCOM stage 4 time=14109850000\nCOM stage 5 time=15986650000\nCOM stage 6 time=17864050000\nCOM stage 7 time=19740550000\nCOM stage 8 time=21616150000\nCOM stage 9 time=23557450000\nCOM stage A time=25498150000\nCOM stage B time=27376150000\nCOM stage C time=29254150000\nCOM stage D time=31175050000\nCOM stage E time=33164050000\nCOM stage F time=35088250000\nCOM stage G time=36718750000\nCOM stage H time=38347750000\nCOM stage I time=39977350000\nCOM stage J time=41642650000\nCOM stage K time=43305550000\nCOM stage L time=44972350000\nCOM stage M time=46602250000\nCOM stage N time=48234550000\nEZ80IM0 R19: PASS\nPASS rst_com_r18 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=1296 WAIT_ticks=114493\n/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_im0_com_r19.sv:143: $finish called at 50460250000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "COM stage 0 time=1297170000\nEZ80IM0 R19: FAIL stage 0\nADDR=0A8100 EXP=FE ACT=FF\nPASS rst_com_r18 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=61 WAIT_ticks=9668\n/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_im0_com_r19.sv:143: $finish called at 1984850000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "output": "EZ80IM0 R19: UNSUPPORTED\nPASS rst_com_r18 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_im0_com_r19.sv:143: $finish called at 173890000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "output": "EZ80IM0 R19: READY (use /RUN)\nPASS rst_com_r18 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_im0_com_r19.sv:143: $finish called at 177330000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "output": "EZ80IM0 R19: NOT READY\nPASS rst_com_r18 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_im0_com_r19.sv:143: $finish called at 175890000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "output": "EZ80IM0 R19: NOT READY\nPASS rst_com_r18 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_im0_com_r19.sv:143: $finish called at 171250000 (1ps)\n"
+    }
+  ],
+  "COM_sha256": "9f344fbd08e398d2cdc7498cf0a76ffab2a226eec5e7f46e05825d061acba0a2",
+  "actual_COM_bytes": true,
+  "board_bridge_SDRAM_model": true,
+  "BDOS_stub_deliberately_EI": true,
+  "no_MSX_vector_writes": true,
+  "private_24_IM0_cases": true,
+  "DOS_real_IM1_IRQ": true,
+  "old_feature_and_no_diagnostics_guard": true,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "d0c47102874c58a6ab968908646c12fa4be63c188414691fde96724f22c3c9b3",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "03598197e54bf232f7fce18508e81f168bedb142e16932812904e396bc64b4c8",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "075bf4c4d34ff3231a432f069e54398810064f33b35e74c76eebdfd8d139f1bc",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "a3f6fdf9f4e2cb8e6d977b7050b34c1a3d188162ce5238027d95ae3e10e651c6"
+  }
+}

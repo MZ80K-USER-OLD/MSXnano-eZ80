@@ -1,0 +1,3 @@
+EZ80IM0 R19: UNSUPPORTED
+PASS rst_com_r18 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/r20-final/MSXnano_T80_eZ80_restart_R20/sim/tb_im0_com_r19.sv:143: $finish called at 173890000 (1ps)

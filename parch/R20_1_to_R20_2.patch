@@ -1,0 +1,49 @@
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -168,9 +168,9 @@
+     Sleep_Timer_Rise<=Sleep_Timer_Sync and not Sleep_Timer_Old;
+     M1_n <= M1_i or Sleep_i;
+     -- Only D3, in the private diagnostic window, enables a test-only escape.
+-    Sleep_Test_Release <= '1' when DIAGNOSTICS and Diag_Active='1' and
+-        Sleep_i='1' and Diag_NMI_Count=1 and
+-        (Diag_Select=x"D3" or (Diag_Select=x"D7" and Diag_NMI_Arm='1' and Sleep_Timer_Rise='1')) else '0';
++    -- R20.2: hold the release request until the core accepts a fresh fetch.
++    -- D6 is pending; D5 means the next M1/T2 read was actually accepted.
++    Sleep_Test_Release <= '1' when DIAGNOSTICS and Diag_Active='1' and Diag_Select=x"D6" else '0';
+ 
+     BUSAK_n <= BUSAK_n_i;
+     MREQ_n_i <= not MREQ or (Req_Inhibit and MReq_Inhibit) or Sleep_i;
+@@ -230,7 +230,7 @@
+     end process;
+     HALT_n<=HALT_i;
+     INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
+-    NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 and Diag_Select/=x"D3" and Diag_Select/=x"D7" else NMI_n;
++    NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 and Diag_Select/=x"D3" and Diag_Select/=x"D7" and Diag_Select/=x"D6" else NMI_n;
+     process(Diag_Select, Extension_State_i, MBASE_i, MADL_i)
+     begin
+         Diag_Read<="1110000" & Extension_State_i;
+@@ -250,6 +250,8 @@
+             when x"CB"=>Diag_Read<=x"FE";
+             when x"D3"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"53";end if;
+             when x"D5"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"A7";end if;
++            when x"F2"=>Diag_Read<=x"01"; -- R20.2 release acknowledgement
++            when x"F3"=>Diag_Read<=x"FE";
+             when x"F0"=>Diag_Read<=x"01"; -- R20.1 long sleep fixture
+             when x"F1"=>Diag_Read<=x"FE";
+             when x"CE"=>Diag_Read<=x"01"; -- R20 CPU-local SLP
+@@ -266,7 +268,14 @@
+             Diag_Select<=x"FF";Diag_Active<='0';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+         elsif rising_edge(CLK_n) then
+             if clk_enable='1' then
+-                if Sleep_Test_Release='1' then Diag_Select<=x"D5";end if;
++                if DIAGNOSTICS and Diag_Active='1' then
++                    if Diag_Select=x"D6" and Sleep_i='0' and MCycle="001" and TState="010" and Wait_s='1' then
++                        Diag_Select<=x"D5";
++                    elsif Sleep_i='1' and Diag_NMI_Count=1 and
++                        (Diag_Select=x"D3" or (Diag_Select=x"D7" and Diag_NMI_Arm='1' and Sleep_Timer_Rise='1')) then
++                        Diag_Select<=x"D6";Diag_NMI_Arm<='0';
++                    end if;
++                end if;
+                 if Diag_NMI_Count/=0 then
+                     if Diag_Select/=x"D7" then Diag_NMI_Count<=Diag_NMI_Count-1;
+                     elsif Sleep_Timer_Rise='1' then

@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/r20_4-work/MSXnano_T80_eZ80_restart_R20_4/sim/tb_refresh_r20_1.sv:44: REFRESH missing autonomous commands
+       Time: 100320000  Scope: tb_refresh_r20_1

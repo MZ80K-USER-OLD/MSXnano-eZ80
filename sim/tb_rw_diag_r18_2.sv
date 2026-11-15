@@ -56,8 +56,28 @@ module tb_rw_diag_r18_2;
     G80A_eZ80 cpu(.RESET_n(reset_n),.CLK_n(c54),.clk_enable(divider==0 && enable_run),.clk_falling(divider==CPU_DIV/2 && enable_run),
         .WAIT_n(wait_n),.INT_n(int_n),.NMI_n(1'b1),.BUSRQ_n(1'b1),.DI(din),
         .A24(a),.A_MSX(cpu_msx_address),.Extended_Window(cpu_extended),.MREQ_n(mr),.IORQ_n(io),.RFSH_n(rf),.RD_n(rd),.WR_n(wr),.DO(dout),.M1_n(m1),.HALT_n(halt_n));
-    ez80_memory_bridge #(.REQUEST_BANK_QUALIFIED(1),.PREDECODED_MSX(1)) bridge(c54,reset_n,a,mr,io,rf,rd,wr,dout,
-        mm,ma,ext,wait_n,ext_di,req,rw,ra,wd,done,ramdata,cpu_msx_address,cpu_extended);
+    ez80_memory_bridge #(.REQUEST_BANK_QUALIFIED(1),.PREDECODED_MSX(1)) bridge(.clk(c54),
+        .reset_n(reset_n),
+        .cpu_addr(a),
+        .cpu_mreq_n(mr),
+        .cpu_iorq_n(io),
+        .cpu_rfsh_n(rf),
+        .cpu_rd_n(rd),
+        .cpu_wr_n(wr),
+        .cpu_dout(dout),
+        .msx_mreq_n(mm),
+        .msx_addr(ma),
+        .extended_cycle(ext),
+        .wait_n(wait_n),
+        .cpu_din(ext_di),
+        .ram_req(req),
+        .ram_write(rw),
+        .ram_addr(ra),
+        .ram_din(wd),
+        .ram_done(done),
+        .ram_dout(ramdata),
+        .cpu_msx_addr(cpu_msx_address),
+        .cpu_extended_window(cpu_extended));
     wire [22:0] fault_address = ra;
     wire [7:0] fault_data = (FAULT==1 && ra==FAULT_ADDR) ? wd^8'h02 : wd;
     wire cs,ras,cas,we,sc,cke;

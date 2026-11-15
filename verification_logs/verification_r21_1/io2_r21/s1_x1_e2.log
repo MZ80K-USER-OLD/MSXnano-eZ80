@@ -1,0 +1,2 @@
+PASS IO2 cases=         40 stress=          1 ext=          1 event=          2
+/workspace/scratch/db88d59b2a4d/r21_1-work/MSXnano_T80_eZ80_restart_R21_1/sim/tb_io2_r21.sv:75: $finish called at 9748400000 (1ps)

@@ -1,0 +1,3 @@
+COM stage 0 time=190770000
+FATAL: /workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_sleep_board_r20_2.sv:39: SLP release lost after one delayed acceptance
+       Time: 1152690000  Scope: tb_sleep_board_r20_2
