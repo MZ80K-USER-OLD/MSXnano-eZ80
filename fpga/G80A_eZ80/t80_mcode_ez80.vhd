@@ -1587,7 +1587,7 @@ begin
 ------------------------------------------------------------------------------
 
                         case IRB is
-                        when "00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"
+                        when x"84"|x"8C"|x"A4"|x"AC"|"00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"
                                 |"00001000"|"00001001"|"00001010"|"00001011"|"00001101"|"00001110"
                                 |"00010000"|"00010001"|"00010010"|"00010011"|"00010101"|"00010110"
                                 |"00011000"|"00011001"|"00011010"|"00011011"|"00011101"|"00011110"
@@ -1960,8 +1960,8 @@ begin
                                         IORQ <= '1';
                                 when others =>
                                 end case;
-                        when "10100010" | "10101010" | "10110010" | "10111010" | "10000100" | "10001100" =>
-                                -- INI, IND, INIR, INDR; unlocked INI2/IND2.
+                        when "10100010" | "10101010" | "10110010" | "10111010" =>
+                                -- INI, IND, INIR, INDR. R23.2: ED84/8C are NOP above.
                                 if IR(2)='0' or Block_IO2 then
                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
                                 case to_integer(unsigned(MCycle)) is
@@ -2004,8 +2004,8 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                        when "10100011" | "10101011" | "10110011" | "10111011" | "10100100" | "10101100" =>
-                                -- OUTI, OUTD, OTIR, OTDR; unlocked OUTI2/OUTD2.
+                        when "10100011" | "10101011" | "10110011" | "10111011" =>
+                                -- OUTI, OUTD, OTIR, OTDR. R23.2: EDA4/AC are NOP above.
                                 if IR(2)='0' or Block_IO2 then
                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
                                 case to_integer(unsigned(MCycle)) is

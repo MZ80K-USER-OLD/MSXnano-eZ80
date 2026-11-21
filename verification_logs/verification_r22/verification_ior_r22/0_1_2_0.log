@@ -1,0 +1,2 @@
+PASS IOR cases=         80 stress=          0 ext=          1 event=          2
+/workspace/scratch/db88d59b2a4d/r22-work/MSXnano_T80_eZ80_restart_R22/sim/tb_ior_r22.sv:85: $finish called at 3343040000 (1ps)

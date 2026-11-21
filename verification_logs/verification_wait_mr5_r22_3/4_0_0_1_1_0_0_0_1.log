@@ -1,0 +1,10 @@
+EZ80MR5 R22.2 START
+LOCAL EXP=31 ACT=31
+LINK EXP=55/AA ACT=55/AA
+BEFORE_LDHL
+HL_SNAPSHOT_DONE
+HL ACT=010100 EXP=010100
+BEFORE_WRITE
+PASS R22.3 actual COM frozen snapshot=e501000101008a15
+PASS injected ACK stall checkpoint HANG_AT=          1
+/workspace/scratch/db88d59b2a4d/waitdiag-work/MSXnano_T80_eZ80_restart_R22_3/sim/tb_mr5_wait_r22_3.sv:231: $finish called at 907990000 (1ps)

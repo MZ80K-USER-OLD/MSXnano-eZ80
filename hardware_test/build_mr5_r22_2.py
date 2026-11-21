@@ -1,0 +1,32 @@
+"""Per-operation checkpoints for the first MR4 address; no FPGA change."""
+from pathlib import Path
+r=Path(__file__).resolve().parent;s=(r/'build_mr4_r21_3.py').read_text().replace('EZ80MR4','EZ80MR5').replace('R21.3','R22.2')
+s=s.replace('rows=[]', '''checkpoints=[]
+def checkpoint(n):
+ gate(0);printmsg(n);gate(0xa5);gate(0x5a);checkpoints.append(n)
+rows=[]''')
+s=s.replace('for addr in(0x010100,0x070100,0x07fffe):','for addr in(0x010100,):').replace("[('A',0x31),('I',0xce)]","[('A',0x31),('B',0xce)]")
+s=s.replace("  loadpair('HL',addr);emit(0x3e,expected)", '''  if writer=='A':
+   checkpoint('BEFORE_LDHL');loadpair('HL',addr);ref([0x49,0x22],'PRE_HL0');checkpoint('HL_SNAPSHOT_DONE');checkpoint('BEFORE_WRITE')
+  else:checkpoint('BEFORE_BURST')
+  loadpair('HL',addr);emit(0x3e,expected)''')
+s=s.replace("if writer=='A':emit(0x5b,0x32", "if writer in('A','B'):emit(0x5b,0x32")
+s=s.replace('  for j in range(4):', "  if writer=='A':checkpoint('WRITE_DONE')\n  for j in range(4):",1)
+s=s.replace("   if j<2:emit", "   if writer=='A':checkpoint(('BEFORE_A1','BEFORE_A2','BEFORE_I1','BEFORE_I2')[j])\n   if j<2:emit",1)
+s=s.replace("   sa(f'V{idx}_{j}')", "   sa(f'V{idx}_{j}')\n   if writer=='A':checkpoint(('A1_DONE','A2_DONE','I1_DONE','I2_DONE')[j])",1)
+s=s.replace("  ref([0x49,0x22],f'H{idx}_0')", "  if writer=='A':checkpoint('BEFORE_SNAPSHOT');loadpair('HL',addr)\n  ref([0x49,0x22],f'H{idx}_0')\n  if writer=='A':checkpoint('SNAPSHOT_DONE');checkpoint('BEFORE_TRACE')")
+s=s.replace('  gate(0)\n  checks=', "  if writer=='A':checkpoint('TRACE_DONE')\n  gate(0)\n  checks=",1)
+s=s.replace("   la(n);emit(0xfe,v);ok='OK_'+str(len(b));ref([0xca],ok);ref([0x21],'FAIL_COUNT');emit(0x34);label(ok)", '''   la(n);sa('CURRENT_ACT');emit(0xfe,v);ok='OK_'+str(len(b));ref([0xca],ok)
+   la('FAIL_COUNT');emit(0xb7);known='KNOWN_'+str(len(b));ref([0xc2],known)
+   emit(0x3e,v);sa('FIRST_EXP');la('CURRENT_ACT');sa('FIRST_ACT')
+   label(known);ref([0x21],'FAIL_COUNT');emit(0x34);label(ok)''')
+s=s.replace("label('BAD');emit(0x3e,2)", '''label('BAD');ref([0x21],'FAIL_EXP');la('FIRST_EXP');ref([0xcd],'HEX_BYTE');ref([0x21],'FAIL_ACT');la('FIRST_ACT');ref([0xcd],'HEX_BYTE');emit(0x3e,2)''')
+s=s.replace("('MSG_FAIL','EZ80MR5 R22.2: FAIL (see rows)'),", "")
+s=s.replace("label('MSG_LINK_BAD');", "label('MSG_FAIL');emit(*b'EZ80MR5 R22.2: FAIL\\r\\nADDR=010100 EXP=');label('FAIL_EXP');emit(*b'00 ACT=');label('FAIL_ACT');emit(*b'00 (see row fields)\\r\\n$')\nlabel('MSG_LINK_BAD');")
+s=s.replace("label('STATUS');emit(0);", "label('CURRENT_ACT');emit(0);label('FIRST_EXP');emit(0);label('FIRST_ACT');emit(0);label('PRE_HL0');emit(0,0,0)\nfor name in checkpoints:label(name);emit(*(name+'\\r\\n$').encode())\nlabel('STATUS');emit(0);")
+s=s.replace("labels=labels,rows=rows)", "labels=labels,rows=rows,checkpoint_messages=checkpoints,FPGA_changed=False,physical_stop_cause_unconfirmed=True)")
+s=s.replace("checkpoint('HL_SNAPSHOT_DONE');checkpoint('BEFORE_WRITE')", "checkpoint('HL_SNAPSHOT_DONE');gate(0);ref([0x21],'PRE_HL_HEX');\n   for h in (2,1,0):ref([0x3a],('PRE_HL0','PRE_HL1','PRE_HL2')[h]);ref([0xcd],'HEX_BYTE')\n   printmsg('MSG_PRE_HL');gate(0xa5);gate(0x5a);checkpoint('BEFORE_WRITE')")
+s=s.replace("label('PRE_HL0');emit(0,0,0)", "label('PRE_HL0');emit(0,0,0);labels['PRE_HL1']=labels['PRE_HL0']+1;labels['PRE_HL2']=labels['PRE_HL0']+2;label('MSG_PRE_HL');emit(*b'HL ACT=');label('PRE_HL_HEX');emit(*b'000000 EXP=010100\\r\\n$')")
+s=s.replace("if writer=='A':checkpoint('WRITE_DONE')", "if writer=='A':\n   checkpoint('WRITE_DONE');checkpoint('BEFORE_WRITE_TRACE')\n   for w in range(4):gate(0xf0+w);emit(0xed,0x78);sa('WT'+str(w))\n   gate(0);ref([0x21],'WT_ADDR')\n   for w in (3,2,1):la('WT'+str(w));ref([0xcd],'HEX_BYTE')\n   ref([0x21],'WT_DATA');la('WT0');ref([0xcd],'HEX_BYTE');printmsg('MSG_WT');gate(0xa5);gate(0x5a);checkpoint('WRITE_TRACE_DONE')")
+s=s.replace("label('STATUS');emit(0);", "label('MSG_WT');emit(*b'W0=');label('WT_ADDR');emit(*b'000000/');label('WT_DATA');emit(*b'00\\r\\n$')\nfor w in range(4):label('WT'+str(w));emit(0)\nlabel('STATUS');emit(0);")
+exec(compile(s,'generated_mr5','exec'),{'__file__':str(r/'generated_mr5.py')})

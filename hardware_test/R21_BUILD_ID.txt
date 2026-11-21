@@ -1,0 +1,1 @@
+R21 candidate — INI2 IND2 OUTI2 OUTD2; baseline R20.6 hardware confirmed; GOWIN/hardware pending

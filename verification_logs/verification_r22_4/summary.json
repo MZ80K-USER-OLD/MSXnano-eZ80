@@ -1,0 +1,36 @@
+{
+  "base": "R22.3",
+  "changed_FPGA": [
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/src/ez80_trace_mux.v",
+    "fpga/src/memory_ez80.v",
+    "fpga/top_ez80.v"
+  ],
+  "CPU_execution_and_decode_unchanged": true,
+  "wrapper_changes_only_new_diagnostic_read_selectors_and_Trace_Page": true,
+  "functional_SDRAM_text_unchanged": true,
+  "bridge_and_16_24_bus_isolation_unchanged": true,
+  "SDC_CST_GPRJ_unchanged": true,
+  "old_COMs_unchanged": 37,
+  "new_programs": {
+    "EZ80MR6": {
+      "bytes": 4916,
+      "crc32": "D7F12C22",
+      "sha256": "c9cf802386e60e96d7115f37e7ad1f3ba39a95a1f1f308099389fa850481ef92",
+      "normal_DOS_calls": 9
+    },
+    "EZ80MX6": {
+      "bytes": 37796,
+      "crc32": "EEC5294B",
+      "sha256": "4f8061d3ec77a047175cfed9c8521c08b1c85c82dae7d6630a7221cf8425c872",
+      "normal_DOS_calls": 49
+    }
+  },
+  "fresh_COM_profiles": 13,
+  "MEM_profiles": 9,
+  "WAIT_monitor": true,
+  "VHDL93": true,
+  "GOWIN": false,
+  "hardware": false,
+  "DQ_weak_pulldown_is_testbench_only": true
+}

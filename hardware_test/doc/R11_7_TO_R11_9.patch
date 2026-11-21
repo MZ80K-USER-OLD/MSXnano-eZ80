@@ -1,0 +1,23 @@
+--- R11.7/fpga/top_ez80.v
++++ R11.9/fpga/top_ez80.v
+@@ -1892,7 +1892,11 @@
+     end
+     
+     reg sd_cs_w;
++    // R11.9: read register number travels with the existing SD select stage.
++    // The CPU holds the MSX request through the data sampling point.
++    reg [7:0] sd_read_index;
+     always @ (posedge clk_27m) begin
++        sd_read_index <= bus_addr[7:0];
+         sd_cs_w <= config_enable_sdcard == 1 && bus_reset_n && ff_sd_en && bus_iorq_n && bus_m1_n && bus_mreq_n == 0 && pri_slot_num[SD_SLOT] == 1 && exp_slotx_num[2] == 1 && (bus_addr >= SDC_ENABLE && bus_addr <= SDC_END) ? 1 : 0;
+     end
+     wire sd_busreq_w;
+@@ -1928,7 +1932,7 @@
+                     endcase
+                 end else
+                 if (~bus_rd_n) begin
+-                    case(bus_addr) 
++                    case({8'h7E, sd_read_index}) 
+                         SDC_ENABLE:     ff_sd_cd <= { 7'b0, ff_sd_en };
+                         SDC_STATUS:     ff_sd_cd <= { sd_busy_w, 5'b0, sd_timeout_error_w, sd_crc_error_w };
+                         SDC_C_SIZE+0:   ff_sd_cd <= sd_c_size_w[7:0];

@@ -1,0 +1,60 @@
+3.3.1 Setup Analysis Report
+Report Command:report_timing -setup -max_paths 400 -max_common_paths 1
+						Path1						
+Path Summary:
+Slack             : -7.654
+Data Arrival Time : 19.153
+Data Required Time: 11.499
+From              : cpu1/u0/ISet_0_s0
+To                : cpu1/Request_Extended_s0
+Launch Clk        : clock_54m:[R]
+Latch Clk         : clock_54m:[F]
+
+Data Arrival Path:
+    AT     DELAY   TYPE   RF   FANOUT        LOC                    NODE              
+ ======== ======= ====== ==== ======== =============== ============================== 
+  0.000    0.000                                        active clock edge time        
+  0.000    0.000                                        clock_54m                     
+  0.000    0.000   tCL    RR   1142     BOTTOMSIDE[0]   div2/clkdiv_inst/CLKOUT       
+  2.271    2.271   tNET   RR   1        R53C16[2][B]    cpu1/u0/ISet_0_s0/CLK         
+  2.503    0.232   tC2Q   RF   68       R53C16[2][B]    cpu1/u0/ISet_0_s0/Q           
+  4.172    1.668   tNET   FF   1        R42C13[3][A]    cpu1/u0/Arith_Target_0_s1/I2  
+  4.689    0.517   tINS   FF   11       R42C13[3][A]    cpu1/u0/Arith_Target_0_s1/F   
+  5.536    0.847   tNET   FF   1        R41C5[3][A]     cpu1/u0/RegAddrC_0_s4/I3      
+  5.907    0.371   tINS   FF   48       R41C5[3][A]     cpu1/u0/RegAddrC_0_s4/F       
+  9.850    3.944   tNET   FF   1        R54C27[2][B]    cpu1/u0/n20738_s3/I1          
+  10.405   0.555   tINS   FF   10       R54C27[2][B]    cpu1/u0/n20738_s3/F           
+  12.307   1.901   tNET   FF   1        R51C3[2][B]     cpu1/n1187_s34/I1             
+  12.824   0.517   tINS   FF   4        R51C3[2][B]     cpu1/n1187_s34/F              
+  13.253   0.429   tNET   FF   1        R52C2[0][B]     cpu1/n1187_s21/I1             
+  13.715   0.462   tINS   FR   1        R52C2[0][B]     cpu1/n1187_s21/F              
+  13.716   0.001   tNET   RR   1        R52C2[2][A]     cpu1/n1187_s8/I1              
+  14.271   0.555   tINS   RF   2        R52C2[2][A]     cpu1/n1187_s8/F               
+  14.690   0.419   tNET   FF   1        R50C3[2][B]     cpu1/n1187_s5/I0              
+  15.143   0.453   tINS   FF   2        R50C3[2][B]     cpu1/n1187_s5/F               
+  15.982   0.840   tNET   FF   1        R48C10[3][A]    cpu1/u0/n12254_s1/I1          
+  16.537   0.555   tINS   FF   11       R48C10[3][A]    cpu1/u0/n12254_s1/F           
+  18.691   2.153   tNET   FF   1        R34C2[0][A]     cpu1/n576_s2/I0               
+  19.153   0.462   tINS   FR   1        R34C2[0][A]     cpu1/n576_s2/F                
+  19.153   0.000   tNET   RR   1        R34C2[0][A]     cpu1/Request_Extended_s0/D    
+
+Data Required Path:
+    AT     DELAY    TYPE   RF   FANOUT        LOC                    NODE              
+ ======== ======== ====== ==== ======== =============== ============================== 
+  9.259    9.259                                         active clock edge time        
+  9.259    0.000                                         clock_54m                     
+  9.259    0.000    tCL    FF   1142     BOTTOMSIDE[0]   div2/clkdiv_inst/CLKOUT       
+  11.534   2.274    tNET   FF   1        R34C2[0][A]     cpu1/Request_Extended_s0/CLK  
+  11.499   -0.035   tSu         1        R34C2[0][A]     cpu1/Request_Extended_s0      
+
+Path Statistics:
+Clock Skew: 0.003
+Setup Relationship: 9.259
+Logic Level: 10
+Arrival Clock Path delay: (cell: 0.000 0.000%, 
+                     route: 2.271 100.000%)
+Arrival Data Path Delay: (cell: 4.447 26.343%, 
+                    route: 12.202 72.283%, 
+                    tC2Q: 0.232 1.374%)
+Required Clock Path Delay: (cell: 0.000 0.000%, 
+                     route: 2.274 100.000%)

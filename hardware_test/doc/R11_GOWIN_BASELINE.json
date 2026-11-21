@@ -1,0 +1,31 @@
+{
+  "source_archive": "impl.zip",
+  "source_archive_SHA256": "d8332eb426e0cf8aa0967ac624523ea2a4dc8aa242bf0e32311dcfc695ab44d9",
+  "pnr_report_SHA256": "2aad70a05eb6353bc0668e3dfa9ca89cd9c72c0f2ba1bab0e680a30c950c64c6",
+  "GOWIN_version": "1.9.12.04",
+  "device": "GW2AR-LV18QN88C8/I7",
+  "Logic_used": 17944,
+  "Logic_available": 20736,
+  "LUT": 15721,
+  "ALU": 1869,
+  "RAM16": 59,
+  "Register_used": 7486,
+  "CLS_used": 9790,
+  "CLS_available": 10368,
+  "BSRAM_used": 44,
+  "BSRAM_available": 46,
+  "DSP_used": 1.75,
+  "DSP_available": 24,
+  "PLL_used": 2,
+  "PLL_available": 2,
+  "setup_violated_endpoints": 1967,
+  "hold_violated_endpoints": 4,
+  "clock_54m_Fmax_MHz": 28.718,
+  "setup_worst_among_reported_400_ns": -9.033,
+  "hold_worst_among_reported_25_ns": -1.265,
+  "warnings": [
+    "TA1132 ex_bus_reset_n undefined clock",
+    "PR1014 ex_clk_27m_d general routing"
+  ],
+  "new_revision_metrics_not_measured": true
+}

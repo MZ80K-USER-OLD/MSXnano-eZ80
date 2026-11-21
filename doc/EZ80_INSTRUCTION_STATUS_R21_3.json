@@ -1,0 +1,1000 @@
+{
+  "revision": "R21.3",
+  "scope": "97 documented mnemonic names plus separate form/suffix limitations; not exhaustive opcode/operand/formal ISA certification",
+  "counts": {
+    "implemented": 71,
+    "partial": 6,
+    "excluded": 12,
+    "unimplemented": 8
+  },
+  "source_reference": [
+    "https://www.zilog.com/docs/UM0077.pdf",
+    "https://www.zilog.com/docs/ez80acclaim/ps0192.pdf",
+    "https://www.zilog.com/docs/ez80acclaim/ps0153.pdf"
+  ],
+  "rtl_sha256": {
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "84c6ddc3ca63f5c3ebdb2dfb1d94df103d476240178882062fdadf7a9d1d993c",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "5b7f16add7b2ff3c3f6d9f632d7b0933d32ba6ae5b8477b8962e9902c37265c1",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "e4201fc9db82dc003eb4a0710abe0c8b4dcccd6f8449f5c5b15a4bef2b3ce4ac",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "c789c1752b80f5c0b8cefcdf6d5cb21a97d908b1ddf66f312f2ff399ec2f6534"
+  },
+  "items": [
+    {
+      "mnemonic": "ADC",
+      "meaning": "キャリー付き加算",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "8bit/従来16bitと、対象レジスタペアの24bit経路あり。個々の形式は下表。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80ALU / EZ80D3"
+    },
+    {
+      "mnemonic": "ADD",
+      "meaning": "加算",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "8bit/従来16bitと、対象レジスタペアの24bit経路あり。個々の形式は下表。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80ALU / EZ80D3"
+    },
+    {
+      "mnemonic": "AND",
+      "meaning": "論理積",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "BIT",
+      "meaning": "ビット検査",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "CALL",
+      "meaning": "サブルーチン呼出し",
+      "status": "partial",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "通常形・対応済み混在形あり。suffixの未対応／未監査形式は下表で区別する。",
+      "current_effect": "対応形は実装済み。一部suffixはガード又は保証範囲外。",
+      "verification": "EZ80CT1 / EZ80MIX / EZ80MAD"
+    },
+    {
+      "mnemonic": "CCF",
+      "meaning": "キャリー反転",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "CP",
+      "meaning": "比較",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "CPD",
+      "meaning": "比較・後退",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "CPDR",
+      "meaning": "比較・後退反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "CPI",
+      "meaning": "比較・前進",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "CPIR",
+      "meaning": "比較・前進反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "CPL",
+      "meaning": "A反転",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "DAA",
+      "meaning": "BCD補正",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "DEC",
+      "meaning": "減算1",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "8bit/従来16bitと、対象レジスタペアの24bit経路あり。個々の形式は下表。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80ALU / EZ80D3"
+    },
+    {
+      "mnemonic": "DI",
+      "meaning": "割込み禁止",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "DI/EI、EI後の受付遅延を維持。DOS/BIOSがEIする条件も診断で考慮。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80IRQ / EZ80PFX等の部分集合"
+    },
+    {
+      "mnemonic": "DJNZ",
+      "meaning": "B減算・相対分岐",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "EI",
+      "meaning": "割込み許可",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "DI/EI、EI後の受付遅延を維持。DOS/BIOSがEIする条件も診断で考慮。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80IRQ / EZ80PFX等の部分集合"
+    },
+    {
+      "mnemonic": "EX",
+      "meaning": "レジスタ／スタック交換",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "Z80形式と拡張16/24bit形式。LDH/LDXは試験名であり独立命令名ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80D3 / EZ80MEM / EZ80LDH / EZ80LDX（形式別）"
+    },
+    {
+      "mnemonic": "EXX",
+      "meaning": "BC/DE/HLと裏レジスタ交換",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "Z80形式と拡張16/24bit形式。LDH/LDXは試験名であり独立命令名ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80D3 / EZ80MEM / EZ80LDH / EZ80LDX（形式別）"
+    },
+    {
+      "mnemonic": "HALT",
+      "meaning": "割込み等を待つ停止",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "通常HALTは維持。SLPのNOP化とは別。",
+      "current_effect": "実装経路あり",
+      "verification": "割込み・既存Z80回帰"
+    },
+    {
+      "mnemonic": "IM",
+      "meaning": "割込みモード選択",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "IM0/IM1/IM2。ADL/MADL IM0のRST/CD CALL処理あり。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80IM0 / EZ80IM2 / EZ80IRQ"
+    },
+    {
+      "mnemonic": "IN",
+      "meaning": "I/O入力",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "IN0",
+      "meaning": "ページ0のI/O入力",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 00/08/10/18/20/28/38 + n",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "INC",
+      "meaning": "加算1",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "8bit/従来16bitと、対象レジスタペアの24bit経路あり。個々の形式は下表。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80ALU / EZ80D3"
+    },
+    {
+      "mnemonic": "IND",
+      "meaning": "I/O入力・HL後退",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "IND2",
+      "meaning": "BC16bitポート、B−1、CとHLを後退",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 8C",
+      "scope": "R21追加、R21.3実機IO2 PASS。ポート上位byteを保持。実機試験は内部ループバック。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80IO2"
+    },
+    {
+      "mnemonic": "IND2R",
+      "meaning": "DEポートとHLを後退、BC回数で反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED 9C",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "INDM",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 8A",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "INDMR",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新・反復",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 9A",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "INDR",
+      "meaning": "I/O入力・HL後退反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "INDRX",
+      "meaning": "DEポート固定・BC回数・HLを後退して反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED CA",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "INI",
+      "meaning": "I/O入力・HL前進",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "INI2",
+      "meaning": "BC16bitポート、B−1、CとHLを前進",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 84",
+      "scope": "R21追加、R21.3実機IO2 PASS。ポート上位byteを保持。実機試験は内部ループバック。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80IO2"
+    },
+    {
+      "mnemonic": "INI2R",
+      "meaning": "DEポートとHLを前進、BC回数で反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED 94",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "INIM",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 82",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "INIMR",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新・反復",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 92",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "INIR",
+      "meaning": "I/O入力・HL前進反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "INIRX",
+      "meaning": "DEポート固定・BC回数・HLを前進して反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED C2",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "JP",
+      "meaning": "絶対／レジスタ間接分岐",
+      "status": "partial",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "通常形・対応済み混在形あり。suffixの未対応／未監査形式は下表で区別する。",
+      "current_effect": "対応形は実装済み。一部suffixはガード又は保証範囲外。",
+      "verification": "EZ80F9 / EZ80ADL / EZ80CT1"
+    },
+    {
+      "mnemonic": "JR",
+      "meaning": "相対分岐",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "LD",
+      "meaning": "データ転送",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "Z80形式と拡張16/24bit形式。LDH/LDXは試験名であり独立命令名ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80D3 / EZ80MEM / EZ80LDH / EZ80LDX（形式別）"
+    },
+    {
+      "mnemonic": "LDD",
+      "meaning": "メモリ転送・後退",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "LDDR",
+      "meaning": "メモリ転送・後退反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "LDI",
+      "meaning": "メモリ転送・前進",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "LDIR",
+      "meaning": "メモリ転送・前進反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "HL/DE/BCの16/24bit処理を実装。反復境界とWAITは別の検証軸。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80BLK"
+    },
+    {
+      "mnemonic": "LEA",
+      "meaning": "インデックス＋符号付き変位を転送",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 02/03/12/13/22/23/32/33/54/55 + d",
+      "scope": "BC/DE/HL/IX/IYとIX/IY＋変位の定義された形式。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80LEA"
+    },
+    {
+      "mnemonic": "MLT",
+      "meaning": "8×8bit乗算、結果16bit",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 4C/5C/6C/7C",
+      "scope": "BC/DE/HL/SPの8×8乗算。上位byteとフラグの保持を含む実装。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80MUL"
+    },
+    {
+      "mnemonic": "NEG",
+      "meaning": "Aの符号反転",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "NOP",
+      "meaning": "無操作",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "OR",
+      "meaning": "論理和",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "OTD2R",
+      "meaning": "DEポートとHLを後退、BC回数で反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED BC",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "OTDM",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 8B",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "OTDMR",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新・反復",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 9B",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "OTDR",
+      "meaning": "I/O出力・HL後退反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "OTDRX",
+      "meaning": "DEポート固定・BC回数・HLを後退して反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED CB",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "OTI2R",
+      "meaning": "DEポートとHLを前進、BC回数で反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED B4",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "OTIM",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 83",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "OTIMR",
+      "meaning": "Cポートの上位00H固定、B/C/HL更新・反復",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 93",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "OTIR",
+      "meaning": "I/O出力・HL前進反復",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "OTIRX",
+      "meaning": "DEポート固定・BC回数・HLを前進して反復",
+      "status": "unimplemented",
+      "page": "ED",
+      "opcode": "ED C3",
+      "scope": "対象内の未実装。現在はEDの無操作経路。除外した命令ではない。",
+      "current_effect": "ED無操作経路（公式動作未実装）",
+      "verification": "専用実装・専用実機試験なし"
+    },
+    {
+      "mnemonic": "OUT",
+      "meaning": "I/O出力",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "OUT0",
+      "meaning": "ページ0のI/O出力",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 01/09/11/19/21/29/39 + n",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。",
+      "current_effect": "公式動作を実装しない。オペランド長・安全なNOP動作を保証しない。",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "OUTD",
+      "meaning": "I/O出力・HL後退",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "OUTD2",
+      "meaning": "BC16bitポート、B−1、CとHLを後退",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED AC",
+      "scope": "R21追加、R21.3実機IO2 PASS。ポート上位byteを保持。実機試験は内部ループバック。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80IO2"
+    },
+    {
+      "mnemonic": "OUTI",
+      "meaning": "I/O出力・HL前進",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "既存Z80 I/Oを維持。ポートの16bitを使用。追加ゼロ上位I/O除外方針の対象ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "既存Z80回帰／ゲーム互換（eZ80の全差分は未網羅）"
+    },
+    {
+      "mnemonic": "OUTI2",
+      "meaning": "BC16bitポート、B−1、CとHLを前進",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED A4",
+      "scope": "R21追加、R21.3実機IO2 PASS。ポート上位byteを保持。実機試験は内部ループバック。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80IO2"
+    },
+    {
+      "mnemonic": "PEA",
+      "meaning": "インデックス＋変位をPUSH",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 65/66 + d",
+      "scope": "IX/IY＋変位を16/24bitスタックへ転送。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80LEA"
+    },
+    {
+      "mnemonic": "POP",
+      "meaning": "スタック読出し",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "Z80形式と拡張16/24bit形式。LDH/LDXは試験名であり独立命令名ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80D3 / EZ80MEM / EZ80LDH / EZ80LDX（形式別）"
+    },
+    {
+      "mnemonic": "PUSH",
+      "meaning": "スタック書込み",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "Z80形式と拡張16/24bit形式。LDH/LDXは試験名であり独立命令名ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80D3 / EZ80MEM / EZ80LDH / EZ80LDX（形式別）"
+    },
+    {
+      "mnemonic": "RES",
+      "meaning": "ビットクリア",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "RET",
+      "meaning": "サブルーチン復帰",
+      "status": "partial",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "通常形・対応済み混在形あり。suffixの未対応／未監査形式は下表で区別する。",
+      "current_effect": "対応形は実装済み。一部suffixはガード又は保証範囲外。",
+      "verification": "EZ80CT1 / EZ80MIX / EZ80MAD"
+    },
+    {
+      "mnemonic": "RETI",
+      "meaning": "割込み復帰",
+      "status": "partial",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "通常形・対応済み混在形あり。suffixの未対応／未監査形式は下表で区別する。",
+      "current_effect": "対応形は実装済み。一部suffixはガード又は保証範囲外。",
+      "verification": "EZ80IRQ / EZ80IM2 / EZ80MAD"
+    },
+    {
+      "mnemonic": "RETN",
+      "meaning": "NMI復帰",
+      "status": "partial",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "通常形・対応済み混在形あり。suffixの未対応／未監査形式は下表で区別する。",
+      "current_effect": "対応形は実装済み。一部suffixはガード又は保証範囲外。",
+      "verification": "EZ80NMI / EZ80MAD"
+    },
+    {
+      "mnemonic": "RL",
+      "meaning": "キャリー経由左回転",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "RLA",
+      "meaning": "Aをキャリー経由左回転",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "RLC",
+      "meaning": "左循環回転",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "RLCA",
+      "meaning": "Aを左循環回転",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "RLD",
+      "meaning": "ニブル左回転",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "RR",
+      "meaning": "キャリー経由右回転",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "RRA",
+      "meaning": "Aをキャリー経由右回転",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "RRC",
+      "meaning": "右循環回転",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "RRCA",
+      "meaning": "Aを右循環回転",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "RRD",
+      "meaning": "ニブル右回転",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "RSMIX",
+      "meaning": "MADL解除",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 7E",
+      "scope": "MADLを0。ADLそのものを0にする命令ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80MAD / EZ80MIX"
+    },
+    {
+      "mnemonic": "RST",
+      "meaning": "固定ベクタ呼出し",
+      "status": "partial",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "通常形・対応済み混在形あり。suffixの未対応／未監査形式は下表で区別する。",
+      "current_effect": "対応形は実装済み。一部suffixはガード又は保証範囲外。",
+      "verification": "EZ80RS8 / EZ80IM0"
+    },
+    {
+      "mnemonic": "SBC",
+      "meaning": "キャリー付き減算",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "8bit/従来16bitと、対象レジスタペアの24bit経路あり。個々の形式は下表。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80ALU / EZ80D3"
+    },
+    {
+      "mnemonic": "SCF",
+      "meaning": "キャリー設定",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "SET",
+      "meaning": "ビット設定",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "SLA",
+      "meaning": "算術左シフト",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "SLP",
+      "meaning": "省電力停止（本プロジェクトでは無操作）",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 76",
+      "scope": "ユーザー指定で非対応。拡張有効時ED76をNOP化。ロック時は旧Z80のIM1別名。",
+      "current_effect": "拡張有効: NOP。無効: IM1別名。",
+      "verification": "EZ80NP6"
+    },
+    {
+      "mnemonic": "SRA",
+      "meaning": "算術右シフト",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "SRL",
+      "meaning": "論理右シフト",
+      "status": "implemented",
+      "page": "CB",
+      "opcode": "CB",
+      "scope": "r/(HL)/(IX+d)/(IY+d)の文書化された形式。幅prefix＋DD/FD CB dの消費を修正済み。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80PFX＋既存Z80回帰（全bit/flag条件は未網羅）"
+    },
+    {
+      "mnemonic": "STMIX",
+      "meaning": "MADL設定",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 7D",
+      "scope": "MADLを1。ADLそのものを1にする命令ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80MAD / EZ80MIX"
+    },
+    {
+      "mnemonic": "SUB",
+      "meaning": "減算",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    },
+    {
+      "mnemonic": "TST",
+      "meaning": "Aとの論理積による検査（Aを変更しない）",
+      "status": "implemented",
+      "page": "ED",
+      "opcode": "ED 04/0C/14/1C/24/2C/34/3C、64 + n",
+      "scope": "r、(HL)、nを実装。TSTIOは別命令で除外。",
+      "current_effect": "実装経路あり",
+      "verification": "EZ80TST / EZ80TS1"
+    },
+    {
+      "mnemonic": "TSTIO",
+      "meaning": "ページ0のI/O検査",
+      "status": "excluded",
+      "page": "ED",
+      "opcode": "ED 74 + n",
+      "scope": "ユーザー方針によりI/Oポート[15:8]を00H固定する追加命令を除外。 ED74は現在NEG別名の経路。TSTIOとして実行しない。",
+      "current_effect": "NEG別名（即値nをTSTIOとして消費しない）",
+      "verification": "実装完了条件から除外"
+    },
+    {
+      "mnemonic": "XOR",
+      "meaning": "排他的論理和",
+      "status": "implemented",
+      "page": "base / DD / FD（形式による）",
+      "opcode": "base / DD / FD（形式による）",
+      "scope": "T80継承。回帰確認は部分集合、命令別の全フラグ・全オペランド試験ではない。",
+      "current_effect": "実装経路あり",
+      "verification": "T80継承・既存回帰（個別網羅未確認）"
+    }
+  ],
+  "excluded_non_instruction_events": [
+    "illegal instruction TRAP"
+  ],
+  "hardware": "R21.3 MEM/IO2/MR4/RUNALL all PASS, SofaRun Space Manbow PLAY confirmed by user",
+  "timing_closed": false
+}

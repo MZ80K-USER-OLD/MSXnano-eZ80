@@ -1,0 +1,129 @@
+{
+  "verified_profiles": 8,
+  "fresh_profiles_this_invocation": 8,
+  "COM_sha256": "6ac6fc95d86aa4b550237ab6938019d0a467cfdb18b362d6aac44582a8cdc5c1",
+  "profiles": [
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "expected": "PASS",
+      "output": "EZ80MR4 R21.3 START\nLOCAL EXP=31 ACT=31\nLINK EXP=55/AA ACT=55/AA\nA 010100 E31 A1=31 A2=31\nI1=31 I2=31 HL=010100\nW=650100/31 R=650100/31\nI 010100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=010100\nW=650100/CE R=650100/CE\nA 070100 E31 A1=31 A2=31\nI1=31 I2=31 HL=070100\nW=6B0100/31 R=6B0100/31\nI 070100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=070100\nW=6B0100/CE R=6B0100/CE\nA 07FFFE E31 A1=31 A2=31\nI1=31 I2=31 HL=07FFFE\nW=6BFFFE/31 R=6BFFFE/31\nI 07FFFE ECE A1=CE A2=CE\nI1=CE I2=CE HL=07FFFE\nW=6BFFFE/CE R=6BFFFE/CE\nEZ80MR4 R21.3: PASS\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=468\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 4816690000 (1ps)\n"
+    },
+    {
+      "profile": [
+        16,
+        7,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "expected": "PASS",
+      "output": "EZ80MR4 R21.3 START\nLOCAL EXP=31 ACT=31\nLINK EXP=55/AA ACT=55/AA\nA 010100 E31 A1=31 A2=31\nI1=31 I2=31 HL=010100\nW=650100/31 R=650100/31\nI 010100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=010100\nW=650100/CE R=650100/CE\nA 070100 E31 A1=31 A2=31\nI1=31 I2=31 HL=070100\nW=6B0100/31 R=6B0100/31\nI 070100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=070100\nW=6B0100/CE R=6B0100/CE\nA 07FFFE E31 A1=31 A2=31\nI1=31 I2=31 HL=07FFFE\nW=6BFFFE/31 R=6BFFFE/31\nI 07FFFE ECE A1=CE A2=CE\nI1=CE I2=CE HL=07FFFE\nW=6BFFFE/CE R=6BFFFE/CE\nEZ80MR4 R21.3: PASS\nPASS io2_com_r21 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=0 WAIT_ticks=606\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 27482190000 (1ps)\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "expected": "FAIL",
+      "output": "EZ80MR4 R21.3 START\nLOCAL EXP=31 ACT=31\nLINK EXP=55/AA ACT=55/AA\nA 010100 E31 A1=31 A2=31\nI1=31 I2=31 HL=010100\nW=650100/31 R=650100/31\nI 010100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=010100\nW=650100/CE R=650100/CE\nA 070100 E31 A1=31 A2=31\nI1=31 I2=31 HL=070100\nW=6B0100/31 R=6B0100/31\nI 070100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=070100\nW=6B0100/CE R=6B0100/CE\nA 07FFFE E31 A1=20 A2=20\nI1=20 I2=20 HL=07FFFE\nW=6BFFFE/31 R=6BFFFE/20\nI 07FFFE ECE A1=20 A2=20\nI1=20 I2=20 HL=07FFFE\nW=6BFFFE/CE R=6BFFFE/20\nEZ80MR4 R21.3: FAIL (see rows)\nPASS io2_com_r21 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=0 WAIT_ticks=464\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 4875330000 (1ps)\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "expected": "UNSUPPORTED",
+      "output": "EZ80MR4 R21.3 START\nLOCAL EXP=31 ACT=31\nEZ80MR4 R21.3: UNSUPPORTED\nPASS io2_com_r21 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 403730000 (1ps)\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "expected": "READY",
+      "output": "EZ80MR4 R21.3: READY (use /RUN)\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 183570000 (1ps)\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "expected": "TRACE LINK FAIL",
+      "output": "EZ80MR4 R21.3 START\nLOCAL EXP=31 ACT=31\nLINK EXP=55/AA ACT=00/00\nEZ80MR4 R21.3: TRACE LINK FAIL\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=6 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 603170000 (1ps)\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "expected": "FAIL",
+      "output": "EZ80MR4 R21.3 START\nLOCAL EXP=31 ACT=31\nLINK EXP=55/AA ACT=55/AA\nA 010100 E31 A1=31 A2=31\nI1=31 I2=31 HL=010100\nW=000000/00 R=000000/00\nI 010100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=010100\nW=000000/00 R=000000/00\nA 070100 E31 A1=31 A2=31\nI1=31 I2=31 HL=070100\nW=000000/00 R=000000/00\nI 070100 ECE A1=CE A2=CE\nI1=CE I2=CE HL=070100\nW=000000/00 R=000000/00\nA 07FFFE E31 A1=31 A2=31\nI1=31 I2=31 HL=07FFFE\nW=000000/00 R=000000/00\nI 07FFFE ECE A1=CE A2=CE\nI1=CE I2=CE HL=07FFFE\nW=000000/00 R=000000/00\nEZ80MR4 R21.3: FAIL (see rows)\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=2 high_fetch_opcodes=0 WAIT_ticks=468\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 4911250000 (1ps)\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "expected": "NOT READY",
+      "output": "EZ80MR4 R21.3 START\nLOCAL EXP=31 ACT=31\nEZ80MR4 R21.3: NOT READY\nPASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_mr4_r21_3.sv:176: $finish called at 400530000 (1ps)\n"
+    }
+  ],
+  "GOWIN_run": false,
+  "hardware_run": false
+}

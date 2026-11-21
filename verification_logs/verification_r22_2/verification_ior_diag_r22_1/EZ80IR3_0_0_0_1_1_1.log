@@ -1,0 +1,3 @@
+EZ80IR3 R22.1: UNSUPPORTED
+PASS ior_diag_r22_1 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/r22_2-work/MSXnano_T80_eZ80_restart_R22_2/sim/tb_ior_diag_r22_1.sv:170: $finish called at 182530000 (1ps)

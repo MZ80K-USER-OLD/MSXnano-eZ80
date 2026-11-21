@@ -1,74 +1,145 @@
-# eZ80 restart R21 — 単発追加ブロックI/O
+# R22.3: WAIT停止診断版
 
-## 基準と状態
+R22.2ベースの観測専用版。原因修正・GOWIN合成・実機確認はまだ行っていません。
 
-R20.6を基準に、INI2・IND2・OUTI2・OUTD2を追加しました。R20.6はユーザーのGOWIN成功、EZ80NP6/EZ80MEM/RUNALL全PASS、SofaRunからスペースマンボウの起動・PLAY確認済みです。
+ビルド対象: `fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj`
 
-R21はローカル検証済み、GOWIN・配置配線後タイミング・実機は未確認です。LUT削減やSTA達成は測定するまで判断しません。SLPは非対応・拡張有効時NOP、TRAPは非対応という方針を維持します。
+実機で `hardware_test/EZ80MR5.COM /RUN` を実行します。停止後のLEDを撮影し、S2を1回押して1秒待つ操作を3回繰り返し、計4枚を取得してください。S1リセットは記録を消します。
 
-## 実装
+詳細: [doc/R22_3_WAIT_DIAGNOSTIC.md](doc/R22_3_WAIT_DIAGNOSTIC.md)
 
-| 命令 | Opcode | 転送 | 転送後の更新 |
-| --- | --- | --- | --- |
-| INI2 | ED 84 | BC[15:0]ポート→(HL) | B−1、C+1、HL+1 |
-| IND2 | ED 8C | BC[15:0]ポート→(HL) | B−1、C−1、HL−1 |
-| OUTI2 | ED A4 | (HL)→BC[15:0]ポート | B−1、C+1、HL+1 |
-| OUTD2 | ED AC | (HL)→BC[15:0]ポート | B−1、C−1、HL−1 |
+以下は従来版の説明です。
 
-ポートは更新前のBCです。BとCは独立した8bitの増減で、Cの桁あふれ/借りをBへ伝えません。BCの上位バイトは保持します。HLは命令のデータ幅に従い16/24bitで増減し、短いメモリアクセスは既存MBASE規則を使います。I/Oの物理A23:16は00h、A15:8はBを保持します。
+# R22.2 — ED内デコード統合・回帰比較版
 
-ZはB−1が0か、Nは転送バイトのbit7で更新します。S/H/P/V/Cと既存X/Yビット、A、DE、IX、IY、SPS/SPLは保持します。新4命令は反復しません。
+R22実機でEZ80IOR CASE 0停止、IR0とMEMの読戻しACT=7E、RUNALLにもFAILという報告を受けた比較版です。
+変更したFPGAソースは **t80_mcode_ez80.vhd 1本だけ**。末尾の反復I/O制御上書きを撤去し、8命令の処理をED命令case内へ移しました。機能・命令スケジュールはR22と同じです。
 
-従来のINI/IND/OUTI/OUTDと転送スケジュールを共有し、既存の登録済みWrite_Classへ分類Cを割り当てます。B減算とC増減には既存の8bit ALUを使います。追加の演算器、CPU作業レジスタ、RAMはありません。内部M4でB、M5でCを計算し、M6で確実に書き戻してから命令を完了します。M6を旧インデックス変位処理として扱わないよう、新クラスで除外します。内部T数はT80方式で、実eZ80とのサイクル一致を主張しません。
+**GOWIN合成・実機回復・Logic使用率・タイミングは未確認。原因特定済みの版ではありません。**
+R15.3のTSTデコード統合後に実機回帰が回復した前例を踏まえた変更です。
 
-IRQ/NMI処理へは命令完了後に遷移します。WAIT中のI/O要求保持、完了時のPC、割り込みでの復帰を検証します。入力I/O中に次のHLメモリアドレスを準備する際は、24bitバンクを保持して準備できるよう新クラスだけを許可します。ラッパーは現在のI/O要求の上位アドレスを00hへ固定したまま保持します。
+GOWINは `fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj`。新しいフォルダで再ビルドし、新しいビットストリームで比較してください。
 
-拡張ロック時の新Opcodeは従来の未定義NOP扱いです。既存Z80のブロックI/Oは従来どおりです。
+最初は `EZ80MEM /RUN`、続いて `EZ80IR0 /RUN`。PASSなら `EZ80IOR /RUN`、`RUNALL.BAT`、SOFARUNでゲームを確認。
+MEMがFAILなら `EZ80MR4 /RUN` のW/R記録も比較材料になります。
+COMは変更していません。EZ80IORの表示版はR22、IR0はR22.1のままです。小型診断IR0/IR1/IR3も同梱。
 
-## 共有と規模
+- [変更・過去の実機回復例・確認手順](doc/R22_2_ED_DECODE_COMPARISON.md)
+- [命令機能一覧（R22と同じ）](doc/EZ80_INSTRUCTION_STATUS_R22.md)
+- [残る工程](doc/REMAINING_R22.md)
+- 検証ログ: verification_r22_2
 
-FPGA差分はG80A_eZ80の4ファイルです。
+以下は旧版の履歴です。
 
-- t80_pack_ez80.vhd: 既存の書込分類へ新クラスを登録。
-- t80_mcode_ez80.vhd: 転送回路を共有し、ALU更新サイクルを追加。
-- t80_ez80.vhd: 幅・バンク、Z/N更新、M6の区別。
-- g80a_ez80.vhd: 機能識別と私有I/O診断。
+---
 
-CPUの追加状態FFは0です。実機テスト用の8bit署名レジスタのみ追加します。既存の16bit/24bitバス分離、メモリ制御、GPRJ、SDCはR20.6と同一です。一律のタイミング緩和は追加しません。GOWINの実際のLogic/FF数は未測定です。
+# R22 — 反復ブロックI/O追加
 
-## 実機テスト
+R21.3実機確認済み版を基準に、INI2R/IND2R/OTI2R/OTD2R/INIRX/INDRX/OTIRX/OTDRXを追加。
+**R22のGOWIN合成・実機・Logic使用率は未確認。** SDC等の制約変更なし。
 
-同じ `fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj` をビルドしてください。
+GOWIN: `fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj`
 
-1. `EZ80MEM /RUN` → `EZ80MEM P1: PASS`。
-2. 新しい `EZ80IO2 /RUN` → CASE 0〜15の後 `EZ80IO2 R21: PASS`。
-3. `RUNALL.BAT`、SofaRunからスペースマンボウの起動・PLAY。
+実機の新規テスト: `EZ80IOR /RUN` → `EZ80IOR R22: PASS`。COMはルートとhardware_testに同一ファイル。RUNALLに追加済み。
+続いて `EZ80MEM /RUN`、`EZ80IO2 /RUN`、`RUNALL.BAT`、SOFARUNでスペースマンボウの起動・PLAYを確認。
+新規COMは32ケースでCASE 0〜31を表示。CRC32: `643ACD66`（53097 bytes）。旧FPGAではNOT READY。
 
-新しいimpl ZIP、Logic使用率、上記結果を確認します。失敗時はstageとADDR/EXP/ACT、停止なら最後のCASE番号を記録してください。
+- [R22実装・テスト説明](doc/R22_BLOCK_IO_REPEAT.md)
+- [命令実装一覧](doc/EZ80_INSTRUCTION_STATUS_R22.md)
+- [残る工程](doc/REMAINING_R22.md)
+- [R21.3のデコード説明](doc/EZ80_DECODE_IMPLEMENTATION_R21_3.md)
+- [R21.3の最悪Setup経路](doc/EZ80_WORST_SETUP_PATH_R21_3.md)（R22再測定値ではない）
 
-EZ80IO2.COMは22162バイト、CRC32 `5E92DDA4`です。R20.6の旧29本のCOMはバイト単位で維持し、新規1本とRUNALL.BATを更新します。テストZIPには30本をまとめています。R20.6以前では新テストはNOT READYになります。
+以下は旧版の履歴資料。
 
-実機COMはZ80/ADL、4命令、短/長データ幅の16ケースを実行します。メモリ境界、B/C/HL/AF、スタックを確認します。DOS/BIOSがEIすることを想定し、表示前にIM1/Z80/MBASE=0/拡張ロックへ戻し、表示から戻った直後にDIします。診断中の処理はDIです。
+---
 
-### 私有I/O診断
+# R21.3 — 最新資料更新
 
-D8で診断を有効にした間だけ、低位E6hのI/Oを内部応答にします。入力は要求時に保持したBと5AhのXOR、出力は要求時に保持したデータとBのXORを8bit署名へ保存します。FAで署名を読みます。F8=01/F9=FEが機能識別です。
+実機: MEM/IO2/MR4/RUNALL全PASS、SOFARUNからスペースマンボウ起動・PLAY確認。Logic94%。Setup/Holdは未達。
 
-診断中の該当アクセスは外部MSX IORQを出しません。MSXスロットレジスタやVDPポートへ試験データを書きません。診断無効時は通常の外部I/Oです。実機COMのPASSはCPU転送と内部診断の確認であり、外付けI/Oデバイスの電気的タイミング確認ではありません。
+[doc資料一覧](doc/README.md)に命令97ニーモニックの実装状況、デコード実装、最悪Setup経路、残り工程を追加。RTL/COM/制約の変更はなく、再ビルド不要。
+
+以下は配布時の説明。当時の未確認という記述より、上の最新確認結果を優先する。
+
+# R21.3 — 観測接続の修正・比較版
+
+## 基準と未解決事項
+
+R21.2はユーザー実機でEZ80MEM、EZ80IO2、RUNALL全項目がPASS、SOFARUNからスペースマンボウ起動・PLAYを確認済み。
+一方、MR3は全6試験のCPU値とHLが一致するものの、W/R記録がすべてゼロのためFAIL。
+R21.2 implはLogic 19857/20736 (96%)、LUT 17626、ALU 1877、Register 7362/15915 (47%)。
+54MHz系報告Fmax=25.191MHzで、STA未達は残る。
+以前のメモリ不具合が消えた原因は未確定。R21.2の機能PASSをSTA合格と扱わない。
+
+R21.3のGOWIN・実機・リソース・タイミングは未確認。
+
+## 変更
+
+- 64bitの記録をVHDL内の可変スライスで選択する構成をやめる。
+- Verilog側のez80_trace_mux.vで、定数範囲のcaseを使って8bitを選択する。
+- ラッパから4bitのTrace_Selectを出し、8bitのTrace_Dataを明示接続。入力の初期値指定も除去。
+- FD/FEで、同じ8bit接続を通す55H/AAHを読み出せるようにする。
+- 識別FB/FCは03/FC。新しいEZ80MR4.COMを使用。
+- GPRJへez80_trace_mux.vを追加。
+
+これは合成・言語境界を切り分けるための構造変更。GOWINの不具合、可変スライス又は入力初期値が原因と証明したものではない。
+R21.2比でCPU本体、マイクロコード、ALU、レジスタ、パッケージ、ブリッジ、SDRAM制御、CST、SDCは同一。
+CPUの新命令実装は増やさない。SLP非対応NOP・TRAP非対応も維持。
+観測byte選択は1個を共用。読出し記録は既存ram_addr/resultを共用。R21.2の31bit書込み記録を維持し、RTL上の追加FFはない。
+合成後に記録FFが残るようになる場合を含め、GOWINでのLUT/FF増減は未測定。
+
+## 実行手順
+
+1. 別フォルダへ展開し、fpga/project_eZ80/MSXNanoTang20K_eZ80.gprjで再ビルド。
+2. 新しいbitstreamを書き込み、同梱EZ80MR4.COMをDOSドライブへコピー。
+3. 電源再投入後、`EZ80MR4 /RUN`を単独実行。
+4. LINK行、A/I・HL・W/R行、最終結果を報告。画面写真でよい。
+5. `EZ80MEM /RUN`と`EZ80IO2 /RUN`も確認。Logic使用率とimpl ZIPも保存。
+
+**FPGAの再ビルドが必要。以前のMR3ではなくMR4を使う。**
+旧bitstreamでは新MR4はNOT READYとなる。R21.3で旧MR3を実行しても識別変更によりNOT READYとなる。
+既存の通常テストCOM 30本とRUNALLは更新なし。MR3もファイル内容は維持するが、本版の診断には使わない。
+MR4はhardware_testとルートの両方に同じCOMを同梱。RUNALLには追加しない。
+
+正常表示:
+```
+EZ80MR4 R21.3 START
+LOCAL EXP=31 ACT=31
+LINK EXP=55/AA ACT=55/AA
+...
+A 07FFFE E31 A1=31 A2=31
+I1=31 I2=31 HL=07FFFE
+W=6BFFFE/31 R=6BFFFE/31
+...
+EZ80MR4 R21.3: PASS
+```
+
+- LINKが違う: TRACE LINK FAILで、拡張RAM試験の前に終了。観測用の接続を先に調べる。
+- LINKだけ一致しW/Rがゼロ: 同じ8bit接続の定数経路は通るが、記録値の経路が未確認。メモリ障害と混同しない。
+- W/Rの物理アドレスやデータが違う: doc/R21_1_HARDWARE_ANALYSIS.mdの解釈を参照。
+- LINKは接続の試験であり、全記録bit・保持FF・SDRAM書込み完了を独立に証明するものではない。
+
+試験先は論理010100/070100/07FFFE、物理650100/6B0100/6BFFFE。
+A行は絶対指定で31H、I行はHL経由でCEHを書き、両方式で2回ずつ読む。
+Wは受理した書込みの物理アドレス/データ。Rは最後の読出し要求の物理アドレス/ブリッジ返答。
+記録値を読む間に次の拡張要求を出さない。観測記録は履歴FIFOではない。
+
+DOSがEIすることを前提に、呼出し前にZ80/MBASE0・拡張ロック、直後DI。SPS/IX/IYを復帰。
+新IO2命令、ADLコードフェッチ、FFFFH境界試験はMR4では使わない。
 
 ## ローカル検証
 
-新IO2の単体試験は40条件×通常/ストレス×割り込みなし/IRQ/NMIと、ロック時4条件の計244条件です。単体モデルでは、バスへ出た元のBC16、転送データ、Cの00/FF境界、HLの16/24bit境界、BC上位・DE・IX・IY・AF・両スタックの保持、次命令のPC、割り込みの受付境界を直接検査します。SIS/LISではDD/FDを挟んだ形も確認します。ストレスはCPU CE停止とWAITを含みます。
+MR4実COMの8プロファイル:
+- 通常、CPU許可停止、人工的な20H故障注入、拡張無効、/RUNなし、旧版識別。
+- 観測接続をゼロへ固定: LINK FAIL、拡張RAMアクセスなし。
+- 接続の55/AAだけ正常で記録をゼロへ固定: CPU値は一致、記録不一致でFAIL。実機MR3と同じ表示上の区別を確認する人工条件。
 
-実COMをGHDL変換CPU＋ブリッジ＋SDRAMモデルで実行し、16ケース通過、故障注入、非対応/NOT READY/READY、DOS中のEIと割り込みを確認します。私有E6アクセスが外部IORQへ漏れず、転送が16回であることも検査します。
+既存EZ80MEM 9、既存EZ80IO2 7を合わせ24プロファイルが期待結果。
+VHDL-93解析6ファイルと、top/ラッパ/ブリッジ/新muxの部分的な接続確認も実施。
+MR4の接続異常条件は、WAITが発生しない正常な早期終了に合わせてテストベンチの期待条件を修正し再実行。他7条件の成功ログも保持。
+故障注入、READY/NOT READY/UNSUPPORTED等の期待された終了を含む。24個の実機PASSではない。
+GHDL変換CPU＋ブリッジ/SDRAM RTL＋SDRAMモデルによる検証であり、GOWINネットリスト・物理タイミング・実機不具合の再現ではない。
 
-既存メモリ、割り込み、幅プレフィクス、SLP-NOPの回帰も実施します。新旧合計312条件/プロファイルを確認し、ログをverification_r21に収録します。期待された故障検出や非対応結果も含みます。全eZ80命令の独立な正解モデルとの等価検証ではありません。簡略DOS、フラットRAM単体、SDRAMモデルは配置配線遅延と実機全周辺を再現しません。
-
-## 残る実装
-
-次はINI2R/IND2R/OTI2R/OTD2R、その後INIRX/INDRX/OTIRX/OTDRXを優先します。今回の4命令で共用したALUと転送・境界処理を利用する方針です。これら反復8命令はR21では未実装です。混在suffixの未対応形式の監査と全体検証・STAも残ります。
-
-SLP、TRAP、16bitポートの15:8を00hへ固定する追加I/O命令は対象外です。詳細はdoc/REMAINING_R21.mdとISA_AUDIT_R21.jsonを参照してください。
-
-参照：Zilog eZ80 CPU User Manual UM007715-0415、INI2/IND2/OUTI2/OUTD2の定義。
-https://www.zilog.com/docs/um0077.pdf
+EZ80MR4.COM: 4108バイト、CRC32 86A79F3D。
+本版の情報はこのREADMEとverification_r21_3/summary.jsonを参照。旧版の資料は履歴として同梱。

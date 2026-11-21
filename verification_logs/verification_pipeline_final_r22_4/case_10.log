@@ -1,0 +1,8 @@
+EZ80MR6 R22.4: START
+LOCAL EXP=31 ACT=31
+LINK EXP=55/AA ACT=55/AA
+BEGIN G ADDR=010100 EXP=31
+WRITE_DONE 010100 (DOS gap)
+PASS R22.3 actual COM frozen snapshot=e501000101008c05
+PASS injected ACK stall checkpoint HANG_AT=          2
+/workspace/scratch/db88d59b2a4d/r22-4-work/MSXnano_T80_eZ80_restart_R22_4/sim/tb_mr6_r22_4.sv:246: $finish called at 776550000 (1ps)

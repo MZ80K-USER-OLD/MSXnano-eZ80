@@ -1,0 +1,2 @@
+PASS IOR boundary cases=         80 stress=          1 ext=          1 event=          1
+/workspace/scratch/db88d59b2a4d/r22-work/MSXnano_T80_eZ80_restart_R22/sim/tb_ior_boundary_r22.sv:85: $finish called at 18763300000 (1ps)

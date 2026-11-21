@@ -1,0 +1,219 @@
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -188,10 +188,10 @@
+ 
+ begin
+ 
+-        process (IR, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
++        process (IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
+                 variable DDD : std_logic_vector(2 downto 0);
+                 variable SSS : std_logic_vector(2 downto 0);
+-                variable Tst_Active : boolean;
++                variable Tst_Active, Indexed_Pair_Active : boolean;
+                 variable DPair : std_logic_vector(1 downto 0);
+                 variable lastaddr, countdata, cycle : integer;
+                 variable pairnum : std_logic_vector(1 downto 0);
+@@ -205,6 +205,8 @@
+ 
+                 Tst_Active := Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
+                     ((IR(7 downto 6)="00" and IR(2 downto 0)="100") or IR=x"64");
++                Indexed_Pair_Active:=Mode=0 and Ext_Active='1' and ISet="00" and XY_State/="00" and
++                    IntCycle='0' and NMICycle='0' and (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B");
+                 Flow_Cond <= Branch_Condition;
+                 MCycles <= "001";
+                 if MCycle = "001" then
+@@ -261,6 +263,16 @@
+ 
+                 case ISet is
+                 when "00" =>
++                    -- R17: indexed pair memory is a decode branch, before legacy rotates/LDs.
++                    if Indexed_Pair_Active then
++                        if Data_Long='1' then MCycles<="101";else MCycles<="100";end if;
++                        if MCycle="010" then Inc_PC<='1';TStates<="100";end if;
++                        if Write_Class(7 downto 4)=x"B" then
++                            if MCycle="011" then Read_To_Reg<='1';Set_BusA_To<="0101";
++                            elsif MCycle="100" then Read_To_Reg<='1';Set_BusA_To<="0100";end if;
++                        end if;
++                    else
++
+ 
+ ------------------------------------------------------------------------------
+ --
+@@ -1344,6 +1356,7 @@
+                         end if;
+ 
+                 end case;
++                    end if; -- R17 indexed/legacy base decode
+ 
+                 when "01" =>
+ 
+@@ -2007,6 +2020,7 @@
+ 
+                 end case;
+ 
++                if not Indexed_Pair_Active then
+                 if Mode = 1 then
+                         if MCycle = "001" then
+ --                              TStates <= "100";
+@@ -2308,12 +2322,13 @@
+                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
+                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
+                 end if;
++                end if; -- R17: legacy XY/extension overrides
+         end process;
+ 
+     -- The legacy writer is unchanged. Extension overrides select one opcode
+     -- class in parallel instead of chaining every instruction's Write mux.
+     process(Legacy_Write, Write_Class, ISet, MCycle, Ext_Active, Data_Long,
+-            Stream_Long, ADL_Mode, Has_Width, IntCycle, NMICycle, Branch_Condition)
++            Stream_Long, ADL_Mode, Has_Width, IntCycle, NMICycle, Branch_Condition, XY_State)
+         variable w : std_logic;
+         variable base_kind, ed_kind : std_logic_vector(3 downto 0);
+         variable lastaddr, cycle : integer range 0 to 7;
+@@ -2379,6 +2394,10 @@
+         if Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' then
+             if ed_kind=x"9" or (ed_kind=x"8" and (ADL_Mode='1' or Has_Width='1')) then w:='0';end if;
+         end if;
++        if Mode=0 and Ext_Active='1' and ISet="00" and XY_State/="00" and IntCycle='0' and NMICycle='0' and
++           (ed_kind=x"A" or ed_kind=x"B") then
++            w:='0';if ed_kind=x"A" and cycle>=3 and (cycle<=4 or (cycle=5 and Data_Long='1')) then w:='1';end if;
++        end if;
+         Write<=w;
+     end process;
+ 
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -187,7 +187,8 @@
+         return c;
+     end function;
+     signal Stack_Upper_Index : std_logic_vector(2 downto 0);
+-    signal Pair_Indirect, Indirect_Read : std_logic;
++    signal Pair_Indirect, Pair_Indexed, Indirect_Read, Indirect_Opposite : std_logic;
++    signal Indirect_Offset : integer range 0 to 1;
+     signal Indirect_Index, Pair_Commit_Index : std_logic_vector(2 downto 0);
+     signal Pair_Absolute, Pair_Read, Pair_SP : std_logic;
+     signal Pair_Number : std_logic_vector(1 downto 0);
+@@ -546,10 +547,14 @@
+     Pair_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and IntCycle='0' and NMICycle='0' and
+         ((ISet="00" and Opcode_Class(4)='1') or (ISet="10" and Opcode_Class(5)='1')) else '0';
+     -- R16: no extra work register, FSM state, byte counter or ALU.
+-    Pair_Indirect<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
++    Pair_Indirect<='1' when Mode=0 and Extensions_Enabled='1' and (ISet="10" or Pair_Indexed='1') and IntCycle='0' and NMICycle='0' and
+         (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B") else '0';
++    Pair_Indexed<='1' when Mode=0 and Extensions_Enabled='1' and ISet="00" and XY_State/="00" and IntCycle='0' and NMICycle='0' and
++        (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B") else '0';
++    Indirect_Offset<=1 when Pair_Indexed='1' else 0;
++    Indirect_Opposite<='1' when IR=x"31" or IR=x"3E" else '0';
+     Indirect_Read<='1' when Write_Class(7 downto 4)=x"B" else '0';
+-    Indirect_Index<="111" when IR=x"31" or IR=x"3E" else "011" when IR(5 downto 4)="11" else Alternate & IR(5 downto 4);
++    Indirect_Index<=(Indirect_Opposite xor (XY_State(1) and Pair_Indexed)) & "11" when IR(5 downto 4)="11" else Alternate & IR(5 downto 4);
+     Pair_Commit_Index<=Indirect_Index when Pair_Indirect='1' else Pair_Upper_Index;
+     EX_SP_Address_Next<=EX_SP_Address+1;
+     Pair_Read<=IR(3);
+@@ -599,7 +604,7 @@
+     EA_Source<="111" when IR=x"03" or IR=x"13" or IR=x"23" or IR=x"33" or IR=x"54" or IR=x"66" else "011";
+     EA_Target<="011" when IR=x"32" or IR=x"54" else "111" when IR=x"33" or IR=x"55" else Alternate & IR(5 downto 4);
+     LEA_Commit<='1' when EA_Active='1' and PEA_Active='0' and MCycle="010" and TState=5 else '0';
+-    RegAddrC<=Alternate & "10" when Pair_Indirect='1' else EA_Source when EA_Active='1' else RegAddrC_Base;
++    RegAddrC<=XY_State(1) & "11" when Pair_Indexed='1' else Alternate & "10" when Pair_Indirect='1' else EA_Source when EA_Active='1' else RegAddrC_Base;
+     PC_Increment<=PC+1;
+     JP_Immediate<='1' when Extensions_Enabled='1' and ISet="00" and Opcode_Class(12)='1' and
+         Data_Long=Stream_Long and IntCycle='0' and NMICycle='0' else '0';
+@@ -641,7 +646,7 @@
+     -- R11.10: ordinary upper-byte commits share one combinational write port.
+     -- These eight events belong to disjoint opcode families. No pipeline
+     -- stage is added: the original enabled rising edge performs the commit.
+-    Upper_Port_Events(0)<='1' when Pair_Indirect='1' and Indirect_Read='1' and Data_Long='1' and MCycle="100" and TState=3 else '1' when Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
++    Upper_Port_Events(0)<='1' when Pair_Indirect='1' and Indirect_Read='1' and Data_Long='1' and to_integer(unsigned(MCycle))=4+Indirect_Offset and TState=3 else '1' when Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
+         TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 else '0';
+     Upper_Port_Events(1)<=LEA_Commit and Data_Long;
+     Upper_Port_Events(2)<=Arith_Commit;
+@@ -1255,19 +1260,24 @@
+                 null;
+             end if;
+             if Pair_Indirect='1' then
+-                if MCycle="001" and TState=3 then
++                if Pair_Indexed='0' and MCycle="001" and TState=3 then
+                     EX_SP_Address(15 downto 0)<=unsigned(RegBusC);
+                     if Data_Long='1' then EX_SP_Address(23 downto 16)<=unsigned(Upper(to_integer(unsigned(RegAddrC))));
+                     else EX_SP_Address(23 downto 16)<=unsigned(MBASE);end if;
+                 end if;
+                 if MCycle="001" and TState=4 then EX_SP_Source<=Upper(to_integer(unsigned(Indirect_Index))) & RegBusA;end if;
++                if Pair_Indexed='1' and MCycle="010" and TState=3 then
++                    EX_SP_Address(15 downto 0)<=unsigned(Indexed_Address(15 downto 0));
++                    if Data_Long='1' then EX_SP_Address(23 downto 16)<=unsigned(Indexed_Address(23 downto 16));
++                    else EX_SP_Address(23 downto 16)<=unsigned(MBASE);end if;
++                end if;
+                 -- Work address changes only once, on an accepted data T2.
+-                if TState=2 and Wait_n='1' and (MCycle="010" or MCycle="011") then
++                if TState=2 and Wait_n='1' and (to_integer(unsigned(MCycle))=2+Indirect_Offset or to_integer(unsigned(MCycle))=3+Indirect_Offset) then
+                     if Data_Long='0' then EX_SP_Address(15 downto 0)<=EX_SP_Address_Next(15 downto 0);end if;
+                 end if;
+                 -- Latch the complete request payload at the end of the preceding cycle.
+                 -- The final cycle restores PC fetch through the ordinary address logic.
+-                if T_Res='1' and (MCycle="001" or MCycle="010" or (MCycle="011" and Data_Long='1')) then
++                if T_Res='1' and (to_integer(unsigned(MCycle))=1+Indirect_Offset or to_integer(unsigned(MCycle))=2+Indirect_Offset or (to_integer(unsigned(MCycle))=3+Indirect_Offset and Data_Long='1')) then
+                     Address_Reg<=std_logic_vector(EX_SP_Address(15 downto 0));
+                     Address_Bank_Reg<=std_logic_vector(EX_SP_Address(23 downto 16));
+                 end if;
+@@ -1275,7 +1285,7 @@
+             -- Shared incrementer for EX(SP) and indirect pair transfers.
+             if TState=2 and Wait_n='1' and
+                ((EX_SP_Long='1' and (MCycle="010" or MCycle="011" or MCycle="101" or MCycle="110")) or
+-                (Pair_Indirect='1' and Data_Long='1' and (MCycle="010" or MCycle="011"))) then
++                (Pair_Indirect='1' and Data_Long='1' and (to_integer(unsigned(MCycle))=2+Indirect_Offset or to_integer(unsigned(MCycle))=3+Indirect_Offset))) then
+                 EX_SP_Address<=EX_SP_Address_Next;
+             end if;
+             if EX_SP_Long='1' then
+@@ -1316,7 +1326,7 @@
+             if Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" then
+                 null;
+             end if;
+-            if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
++            if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and Pair_Indexed='0' and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
+                 if MCycle="011" and Stream_Long='0' and Data_Long='1' then
+                     if IR(5 downto 4)="11" then SPL(23 downto 16)<=(others=>'0');
+                     else null;end if;
+@@ -1394,12 +1404,9 @@
+             if TState = 1 and Auto_Wait_t1 = '0' then
+                 Data_Out_Reg <= BusB;
+                 if Pair_Indirect='1' and Indirect_Read='0' then
+-                    case MCycle is
+-                    when "010"=>Data_Out_Reg<=EX_SP_Source(7 downto 0);
+-                    when "011"=>Data_Out_Reg<=EX_SP_Source(15 downto 8);
+-                    when "100"=>Data_Out_Reg<=EX_SP_Source(23 downto 16);
+-                    when others=>null;
+-                    end case;
++                    if to_integer(unsigned(MCycle))=2+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(7 downto 0);
++                    elsif to_integer(unsigned(MCycle))=3+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(15 downto 8);
++                    elsif to_integer(unsigned(MCycle))=4+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(23 downto 16);end if;
+                 end if;
+                 if Wide_Stack='1' and IR(3 downto 0)="0101" and MCycle="010" then
+                     if IR(5 downto 4)="11" then Data_Out_Reg<=x"00";
+@@ -1514,10 +1521,11 @@
+                 RegAddrA_r <= Alternate & Set_BusA_To(2 downto 1);
+                 -- R16: delayed byte commit must retain its destination across IRQ/NMI entry.
+                 -- Reuse the existing registered port address; add no register.
+-                if Pair_Indirect='1' then RegAddrA_r<=Indirect_Index;end if;
+                 if XY_Ind = '0' and XY_State /= "00" and Set_BusA_To(2 downto 1) = "10" then
+                     RegAddrA_r <= XY_State(1) & "11";
+                 end if;
++
++                if Pair_Indirect='1' then RegAddrA_r<=Indirect_Index;end if;
+ 
+                 -- Bus B
+                 RegAddrB_r <= Alternate & Set_BusB_To(2 downto 1);
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -215,9 +215,9 @@
+             when x"C2"=>Diag_Read<=x"02";
+             when x"C3"=>Diag_Read<=x"A7";
+             when x"C4"=>Diag_Read<=x"FF";
+-            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"83";else Diag_Read<=x"03";end if;
++            when x"C5"=>if DIAGNOSTICS then Diag_Read<=x"87";else Diag_Read<=x"07";end if;
+             when x"C6"=>Diag_Read<=x"00";
+-            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"7C";else Diag_Read<=x"FC";end if;
++            when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"78";else Diag_Read<=x"F8";end if;
+             when x"C8"=>Diag_Read<=MBASE_i;
+             when x"C9"=>Diag_Read<="0000000" & MADL_i;
+             when others=>null;

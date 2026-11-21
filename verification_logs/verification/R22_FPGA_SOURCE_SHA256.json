@@ -1,0 +1,8 @@
+{
+  "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+  "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "fadc97a83b1a338c8ce21830e17f75176fb406a60c4a6674279a2428a5cfe0d2",
+  "fpga/G80A_eZ80/t80_ez80.vhd": "4e8d30c6cfa5a8dc144eb3c67cb1d09a6e7a25e9919022bfa695e358bff40563",
+  "fpga/G80A_eZ80/t80_pack_ez80.vhd": "9637ff53042317be3a64d3147a707cad216ff5e78e8d5899e350e0dccb38971c",
+  "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+  "fpga/G80A_eZ80/g80a_ez80.vhd": "3518fe40a9c22e8b6e79fda921d87c385b58f150ba0a85e6992204aa83bb4cbc"
+}

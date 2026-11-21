@@ -1,0 +1,74 @@
+{
+  "revision": "R21.3",
+  "report": "impl(20261115-102551).zip / impl/pnr/MSXNanoTang20K_eZ80.tr / Path1",
+  "report_sha256": "bed608dc5859c2c9182ed8e3b18d307aab5a4843c90109b1c4849ffb583cea14",
+  "start": "cpu1/u0/ISet_0_s0",
+  "end": "cpu1/Request_Extended_s0",
+  "setup_slack_ns": -7.654,
+  "arrival_ns": 19.153,
+  "required_ns": 11.499,
+  "logic_level_reported": 10,
+  "clock_to_q_ns": 0.232,
+  "launch_clock_route_ns": 2.271,
+  "capture_clock_route_ns": 2.274,
+  "setup_ns": 0.035,
+  "relationship_ns": 9.259,
+  "data_cell_ns": 4.447,
+  "data_route_ns": 12.202,
+  "cell_rows": [
+    {
+      "cell": "cpu1/u0/Arith_Target_0_s1",
+      "route_delay_ns": 1.668,
+      "cell_delay_ns": 0.517,
+      "arrival_ns": 4.689
+    },
+    {
+      "cell": "cpu1/u0/RegAddrC_0_s4",
+      "route_delay_ns": 0.847,
+      "cell_delay_ns": 0.371,
+      "arrival_ns": 5.907
+    },
+    {
+      "cell": "cpu1/u0/n20738_s3",
+      "route_delay_ns": 3.944,
+      "cell_delay_ns": 0.555,
+      "arrival_ns": 10.405
+    },
+    {
+      "cell": "cpu1/n1187_s34",
+      "route_delay_ns": 1.901,
+      "cell_delay_ns": 0.517,
+      "arrival_ns": 12.824
+    },
+    {
+      "cell": "cpu1/n1187_s21",
+      "route_delay_ns": 0.429,
+      "cell_delay_ns": 0.462,
+      "arrival_ns": 13.715
+    },
+    {
+      "cell": "cpu1/n1187_s8",
+      "route_delay_ns": 0.001,
+      "cell_delay_ns": 0.555,
+      "arrival_ns": 14.271
+    },
+    {
+      "cell": "cpu1/n1187_s5",
+      "route_delay_ns": 0.419,
+      "cell_delay_ns": 0.453,
+      "arrival_ns": 15.143
+    },
+    {
+      "cell": "cpu1/u0/n12254_s1",
+      "route_delay_ns": 0.84,
+      "cell_delay_ns": 0.555,
+      "arrival_ns": 16.537
+    },
+    {
+      "cell": "cpu1/n576_s2",
+      "route_delay_ns": 2.153,
+      "cell_delay_ns": 0.462,
+      "arrival_ns": 19.153
+    }
+  ]
+}

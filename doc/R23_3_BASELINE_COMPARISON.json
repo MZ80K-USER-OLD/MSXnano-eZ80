@@ -1,0 +1,10 @@
+{
+  "changed_vs_R23_2": [
+    "fpga/src/ez80_memory_bridge.v"
+  ],
+  "changed_vs_R21_3": [
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd",
+    "fpga/src/ez80_memory_bridge.v"
+  ]
+}

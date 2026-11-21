@@ -1,0 +1,6 @@
+R22.4 observation-only memory pipeline diagnostic
+Base: MSXnano_T80_eZ80_restart_R22_3.zip
+Project: fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj
+COM: EZ80MR6 4916 D7F12C22; EZ80MX6 37796 EEC5294B
+GOWIN/board not run by development environment
+See FPGA_SHA256_R22_4.json and doc/R22_4_PIPELINE_DIAGNOSTIC.md

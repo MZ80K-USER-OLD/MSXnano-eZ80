@@ -1,0 +1,19 @@
+{
+  "input": "impl(20261107-081525).zip",
+  "sha256": "d696460ae37a32fc8f670e53e9f185d91a85518f59fd1be9b23aa625c31ea27c",
+  "Logic": 18419,
+  "Logic_percent": 89,
+  "LUT": 16254,
+  "ALU": 1811,
+  "CLS": 9922,
+  "CLS_percent": 96,
+  "BSRAM": 43,
+  "setup_violated_endpoints": 1101,
+  "hold_violated_endpoints": 42,
+  "Fmax54_MHz": 37.381,
+  "Fmax27_MHz": 73.597,
+  "Fmax108_MHz": 147.505,
+  "setup54_TNS_ns": -810.744,
+  "setup54_endpoints": 378,
+  "root_cause_confirmed": false
+}

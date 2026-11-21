@@ -1,0 +1,12 @@
+{
+  "R14_same_EZ80CT1": "PASS",
+  "R15_EZ80CT1": "FAIL Stage V ADDR=09004B EXP=00 ACT=01",
+  "R15_EZ80D3": "FAIL Stage3 ADDR=030000 EXP=96 ACT=97",
+  "R15_EZ80TST": "PASS after rebuild",
+  "R15_EZ80MEM": "PASS",
+  "R15_EZ80MX1": "PASS",
+  "R15_EZ80TS1": "PASS",
+  "R15_EZ80BN1": "PASS",
+  "root_cause_confirmed": false,
+  "R15_3_hardware_tested": false
+}

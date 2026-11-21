@@ -1,0 +1,21 @@
+{
+  "snapshot": "E501000101009C05",
+  "state": "WAIT_RAM",
+  "ram_req": 1,
+  "ram_done": 0,
+  "ram_write": 0,
+  "ext_wait_n": 0,
+  "done_meta": 0,
+  "done_sync": 0,
+  "cpu_mreq_n": 0,
+  "cpu_rd_n": 0,
+  "cpu_wr_n": 1,
+  "extended_window": 1,
+  "controller_running": 1,
+  "controller_selected": 0,
+  "controller_pending": 0,
+  "controller_sync": 1,
+  "cpu_addr": "010100",
+  "held_ram_addr": "650100",
+  "wait_io": 1
+}

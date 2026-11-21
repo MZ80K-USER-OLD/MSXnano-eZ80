@@ -1,0 +1,117 @@
+{
+  "revision": "R19",
+  "baseline": "R18.3 hardware confirmed: MEM/RW2/RUNALL/RS8 PASS and Space Manbow PLAY",
+  "audit_scope": "Family-level implementation gap audit; NOT a complete byte-by-byte ISA certification",
+  "primary_reference": "https://www.zilog.com/docs/um0077.pdf",
+  "source_files": [
+    "fpga/G80A_eZ80/t80_ez80.vhd",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd"
+  ],
+  "items": [
+    {
+      "family": "registers_data",
+      "status": "implemented_tested_subset",
+      "scope": "24-bit register pairs, SPS16/SPL24, data widths and prefix controls",
+      "evidence": "R3, MEM, ALU",
+      "limits": "Not a complete instruction-by-instruction independent oracle"
+    },
+    {
+      "family": "fetch_control",
+      "status": "implemented_tested_subset",
+      "scope": "ADL PC/fetch, JP/JR/CALL/RET and ordinary RST",
+      "evidence": "F9, ADL, CT1",
+      "limits": "Mixed CALL accepts canonical source-width suffixes; other forms remain guarded"
+    },
+    {
+      "family": "block_memory",
+      "status": "implemented_tested_subset",
+      "scope": "LDI/LDD/LDIR/LDDR and CPI/CPD/CPIR/CPDR at 24-bit width",
+      "evidence": "BLK",
+      "limits": "Legacy block I/O retained; additional eZ80 block I/O is a separate item"
+    },
+    {
+      "family": "MLT_LEA_PEA_TST",
+      "status": "implemented_tested_subset",
+      "scope": "MLT, LEA/PEA, TST operands",
+      "evidence": "MUL, LEA, TST",
+      "limits": "Unsupported TSTIO remains intentionally excluded"
+    },
+    {
+      "family": "LDH_LDX",
+      "status": "implemented_tested_subset",
+      "scope": "LD pair,(HL) / (IX+d)/(IY+d) and reverse",
+      "evidence": "LDH R16, LDX R17",
+      "limits": "LDH/LDX are project test-family names, not standalone eZ80 mnemonics"
+    },
+    {
+      "family": "MB_MADL_MIX",
+      "status": "implemented_tested_subset",
+      "scope": "MBASE access, STMIX/RSMIX and canonical mixed CALL/RET",
+      "evidence": "MB, MAD, MIX",
+      "limits": "Full ISA equivalence not claimed"
+    },
+    {
+      "family": "IRQ_NMI_IM2",
+      "status": "implemented_tested_subset",
+      "scope": "Native ADL IM1/IM2/NMI, MADL mode tags and RETI.L/RETN.L",
+      "evidence": "IRQ, IM2, NMI, I16, MAD",
+      "limits": "ADL/MADL IM0 added in R19; full physical peripheral validation remains"
+    },
+    {
+      "family": "mixed_RST",
+      "status": "implemented_board_verified_R18_3",
+      "scope": "All 8 vectors; canonical source suffixes; bare RST with MADL=1",
+      "evidence": "User R18.3 EZ80RS8 R18:PASS",
+      "limits": "Noncanonical full suffixes remain no-stack HALT guards; not claimed invalid by specification"
+    },
+    {
+      "family": "ADL_IM0",
+      "status": "implemented_tested_subset",
+      "scope": "Peripheral RST/CD CALL and other-byte NOP in ADL or MADL contexts; all 256 IACK byte values tested",
+      "evidence": "verification_im0_r19_result.json; EZ80IM0.COM 24 private cases",
+      "limits": "Locked/ordinary Z80 IM0 retains legacy T80 behavior; physical board/peripheral timing not proven"
+    },
+    {
+      "family": "SLP_ED76",
+      "status": "unimplemented_legacy_alias",
+      "scope": "ED76 still decodes as the legacy Z80 IM1 alias",
+      "evidence": "Static decoder audit",
+      "limits": "Sleep clock/wakeup semantics are not implemented; must preserve locked Z80 compatibility when adding"
+    },
+    {
+      "family": "reserved_opcodes",
+      "status": "TRAP_not_implemented_audit_pending",
+      "scope": "UM007715 p46 defines illegal-instruction TRAP; opcode-by-opcode map and implementation remain",
+      "evidence": "Pending per-opcode primary-source audit",
+      "limits": "IM0 invalid peripheral bytes are NOP; fetched illegal instructions are a different case. Earlier audit did not establish this requirement; primary manual now checked."
+    },
+    {
+      "family": "zero_high_IO",
+      "status": "intentionally_excluded",
+      "scope": "IN0/OUT0/TSTIO and additional block I/O forms forcing port bits15:8=00",
+      "evidence": "User policy; no new I/O paths in R18",
+      "limits": "Physical bits23:16=00 for ordinary I/O does not mean the 16-bit port high byte is fixed00"
+    },
+    {
+      "family": "other_added_IO",
+      "status": "unimplemented_audit_pending",
+      "scope": "Other additional block I/O families, including INI2/IND2 and repeat/extended forms",
+      "evidence": "Pending per-opcode primary-source audit",
+      "limits": "Do not categorize every new block-I/O opcode as intentionally excluded; check whether BC/DE retains bits15:8"
+    },
+    {
+      "family": "full_ISA",
+      "status": "not_complete",
+      "scope": "Complete instruction/operand/suffix/flag/timing matrix",
+      "evidence": "Current coverage is family-based regression",
+      "limits": "RUNALL all PASS proves its finite tests, not whole-eZ80 completion"
+    },
+    {
+      "family": "timing_area",
+      "status": "R18_3_violations_known_R19_pending",
+      "scope": "R18 Logic/LUT/CLS/register usage and setup/hold",
+      "evidence": "R18.3 GOWIN Logic94%, CLS99%, setup790/hold42; R19 not synthesized",
+      "limits": "No constraint relaxation added; R19 timing/area unmeasured"
+    }
+  ]
+}

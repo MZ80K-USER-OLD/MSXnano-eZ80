@@ -1,0 +1,6 @@
+CASE 0
+COM stage 0 time=108530000
+EZ80IOR R22: FAIL stage 0
+ADDR=0A8100 EXP=00 ACT=01
+PASS ior_com_r22 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=51 WAIT_ticks=3052
+/workspace/scratch/db88d59b2a4d/r22_2-work/MSXnano_T80_eZ80_restart_R22_2/sim/tb_ior_com_r22.sv:170: $finish called at 804370000 (1ps)

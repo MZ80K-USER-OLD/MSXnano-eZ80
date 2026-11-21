@@ -1,0 +1,187 @@
+--- R21.3/fpga/G80A_eZ80/g80a_ez80.vhd
++++ R22/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -107,6 +107,7 @@
+ 
+     signal Diag_Select : std_logic_vector(7 downto 0);
+     signal Diag_Read, Diag_IO_Signature : std_logic_vector(7 downto 0);
++    signal Diag_IO_Address : std_logic;
+     signal Diag_IO_Cycle : std_logic;
+     signal Diag_Active, Diag_IRQ, Diag_NMI_Arm, HALT_i : std_logic;
+     signal Diag_NMI_Count : unsigned(3 downto 0);
+@@ -156,8 +157,10 @@
+     CEN <= clk_enable;
+     Trace_Select <= Diag_Select(3 downto 0);
+     -- Private test loopback is not emitted to the physical MSX I/O bus.
++    -- R22 private diagnostic ports E4/E5/E6; E7E7 control gate is excluded.
++    Diag_IO_Address<='1' when Request_Address(7 downto 2)="111001" and Request_Address(1 downto 0)/="11" else '0';
+     Diag_IO_Cycle<='1' when DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and
+-        Request_Address(7 downto 0)=x"E6" and IntCycle_n='1' else '0';
++        Diag_IO_Address='1' and IntCycle_n='1' else '0';
+ 
+     BUSAK_n <= BUSAK_n_i;
+     MREQ_n_i <= not MREQ or (Req_Inhibit and MReq_Inhibit);
+@@ -246,6 +249,8 @@
+             when x"FB"=>if DIAGNOSTICS then Diag_Read<=x"03";end if;
+             when x"FC"=>if DIAGNOSTICS then Diag_Read<=x"FC";end if;
+             when x"FD"|x"FE"=>if DIAGNOSTICS then Diag_Read<=Trace_Data;end if;
++            when x"E0"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"22";end if; -- R22 repeating I/O
++            when x"E1"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=x"DD";end if;
+             when x"F8"=>Diag_Read<=x"01"; -- R21 single-step extended block I/O
+             when x"F9"=>Diag_Read<=x"FE";
+             when x"FA"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=Diag_IO_Signature;end if;
+@@ -262,7 +267,7 @@
+         elsif rising_edge(CLK_n) then
+             if clk_enable='1' then
+                 if DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and Request_Write='1' and
+-                    Request_Address(7 downto 0)=x"E6" and TState="011" and IntCycle_n='1' then
++                    Diag_IO_Address='1' and TState="011" and IntCycle_n='1' then
+                     Diag_IO_Signature<=Request_Data xor Request_Address(15 downto 8);
+                 end if;
+                 if Diag_NMI_Count/=0 then Diag_NMI_Count<=Diag_NMI_Count-1;end if;
+@@ -343,7 +348,7 @@
+ 				if TState = "011" and BUSAK_n_i = '1' then
+ 					if Request_Address(15 downto 0)=x"E7E7" and Request_IO='1' and Request_Write='0' and IntCycle_n='1' then DI_Reg<=Diag_Read;
+                     elsif DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and Request_Write='0' and
+-                        Request_Address(7 downto 0)=x"E6" and IntCycle_n='1' then
++                        Diag_IO_Address='1' and IntCycle_n='1' then
+                         DI_Reg<=Request_Address(15 downto 8) xor x"5A";
+                     elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=Diag_IACK_Byte;
+                     else DI_Reg <= to_x01(DI);end if;
+--- R21.3/fpga/G80A_eZ80/t80_ez80.vhd
++++ R22/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -176,7 +176,7 @@
+         if op(7 downto 6)="01" and op(2 downto 0)="011" then c(5):='1';end if;
+         if op(7 downto 6)="00" and op(3 downto 0)="1001" then c(6):='1';end if;
+         if op(7 downto 6)="01" and op(2 downto 0)="010" then c(7):='1';end if;
+-        if (op(7 downto 5)="101" and op(2 downto 1)="00") or op=x"84" or op=x"8C" or op=x"A4" or op=x"AC" then c(8):='1';end if;
++        if (op(7 downto 5)="101" and op(2 downto 1)="00") or op=x"84" or op=x"8C" or op=x"A4" or op=x"AC" or op=x"94" or op=x"9C" or op=x"B4" or op=x"BC" or op=x"C2" or op=x"CA" or op=x"C3" or op=x"CB" then c(8):='1';end if;
+         if op(7 downto 6)="01" and op(3 downto 0)="1100" then c(9):='1';end if;
+         if op=x"02" or op=x"03" or op=x"12" or op=x"13" or op=x"22" or op=x"23" or
+            op=x"32" or op=x"33" or op=x"54" or op=x"55" or op=x"65" or op=x"66" then c(10):='1';end if;
+@@ -210,6 +210,7 @@
+     signal Arith_Result : unsigned(23 downto 0);
+     signal Arith_Overflow, Arith_Half, Arith_Carry_Out : std_logic;
+     signal Block_Instruction, Block_Long, Instruction_Has_Width, Block_IO2 : std_logic;
++    signal Block_IO_Repeat, Block_IO_Output : std_logic;
+     signal Block_Inc_Result : unsigned(23 downto 0);
+     signal Mul_Active, Mul_Commit, Mul_Reg_Commit : std_logic;
+     signal Mul_Target : std_logic_vector(2 downto 0);
+@@ -613,7 +614,9 @@
+     Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and Opcode_Class(8)='1' and IntCycle='0' and NMICycle='0' else '0';
+     Block_Long<=Block_Instruction and Data_Long;
+     Block_IO2<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
+-        Write_Class(7 downto 4)=x"C" and IntCycle='0' and NMICycle='0' else '0';
++        (Write_Class(7 downto 4)=x"C" or Write_Class(7 downto 4)=x"D") and IntCycle='0' and NMICycle='0' else '0';
++    Block_IO_Repeat<=Block_IO2 when Write_Class(7 downto 4)=x"D" else '0';
++    Block_IO_Output<=IR(0) when IR(6)='1' else IR(5);
+     Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
+         else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
+     Mul_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
+@@ -968,7 +971,7 @@
+                 if ADL_Mode='1' and (Set_Addr_To=aNone or (Set_Addr_To=aXY and NextIs_XY_Fetch='1')) then
+                     Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));
+                 end if;
+-                if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and (IORQ_i='0' or (Block_IO2='1' and IR(5)='0' and MCycle="010")) then
++                if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and (IORQ_i='0' or (Block_IO2='1' and Block_IO_Output='0' and MCycle="010")) then
+                     if EX_SP_Long='1' and Set_Addr_To=aSP then Address_Bank_Reg<=std_logic_vector(EX_SP_Address(23 downto 16));
+                     elsif (Pair_Absolute='1' or Byte_Absolute='1') and Set_Addr_To=aZI then
+                         if Inc_WZ='1' then
+@@ -1031,7 +1034,8 @@
+                         -- R19.1: DD/FD CB reads its final opcode in M7, not M1.
+                         -- Consume the width at the indexed CB fetch so M6 address
+                         -- calculation already uses it; never carry it to the next instruction.
+-                        elsif (DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB") or
++                        elsif Prefix="10" or Prefix="01" or
++                            (DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB") or
+                             (DInst=x"CB" and Prefix="11" and (IR=x"DD" or IR=x"FD")) then
+                             Instruction_Has_Width<=Width_Pending;
+                             if Width_Pending='1' then Data_Long<=Width_Code(3);Stream_Long<=Width_Code(4);
+@@ -1448,7 +1452,9 @@
+             end if;
+             -- B/C arithmetic uses the existing byte ALU, preserving every other flag.
+             if Block_IO2='1' then
+-                if MCycle="101" and Save_ALU_r='1' then F(Flag_Z)<=F_Out(Flag_Z);end if;
++                if Block_IO_Repeat='1' then
++                    if MCycle="100" and TState=3 then F(Flag_Z)<=not IncDecZ;end if;
++                elsif MCycle="101" and Save_ALU_r='1' then F(Flag_Z)<=F_Out(Flag_Z);end if;
+                 if MCycle="011" and T_Res='1' then F(Flag_N)<=Data_Out_Reg(7);end if;
+             end if;
+             if T_Res = '1' and I_INRC = '1' then
+@@ -1901,7 +1907,7 @@
+             Auto_Wait_t2 <= Auto_Wait_t1;
+             No_BTR <= (I_BT and (not IR(4) or not F(Flag_P))) or
+                     (I_BC and (not IR(4) or F(Flag_Z) or not F(Flag_P))) or
+-                    (I_BTR and (not IR(4) or F(Flag_Z)));
++                    (I_BTR and ((not IR(4) and not Block_IO_Repeat) or F(Flag_Z)));
+             if TState = 2 then
+                 if SetEI = '1' then
+                     IntE_FF1 <= '1';
+--- R21.3/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ R22/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -191,7 +191,7 @@
+         process (IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
+                 variable DDD : std_logic_vector(2 downto 0);
+                 variable SSS : std_logic_vector(2 downto 0);
+-                variable Tst_Active, Indexed_Pair_Active, Block_IO2 : boolean;
++                variable Tst_Active, Indexed_Pair_Active, Block_IO2, Block_IO_Repeat, Block_IO_Output : boolean;
+                 variable DPair : std_logic_vector(1 downto 0);
+                 variable lastaddr, countdata, cycle : integer;
+                 variable pairnum : std_logic_vector(1 downto 0);
+@@ -203,7 +203,9 @@
+                 DPair := IR(5 downto 4);
+                 IRB := to_bitvector(IR);
+                 Block_IO2:=Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
+-                    Write_Class(7 downto 4)=x"C";
++                    (Write_Class(7 downto 4)=x"C" or Write_Class(7 downto 4)=x"D");
++                Block_IO_Repeat:=Block_IO2 and Write_Class(7 downto 4)=x"D";
++                Block_IO_Output:=(IR(6)='1' and IR(0)='1') or (IR(6)='0' and IR(5)='1');
+                 -- R21.1: IRB remains the raw opcode for every instruction page.
+                 -- Recognize IO2 only in its ED rows, avoiding a global opcode mux.
+ 
+@@ -2058,6 +2060,34 @@
+ 
+                 end case;
+ 
++                -- R22: one byte per iteration, then reuse the existing BTR refetch.
++                -- All register changes use the existing WAIT-qualified IncDec port.
++                -- M4 decrements BC, M5 optionally advances DE; only then may IRQ enter.
++                if Block_IO_Repeat then
++                    MCycles<="110";
++                    case to_integer(unsigned(MCycle)) is
++                    when 1 =>
++                        if Block_IO_Output then Set_Addr_To<=aXY;TStates<="101";
++                        else Set_Addr_To<=aDE;end if;
++                    when 2 =>
++                        Set_BusB_To<="0110";
++                        if Block_IO_Output then Set_Addr_To<=aDE;
++                        else IORQ<='1';Set_Addr_To<=aXY;end if;
++                    when 3 =>
++                        Legacy_Write<='1';TStates<="100";
++                        if Block_IO_Output then IORQ<='1';end if;
++                        if IR(3)='0' then IncDec_16<="0110";else IncDec_16<="1110";end if;
++                    when 4 => NoRead<='1';IncDec_16<="1100";
++                    when 5 =>
++                        NoRead<='1';I_BTR<='1';TStates<="101";
++                        if IR(6)='0' then
++                            if IR(3)='0' then IncDec_16<="0101";else IncDec_16<="1101";end if;
++                        end if;
++                    when 6 => NoRead<='1';TStates<="101";
++                    when others => null;
++                    end case;
++                end if;
++
+                 if not Indexed_Pair_Active and not Block_IO2 then
+                 if Mode = 1 then
+                         if MCycle = "001" then
+--- R21.3/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ R22/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -263,6 +263,9 @@
+         elsif op=x"C7" or op=x"D7" then c(7 downto 4):=x"9";
+         end if;
+         if op=x"84" or op=x"8C" or op=x"A4" or op=x"AC" then c(7 downto 4):=x"C";end if;
++        -- R22: DE-port / BC-counter repeating I/O, captured with raw IR.
++        if op=x"94" or op=x"9C" or op=x"B4" or op=x"BC" or
++           op=x"C2" or op=x"CA" or op=x"C3" or op=x"CB" then c(7 downto 4):=x"D";end if;
+         -- R16: reuse the existing registered write-class field.
+         if op=x"0F" or op=x"1F" or op=x"2F" or op=x"3F" or op=x"3E" then c(7 downto 4):=x"A";
+         elsif op=x"07" or op=x"17" or op=x"27" or op=x"37" or op=x"31" then c(7 downto 4):=x"B";end if;

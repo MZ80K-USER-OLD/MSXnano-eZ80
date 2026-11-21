@@ -1,0 +1,1 @@
+Extract into the existing R21.3 project root containing fpga and doc. Documentation update only; no rebuild needed. Open doc/README.md. Includes instruction status, decode implementation, actual worst Setup path and R19-to-R21.3 history.

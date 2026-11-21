@@ -1,0 +1,6 @@
+EZ80MR6 R22.4: START
+LOCAL EXP=31 ACT=31
+LINK EXP=55/AA ACT=00/00
+EZ80MR6 R22.4: TRACE LINK FAIL
+PASS mr6_r22_4 phase=0 fault=0 extended=1 cpu_div=4 status=6 high_fetch_opcodes=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/r22-4-work/MSXnano_T80_eZ80_restart_R22_4/sim/tb_mr6_r22_4.sv:200: $finish called at 608530000 (1ps)
