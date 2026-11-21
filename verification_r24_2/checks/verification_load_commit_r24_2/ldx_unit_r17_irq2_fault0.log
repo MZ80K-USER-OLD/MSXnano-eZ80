@@ -1,0 +1,3 @@
+PASS ldx_unit_r17 instructions=80 WAIT=11110 pause=8448 fault=0
+/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_ldx_unit_r17.sv:39: $finish called at 31307050000 (1ps)
+LOAD_ATOMIC captures=622 commits=622 families=5 boundaries=454208 wait=914 held=1497361 old_events=81

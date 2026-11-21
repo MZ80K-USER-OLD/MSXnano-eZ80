@@ -211,7 +211,7 @@ module tb_block_corners_r6;
         last_mc=cpu.u0.mcycle;last_res=cpu.u0.t_res;last_wait=cpu.u0.wait_n;
         if(block_active && cpu.u0.mcycle==1 && cpu.u0.tstate==3) iterations=iterations+1;
         for(k=0;k<8;k=k+1) packed_regs[k*16+:16]={cpu.u0.regs.regsh[k],cpu.u0.regs.regsl[k]};
-        now_state={packed_regs,a,dout,cpu.u0.upper,cpu.u0.regbusa,cpu.u0.regbusb,cpu.u0.regbusc,cpu.u0.sp,cpu.u0.spl,cpu.u0.pc,cpu.u0.f};
+        now_state={packed_regs,a,dout,cpu.u0.regs.upper_view,cpu.u0.regbusa,cpu.u0.regbusb,cpu.u0.regbusc,cpu.u0.sp,cpu.u0.spl,cpu.u0.pc,cpu.u0.f};
         if(block_active && cpu.u0.tstate==2 && !cpu.u0.wait_n) begin
             if(hold_valid && now_state!==held) $fatal(1,"state changed during WAIT case=%d mc=%d",active_case,cpu.u0.mcycle);
             held=now_state;hold_valid=1;wait_samples=wait_samples+1;

@@ -58,53 +58,54 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
+-- R24.1: common 24-bit interface; byte storage and reset semantics preserved.
 entity T80_Reg_eZ80 is
     port(
-        Clk         : in std_logic;
-        CEN         : in std_logic;
-        WEH         : in std_logic;
-        WEL         : in std_logic;
-        AddrA       : in std_logic_vector(2 downto 0);
-        AddrB       : in std_logic_vector(2 downto 0);
-        AddrC       : in std_logic_vector(2 downto 0);
-        DIH         : in std_logic_vector(7 downto 0);
-        DIL         : in std_logic_vector(7 downto 0);
-        DOAH        : out std_logic_vector(7 downto 0);
-        DOAL        : out std_logic_vector(7 downto 0);
-        DOBH        : out std_logic_vector(7 downto 0);
-        DOBL        : out std_logic_vector(7 downto 0);
-        DOCH        : out std_logic_vector(7 downto 0);
-        DOCL        : out std_logic_vector(7 downto 0)
+        Clk, CEN, RESET_n : in std_logic;
+        WMask : in std_logic_vector(2 downto 0);
+        AddrA, AddrB, AddrC, AddrU, AddrW : in std_logic_vector(2 downto 0);
+        DI : in std_logic_vector(23 downto 0);
+        DOA, DOB, DOC : out std_logic_vector(23 downto 0);
+        DOU : out std_logic_vector(7 downto 0);
+        Exchange_U, Alternate : in std_logic;
+        Upper_View : out std_logic_vector(63 downto 0)
     );
 end T80_Reg_eZ80;
-
 architecture rtl of T80_Reg_eZ80 is
-
-    type Register_Image is array (natural range <>) of std_logic_vector(7 downto 0);
-    signal  RegsH   : Register_Image(0 to 7);
-    signal  RegsL   : Register_Image(0 to 7);
-
+    type Register_Image is array (0 to 7) of std_logic_vector(7 downto 0);
+    signal RegsH, RegsL, RegsU : Register_Image;
 begin
-
-    process (Clk)
+    -- Retain the original reset-free low-byte arrays for RAM inference.
+    process(Clk)
     begin
-        if Clk'event and Clk = '1' then
-            if CEN = '1' then
-                if WEH = '1' then
-                    RegsH(to_integer(unsigned(AddrA))) <= DIH;
-                end if;
-                if WEL = '1' then
-                    RegsL(to_integer(unsigned(AddrA))) <= DIL;
-                end if;
+        if rising_edge(Clk) then
+            if CEN='1' then
+                if WMask(1)='1' then RegsH(to_integer(unsigned(AddrW)))<=DI(15 downto 8);end if;
+                if WMask(0)='1' then RegsL(to_integer(unsigned(AddrW)))<=DI(7 downto 0);end if;
             end if;
         end if;
     end process;
-
-    DOAH <= RegsH(to_integer(unsigned(AddrA)));
-    DOAL <= RegsL(to_integer(unsigned(AddrA)));
-    DOBH <= RegsH(to_integer(unsigned(AddrB)));
-    DOBL <= RegsL(to_integer(unsigned(AddrB)));
-    DOCH <= RegsH(to_integer(unsigned(AddrC)));
-    DOCL <= RegsL(to_integer(unsigned(AddrC)));
-
+    process(RESET_n, Clk)
+    begin
+        if RESET_n='0' then RegsU<=(others=>(others=>'0'));
+        elsif rising_edge(Clk) then
+            if CEN='1' then
+                -- The existing simultaneous upper-byte exchange is retained.
+                if Exchange_U='1' then
+                    RegsU(to_integer(unsigned'(Alternate & "10")))<=RegsU(to_integer(unsigned'(Alternate & "01")));
+                    RegsU(to_integer(unsigned'(Alternate & "01")))<=RegsU(to_integer(unsigned'(Alternate & "10")));
+                end if;
+                -- Preserve ordinary-write priority over the exchange.
+                if WMask(2)='1' then RegsU(to_integer(unsigned(AddrW)))<=DI(23 downto 16);end if;
+            end if;
+        end if;
+    end process;
+    DOA<=RegsU(to_integer(unsigned(AddrA))) & RegsH(to_integer(unsigned(AddrA))) & RegsL(to_integer(unsigned(AddrA)));
+    DOB<=RegsU(to_integer(unsigned(AddrB))) & RegsH(to_integer(unsigned(AddrB))) & RegsL(to_integer(unsigned(AddrB)));
+    DOC<=RegsU(to_integer(unsigned(AddrC))) & RegsH(to_integer(unsigned(AddrC))) & RegsL(to_integer(unsigned(AddrC)));
+    -- One upper-only auxiliary port serves stack/absolute transfer output.
+    DOU<=RegsU(to_integer(unsigned(AddrU)));
+    views: for i in 0 to 7 generate
+        Upper_View(63-i*8 downto 56-i*8)<=RegsU(i);
+    end generate;
 end;

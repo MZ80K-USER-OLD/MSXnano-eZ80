@@ -1,0 +1,162 @@
+{
+  "cases": [
+    {
+      "test": [
+        "data_r3",
+        0,
+        0
+      ],
+      "captures": 472,
+      "commits": 472,
+      "families": 3,
+      "boundaries": 116384,
+      "wait": 36,
+      "held": 478378,
+      "old_events": 225,
+      "output": "COM stage 1 time=75150000\nCOM stage 2 time=910990000\nCOM stage 3 time=1036430000\nCOM stage 4 time=1139790000\nCOM stage 5 time=1232270000\nCOM stage 6 time=1388750000\nCOM stage 7 time=3686350000\nCOM stage 8 time=6380110000\nCOM stage 9 time=6631310000\nCOM stage A time=7400590000\nCOM stage B time=9168910000\nCOM stage C time=9674190000\nEZ80D3 R3: PASS\nPASS data_r3 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=14321\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_data_r3.sv:147: $finish called at 10205070000 (1ps)\nLOAD_ATOMIC captures=472 commits=472 families=3 boundaries=116384 wait=36 held=478378 old_events=e1\n"
+    },
+    {
+      "test": [
+        "mem_r4",
+        0,
+        0
+      ],
+      "captures": 38,
+      "commits": 38,
+      "families": 1,
+      "boundaries": 17952,
+      "wait": 0,
+      "held": 71317,
+      "old_events": 136,
+      "output": "COM stage 1 time=132750000\nCOM stage 2 time=420750000\nEZ80MEM P1: PASS\nPASS mem_r4 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=1400\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_mem_r4.sv:162: $finish called at 1521870000 (1ps)\nLOAD_ATOMIC captures=38 commits=38 families=1 boundaries=17952 wait=0 held=71317 old_events=88\n"
+    },
+    {
+      "test": [
+        "alu_r5",
+        0,
+        0
+      ],
+      "captures": 172,
+      "commits": 172,
+      "families": 1,
+      "boundaries": 45888,
+      "wait": 0,
+      "held": 187372,
+      "old_events": 132,
+      "output": "COM stage 1 time=132750000\nEZ80ALU P1: PASS\nPASS alu_r5 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=3600\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_alu_r5.sv:140: $finish called at 3997710000 (1ps)\nLOAD_ATOMIC captures=172 commits=172 families=1 boundaries=45888 wait=0 held=187372 old_events=84\n"
+    },
+    {
+      "test": [
+        "blk_r6",
+        0,
+        0
+      ],
+      "captures": 91,
+      "commits": 91,
+      "families": 1,
+      "boundaries": 27584,
+      "wait": 0,
+      "held": 109117,
+      "old_events": 144,
+      "output": "COM stage 1 time=132750000\nCOM stage 2 time=432270000\nCOM stage 3 time=731790000\nCOM stage 4 time=1110670000\nCOM stage 5 time=1489550000\nEZ80BLK P1: PASS\nPASS blk_r6 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=3050\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_blk_r6.sv:140: $finish called at 2328270000 (1ps)\nLOAD_ATOMIC captures=91 commits=91 families=1 boundaries=27584 wait=0 held=109117 old_events=90\n"
+    },
+    {
+      "test": [
+        "lea_r8",
+        0,
+        0
+      ],
+      "captures": 134,
+      "commits": 134,
+      "families": 1,
+      "boundaries": 34368,
+      "wait": 0,
+      "held": 132082,
+      "old_events": 130,
+      "output": "COM stage 1 time=132750000\nCOM stage 2 time=2105230000\nEZ80LEA P1: PASS\nPASS lea_r8 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=3900\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_lea_r8.sv:140: $finish called at 2818190000 (1ps)\nLOAD_ATOMIC captures=134 commits=134 families=1 boundaries=34368 wait=0 held=132082 old_events=82\n"
+    },
+    {
+      "test": [
+        "ldh_unit_r16",
+        0,
+        0
+      ],
+      "captures": 311,
+      "commits": 311,
+      "families": 5,
+      "boundaries": 159136,
+      "wait": 456,
+      "held": 507372,
+      "old_events": 129,
+      "output": "PASS ldh_unit_r16 instructions=40 WAIT=4680 pause=3504 fault=0\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_ldh_unit_r16.sv:39: $finish called at 10605290000 (1ps)\nLOAD_ATOMIC captures=311 commits=311 families=5 boundaries=159136 wait=456 held=507372 old_events=81\n"
+    },
+    {
+      "test": [
+        "ldh_unit_r16",
+        2,
+        0
+      ],
+      "captures": 311,
+      "commits": 311,
+      "families": 5,
+      "boundaries": 183904,
+      "wait": 464,
+      "held": 585895,
+      "old_events": 129,
+      "output": "PASS ldh_unit_r16 instructions=40 WAIT=3983 pause=2976 fault=0\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_ldh_unit_r16.sv:39: $finish called at 12247850000 (1ps)\nLOAD_ATOMIC captures=311 commits=311 families=5 boundaries=183904 wait=464 held=585895 old_events=81\n"
+    },
+    {
+      "test": [
+        "ldx_unit_r17",
+        0,
+        0
+      ],
+      "captures": 622,
+      "commits": 622,
+      "families": 5,
+      "boundaries": 401792,
+      "wait": 936,
+      "held": 1342375,
+      "old_events": 129,
+      "output": "PASS ldx_unit_r17 instructions=80 WAIT=13036 pause=9824 fault=0\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_ldx_unit_r17.sv:39: $finish called at 28064170000 (1ps)\nLOAD_ATOMIC captures=622 commits=622 families=5 boundaries=401792 wait=936 held=1342375 old_events=81\n"
+    },
+    {
+      "test": [
+        "ldx_unit_r17",
+        2,
+        0
+      ],
+      "captures": 622,
+      "commits": 622,
+      "families": 5,
+      "boundaries": 454208,
+      "wait": 914,
+      "held": 1497361,
+      "old_events": 129,
+      "output": "PASS ldx_unit_r17 instructions=80 WAIT=11110 pause=8448 fault=0\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_ldx_unit_r17.sv:39: $finish called at 31307050000 (1ps)\nLOAD_ATOMIC captures=622 commits=622 families=5 boundaries=454208 wait=914 held=1497361 old_events=81\n"
+    },
+    {
+      "test": [
+        "mem_r4",
+        0,
+        1
+      ],
+      "captures": 1,
+      "commits": 0,
+      "families": 1,
+      "boundaries": 1696,
+      "wait": 0,
+      "held": 6915,
+      "old_events": 128,
+      "output": "COM stage 1 time=132750000\nFATAL: /workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/verification_load_commit_r24_2/candidate.v:38767: commit lost captured destination\n       Time: 147950000  Scope: tb_mem_r4.cpu\nLOAD_ATOMIC captures=1 commits=0 families=1 boundaries=1696 wait=0 held=6915 old_events=80\n"
+    }
+  ],
+  "family_coverage": 7,
+  "reference": "hardware-confirmed R24",
+  "baseline_SHA256": "6093d36b25c111bf8143ced015c84a7b87bfaa7217c9c0881c22be073a3afedd",
+  "architectural_comparison": "instruction boundaries; partial states intentionally differ",
+  "external_bus_schedule_compared": true,
+  "expected_faults": 1,
+  "GOWIN": false,
+  "board": false
+}

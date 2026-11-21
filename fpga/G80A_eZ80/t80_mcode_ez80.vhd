@@ -2345,6 +2345,11 @@ begin
                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
                 end if;
                 end if; -- R17: legacy XY/extension overrides
+                -- R24.2: read requests and cycle counts are unchanged. The pair
+                -- collector performs one architectural write at the final byte.
+                if (Exec_Control(EC_LOAD_IMM)='1' or Exec_Control(EC_LOAD_ABS)='1' or Exec_Control(EC_LOAD_IND)='1') and IntCycle='0' and NMICycle='0' then
+                    Read_To_Reg<='0';Set_BusA_To<="0000";
+                end if;
         end process;
 
     -- The legacy writer is unchanged. Extension overrides select one opcode

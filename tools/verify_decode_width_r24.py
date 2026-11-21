@@ -1,11 +1,11 @@
 from pathlib import Path
 import os,subprocess,json
 r=Path(__file__).resolve().parent.parent;loc=r.parents[1];w=r/'verification_decode_width_r24';w.mkdir(exist_ok=True)
-iv=os.environ.get('IVERILOG',str(loc/'local-iverilog/usr/bin/iverilog'));ivl=os.environ.get('IVL_ROOT',str(loc/'local-iverilog/usr/lib/x86_64-linux-gnu/ivl'));vvp=os.environ.get('VVP',str(loc/'local-iverilog/usr/bin/vvp'))
+iv=os.environ.get('IVERILOG',str(loc/'local-iverilog/usr/bin/iverilog'));ivl=os.environ.get('IVL_ROOT',str(loc/'local-iverilog/usr/lib/x86_64-linux-gnu/ivl') if (loc/'local-iverilog/usr/lib/x86_64-linux-gnu/ivl').is_dir() else None);vvp=os.environ.get('VVP',str(loc/'local-iverilog/usr/bin/vvp'))
 rows=[]
 for stress in [0,1]:
     top='tb_decode_width_r24';v=w/f'stress{stress}.vvp'
-    cmd=[iv,'-B',ivl,'-g2012','-s',top,'-o',str(v),f'-P{top}.STRESS={stress}',str(r/'sim/tb_decode_width_r24.sv'),str(r/'verification/cpu_1.v')]
+    cmd=[iv]+(['-B',ivl] if ivl else [])+['-g2012','-s',top,'-o',str(v),f'-P{top}.STRESS={stress}',str(r/'sim/tb_decode_width_r24.sv'),str(r/'verification/cpu_1.v')]
     a=subprocess.run(cmd,capture_output=True,text=True);assert not a.returncode,a.stderr
     a=subprocess.run([vvp,str(v)],capture_output=True,text=True,timeout=300);out=a.stdout+a.stderr;v.with_suffix('.log').write_text(out);assert not a.returncode and 'PASS decode width'in out,out
     print(out.strip(),flush=True);rows.append(dict(stress=stress,output=out))

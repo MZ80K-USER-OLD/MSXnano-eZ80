@@ -1,0 +1,2 @@
+PASS ldx_unit_r17 instructions=80 WAIT=3614 pause=2760 fault=0
+/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_ldx_unit_r17.sv:39: $finish called at 8020970000 (1ps)

@@ -57,7 +57,7 @@ use IEEE.std_logic_1164.all;
 
 package T80_eZ80_Pack is
     -- R24: instruction-static execution descriptor, captured with IR.
-    subtype exec_control_t is std_logic_vector(49 downto 0);
+    subtype exec_control_t is std_logic_vector(52 downto 0);
     constant EC_EX_SP : natural := 0;
     constant EC_STACK : natural := 1;
     constant EC_INCDEC : natural := 2;
@@ -108,6 +108,9 @@ package T80_eZ80_Pack is
     constant EC_UNCOND_FLOW:natural:=47;
     constant EC_JP_ALWAYS:natural:=48;
     constant EC_RETN_OPCODE:natural:=49;
+    constant EC_LOAD_IMM:natural:=50;
+    constant EC_LOAD_ABS:natural:=51;
+    constant EC_LOAD_IND:natural:=52;
     function Decode_Execution(op: std_logic_vector(7 downto 0); pg, xy: std_logic_vector(1 downto 0); ex, adl, dl, sl, hw: std_logic; mode_id: integer) return exec_control_t;
     function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
 
@@ -159,21 +162,14 @@ package T80_eZ80_Pack is
 
     component T80_Reg_eZ80
     port(
-        Clk         : in std_logic;
-        CEN         : in std_logic;
-        WEH         : in std_logic;
-        WEL         : in std_logic;
-        AddrA       : in std_logic_vector(2 downto 0);
-        AddrB       : in std_logic_vector(2 downto 0);
-        AddrC       : in std_logic_vector(2 downto 0);
-        DIH         : in std_logic_vector(7 downto 0);
-        DIL         : in std_logic_vector(7 downto 0);
-        DOAH        : out std_logic_vector(7 downto 0);
-        DOAL        : out std_logic_vector(7 downto 0);
-        DOBH        : out std_logic_vector(7 downto 0);
-        DOBL        : out std_logic_vector(7 downto 0);
-        DOCH        : out std_logic_vector(7 downto 0);
-        DOCL        : out std_logic_vector(7 downto 0)
+        Clk, CEN, RESET_n : in std_logic;
+        WMask : in std_logic_vector(2 downto 0);
+        AddrA, AddrB, AddrC, AddrU, AddrW : in std_logic_vector(2 downto 0);
+        DI : in std_logic_vector(23 downto 0);
+        DOA, DOB, DOC : out std_logic_vector(23 downto 0);
+        DOU : out std_logic_vector(7 downto 0);
+        Exchange_U, Alternate : in std_logic;
+        Upper_View : out std_logic_vector(63 downto 0)
     );
     end component;
 
@@ -365,6 +361,12 @@ package body T80_eZ80_Pack is
         if op=x"CD" or op=x"C9" then c(EC_UNCOND_FLOW):='1';end if;
         if op=x"C3" then c(EC_JP_ALWAYS):='1';end if;
         if op=x"45" then c(EC_RETN_OPCODE):='1';end if;
+        -- R24.2: terminal-opcode qualifiers for the common pair-load collector.
+        if mode_id=0 and ex='1' then
+            if pg="00" and op(7 downto 6)="00" and op(3 downto 0)="0001" and c(EC_PAIR_INDEX)='0' then c(EC_LOAD_IMM):='1';end if;
+            if op(3)='1' and ((pg="00" and raw(4)='1') or (pg="10" and raw(5)='1')) then c(EC_LOAD_ABS):='1';end if;
+            if c(EC_PAIR_IND)='1' and w(7 downto 4)=x"B" then c(EC_LOAD_IND):='1';end if;
+        end if;
         return c;
     end function;
 

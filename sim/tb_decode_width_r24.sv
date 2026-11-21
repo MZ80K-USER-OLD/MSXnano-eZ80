@@ -11,7 +11,7 @@ module tb_decode_width_r24;
  G80A_eZ80 cpu(.CLK_n(clk),.RESET_n(rst),.clk_enable(ce),.clk_falling(cf),.WAIT_n(wn),.INT_n(!irq),.NMI_n(!nmi),.BUSRQ_n(1'b1),.DI(din),.A24(a),.A_MSX(msx),.Extended_Window(ext),.MREQ_n(mr),.IORQ_n(io),.RFSH_n(rf),.RD_n(rd),.WR_n(wr),.DO(dout),.M1_n(m1),.HALT_n(halt_n));
  // The descriptor may change only on an accepted opcode, indexed-CB final
  // opcode, reset, or explicit frame flush. WAIT/CEN stalls must hold it.
- reg [49:0] descriptor_before;reg descriptor_allowed;
+ reg [52:0] descriptor_before;reg descriptor_allowed;
  integer descriptor_hold_checks=0,descriptor_accept_checks=0;
  generate if(CHECK_DESCRIPTOR)begin: descriptor_checks
  always @(posedge clk) if(rst)begin

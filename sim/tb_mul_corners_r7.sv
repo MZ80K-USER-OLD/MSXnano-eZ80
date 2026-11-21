@@ -170,7 +170,7 @@ module tb_mul_corners_r7;
             end
         end
         for(k=0;k<8;k=k+1) packed_regs[k*16+:16]={cpu.u0.regs.regsh[k],cpu.u0.regs.regsl[k]};
-        current_snapshot={packed_regs,cpu.u0.mul_left,cpu.u0.mul_right,cpu.u0.mul_product,cpu.u0.upper,cpu.u0.f,cpu.u0.sp,cpu.u0.spl,cpu.u0.pc};
+        current_snapshot={packed_regs,cpu.u0.mul_left,cpu.u0.mul_right,cpu.u0.mul_product,cpu.u0.regs.upper_view,cpu.u0.f,cpu.u0.sp,cpu.u0.spl,cpu.u0.pc};
         if(!enable_run) begin
             if(pause_valid && current_snapshot!==pause_snapshot) $fatal(1,"MLT/register changed while CEN disabled");
             pause_snapshot=current_snapshot;pause_valid=1;paused_samples=paused_samples+1;

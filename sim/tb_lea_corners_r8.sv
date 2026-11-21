@@ -208,7 +208,7 @@ module tb_lea_corners_r8;
     end
     always @(posedge c54) if(reset_n) begin
         for(k=0;k<8;k=k+1) packed_regs[k*16+:16]={cpu.u0.regs.regsh[k],cpu.u0.regs.regsl[k]};
-        current_state={a,dout,packed_regs,cpu.u0.upper,cpu.u0.sp,cpu.u0.spl,cpu.u0.pc,cpu.u0.f,cpu.u0.ea_result};
+        current_state={a,dout,packed_regs,cpu.u0.regs.upper_view,cpu.u0.sp,cpu.u0.spl,cpu.u0.pc,cpu.u0.f,cpu.u0.ea_result};
         if(ce) begin
             last_mc=cpu.u0.mcycle;last_res=cpu.u0.t_res;last_lea_commit=cpu.u0.lea_commit;
             if(cpu.u0.ea_active && cpu.u0.mcycle==2 && cpu.u0.tstate==3) begin captures=captures+1;case_captures=case_captures+1;end

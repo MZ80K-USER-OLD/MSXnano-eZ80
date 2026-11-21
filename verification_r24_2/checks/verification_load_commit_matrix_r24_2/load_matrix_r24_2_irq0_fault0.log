@@ -1,0 +1,3 @@
+PASS load_matrix_r24_2 cases=68 stress=1
+/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_load_matrix_r24_2.sv:61: $finish called at 9109780000 (1ps)
+LOAD_ATOMIC captures=544 commits=544 families=7 boundaries=154500 wait=1308 held=434698 old_events=81

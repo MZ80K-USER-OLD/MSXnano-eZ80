@@ -1,0 +1,4 @@
+COM stage 1 time=132750000
+FATAL: /workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/verification_load_commit_r24_2/candidate.v:38767: commit lost captured destination
+       Time: 147950000  Scope: tb_mem_r4.cpu
+LOAD_ATOMIC captures=1 commits=0 families=1 boundaries=1696 wait=0 held=6915 old_events=80

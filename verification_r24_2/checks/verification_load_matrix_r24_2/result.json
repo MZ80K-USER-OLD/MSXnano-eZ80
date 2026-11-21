@@ -1,0 +1,30 @@
+{
+  "cases": 136,
+  "profiles": [
+    {
+      "stress": 0,
+      "cases": 68,
+      "output": "PASS load_matrix_r24_2 cases=68 stress=0\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_load_matrix_r24_2.sv:61: $finish called at 1378480000 (1ps)\n"
+    },
+    {
+      "stress": 1,
+      "cases": 68,
+      "output": "PASS load_matrix_r24_2 cases=68 stress=1\n/workspace/scratch/db88d59b2a4d/r24-2-work/MSXnano_T80_eZ80_restart_R24_2/sim/tb_load_matrix_r24_2.sv:61: $finish called at 9109780000 (1ps)\n"
+    }
+  ],
+  "flags_preserved": true,
+  "SP_SPS_and_SPL_separate": true,
+  "short_upper_rules_preserved": true,
+  "all_four_widths": true,
+  "source": "immediate/absolute/IX-IY displacement",
+  "GOWIN": false,
+  "board": false,
+  "rtl_sha256": {
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "9204223b31c73df9c4e0a3c2279f420a2befbac33746ec17bd5bbf2631add5f9",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "0e49cd6ffefacbe63d8b98661a5a7340e7626852c294100abf9af0de7bf8d42e",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "a19fd6b805813aef67fedf26bc7a3e4b8dddedb1e0a4cca27529e938d7c34fe3",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "fd25ca61e54f1c3ab0d57340c96f34ab799d3831dbc7e5498cde1ff3ebf533d5",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "eac9efd07a10af985840ff3a658531599a5ce0ec5f0df0b6e4942f59b67270a1",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  }
+}

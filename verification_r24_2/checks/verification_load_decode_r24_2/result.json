@@ -1,0 +1,8 @@
+{
+  "vectors": 524288,
+  "load_family_exclusivity": true,
+  "EX_SP_work_exclusivity": true,
+  "all_modes": true,
+  "package_sha256": "0e49cd6ffefacbe63d8b98661a5a7340e7626852c294100abf9af0de7bf8d42e",
+  "GOWIN": false
+}
