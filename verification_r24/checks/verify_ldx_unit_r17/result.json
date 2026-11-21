@@ -1,0 +1,93 @@
+{
+  "fresh_runs": 6,
+  "fault_injection_runs": 1,
+  "cases": [
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "output": "PASS ldx_unit_r17 instructions=80 WAIT=2520 pause=0 fault=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_ldx_unit_r17.sv:39: $finish called at 5683710000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        3,
+        1,
+        0,
+        0
+      ],
+      "output": "PASS ldx_unit_r17 instructions=80 WAIT=3614 pause=2760 fault=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_ldx_unit_r17.sv:39: $finish called at 8020970000 (1ps)\n"
+    },
+    {
+      "case": [
+        16,
+        7,
+        1,
+        0,
+        0
+      ],
+      "output": "PASS ldx_unit_r17 instructions=80 WAIT=13036 pause=9824 fault=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_ldx_unit_r17.sv:39: $finish called at 28064170000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        1,
+        1,
+        1,
+        0
+      ],
+      "output": "PASS ldx_unit_r17 instructions=21 WAIT=917 pause=788 fault=1\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_ldx_unit_r17.sv:39: $finish called at 2080530000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        3,
+        1,
+        0,
+        1
+      ],
+      "output": "PASS ldx_unit_r17 instructions=80 WAIT=3068 pause=2332 fault=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_ldx_unit_r17.sv:39: $finish called at 8902810000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        1,
+        1,
+        0,
+        2
+      ],
+      "output": "PASS ldx_unit_r17 instructions=80 WAIT=3053 pause=2284 fault=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_ldx_unit_r17.sv:39: $finish called at 8930850000 (1ps)\n"
+    }
+  ],
+  "instructions_per_normal_run": 80,
+  "IM1_after_EI_delayed_across_complete_indirect_instruction": true,
+  "NMI_mid_transfer_delivered_after_instruction": true,
+  "all_four_width_prefixes": true,
+  "short_wrap_FFFF_to_0000": true,
+  "long_carry_03FFFF_to_040000": true,
+  "flags_preserved": true,
+  "overlapping_index_address_preserved": true,
+  "SP_preserved": true,
+  "IX_and_IY": true,
+  "displacements": [
+    -128,
+    -1,
+    0,
+    1,
+    127
+  ],
+  "work_address_and_data_shared_with_EX_SP": true,
+  "scope": "CPU and wrapper with byte RAM model; physical secondary-slot RTL is checked in separate integration suites",
+  "sha256": {
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "6db931adad05d48abd126a372f686370ede1259cee72a1f52339a1a0f3079de7",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "a19fd6b805813aef67fedf26bc7a3e4b8dddedb1e0a4cca27529e938d7c34fe3",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "41b215d5301b2b90c7f9ca200e9077f161dac957dba9d6a5d9c7784cb0b137ad",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "852e172fcec72ae7e879d93587be35d854a57dcf11fe42a2f5b4515ca1f101ff",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  }
+}

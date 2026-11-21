@@ -164,30 +164,8 @@ architecture rtl of T80_eZ80 is
 
     signal Wide_Stack, Wide_IncDec : std_logic;
     signal Write_Class : std_logic_vector(7 downto 0);
-    signal Opcode_Class : std_logic_vector(15 downto 0);
-    function Classify_Opcode(op : std_logic_vector(7 downto 0)) return std_logic_vector is
-        variable c : std_logic_vector(15 downto 0) := (others=>'0');
-    begin
-        if op=x"E3" then c(0):='1';end if;
-        if op(7 downto 6)="11" and (op(3 downto 0)="0101" or op(3 downto 0)="0001") then c(1):='1';end if;
-        if op(7 downto 6)="00" and (op(3 downto 0)="0011" or op(3 downto 0)="1011") then c(2):='1';end if;
-        if op=x"32" or op=x"3A" then c(3):='1';end if;
-        if op=x"22" or op=x"2A" then c(4):='1';end if;
-        if op(7 downto 6)="01" and op(2 downto 0)="011" then c(5):='1';end if;
-        if op(7 downto 6)="00" and op(3 downto 0)="1001" then c(6):='1';end if;
-        if op(7 downto 6)="01" and op(2 downto 0)="010" then c(7):='1';end if;
-        if (op(7 downto 5)="101" and op(2 downto 1)="00") or op=x"84" or op=x"8C" or op=x"A4" or op=x"AC" then c(8):='1';end if;
-        if op(7 downto 6)="01" and op(3 downto 0)="1100" then c(9):='1';end if;
-        if op=x"02" or op=x"03" or op=x"12" or op=x"13" or op=x"22" or op=x"23" or
-           op=x"32" or op=x"33" or op=x"54" or op=x"55" or op=x"65" or op=x"66" then c(10):='1';end if;
-        if op=x"65" or op=x"66" then c(11):='1';end if;
-        if op=x"C3" or (op(7 downto 6)="11" and op(2 downto 0)="010") then c(12):='1';end if;
-        if op=x"CD" or op=x"C9" or (op(7 downto 6)="11" and
-           (op(2 downto 0)="100" or op(2 downto 0)="000" or op(2 downto 0)="111")) then c(13):='1';end if;
-        if op=x"45" or op=x"4D" then c(14):='1';end if;
-        if op=x"D7" then c(15):='1';end if;
-        return c;
-    end function;
+    signal Exec_Control : exec_control_t;
+    signal Exec_Normal : std_logic;
     signal Stack_Upper_Index : std_logic_vector(2 downto 0);
     signal Pair_Indirect, Pair_Indexed, Indirect_Read, Indirect_Opposite : std_logic;
     signal Indirect_Offset : integer range 0 to 1;
@@ -394,20 +372,16 @@ architecture rtl of T80_eZ80 is
     Frame_Active<='0' when Frame_State=frame_idle else '1';
     Frame_Entry<='1' when MADL='1' and (IntCycle='1' or NMICycle='1') else '0';
     Frame_Take<='1' when Write_Class(0)='0' else Branch_Condition;
-    Frame_Calling<='1' when Mode=0 and ISet="00" and Instruction_Has_Width='1' and Data_Long=ADL_Mode and
-        Write_Class(3 downto 1)="101" and IntCycle='0' and NMICycle='0' else '0';
-    Frame_Return<='1' when Instruction_Has_Width='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
-        ((MADL='1' and ISet="10" and (IR=x"45" or IR=x"4D")) or
-         (Mode=0 and ISet="00" and Frame_Take='1' and Write_Class(3 downto 1)="110")) else '0';
+    Frame_Calling <= Exec_Control(EC_FRAME_CALL) and Exec_Normal;
+    Frame_Return <= ((Exec_Control(EC_FRAME_IRQ_RET) and MADL) or (Exec_Control(EC_FRAME_RET) and Frame_Take)) and Exec_Normal;
     Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0' and IRQ_IM0='0') or Frame_Count=2 else '0';
     -- R18: RST reuses the call-like frame writer, but has no immediate target.
     -- For RST, the first suffix letter chooses the destination mode.
-    Frame_Rst<='1' when Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and Write_Class(3 downto 0)=x"E" else '0';
-    Frame_Rst_Ready<=Frame_Rst when (Instruction_Has_Width='1' and Stream_Long=ADL_Mode) or
-        (Instruction_Has_Width='0' and MADL='1') else '0';
+    Frame_Rst <= Exec_Control(EC_FRAME_RST) and Exec_Normal;
+    Frame_Rst_Ready <= Frame_Rst when Exec_Control(EC_RST_WIDTH_OK)='1' or (Exec_Control(EC_EXPLICIT_WIDTH)='0' and MADL='1') else '0';
     Frame_Destination_Long<='1' when IRQ_IM0='1' else Data_Long when Frame_Rst='1' else Stream_Long;
     -- Noncanonical full suffixes retain the guarded, no-stack-change behavior.
-    Frame_Unsupported<=Frame_Rst when Instruction_Has_Width='1' and Stream_Long/=ADL_Mode else '0';
+    Frame_Unsupported <= Frame_Rst and Exec_Control(EC_RST_WIDTH_BAD);
     Frame_Ready<='1' when Extensions_Enabled='1' and Frame_State=frame_idle and MCycle="001" and TState=4 and
         (Frame_Entry='1' or Frame_Return='1' or Frame_Calling='1' or Frame_Rst_Pending='1') else '0';
     -- R18.3: canonical and guarded RST forms both need a frame start.
@@ -481,7 +455,8 @@ architecture rtl of T80_eZ80 is
             Flag_S => Flag_S)
         port map(
             IR => IR, Write_Class=>Write_Class,
-            Ext_Active=>Extensions_Enabled, Data_Long=>Data_Long, Stream_Long=>Stream_Long, ADL_Mode=>ADL_Mode, Has_Width=>Instruction_Has_Width, Flow_Cond=>Flow_Cond, Branch_Condition=>Branch_Condition, Interrupt_Mode=>IStatus,
+            Exec_Control=>Exec_Control, Interrupt_Long=>IRQ_Long,
+            Ext_Active=>Exec_Control(EC_EXT), Data_Long=>Data_Long, Stream_Long=>Stream_Long, ADL_Mode=>Exec_Control(EC_ADL_SNAPSHOT), Has_Width=>Exec_Control(EC_EXPLICIT_WIDTH), Flow_Cond=>Flow_Cond, Branch_Condition=>Branch_Condition, Interrupt_Mode=>IStatus,
             ISet => ISet,
             MCycle => MCycle,
             F => Decode_Flags,
@@ -561,20 +536,16 @@ architecture rtl of T80_eZ80 is
             Q => ALU_Q,
             F_Out => F_Out);
 
+    Exec_Normal <= not (IntCycle or NMICycle);
     Load_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
     Indexed_Address<=(signed(Upper(to_integer(unsigned(RegAddrC)))) & signed(RegBusC))+resize(signed(DI_Reg),24);
-    Wide_Stack<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and
-        IntCycle='0' and NMICycle='0' and Opcode_Class(1)='1' else '0';
-    Wide_IncDec<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and
-        IntCycle='0' and NMICycle='0' and Opcode_Class(2)='1' else '0';
+    Wide_Stack <= Exec_Control(EC_STACK) and Exec_Normal;
+    Wide_IncDec <= Exec_Control(EC_INCDEC) and Exec_Normal;
     Stack_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
-    Pair_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and IntCycle='0' and NMICycle='0' and
-        ((ISet="00" and Opcode_Class(4)='1') or (ISet="10" and Opcode_Class(5)='1')) else '0';
+    Pair_Absolute <= Exec_Control(EC_PAIR_ABS) and Exec_Normal;
     -- R16: no extra work register, FSM state, byte counter or ALU.
-    Pair_Indirect<='1' when Mode=0 and Extensions_Enabled='1' and (ISet="10" or Pair_Indexed='1') and IntCycle='0' and NMICycle='0' and
-        (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B") else '0';
-    Pair_Indexed<='1' when Mode=0 and Extensions_Enabled='1' and ISet="00" and XY_State/="00" and IntCycle='0' and NMICycle='0' and
-        (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B") else '0';
+    Pair_Indirect <= Exec_Control(EC_PAIR_IND) and Exec_Normal;
+    Pair_Indexed <= Exec_Control(EC_PAIR_INDEX) and Exec_Normal;
     Indirect_Offset<=1 when Pair_Indexed='1' else 0;
     Indirect_Opposite<='1' when IR=x"31" or IR=x"3E" else '0';
     Indirect_Read<='1' when Write_Class(7 downto 4)=x"B" else '0';
@@ -586,16 +557,13 @@ architecture rtl of T80_eZ80 is
     Pair_SP<='1' when Pair_Number="11" else '0';
     Pair_Upper_Index<=XY_State(1) & "11" when Pair_Number="10" and XY_State/="00" else Alternate & Pair_Number;
     Pair_Address_Last<=4 when Stream_Long='1' else 3;
-    Byte_Absolute<='1' when Extensions_Enabled='1' and (Data_Long='1' or Stream_Long='1') and ISet="00" and
-        Opcode_Class(3)='1' and IntCycle='0' and NMICycle='0' else '0';
-    EX_SP_Long<='1' when Extensions_Enabled='1' and Data_Long='1' and ISet="00" and Opcode_Class(0)='1' and IntCycle='0' and NMICycle='0' else '0';
+    Byte_Absolute <= Exec_Control(EC_BYTE_ABS) and Exec_Normal;
+    EX_SP_Long <= Exec_Control(EC_EX_SP) and Exec_Normal;
     EX_SP_Index<=XY_State(1) & "11" when XY_State/="00" else Alternate & "10";
     EX_SP_Result_WE<='1' when EX_SP_Long='1' and MCycle="111" and TState=3 else '0';
     -- Address work register advances only after an accepted T2.
     -- M1/T3 prepares the first read before the M1/T4 address latch.
-    Arith_Long<='1' when Mode=0 and Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
-        ((ISet="00" and Opcode_Class(6)='1') or
-         (ISet="10" and Opcode_Class(7)='1')) else '0';
+    Arith_Long <= Exec_Control(EC_ARITH) and Exec_Normal;
     Arith_Target<=XY_State(1) & "11" when ISet="00" and XY_State/="00" else Alternate & "10";
     Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Alternate & IR(5 downto 4);
     Arith_Sub<='1' when ISet="10" and IR(3)='0' else '0';
@@ -610,31 +578,27 @@ architecture rtl of T80_eZ80 is
     Arith_Half<=Arith_Left(12) xor Arith_Right(12) xor Arith_Result(12);
     Arith_Carry_Out<=Arith_Sum(24) xor Arith_Sub_Latched;
     Arith_Overflow<=(not (Arith_Left(23) xor Arith_Right(23) xor Arith_Sub_Latched)) and (Arith_Left(23) xor Arith_Result(23));
-    Block_Instruction<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and Opcode_Class(8)='1' and IntCycle='0' and NMICycle='0' else '0';
+    Block_Instruction <= Exec_Control(EC_BLOCK) and Exec_Normal;
     Block_Long<=Block_Instruction and Data_Long;
-    Block_IO2<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
-        Write_Class(7 downto 4)=x"C" and IntCycle='0' and NMICycle='0' else '0';
+    Block_IO2 <= Exec_Control(EC_IO2) and Exec_Normal;
     Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
         else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
-    Mul_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and
-        Opcode_Class(9)='1' and IntCycle='0' and NMICycle='0' else '0';
+    Mul_Active <= Exec_Control(EC_MUL) and Exec_Normal;
     Mul_Target<=Alternate & IR(5 downto 4);
     Mul_Operand<=SPL(15 downto 0) when IR(5 downto 4)="11" and Data_Long='1' else
         SP when IR(5 downto 4)="11" else unsigned(RegBusA);
     Mul_Commit<='1' when Mul_Active='1' and MCycle="001" and TState=7 else '0';
     Mul_Reg_Commit<=Mul_Commit when IR(5 downto 4)/="11" else '0';
-    EA_Active<='1' when Mode=0 and Extensions_Enabled='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
-        Opcode_Class(10)='1' else '0';
-    PEA_Active<=EA_Active when Opcode_Class(11)='1' else '0';
+    EA_Active <= Exec_Control(EC_EA) and Exec_Normal;
+    PEA_Active <= Exec_Control(EC_PEA) and Exec_Normal;
     PEA_Long<=PEA_Active and Data_Long;
     EA_Source<="111" when IR=x"03" or IR=x"13" or IR=x"23" or IR=x"33" or IR=x"54" or IR=x"66" else "011";
     EA_Target<="011" when IR=x"32" or IR=x"54" else "111" when IR=x"33" or IR=x"55" else Alternate & IR(5 downto 4);
     LEA_Commit<='1' when EA_Active='1' and PEA_Active='0' and MCycle="010" and TState=5 else '0';
     RegAddrC<=XY_State(1) & "11" when Pair_Indexed='1' else Alternate & "10" when Pair_Indirect='1' else EA_Source when EA_Active='1' else RegAddrC_Base;
     PC_Increment<=PC+1;
-    JP_Immediate<='1' when Extensions_Enabled='1' and ISet="00" and Opcode_Class(12)='1' and
-        Data_Long=Stream_Long and IntCycle='0' and NMICycle='0' else '0';
-    JP_Commit<='1' when JP_Immediate='1' and (IR=x"C3" or Flow_Cond='1') and TState=3 and
+    JP_Immediate <= Exec_Control(EC_JP) and Exec_Normal;
+    JP_Commit<='1' when JP_Immediate='1' and (Exec_Control(EC_JP_ALWAYS)='1' or Flow_Cond='1') and TState=3 and
         ((Stream_Long='1' and MCycle="100") or (Stream_Long='0' and MCycle="011")) else '0';
     -- Acknowledge exactly at the dispatch boundary; Address_Reg new edge at that same
     -- clock wins in the input latch and remains pending for Address_Reg subsequent entry.
@@ -648,18 +612,16 @@ architecture rtl of T80_eZ80 is
         IStatus="00" and (ADL_Mode='1' or MADL='1') else '0';
     IRQ_Long <= Extensions_Enabled and ADL_Mode and (IntCycle or NMICycle);
     IRQ_IM2 <= '1' when IRQ_Long='1' and IntCycle='1' and IStatus="10" else '0';
-    IRQ_Return <= '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="10" and
-        Opcode_Class(14)='1' and IntCycle='0' and NMICycle='0' else '0';
-    Effective_IEF <= '1' when ADL_Mode='1' and SetEI='1' else IntE_FF2 when IRQ_Return='1' and IR=x"45" and MCycle="100" else IntE_FF1;
-    IV_Read_Commit <= '1' when Extensions_Enabled='1' and ISet="10" and Opcode_Class(15)='1' and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' else '0';
-    Ctrl_Stack<='1' when IRQ_Long='1' or IRQ_Return='1' else '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="00" and
-        IntCycle='0' and NMICycle='0' and Opcode_Class(13)='1' else '0';
-    Ctrl_Call<=Ctrl_Stack when IRQ_Long='0' and IRQ_Return='0' and ( IR=x"CD" or IR(2 downto 0)="100") else '0';
-    Ctrl_Ret<='1' when IRQ_Return='1' else Ctrl_Stack when IRQ_Long='0' and ( IR=x"C9" or IR(2 downto 0)="000") else '0';
-    Ctrl_Rst<='1' when IRQ_Long='1' else Ctrl_Stack when IRQ_Return='0' and IR(2 downto 0)="111" else '0';
-    Ctrl_Taken<='1' when IRQ_Return='1' or IR=x"CD" or IR=x"C9" or Ctrl_Rst='1' else Flow_Cond;
+    IRQ_Return <= Exec_Control(EC_IRQ_RETURN) and Exec_Normal;
+    Effective_IEF <= '1' when ADL_Mode='1' and SetEI='1' else IntE_FF2 when IRQ_Return='1' and Exec_Control(EC_RETN_OPCODE)='1' and MCycle="100" else IntE_FF1;
+    IV_Read_Commit <= Exec_Control(EC_IV_READ) and Exec_Normal when MCycle="001" and TState=4 else '0';
+    Ctrl_Stack <= '1' when IRQ_Long='1' or IRQ_Return='1' else Exec_Control(EC_NATIVE_CTRL) and Exec_Normal;
+    Ctrl_Call<=Ctrl_Stack when IRQ_Long='0' and IRQ_Return='0' and Exec_Control(EC_CALL_KIND)='1' else '0';
+    Ctrl_Ret<='1' when IRQ_Return='1' else Ctrl_Stack when IRQ_Long='0' and Exec_Control(EC_RET_KIND)='1' else '0';
+    Ctrl_Rst<='1' when IRQ_Long='1' else Ctrl_Stack when IRQ_Return='0' and Exec_Control(EC_RST_KIND)='1' else '0';
+    Ctrl_Taken<='1' when IRQ_Return='1' or Exec_Control(EC_UNCOND_FLOW)='1' or Ctrl_Rst='1' else Flow_Cond;
     Extension_State<=Extensions_Enabled;
-    SP_Readback<='1' when ISet="10" and IR=x"73" and Data_Long='1' and Stream_Long='0' else '0';
+    SP_Readback <= Exec_Control(EC_SP_READ);
     ClkEn <= CPU_Run and not BusAck;
 
     T_Res <= '1' when TState = unsigned(TStates) else '0';
@@ -707,7 +669,7 @@ architecture rtl of T80_eZ80 is
         elsif rising_edge(CLK_n) then
             if ClkEn='1' then
                 -- EX DE,HL updates both entries from their old values.
-                if Extensions_Enabled='1' and Data_Long='1' and ExchangeDH='1' and TState=3 then
+                if Exec_Control(EC_DATA_LONG)='1' and ExchangeDH='1' and TState=3 then
                     Upper(to_integer(unsigned'(Alternate & "10")))<=Upper(to_integer(unsigned'(Alternate & "01")));
                     Upper(to_integer(unsigned'(Alternate & "01")))<=Upper(to_integer(unsigned'(Alternate & "10")));
                 end if;
@@ -718,6 +680,9 @@ architecture rtl of T80_eZ80 is
     end process;
 
     process (RESET_n, CLK_n)
+        variable Dec_Op : std_logic_vector(7 downto 0);
+        variable Dec_Page, Dec_XY : std_logic_vector(1 downto 0);
+        variable Dec_Data, Dec_Stream, Dec_Has : std_logic;
     begin
         if RESET_n = '0' then
             MADL<='0';Frame_Is_Call<='0';Frame_SPS<='0';Frame_State<=frame_idle;Frame_TS<=to_unsigned(1,3);Frame_Count<=0;
@@ -739,7 +704,7 @@ architecture rtl of T80_eZ80 is
             Address_Reg <= (others => '0');
 			update_addr <= '0';
             TmpAddr <= (others => '0');
-            IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
+            IR <= x"00"; Exec_Control<=(others=>'0'); Write_Class<=Classify_Write(x"00");
             ISet <= "00";
             XY_State <= "00";
             IStatus <= "00";
@@ -826,7 +791,7 @@ architecture rtl of T80_eZ80 is
                 if Frame_End='1' then
                     -- The engine completes the instruction outside the normal T_Res path.
                     -- Discard its decoder state before fetching the return/entry target.
-                    IR<=x"00";ISet<="00";Opcode_Class<=Classify_Opcode(x"00");Write_Class<=Classify_Write(x"00");
+                    IR<=x"00";ISet<="00";Exec_Control<=Decode_Execution(x"00", "00", "00", Extensions_Enabled, ADL_Mode, Data_Long, Stream_Long, '0', Mode);Write_Class<=Classify_Write(x"00");
                     Width_Pending<='0';Instruction_Has_Width<='0';
                     XY_State<="00";XY_Ind<='0';
                     Read_To_Reg_r<="00000";Save_ALU_r<='0';ALU_Op_r<="0000";
@@ -968,7 +933,7 @@ architecture rtl of T80_eZ80 is
                 if ADL_Mode='1' and (Set_Addr_To=aNone or (Set_Addr_To=aXY and NextIs_XY_Fetch='1')) then
                     Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));
                 end if;
-                if Extensions_Enabled='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and (IORQ_i='0' or (Block_IO2='1' and IR(5)='0' and MCycle="010")) then
+                if Exec_Control(EC_DATA_LONG)='1' and IntCycle='0' and NMICycle='0' and (IORQ_i='0' or (Block_IO2='1' and IR(5)='0' and MCycle="010")) then
                     if EX_SP_Long='1' and Set_Addr_To=aSP then Address_Bank_Reg<=std_logic_vector(EX_SP_Address(23 downto 16));
                     elsif (Pair_Absolute='1' or Byte_Absolute='1') and Set_Addr_To=aZI then
                         if Inc_WZ='1' then
@@ -1024,50 +989,57 @@ architecture rtl of T80_eZ80 is
                         PC <= PC_Width(PC_Increment,ADL_Mode);
                     end if;
 
+                    Dec_Op:=DInst;Dec_Page:="00";Dec_XY:=XY_State;
+                    Dec_Data:=Data_Long;Dec_Stream:=Stream_Long;Dec_Has:=Instruction_Has_Width;
                     if Extensions_Enabled='1' and IntCycle='0' and NMICycle='0' and Halt_FF='0' then
                         if Prefix/="10" and Prefix/="01" and (DInst=x"40" or DInst=x"49" or DInst=x"52" or DInst=x"5B") then
                             Width_Pending<='1'; Width_Code<=DInst;
-                            Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';
+                            Dec_Data:='0';Dec_Stream:='0';Dec_Has:='0';
                         -- R19.1: DD/FD CB reads its final opcode in M7, not M1.
                         -- Consume the width at the indexed CB fetch so M6 address
                         -- calculation already uses it; never carry it to the next instruction.
-                        elsif (DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB") or
+                        elsif Prefix="10" or Prefix="01" or (DInst/=x"DD" and DInst/=x"FD" and DInst/=x"ED" and DInst/=x"CB") or
                             (DInst=x"CB" and Prefix="11" and (IR=x"DD" or IR=x"FD")) then
-                            Instruction_Has_Width<=Width_Pending;
-                            if Width_Pending='1' then Data_Long<=Width_Code(3);Stream_Long<=Width_Code(4);
-                            else Data_Long<=ADL_Mode;Stream_Long<=ADL_Mode;end if;
+                            Dec_Has:=Width_Pending;
+                            if Width_Pending='1' then Dec_Data:=Width_Code(3);Dec_Stream:=Width_Code(4);
+                            else Dec_Data:=ADL_Mode;Dec_Stream:=ADL_Mode;end if;
                             Width_Pending<='0';
                         end if;
-                    else Width_Pending<='0';Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';end if;
+                    else Width_Pending<='0';Dec_Data:='0';Dec_Stream:='0';Dec_Has:='0';end if;
                     if IntCycle = '1' and IStatus = "01" then
-                        IR <= "11111111"; Opcode_Class<=Classify_Opcode(x"FF"); Write_Class<=Classify_Write(x"FF");
+                        Dec_Op:=x"FF";
                     elsif (Halt_FF = '1' and IRQ_IM0='0') or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' or
                         (IRQ_IM0='1' and DInst/=x"CD" and not (DInst(7 downto 6)="11" and DInst(2 downto 0)="111")) then
-                        IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
+                        Dec_Op:=x"00";
                     else
-                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
+                        Dec_Op:=DInst;
                     end if;
 
-                    ISet <= "00";
+                    Dec_Page:="00";
                     if Prefix /= "00" then
                         if Prefix = "11" then
                             if Extensions_Enabled='1' and (IR=x"40" or IR=x"49" or IR=x"52" or IR=x"5B") then null;
                             elsif IR(5) = '1' then
-                                XY_State <= "10";
+                                Dec_XY:="10";
                             else
-                                XY_State <= "01";
+                                Dec_XY:="01";
                             end if;
                         else
                             if Prefix = "10" then
-                                XY_State <= "00";
+                                Dec_XY:="00";
                                 XY_Ind <= '0';
                             end if;
-                            ISet <= Prefix;
+                            Dec_Page:=Prefix;
                         end if;
                     else
-                        XY_State <= "00";
+                        Dec_XY:="00";
                         XY_Ind <= '0';
                     end if;
+                    IR<=Dec_Op;ISet<=Dec_Page;XY_State<=Dec_XY;
+                    Data_Long<=Dec_Data;Stream_Long<=Dec_Stream;Instruction_Has_Width<=Dec_Has;
+                    Write_Class<=Classify_Write(Dec_Op);
+                    Exec_Control<=Decode_Execution(Dec_Op, Dec_Page, Dec_XY, Extensions_Enabled, ADL_Mode,
+                                                   Dec_Data, Dec_Stream, Dec_Has, Mode);
                 end if;
 
             else
@@ -1187,7 +1159,9 @@ architecture rtl of T80_eZ80 is
 
                 if TState = 2 and Wait_n = '1' then
                     if ISet = "01" and MCycle = "111" then
-                        IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
+                        IR <= DInst;Write_Class<=Classify_Write(DInst);
+                        Exec_Control<=Decode_Execution(DInst, ISet, XY_State, Extensions_Enabled, ADL_Mode,
+                                                       Data_Long, Stream_Long, Instruction_Has_Width, Mode);
                     end if;
                     if JumpE = '1' then
                         PC <= PC_Width(unsigned(signed(PC) + signed(DI_Reg)),ADL_Mode);
@@ -1226,7 +1200,7 @@ architecture rtl of T80_eZ80 is
                 end if;
 
                 if LDSPHL = '1' then
-                    if Extensions_Enabled='1' and Data_Long='1' then SPL<=unsigned(Upper(to_integer(unsigned(RegAddrC)))) & unsigned(RegBusC);
+                    if Exec_Control(EC_DATA_LONG)='1' then SPL<=unsigned(Upper(to_integer(unsigned(RegAddrC)))) & unsigned(RegBusC);
                     else SP <= unsigned(RegBusC);end if;
                 end if;
                 if ExchangeAF = '1' then
@@ -1240,7 +1214,7 @@ architecture rtl of T80_eZ80 is
                 end if;
             end if;
 
-            if Extensions_Enabled='1' and Data_Long='1' and ExchangeDH='1' and TState=3 then
+            if Exec_Control(EC_DATA_LONG)='1' and ExchangeDH='1' and TState=3 then
                 null;
                 null;
             end if;
@@ -1295,7 +1269,7 @@ architecture rtl of T80_eZ80 is
                     end if;
                 end if;
             end if;
-            if Extensions_Enabled='1' and ISet="10" and IR=x"C7" and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' then
+            if Exec_Control(EC_IV_WRITE)='1' and Exec_Normal='1' and MCycle="001" and TState=4 then
                 I_Upper<=RegBusA(15 downto 8);I<=RegBusA(7 downto 0);
             end if;
             if JP_Commit='1' then
@@ -1565,12 +1539,11 @@ architecture rtl of T80_eZ80 is
                 end if;
             end if;
 
-            if Extensions_Enabled='1' and ISet="10" and MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' then
+            if Exec_Control(EC_MADL_OPCODE)='1' and Exec_Normal='1' and MCycle="001" and TState=4 then
                 if IR=x"7D" then MADL<='1';elsif IR=x"7E" then MADL<='0';end if;
             end if;
             -- LD MB,A / LD A,MB are ADL-only; Z80 mode is a NOP.
-            if Extensions_Enabled='1' and ADL_Mode='1' and ISet="10" and
-                MCycle="001" and TState=4 and IntCycle='0' and NMICycle='0' then
+            if Exec_Control(EC_MB_VALID)='1' and Exec_Normal='1' and MCycle="001" and TState=4 then
                 if IR=x"6D" then MBASE<=ACC;
                 elsif IR=x"6E" then ACC<=MBASE;end if;
             end if;
@@ -1917,7 +1890,7 @@ architecture rtl of T80_eZ80 is
                     IntE_FF2 <= '0';
                 end if;
             end if;
-            if IRQ_Return='1' and IR=x"45" and MCycle="100" and T_Res='1' then IntE_FF1<=IntE_FF2;end if;
+            if IRQ_Return='1' and Exec_Control(EC_RETN_OPCODE)='1' and MCycle="100" and T_Res='1' then IntE_FF1<=IntE_FF2;end if;
             if IntCycle = '1' or NMICycle = '1' then
                 Halt_FF <= '0';
             end if;

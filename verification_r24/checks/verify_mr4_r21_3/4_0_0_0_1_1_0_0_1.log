@@ -1,0 +1,5 @@
+EZ80MR4 R21.3 START
+LOCAL EXP=31 ACT=31
+EZ80MR4 R21.3: NOT READY
+PASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0
+/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mr4_r21_3.sv:176: $finish called at 400530000 (1ps)

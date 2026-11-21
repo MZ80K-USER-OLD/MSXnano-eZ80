@@ -1,0 +1,2 @@
+PASS madl_r13 guard=1
+/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_madl_r13.sv:63: $finish called at 99230000 (1ps)

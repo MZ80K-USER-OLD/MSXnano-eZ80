@@ -246,6 +246,8 @@ begin
             when x"FB"=>if DIAGNOSTICS then Diag_Read<=x"03";end if;
             when x"FC"=>if DIAGNOSTICS then Diag_Read<=x"FC";end if;
             when x"FD"|x"FE"=>if DIAGNOSTICS then Diag_Read<=Trace_Data;end if;
+            when x"E0"=>if DIAGNOSTICS then Diag_Read<=x"24";end if;
+            when x"E1"=>if DIAGNOSTICS then Diag_Read<=x"DB";end if;
             when x"F8"=>Diag_Read<=x"00"; -- R23.2: IO2 execution removed
             when x"F9"=>Diag_Read<=x"FF";
             when x"FA"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=Diag_IO_Signature;end if;

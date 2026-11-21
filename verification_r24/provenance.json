@@ -1,0 +1,26 @@
+{
+  "baseline": "R23.3",
+  "changed_FPGA_files": [
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd",
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd"
+  ],
+  "bridge_unchanged": true,
+  "old_COM_count": 33,
+  "old_COM_unchanged": true,
+  "project_refs": 123,
+  "all_project_refs_resolve": true,
+  "baseline_FPGA_sha256": {
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "e4201fc9db82dc003eb4a0710abe0c8b4dcccd6f8449f5c5b15a4bef2b3ce4ac",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "19f20e048b160a8bed6f330abe3732445aaceb00a27051ac93095940d6fd2ff2",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "c789c1752b80f5c0b8cefcdf6d5cb21a97d908b1ddf66f312f2ff399ec2f6534",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "3fddbd89a72f73e156b4e668eec0265a3deffb60e32e84b1635165a6856ee64d"
+  },
+  "new_FPGA_sha256": {
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "6db931adad05d48abd126a372f686370ede1259cee72a1f52339a1a0f3079de7",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "a19fd6b805813aef67fedf26bc7a3e4b8dddedb1e0a4cca27529e938d7c34fe3",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "41b215d5301b2b90c7f9ca200e9077f161dac957dba9d6a5d9c7784cb0b137ad",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "852e172fcec72ae7e879d93587be35d854a57dcf11fe42a2f5b4515ca1f101ff"
+  }
+}

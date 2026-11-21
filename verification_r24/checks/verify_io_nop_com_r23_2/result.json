@@ -1,0 +1,113 @@
+{
+  "fresh_runs": 7,
+  "expected_failure_runs": 0,
+  "cases": [
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "CASE 0\nCOM stage 0 time=106850000\nCASE 1\nCOM stage 1 time=642450000\nCASE 2\nCOM stage 2 time=1178130000\nCASE 3\nCOM stage 3 time=1713810000\nCASE 4\nCOM stage 4 time=2249490000\nCASE 5\nCOM stage 5 time=2788690000\nCASE 6\nCOM stage 6 time=3327890000\nCASE 7\nCOM stage 7 time=3867090000\nEZ80ION R23.1: PASS\nPASS io_nop_com_r23_2 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=488 WAIT_ticks=30108\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_io_nop_com_r23_2.sv:176: $finish called at 4469330000 (1ps)\n"
+    },
+    {
+      "case": [
+        15,
+        7,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "CASE 0\nCOM stage 0 time=571150000\nCASE 1\nCOM stage 1 time=3233350000\nCASE 2\nCOM stage 2 time=5891650000\nCASE 3\nCOM stage 3 time=8551450000\nCASE 4\nCOM stage 4 time=11207950000\nCASE 5\nCOM stage 5 time=13880950000\nCASE 6\nCOM stage 6 time=16556650000\nCASE 7\nCOM stage 7 time=19235650000\nEZ80ION R23.1: PASS\nPASS io_nop_com_r23_2 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=488 WAIT_ticks=47370\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_io_nop_com_r23_2.sv:176: $finish called at 22251250000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "output": "CASE 0\nCOM stage 0 time=106850000\nEZ80ION R23.1: FAIL stage 0\nADDR=0A8100 EXP=D7 ACT=D6\nPASS io_nop_com_r23_2 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=61 WAIT_ticks=3720\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_io_nop_com_r23_2.sv:176: $finish called at 933810000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "output": "EZ80ION R23.1: UNSUPPORTED\nPASS io_nop_com_r23_2 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_io_nop_com_r23_2.sv:176: $finish called at 182530000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "output": "EZ80ION R23.1: READY (use /RUN)\nPASS io_nop_com_r23_2 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_io_nop_com_r23_2.sv:176: $finish called at 185970000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "output": "EZ80ION R23.1: NOT READY\nPASS io_nop_com_r23_2 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_io_nop_com_r23_2.sv:176: $finish called at 184530000 (1ps)\n"
+    },
+    {
+      "case": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "output": "EZ80ION R23.1: NOT READY\nPASS io_nop_com_r23_2 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_io_nop_com_r23_2.sv:176: $finish called at 179890000 (1ps)\n"
+    }
+  ],
+  "COM_sha256": "5a6eb82b16a15d0511f1fffe4ef03fc7b67f95caecc3c6b7293acbc30b66bb9e",
+  "actual_COM_bytes": true,
+  "board_bridge_SDRAM_model": true,
+  "BDOS_stub_deliberately_EI": true,
+  "no_MSX_vector_writes": true,
+  "private_8_NOP_cases": true,
+  "DOS_real_IM1_IRQ": true,
+  "old_feature_and_no_diagnostics_guard": true,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "6db931adad05d48abd126a372f686370ede1259cee72a1f52339a1a0f3079de7",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "a19fd6b805813aef67fedf26bc7a3e4b8dddedb1e0a4cca27529e938d7c34fe3",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "41b215d5301b2b90c7f9ca200e9077f161dac957dba9d6a5d9c7784cb0b137ad",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "852e172fcec72ae7e879d93587be35d854a57dcf11fe42a2f5b4515ca1f101ff",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  }
+}

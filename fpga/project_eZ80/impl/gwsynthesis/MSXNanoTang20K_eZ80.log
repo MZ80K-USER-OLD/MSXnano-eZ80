@@ -255,7 +255,7 @@ Analyzing entity 'vencode'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ
 Analyzing architecture 'rtl'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\tn_vdp_v3_v9958\src\vdp\vencode.vhd":57)
 Analyzing VHDL file 'D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_pack_ez80.vhd'
 Analyzing package 't80_ez80_pack'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_pack_ez80.vhd":58)
-Analyzing package body 't80_ez80_pack'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_pack_ez80.vhd":233)
+Analyzing package body 't80_ez80_pack'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_pack_ez80.vhd":288)
 Analyzing VHDL file 'D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_reg_ez80.vhd'
 Analyzing entity 't80_reg_ez80'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_reg_ez80.vhd":61)
 Analyzing architecture 'rtl'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_reg_ez80.vhd":81)
@@ -263,8 +263,8 @@ Analyzing VHDL file 'D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga
 Analyzing entity 't80_alu_ez80'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_alu_ez80.vhd":65)
 Analyzing architecture 'rtl'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_alu_ez80.vhd":92)
 Analyzing VHDL file 'D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd'
-Analyzing entity 't80_mcode_ez80'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd":71)
-Analyzing architecture 'rtl'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd":148)
+Analyzing entity 't80_mcode_ez80'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd":72)
+Analyzing architecture 'rtl'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd":151)
 Analyzing VHDL file 'D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd'
 Analyzing entity 't80_ez80'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd":73)
 Analyzing architecture 'rtl'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd":122)
@@ -309,7 +309,7 @@ Switching to VHDL mode to elaborate design unit 'G80A_eZ80'("D:\users\HeroineFac
 Processing 'G80A_eZ80(diagnostics=true)(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\g80a_ez80.vhd":69)
 Processing 'T80_eZ80(iowait=1)(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd":73)
 Extracting RAM for identifier 'Upper'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_ez80.vhd":154)
-Processing 'T80_MCode_eZ80(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd":71)
+Processing 'T80_MCode_eZ80(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_mcode_ez80.vhd":72)
 Processing 'T80_ALU_eZ80(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_alu_ez80.vhd":65)
 Processing 'T80_Reg_eZ80(rtl)'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_reg_ez80.vhd":61)
 Extracting RAM for identifier 'RegsH'("D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\fpga\G80A_eZ80\t80_reg_ez80.vhd":84)

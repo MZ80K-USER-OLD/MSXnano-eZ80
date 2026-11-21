@@ -621,7 +621,7 @@
                 "SubInsts": [
                     {
                         "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/g80a_ez80.vhd",
-                        "InstLine": 309,
+                        "InstLine": 311,
                         "InstName": "u0",
                         "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
                         "ModuleLine": 73,
@@ -629,15 +629,15 @@
                         "SubInsts": [
                             {
                                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-                                "InstLine": 471,
+                                "InstLine": 445,
                                 "InstName": "mcode",
                                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_mcode_ez80.vhd",
-                                "ModuleLine": 71,
+                                "ModuleLine": 72,
                                 "ModuleName": "T80_MCode_eZ80"
                             },
                             {
                                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-                                "InstLine": 540,
+                                "InstLine": 515,
                                 "InstName": "alu",
                                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_alu_ez80.vhd",
                                 "ModuleLine": 65,
@@ -645,7 +645,7 @@
                             },
                             {
                                 "InstFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_ez80.vhd",
-                                "InstLine": 1713,
+                                "InstLine": 1686,
                                 "InstName": "Regs",
                                 "ModuleFile": "D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/fpga/G80A_eZ80/t80_reg_ez80.vhd",
                                 "ModuleLine": 61,

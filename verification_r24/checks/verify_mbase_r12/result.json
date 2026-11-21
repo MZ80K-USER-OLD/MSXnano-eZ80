@@ -1,0 +1,132 @@
+{
+  "fresh_runs": 9,
+  "expected_failure_runs": 2,
+  "cases": [
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS mbase_r12 case=0 div=4 stress=0 checks=512 waits=0 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 1342250000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS mbase_r12 case=0 div=4 stress=1 checks=512 waits=9406 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 2823310000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS mbase_r12 case=0 div=16 stress=1 checks=512 waits=7848 banked_fetches=0\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 9424670000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS mbase_r12 case=1 div=4 stress=0 checks=224 waits=0 banked_fetches=13\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 546010000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS mbase_r12 case=1 div=4 stress=1 checks=224 waits=3839 banked_fetches=13\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 1153790000 (1ps)\n"
+    },
+    {
+      "case": [
+        1,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS mbase_r12 case=1 div=16 stress=1 checks=224 waits=3293 banked_fetches=13\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 3954270000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        4,
+        0,
+        0,
+        0
+      ],
+      "result": "PASS mbase_r12 case=2 div=4 stress=0 checks=11 waits=0 banked_fetches=29\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 48090000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        4,
+        1,
+        3,
+        0
+      ],
+      "result": "PASS mbase_r12 case=2 div=4 stress=1 checks=11 waits=330 banked_fetches=29\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 99790000 (1ps)\n"
+    },
+    {
+      "case": [
+        2,
+        16,
+        1,
+        11,
+        0
+      ],
+      "result": "PASS mbase_r12 case=2 div=16 stress=1 checks=11 waits=287 banked_fetches=29\n/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:50: $finish called at 346910000 (1ps)\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        1
+      ],
+      "result": "FATAL: /workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:40: MBASE state ADDR=0a0018 MB_EXP=01 MB_ACT=00 A_EXP=01 A_ACT=01 F_EXP=f2 F_ACT=f2 ADL=1/1\n       Time: 17770000  Scope: tb_mbase_r12\n"
+    },
+    {
+      "case": [
+        0,
+        4,
+        0,
+        0,
+        2
+      ],
+      "result": "FATAL: /workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:57: MSX isolation ADDR=0a0000 MSX=0000 EW=0\n       Time: 7480002  Scope: tb_mbase_r12\n"
+    }
+  ],
+  "transfer_values": 256,
+  "flags_values": 256,
+  "Z80_NOP": true,
+  "short_LIS_SIS_SIL_LIL_addressing": true,
+  "ADL_and_Z80_IM1_IM2_NMI_with_nonzero_MBASE": true,
+  "SPS_wrap": true,
+  "MSX16_isolation": true,
+  "flat_24bit_RAM_not_board_mapping": true,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "10b5da242c84f4ab31eea9d5bea44c7716a329c27ce61f1da7542579c7ad81ba",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "6db931adad05d48abd126a372f686370ede1259cee72a1f52339a1a0f3079de7",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "a19fd6b805813aef67fedf26bc7a3e4b8dddedb1e0a4cca27529e938d7c34fe3",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "41b215d5301b2b90c7f9ca200e9077f161dac957dba9d6a5d9c7784cb0b137ad",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "852e172fcec72ae7e879d93587be35d854a57dcf11fe42a2f5b4515ca1f101ff",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  }
+}

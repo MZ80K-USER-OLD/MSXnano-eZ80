@@ -1,0 +1,2 @@
+PASS ldh_unit_r16 instructions=40 WAIT=1440 pause=1188 fault=0
+/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_ldh_unit_r16.sv:39: $finish called at 3031770000 (1ps)

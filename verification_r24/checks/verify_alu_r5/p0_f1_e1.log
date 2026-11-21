@@ -1,0 +1,5 @@
+COM stage 1 time=132570000
+EZ80ALU P1: FAIL stage 1
+ADDR=060102 EXP=01 ACT=00
+PASS alu_r5 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=156
+/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_alu_r5.sv:140: $finish called at 1678170000 (1ps)

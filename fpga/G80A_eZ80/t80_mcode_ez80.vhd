@@ -67,6 +67,7 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
+use work.T80_eZ80_Pack.all;
 
 entity T80_MCode_eZ80 is
         generic(
@@ -83,6 +84,8 @@ entity T80_MCode_eZ80 is
         port(
                 IR          : in std_logic_vector(7 downto 0);
                 Write_Class : in std_logic_vector(7 downto 0);
+                Exec_Control : in exec_control_t;
+                Interrupt_Long : in std_logic;
                 Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width : in std_logic;
                 Flow_Cond : out std_logic;
                 Branch_Condition : in std_logic;
@@ -188,7 +191,7 @@ architecture rtl of T80_MCode_eZ80 is
 
 begin
 
-        process (IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
+        process (Exec_Control, Interrupt_Long, IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
                 variable DDD : std_logic_vector(2 downto 0);
                 variable SSS : std_logic_vector(2 downto 0);
                 variable Tst_Active, Indexed_Pair_Active, Block_IO2 : boolean;
@@ -202,15 +205,9 @@ begin
                 SSS := IR(2 downto 0);
                 DPair := IR(5 downto 4);
                 IRB := to_bitvector(IR);
-                Block_IO2:=Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
-                    Write_Class(7 downto 4)=x"C";
-                -- R21.1: IRB remains the raw opcode for every instruction page.
-                -- Recognize IO2 only in its ED rows, avoiding a global opcode mux.
-
-                Tst_Active := Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
-                    ((IR(7 downto 6)="00" and IR(2 downto 0)="100") or IR=x"64");
-                Indexed_Pair_Active:=Mode=0 and Ext_Active='1' and ISet="00" and XY_State/="00" and
-                    IntCycle='0' and NMICycle='0' and (Write_Class(7 downto 4)=x"A" or Write_Class(7 downto 4)=x"B");
+                Block_IO2:=Exec_Control(EC_IO2)='1' and IntCycle='0' and NMICycle='0';
+                Tst_Active:=Exec_Control(EC_TST)='1' and IntCycle='0' and NMICycle='0';
+                Indexed_Pair_Active:=Exec_Control(EC_PAIR_INDEX)='1' and IntCycle='0' and NMICycle='0';
                 Flow_Cond <= Branch_Condition;
                 MCycles <= "001";
                 if MCycle = "001" then
@@ -1616,7 +1613,7 @@ begin
                                 null; -- NOP, undocumented
                         -- R16: pair-indirect transfers share the core's EX(SP) work registers.
                         when x"07"|x"17"|x"27"|x"37"|x"31"|x"0F"|x"1F"|x"2F"|x"3F"|x"3E" =>
-                            if Mode=0 and ISet="10" and Ext_Active='1' and IntCycle='0' and NMICycle='0' then
+                            if Exec_Control(EC_PAIR_IND)='1' and IntCycle='0' and NMICycle='0' then
                                 if Data_Long='1' then MCycles<="100";else MCycles<="011";end if;
                                 if MCycle="001" then TStates<="100";else TStates<="011";end if;
                                 if (IR=x"07" or IR=x"17" or IR=x"27" or IR=x"37" or IR=x"31") then
@@ -1804,7 +1801,7 @@ begin
                         when "01110110" =>
                                 -- R20.6: SLP unsupported, execute as NOP when unlocked.
                                 -- Locked Z80 retains its original ED76 IM1 alias.
-                                if Ext_Active='0' then IMode <= "01";end if;
+                                if Exec_Control(EC_EXT)='0' then IMode <= "01";end if;
                         when "01011110"|"01110111" =>
                                 -- IM 2
                                 IMode <= "10";
@@ -2110,17 +2107,17 @@ begin
 
 
                 -- R1 only: explicit suffixes, immediate register loads, byte data access.
-                if Ext_Active='1' and Mode=0 and IntCycle='0' and NMICycle='0' then
-                    if ISet="00" and (IR=x"40" or IR=x"49" or IR=x"52" or IR=x"5B") then
+                if Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
+                    if Exec_Control(EC_WIDTH_PREFIX)='1' then
                         Prefix<="11";
                     end if;
-                    if ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" and Stream_Long='1' then
+                    if Exec_Control(EC_IMM_LONG)='1' then
                         MCycles<="100";
                         if MCycle="100" then Inc_PC<='1'; Read_To_Reg<='0'; end if;
                     end if;
                     -- Readback of the separate SPL, into bank-00 diagnostic memory.
                     -- Only LD.LIS (nn),SP (49 ED 73 nn nn) is in the R1 subset.
-                    if ISet="10" and IR=x"73" and Data_Long='1' and Stream_Long='0' then
+                    if Exec_Control(EC_SP_READ)='1' then
                         MCycles<="110";
                         if MCycle="101" then
                             Inc_WZ<='1'; Set_Addr_To<=aZI; Set_BusB_To<="1110";
@@ -2132,8 +2129,7 @@ begin
 
 
                 -- R2 explicit long PUSH/POP. SPL only; never changes SPS or PC.
-                if Ext_Active='1' and Data_Long='1' and ISet="00" and Mode=0 and IntCycle='0' and NMICycle='0' and
-                   IR(7 downto 6)="11" and (IR(3 downto 0)="0101" or IR(3 downto 0)="0001") then
+                if Exec_Control(EC_STACK)='1' and Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="100"; null;Read_To_Reg<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
                     TStates<="011"; if MCycle="001" then TStates<="100";end if;
                     if IR(3 downto 0)="0101" then
@@ -2161,8 +2157,7 @@ begin
                 end if;
 
                 -- R3 pair absolute transfers: separate immediate width and data width.
-                if Ext_Active='1' and (Data_Long='1' or Stream_Long='1') and Mode=0 and IntCycle='0' and NMICycle='0' and
-                   ((ISet="00" and (IR=x"22" or IR=x"2A")) or (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="011")) then
+                if Exec_Control(EC_PAIR_ABS)='1' and Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
                     if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
                     if Data_Long='1' then countdata:=3;else countdata:=2;end if;
                     if ISet="00" then pairnum:="10";else pairnum:=IR(5 downto 4);end if;
@@ -2195,7 +2190,7 @@ begin
                 end if;
 
                 -- R4 absolute byte access: immediate width independent from data block.
-                if Ext_Active='1' and (Data_Long='1' or Stream_Long='1') and Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and (IR=x"32" or IR=x"3A") then
+                if Exec_Control(EC_BYTE_ABS)='1' and Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
                     if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
                     cycle:=to_integer(unsigned(MCycle));MCycles<=std_logic_vector(to_unsigned(lastaddr+1,3));
                     Inc_PC<='0';LDZ<='0';LDW<='0';null;Read_To_Acc<='0';Read_To_Reg<='0';
@@ -2211,7 +2206,7 @@ begin
                 end if;
                 -- R4 EX(SPL),HL/IX/IY. Read all 3 bytes, then write all 3 bytes.
                 -- SPL is never changed. The register commits after the final write.
-                if Ext_Active='1' and Data_Long='1' and Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and IR=x"E3" then
+                if Exec_Control(EC_EX_SP)='1' and Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="111";Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";
                     null;Read_To_Reg<='0';Read_To_Acc<='0';Set_Addr_To<=aSP;NoRead<='0';
                     ExchangeDH<='0';ExchangeRp<='0';
@@ -2227,9 +2222,7 @@ begin
 
                 -- R5 long ADD/ADC/SBC. Internal T4 operand capture, T7 atomic result.
                 -- Short and locked profiles retain the original 8-bit ALU schedule.
-                if Ext_Active='1' and Data_Long='1' and Mode=0 and IntCycle='0' and NMICycle='0' and
-                    ((ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="1001") or
-                     (ISet="10" and IR(7 downto 6)="01" and IR(2 downto 0)="010")) then
+                if Exec_Control(EC_ARITH)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="001";TStates<="111";NoRead<='1';null;Read_To_Reg<='0';Read_To_Acc<='0';
                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Arith16<='0';Save_ALU<='0';
                     Set_Addr_To<=aNone;Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
@@ -2237,17 +2230,14 @@ begin
 
                 -- MLT replaces only the four NEG aliases while the extension gate is open.
                 -- One captured 8x8 multiply is committed at T7, flags and upper byte preserved.
-                if Ext_Active='1' and Mode=0 and ISet="10" and IR(7 downto 6)="01" and
-                    IR(3 downto 0)="1100" and IntCycle='0' and NMICycle='0' then
+                if Exec_Control(EC_MUL)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="001";TStates<="111";NoRead<='1';null;Read_To_Reg<='0';Read_To_Acc<='0';
                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Arith16<='0';Save_ALU<='0';
                     Set_Addr_To<=aNone;Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
                 end if;
 
                 -- LEA/PEA consume one displacement byte, regardless of Stream_Long.
-                if Ext_Active='1' and Mode=0 and ISet="10" and IntCycle='0' and NMICycle='0' and
-                    (IR=x"02" or IR=x"03" or IR=x"12" or IR=x"13" or IR=x"22" or IR=x"23" or
-                     IR=x"32" or IR=x"33" or IR=x"54" or IR=x"55" or IR=x"65" or IR=x"66") then
+                if Exec_Control(EC_EA)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="010";TStates<="011";if MCycle="001" then TStates<="100";end if;
                     NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Arith16<='0';
                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Set_Addr_To<=aNone;LDZ<='0';LDW<='0';
@@ -2264,7 +2254,7 @@ begin
                 end if;
 
                 -- Stage-5 transition: JP.LIL enters ADL, JP.SIS returns to Z80.
-                if Ext_Active='1' and ISet="00" and (IR=x"C3" or (IR(7 downto 6)="11" and IR(2 downto 0)="010")) and Data_Long=Stream_Long and IntCycle='0' and NMICycle='0' then
+                if Exec_Control(EC_JP)='1' and IntCycle='0' and NMICycle='0' then
                     if Stream_Long='1' then MCycles<="100";else MCycles<="011";end if;
                     TStates<="011";if MCycle="001" then TStates<="100";end if;
                     NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
@@ -2273,29 +2263,27 @@ begin
                     if MCycle="011" then Inc_PC<='1';LDW<='1';end if;
                     if MCycle="100" then Inc_PC<='1';end if;
                 end if;
-                if ADL_Mode='1' and ISet="10" and (IR=x"5D" or IR=x"6D" or IR=x"75" or IR=x"7D") then
+                if Exec_Control(EC_ADL_ED_ALIAS)='1' then
                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
                 end if;
 
                 -- Native ADL CALL/RET/RST use only a 3-byte SPL frame, no mode byte.
-                if Ext_Active='1' and ADL_Mode='1' and Has_Width='0' and ISet="00" and IntCycle='0' and NMICycle='0' and
-                    (IR=x"CD" or IR=x"C9" or (IR(7 downto 6)="11" and
-                     (IR(2 downto 0)="100" or IR(2 downto 0)="000" or IR(2 downto 0)="111"))) then
+                if Exec_Control(EC_NATIVE_CTRL)='1' and IntCycle='0' and NMICycle='0' then
                     TStates<="011";if MCycle="001" then TStates<="101";end if;
                     NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
                     Jump<='0';JumpXY<='0';Call<='0';RstP<='0';JumpE<='0';I_DJNZ<='0';
                     Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
-                    if IR=x"CD" or IR(2 downto 0)="100" then
+                    if Exec_Control(EC_CALL_KIND)='1' then
                         -- M2..M4 target bytes, M5..M7 return PC bytes (upper first).
-                        if IR=x"CD" or Branch_Condition='1' then
+                        if Exec_Control(EC_UNCOND_FLOW)='1' or Branch_Condition='1' then
                             MCycles<="111";
                             if MCycle="100" or MCycle="101" or MCycle="110" then IncDec_16<="1111";Set_Addr_To<=aSP;end if;
                             if unsigned(MCycle)>=5 then null;end if;
                         else MCycles<="100";end if;
                         if unsigned(MCycle)>=2 and unsigned(MCycle)<=4 then Inc_PC<='1';end if;
-                    elsif IR=x"C9" or IR(2 downto 0)="000" then
-                        if IR=x"C9" or Branch_Condition='1' then
+                    elsif Exec_Control(EC_RET_KIND)='1' then
+                        if Exec_Control(EC_UNCOND_FLOW)='1' or Branch_Condition='1' then
                             MCycles<="100";
                             if unsigned(MCycle)<=3 then Set_Addr_To<=aSP;end if;
                             if unsigned(MCycle)>=2 then IncDec_16<="0111";end if;
@@ -2307,20 +2295,16 @@ begin
                     end if;
                 end if;
                 -- Mixed CALL/RET/RST suffix frames belong to stage8, not this native path.
-                if Ext_Active='1' and Has_Width='1' and ISet="00" and
-                    (IR=x"CD" or IR=x"C9" or (IR(7 downto 6)="11" and
-                     (IR(2 downto 0)="100" or IR(2 downto 0)="000" or IR(2 downto 0)="111"))) then
+                if Exec_Control(EC_MIX_CTRL)='1' then
                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;
                     Jump<='0';Call<='0';RstP<='0';IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
-                    if Mode=0 and IntCycle='0' and NMICycle='0' and
-                        (((IR=x"CD" or IR(2 downto 0)="100") and Data_Long=ADL_Mode) or
-                         ((IR=x"C9" or IR(2 downto 0)="000") and Data_Long='1')) then
+                    if Exec_Control(EC_MIX_SUPPORTED)='1' and IntCycle='0' and NMICycle='0' then
                         Halt<='0';Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';
                     end if;
                 end if;
 
                 -- R11 native ADL interrupt frame. IRQ M1 remains a real IACK.
-                if Ext_Active='1' and ADL_Mode='1' and (IntCycle='1' or NMICycle='1') then
+                if Interrupt_Long='1' then
                     MCycles<="100";if IntCycle='1' and Interrupt_Mode="10" then MCycles<="111";end if;
                     TStates<="011";if MCycle="001" then TStates<="101";end if;
                     NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Halt<='0';SetEI<='0';SetDI<='0';Special_LD<="000";IMode<="11";
@@ -2329,34 +2313,34 @@ begin
                     if unsigned(MCycle)<=3 then IncDec_16<="1111";Set_Addr_To<=aSP;end if;
                     if MCycle="010" or MCycle="011" or MCycle="100" then null;end if;
                 end if;
-                if Ext_Active='1' and ADL_Mode='1' and Has_Width='0' and ISet="10" and (IR=x"45" or IR=x"4D") and IntCycle='0' and NMICycle='0' then
+                if Exec_Control(EC_IRQ_RETURN)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="100";TStates<="011";if MCycle="001" then TStates<="101";end if;
                     NoRead<='0';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Jump<='0';I_RETN<='0';
                     Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
                     if unsigned(MCycle)<=3 then Set_Addr_To<=aSP;end if;
                     if unsigned(MCycle)>=2 then IncDec_16<="0111";end if;
                 end if;
-                if Ext_Active='1' and ISet="10" and (IR=x"C7" or IR=x"D7") and IntCycle='0' and NMICycle='0' then
+                if Exec_Control(EC_IV_PAIR)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="001";TStates<="101";NoRead<='1';null;Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
                     Inc_PC<='0';IncDec_16<="0000";Set_Addr_To<=aNone;Set_BusA_To<="0100";Special_LD<="000";
                 end if;
                 -- R12: replace undocumented ED aliases while extensions are enabled.
                 -- Actual transfer is ADL-only and preserves all flags.
-                if Ext_Active='1' and Mode=0 and ISet="10" and (IR=x"6D" or IR=x"6E") and IntCycle='0' and NMICycle='0' then
+                if Exec_Control(EC_MB_OPCODE)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="001";TStates<="101";NoRead<='1';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Set_Addr_To<=aNone;LDZ<='0';LDW<='0';
                     Jump<='0';JumpXY<='0';Call<='0';RstP<='0';I_RETN<='0';IMode<="11";
                     SetDI<='0';SetEI<='0';Halt<='0';Special_LD<="000";Arith16<='0';
                 end if;
                 -- R13 MADL controls are valid in either current memory mode.
-                if Ext_Active='1' and Mode=0 and ISet="10" and (IR=x"7D" or IR=x"7E") and IntCycle='0' and NMICycle='0' then
+                if Exec_Control(EC_MADL_OPCODE)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="001";TStates<="101";NoRead<='1';Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';
                     Inc_PC<='0';Inc_WZ<='0';IncDec_16<="0000";Set_Addr_To<=aNone;LDZ<='0';LDW<='0';
                     Jump<='0';JumpXY<='0';Call<='0';RstP<='0';I_RETN<='0';IMode<="11";
                     SetDI<='0';SetEI<='0';Halt<='0';Special_LD<="000";Arith16<='0';
                 end if;
                 -- Mode-bearing RETI.L/RETN.L frames remain stage8 work.
-                if Ext_Active='1' and Has_Width='1' and ISet="10" and (IR=x"45" or IR=x"4D") and IntCycle='0' and NMICycle='0' then
+                if Exec_Control(EC_MIX_IRQ_RETURN)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="001";TStates<="100";Halt<='1';NoRead<='1';null;Jump<='0';I_RETN<='0';
                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
                 end if;
@@ -2365,7 +2349,7 @@ begin
 
     -- The legacy writer is unchanged. Extension overrides select one opcode
     -- class in parallel instead of chaining every instruction's Write mux.
-    process(Legacy_Write, Write_Class, ISet, MCycle, Ext_Active, Data_Long,
+    process(Exec_Control, Interrupt_Long, Legacy_Write, Write_Class, ISet, MCycle, Ext_Active, Data_Long,
             Stream_Long, ADL_Mode, Has_Width, IntCycle, NMICycle, Branch_Condition, XY_State)
         variable w : std_logic;
         variable base_kind, ed_kind : std_logic_vector(3 downto 0);
@@ -2374,15 +2358,15 @@ begin
         w:=Legacy_Write; base_kind:=Write_Class(3 downto 0);ed_kind:=Write_Class(7 downto 4);
         cycle:=to_integer(unsigned(MCycle));
         if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
-        if Ext_Active='1' and Mode=0 and IntCycle='0' and NMICycle='0' then
+        if Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
             if ISet="00" then
                 case base_kind is
                 when x"1"|x"2" =>
-                    if Data_Long='1' or Stream_Long='1' then
+                    if Exec_Control(EC_ANY_LONG)='1' then
                         w:='0';if base_kind=x"1" and cycle>lastaddr then w:='1';end if;
                     end if;
                 when x"3"|x"4" =>
-                    if Data_Long='1' or Stream_Long='1' then
+                    if Exec_Control(EC_ANY_LONG)='1' then
                         w:='0';if base_kind=x"3" and cycle=lastaddr+1 then w:='1';end if;
                     end if;
                 when x"5"|x"6" =>
@@ -2397,7 +2381,7 @@ begin
             elsif ISet="10" then
                 case ed_kind is
                 when x"1"|x"2" =>
-                    if Data_Long='1' or Stream_Long='1' then
+                    if Exec_Control(EC_ANY_LONG)='1' then
                         w:='0';if ed_kind=x"1" and cycle>lastaddr then w:='1';end if;
                     end if;
                 when x"3" => if Data_Long='1' then w:='0';end if;
@@ -2411,9 +2395,9 @@ begin
         end if;
         -- Preserve the original guards, including profiles with Mode/=0,
         -- a closed extension gate, or an interrupt coincident with a suffix.
-        if Ext_Active='1' and ISet="00" and IntCycle='0' and NMICycle='0' then
-            if base_kind=x"9" and Data_Long=Stream_Long then w:='0';end if;
-            if ADL_Mode='1' and Has_Width='0' then
+        if Exec_Control(EC_EXT_BASE)='1' and IntCycle='0' and NMICycle='0' then
+            if Exec_Control(EC_JP)='1' then w:='0';end if;
+            if Exec_Control(EC_NATIVE_CTRL)='1' then
                 case base_kind is
                 when x"A"|x"B" =>
                     w:='0';if cycle>=5 and (base_kind=x"A" or Branch_Condition='1') then w:='1';end if;
@@ -2423,17 +2407,13 @@ begin
                 end case;
             end if;
         end if;
-        if ADL_Mode='1' and ISet="10" and ed_kind=x"7" then w:='0';end if;
-        if Ext_Active='1' and Has_Width='1' and ISet="00" and
-           (base_kind=x"A" or base_kind=x"B" or base_kind=x"C" or base_kind=x"D" or base_kind=x"E") then w:='0';end if;
-        if Ext_Active='1' and ADL_Mode='1' and (IntCycle='1' or NMICycle='1') then
+        if Exec_Control(EC_ADL_ED_ALIAS)='1' then w:='0';end if;
+        if Exec_Control(EC_MIX_CTRL)='1' then w:='0';end if;
+        if Interrupt_Long='1' then
             w:='0';if cycle>=2 and cycle<=4 then w:='1';end if;
         end if;
-        if Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' then
-            if ed_kind=x"9" or (ed_kind=x"8" and (ADL_Mode='1' or Has_Width='1')) then w:='0';end if;
-        end if;
-        if Mode=0 and Ext_Active='1' and ISet="00" and XY_State/="00" and IntCycle='0' and NMICycle='0' and
-           (ed_kind=x"A" or ed_kind=x"B") then
+        if Exec_Control(EC_ED_NO_WRITE)='1' and IntCycle='0' and NMICycle='0' then w:='0';end if;
+        if Exec_Control(EC_PAIR_INDEX)='1' and IntCycle='0' and NMICycle='0' then
             w:='0';if ed_kind=x"A" and cycle>=3 and (cycle<=4 or (cycle=5 and Data_Long='1')) then w:='1';end if;
         end if;
         Write<=w;
