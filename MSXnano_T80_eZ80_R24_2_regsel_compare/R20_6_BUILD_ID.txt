@@ -1,0 +1,1 @@
+R20.6 — R19.1 baseline; unlocked SLP ED76 becomes NOP; TRAP excluded; Gowin/hardware unverified

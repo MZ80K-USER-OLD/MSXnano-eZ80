@@ -1,0 +1,6 @@
+R24: registered instruction-static execution descriptor from hardware-stable R23.3.
+50 source control bits replace 16 opcode-class bits; no extra T-state.
+Four FPGA files changed: package, core, microcode, wrapper diagnostic ID.
+Bridge / SDRAM / top / constraints / GPRJ identical to R23.3.
+33 existing COM bytes identical. New EZ80DEC.COM CRC32 39161D22.
+Simulation passed; GOWIN area/timing and physical hardware validation pending.

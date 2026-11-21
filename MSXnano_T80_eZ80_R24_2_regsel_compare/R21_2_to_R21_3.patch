@@ -1,0 +1,77 @@
+--- R21.2/fpga/G80A_eZ80/g80a_ez80.vhd
++++ R21.3/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -98,7 +98,8 @@
+         Data_Reverse: out std_logic;
+         A_MSX : out std_logic_vector(15 downto 0);
+         Extended_Window : out std_logic;
+-        Memory_Trace : in std_logic_vector(63 downto 0) := (others=>'0')
++        Trace_Data : in std_logic_vector(7 downto 0);
++        Trace_Select : out std_logic_vector(3 downto 0)
+     );
+ end G80A_eZ80;
+ 
+@@ -153,6 +154,7 @@
+ 	--CEN <= '1';
+     Instruction_Data<=Diag_IACK_Byte when DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" else DI;
+     CEN <= clk_enable;
++    Trace_Select <= Diag_Select(3 downto 0);
+     -- Private test loopback is not emitted to the physical MSX I/O bus.
+     Diag_IO_Cycle<='1' when DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and
+         Request_Address(7 downto 0)=x"E6" and IntCycle_n='1' else '0';
+@@ -216,7 +218,7 @@
+     HALT_n<=HALT_i;
+     INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
+     NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 else NMI_n;
+-    process(Diag_Select, Extension_State_i, MBASE_i, MADL_i, Diag_IO_Signature, Diag_Active, Memory_Trace)
++    process(Diag_Select, Extension_State_i, MBASE_i, MADL_i, Diag_IO_Signature, Diag_Active, Trace_Data)
+     begin
+         Diag_Read<="1110000" & Extension_State_i;
+         if Extension_State_i='1' then
+@@ -239,10 +241,11 @@
+             -- F4..F7 returned data/read address. No request or WAIT feedback.
+             when x"F0"|x"F1"|x"F2"|x"F3"|x"F4"|x"F5"|x"F6"|x"F7"=>
+                 if DIAGNOSTICS then
+-                    Diag_Read<=Memory_Trace(8*to_integer(unsigned(Diag_Select(2 downto 0)))+7 downto 8*to_integer(unsigned(Diag_Select(2 downto 0))));
+-                end if;
+-            when x"FB"=>if DIAGNOSTICS then Diag_Read<=x"02";end if;
+-            when x"FC"=>if DIAGNOSTICS then Diag_Read<=x"FD";end if;
++                    Diag_Read<=Trace_Data;
++                end if;
++            when x"FB"=>if DIAGNOSTICS then Diag_Read<=x"03";end if;
++            when x"FC"=>if DIAGNOSTICS then Diag_Read<=x"FC";end if;
++            when x"FD"|x"FE"=>if DIAGNOSTICS then Diag_Read<=Trace_Data;end if;
+             when x"F8"=>Diag_Read<=x"01"; -- R21 single-step extended block I/O
+             when x"F9"=>Diag_Read<=x"FE";
+             when x"FA"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=Diag_IO_Signature;end if;
+--- R21.2/fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj
++++ R21.3/fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj
+@@ -50,6 +50,7 @@
+         <File path="../src/megaram.v" type="file.verilog" enable="1"/>
+         <File path="../src/memory_ez80.v" type="file.verilog" enable="1"/>
+         <File path="../src/ez80_memory_bridge.v" type="file.verilog" enable="1"/>
++        <File path="../src/ez80_trace_mux.v" type="file.verilog" enable="1"/>
+         <File path="../src/msx2p_debug.v" type="file.verilog" enable="1"/>
+         <File path="../src/ocm/rtc.v" type="file.verilog" enable="1"/>
+         <File path="../src/psg_filter.v" type="file.verilog" enable="1"/>
+--- R21.2/fpga/top_ez80.v
++++ R21.3/fpga/top_ez80.v
+@@ -489,6 +489,10 @@
+     wire [7:0] ext_cpu_din;
+     wire ext_ram_req, ext_ram_write, ext_ram_done;
+     wire [63:0] ez80_memory_trace;
++    wire [3:0] ez80_trace_select;
++    wire [7:0] ez80_trace_data;
++    ez80_trace_mux trace_mux(.record_data(ez80_memory_trace),
++        .selector(ez80_trace_select), .byte_data(ez80_trace_data));
+     wire [22:0] ext_ram_addr;
+     wire [7:0] ext_ram_din, ext_ram_dout;
+     ez80_memory_bridge #(
+@@ -845,7 +849,7 @@
+         .DI         (cpu_din),
+         .DO         (cpu_dout),
+         .Data_Reverse (bus_data_reverse),
+-        .Memory_Trace(ez80_memory_trace)
++        .Trace_Data(ez80_trace_data), .Trace_Select(ez80_trace_select)
+     );
+ `else
+     assign cpu_addr24 = {8'h00,cpu_addr16};

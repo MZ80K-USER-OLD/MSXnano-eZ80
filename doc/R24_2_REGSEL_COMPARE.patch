@@ -1,0 +1,59 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -152,6 +152,8 @@
+     signal MBASE : std_logic_vector(7 downto 0);
+     -- R24.1: register data crosses the module boundary as complete 24-bit words.
+     signal Reg24A, Reg24B, Reg24C, Reg24DI : std_logic_vector(23 downto 0);
++    -- Comparison candidate: share pair/HL selection without adding FFs.
++    signal Pair_Raw_Index, HL_Resolved_Index, XY_Register_Index : std_logic_vector(2 downto 0);
+     signal Reg24Mask, Reg24AddrU, Reg24AddrW : std_logic_vector(2 downto 0);
+     signal Reg24UpperU : std_logic_vector(7 downto 0);
+     signal Reg24Exchange : std_logic;
+@@ -557,11 +559,14 @@
+                  x"00" & DI_Reg & EX_SP_Read(7 downto 0);
+     Load_Mask<=(Data_Long or (Exec_Control(EC_LOAD_IMM) and Stream_Long)) & "11";
+ 
+-    Load_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
++    Pair_Raw_Index<=Alternate & IR(5 downto 4);
++    XY_Register_Index<=XY_State(1) & "11";
++    HL_Resolved_Index<=XY_Register_Index when XY_State/="00" else Alternate & "10";
++    Load_Upper_Index<=HL_Resolved_Index when IR(5 downto 4)="10" else Pair_Raw_Index;
+     Indexed_Address<=signed(Reg24C)+resize(signed(DI_Reg),24);
+     Wide_Stack <= Exec_Control(EC_STACK) and Exec_Normal;
+     Wide_IncDec <= Exec_Control(EC_INCDEC) and Exec_Normal;
+-    Stack_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
++    Stack_Upper_Index<=Load_Upper_Index;
+     Pair_Absolute <= Exec_Control(EC_PAIR_ABS) and Exec_Normal;
+     -- R16: no extra work register, FSM state, byte counter or ALU.
+     Pair_Indirect <= Exec_Control(EC_PAIR_IND) and Exec_Normal;
+@@ -575,17 +580,17 @@
+     Pair_Read<=IR(3);
+     Pair_Number<="10" when ISet="00" else IR(5 downto 4);
+     Pair_SP<='1' when Pair_Number="11" else '0';
+-    Pair_Upper_Index<=XY_State(1) & "11" when Pair_Number="10" and XY_State/="00" else Alternate & Pair_Number;
++    Pair_Upper_Index<=HL_Resolved_Index when Pair_Number="10" else Alternate & Pair_Number;
+     Pair_Address_Last<=4 when Stream_Long='1' else 3;
+     Byte_Absolute <= Exec_Control(EC_BYTE_ABS) and Exec_Normal;
+     EX_SP_Long <= Exec_Control(EC_EX_SP) and Exec_Normal;
+-    EX_SP_Index<=XY_State(1) & "11" when XY_State/="00" else Alternate & "10";
++    EX_SP_Index<=HL_Resolved_Index;
+     EX_SP_Result_WE<='1' when EX_SP_Long='1' and MCycle="111" and TState=3 else '0';
+     -- Address work register advances only after an accepted T2.
+     -- M1/T3 prepares the first read before the M1/T4 address latch.
+     Arith_Long <= Exec_Control(EC_ARITH) and Exec_Normal;
+-    Arith_Target<=XY_State(1) & "11" when ISet="00" and XY_State/="00" else Alternate & "10";
+-    Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Alternate & IR(5 downto 4);
++    Arith_Target<=HL_Resolved_Index when ISet="00" else Alternate & "10";
++    Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Pair_Raw_Index;
+     Arith_Sub<='1' when ISet="10" and IR(3)='0' else '0';
+     Arith_Carry<=F(Flag_C) when ISet="10" else '0';
+     Arith_Commit<='1' when Arith_Long='1' and MCycle="001" and TState=7 else '0';
+@@ -604,7 +609,7 @@
+     Block_Inc_Result<=unsigned(Reg24A)-1 when IncDec_16(3)='1'
+         else unsigned(Reg24A)+1;
+     Mul_Active <= Exec_Control(EC_MUL) and Exec_Normal;
+-    Mul_Target<=Alternate & IR(5 downto 4);
++    Mul_Target<=Pair_Raw_Index;
+     Mul_Operand<=SPL(15 downto 0) when IR(5 downto 4)="11" and Data_Long='1' else
+         SP when IR(5 downto 4)="11" else unsigned(RegBusA);
+     Mul_Commit<='1' when Mul_Active='1' and MCycle="001" and TState=7 else '0';

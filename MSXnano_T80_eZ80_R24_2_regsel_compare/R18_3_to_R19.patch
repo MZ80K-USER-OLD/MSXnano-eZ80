@@ -1,0 +1,224 @@
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -108,6 +108,7 @@
+     signal Diag_Active, Diag_IRQ, Diag_NMI_Arm, HALT_i : std_logic;
+     signal Diag_NMI_Count : unsigned(3 downto 0);
+     signal INT_Input_n, NMI_Input_n, Vector_Window : std_logic;
++    signal Diag_IACK_Byte, Instruction_Data : std_logic_vector(7 downto 0);
+     signal Bank_i : std_logic_vector(7 downto 0);
+     signal Extension_State_i : std_logic;
+     signal MADL_i : std_logic;
+@@ -142,8 +143,13 @@
+     signal TState       : std_logic_vector(2 downto 0);
+ 
+ begin
++    -- R19 test hook: use the existing selector FF, no extra opcode register.
++    Diag_IACK_Byte<="11" & Diag_Select(2 downto 0) & "111" when Diag_Select(7 downto 3)="11100" else
++        x"CD" when Diag_Select=x"E8" else x"76" when Diag_Select=x"E9" else
++        x"FB" when Diag_Select=x"EA" else x"5B" when Diag_Select=x"EB" else x"FE";
+ 
+ 	--CEN <= '1';
++    Instruction_Data<=Diag_IACK_Byte when DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" else DI;
+     CEN <= clk_enable;
+ 
+     BUSAK_n <= BUSAK_n_i;
+@@ -220,6 +226,8 @@
+             when x"C7"=>if DIAGNOSTICS then Diag_Read<=x"70";else Diag_Read<=x"F0";end if;
+             when x"C8"=>Diag_Read<=MBASE_i;
+             when x"C9"=>Diag_Read<="0000000" & MADL_i;
++            when x"CA"=>Diag_Read<=x"01"; -- R19 ADL/MADL IM0 engine
++            when x"CB"=>Diag_Read<=x"FE";
+             when others=>null;
+             end case;
+         end if;
+@@ -240,7 +248,7 @@
+                 if IORQ='1' and Write='1' and A_i=x"E7E7" and TState="011" then
+                     if Core_DO=x"A5" or Core_DO=x"5A" or Core_DO=x"00" then Diag_Select<=x"FF";
+                     elsif Extension_State_i='1' then
+-                        if Core_DO(7 downto 4)=x"C" then Diag_Select<=Core_DO;
++                        if Core_DO(7 downto 4)=x"C" or (DIAGNOSTICS and Diag_Active='1' and Core_DO(7 downto 4)=x"E") then Diag_Select<=Core_DO;
+                         elsif DIAGNOSTICS then
+                             case Core_DO is
+                             when x"D8"=>Diag_Active<='1';Diag_IRQ<='0';Diag_NMI_Arm<='0';Diag_NMI_Count<=(others=>'0');
+@@ -293,7 +301,7 @@
+             CLK_n => CLK_n,
+             A => A_i, A_BANK=>Bank_i, Extension_State=>Extension_State_i, MBASE_State=>MBASE_i, MADL_State=>MADL_i,
+ 			update_addr => update_addr,
+-            DInst => DI,
++            DInst => Instruction_Data,
+             DI => DI_Reg,
+             DO => Core_DO,
+             MC => MCycle,
+@@ -307,7 +315,7 @@
+ 				Wait_s <= WAIT_n;
+ 				if TState = "011" and BUSAK_n_i = '1' then
+ 					if Request_Address(15 downto 0)=x"E7E7" and Request_IO='1' and Request_Write='0' and IntCycle_n='1' then DI_Reg<=Diag_Read;
+-                    elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=x"FE";
++                    elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=Diag_IACK_Byte;
+                     else DI_Reg <= to_x01(DI);end if;
+ 				end if;
+ 			end if;
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -224,7 +224,7 @@
+     signal ADL_Mode, JP_Immediate, JP_Commit : std_logic;
+     signal Ctrl_Stack, Ctrl_Call, Ctrl_Ret, Ctrl_Rst, Ctrl_Taken, Flow_Cond : std_logic;
+     signal Ctrl_Target, Ctrl_Return : std_logic_vector(23 downto 0);
+-    signal IRQ_Long, IRQ_Return, IRQ_IM2, Effective_IEF, IV_Read_Commit : std_logic;
++    signal IRQ_Long, IRQ_Return, IRQ_IM2, IRQ_IM0, Effective_IEF, IV_Read_Commit : std_logic;
+     signal IRQ_Vector : unsigned(23 downto 0);
+     signal I_Upper : std_logic_vector(7 downto 0);
+     signal NMI_Accept : std_logic;
+@@ -399,13 +399,13 @@
+     Frame_Return<='1' when Instruction_Has_Width='1' and Data_Long='1' and IntCycle='0' and NMICycle='0' and
+         ((MADL='1' and ISet="10" and (IR=x"45" or IR=x"4D")) or
+          (Mode=0 and ISet="00" and Frame_Take='1' and Write_Class(3 downto 1)="110")) else '0';
+-    Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0') or Frame_Count=2 else '0';
++    Frame_Target_Last<='1' when (Frame_Count=1 and Stream_Long='0' and IRQ_IM0='0') or Frame_Count=2 else '0';
+     -- R18: RST reuses the call-like frame writer, but has no immediate target.
+     -- For RST, the first suffix letter chooses the destination mode.
+     Frame_Rst<='1' when Mode=0 and ISet="00" and IntCycle='0' and NMICycle='0' and Write_Class(3 downto 0)=x"E" else '0';
+     Frame_Rst_Ready<=Frame_Rst when (Instruction_Has_Width='1' and Stream_Long=ADL_Mode) or
+         (Instruction_Has_Width='0' and MADL='1') else '0';
+-    Frame_Destination_Long<=Data_Long when Frame_Rst='1' else Stream_Long;
++    Frame_Destination_Long<='1' when IRQ_IM0='1' else Data_Long when Frame_Rst='1' else Stream_Long;
+     -- Noncanonical full suffixes retain the guarded, no-stack-change behavior.
+     Frame_Unsupported<=Frame_Rst when Instruction_Has_Width='1' and Stream_Long/=ADL_Mode else '0';
+     Frame_Ready<='1' when Extensions_Enabled='1' and Frame_State=frame_idle and MCycle="001" and TState=4 and
+@@ -421,7 +421,7 @@
+         elsif rising_edge(CLK_n) then
+             if CEN='1' and Frame_End='1' then Frame_Rst_Pending<='0';
+             elsif ClkEn='1' and MCycle="001" and TState=3 then
+-                Frame_Rst_Pending<=Frame_Rst and (Instruction_Has_Width or MADL);
++                Frame_Rst_Pending<=(Frame_Rst and (Instruction_Has_Width or MADL)) or IRQ_IM0;
+             end if;
+         end if;
+     end process;
+@@ -429,7 +429,9 @@
+     CPU_Run<=CEN and not Frame_Active and not Frame_Start;
+     Frame_Returning<='1' when Frame_State=frame_mode or Frame_State=frame_long or Frame_State=frame_upper or Frame_State=frame_short else '0';
+     Frame_End<='1' when Frame_TS=3 and
+-        ((Frame_State=frame_push and Frame_Count=0 and Frame_SPS='0' and Frame_IM2='0') or
++        ((Frame_State=frame_push and Frame_SPS='0' and Frame_IM2='0' and
++          (Frame_Count=0 or (IRQ_IM0='1' and MADL='0' and Frame_Count=1))) or
++         (Frame_State=frame_mode and IRQ_IM0='1') or
+          (Frame_State=frame_vector and ((Frame_Is_Call='0' and Frame_Count=2) or (Frame_Is_Call='1' and Frame_Target_Last='1' and Frame_Take='0'))) or
+          (Frame_State=frame_long and ((Frame_Mode_Bit='0' and Frame_Count=1) or Frame_Count=2)) or
+          (Frame_State=frame_short and Frame_Count=1)) else '0';
+@@ -438,9 +440,9 @@
+     -- SPS wraps at 16 bits; its bank comes from MBASE, never from carry-out.
+     Frame_Stack_Short<='1' when Frame_State=frame_short or (Frame_State=frame_idle and Frame_Rst_Ready='1' and Frame_Destination_Long='0') or
+         (Frame_State=frame_push and Frame_SPS='1' and Frame_Count=2) or
+-        (Frame_State=frame_vector and Frame_Is_Call='1' and Stream_Long='0') else '0';
++        (Frame_State=frame_vector and Frame_Is_Call='1' and Frame_Destination_Long='0') else '0';
+     Frame_Stack_Down<='1' when Frame_State=frame_push or
+-        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' or (Frame_State=frame_idle and Frame_Rst_Ready='1') else '0';
++        (Frame_State=frame_vector and Frame_Is_Call='1') or Frame_Entry='1' or (Frame_State=frame_idle and (Frame_Rst_Ready='1' or IRQ_IM0='1')) else '0';
+     Frame_Stack_Value<=resize(SP,24) when Frame_Stack_Short='1' else SPL;
+     Frame_Stack_Delta<=(others=>'1') when Frame_Stack_Down='1' else to_unsigned(1,24);
+     Frame_Stack_Next<=Frame_Stack_Value+Frame_Stack_Delta;
+@@ -452,7 +454,7 @@
+     MADL_State <= MADL;
+     DO<=Data_Out_Reg;
+     Write<='1' when Frame_State=frame_push and Frame_TS/=4 else '0' when Frame_Active='1' else Write_Decode;
+-    NoRead<='1' when Frame_Active='1' and (Frame_TS=4 or Frame_State=frame_fault) else '0' when Frame_Active='1' else NoRead_Base;
++    NoRead<='1' when Frame_Active='1' and (Frame_TS=4 or Frame_State=frame_fault or (Frame_State=frame_mode and IRQ_IM0='1')) else '0' when Frame_Active='1' else NoRead_Base;
+     -- The previous instruction's delayed flag write completes at fetch T1.
+     -- Capture at accepted fetch T2, alongside IR, and hold for the instruction.
+     process(RESET_n, CLK_n)
+@@ -638,6 +640,10 @@
+         not ((MCycle="111" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0') or
+              (MCycle="110" and Mode=1 and ISet/="01" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0')) and
+         (MCycle=MCycles or No_BTR='1' or (MCycle="010" and I_DJNZ='1' and IncDecZ='1'))) else '0';
++    -- R19: IM0 in ADL/MADL uses the shared frame engine. Locked/ordinary
++    -- Z80 IM0 retains the original T80 peripheral-instruction path.
++    IRQ_IM0<='1' when Mode=0 and Extensions_Enabled='1' and IntCycle='1' and NMICycle='0' and
++        IStatus="00" and (ADL_Mode='1' or MADL='1') else '0';
+     IRQ_Long <= Extensions_Enabled and ADL_Mode and (IntCycle or NMICycle);
+     IRQ_IM2 <= '1' when IRQ_Long='1' and IntCycle='1' and IStatus="10" else '0';
+     IRQ_Return <= '1' when Extensions_Enabled='1' and ADL_Mode='1' and Instruction_Has_Width='0' and ISet="10" and
+@@ -763,7 +769,25 @@
+             if CEN='1' and Frame_Start='1' then
+                 -- Finish the fetch/refresh phase before starting a memory T1.
+                 Frame_TS<=to_unsigned(4,3);Frame_Count<=0;Frame_RetN<='0';Frame_IM2<='0';Frame_Is_Call<='0';Frame_SPS<='0';
+-                if Frame_Unsupported='1' then Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);
++                if IRQ_IM0='1' then
++                    -- Only CD and the eight RST encodings survive IACK decode.
++                    -- Operand reads use the interrupted stream, never extra IACKs.
++                    Frame_Mode_Bit<=ADL_Mode;Ctrl_Return<=std_logic_vector(PC);
++                    if IR=x"CD" then
++                        Frame_State<=frame_vector;Frame_Is_Call<='1';Ctrl_Target<=(others=>'0');
++                        Address_Reg<=std_logic_vector(PC(15 downto 0));Address_Bank_Reg<=MBASE;
++                        if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));end if;
++                    elsif Write_Class(3 downto 0)=x"E" then
++                        Frame_State<=frame_push;Ctrl_Target<=x"0000" & "00" & IR(5 downto 3) & "000";
++                        SPL<=Frame_Stack_Next;Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
++                        if ADL_Mode='1' then Frame_Count<=3;Data_Out_Reg<=std_logic_vector(PC(23 downto 16));
++                        else Frame_Count<=2;Data_Out_Reg<=std_logic_vector(PC(15 downto 8));end if;
++                    else
++                        -- Reuse frame_mode as a bus-idle NOP completion, not a
++                        -- mode-byte read. No new FSM encoding or data register.
++                        Frame_State<=frame_mode;
++                    end if;
++                elsif Frame_Unsupported='1' then Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);
+                 elsif Frame_Rst_Ready='1' then
+                     Frame_State<=frame_push;Frame_Is_Call<='1';Frame_Mode_Bit<=ADL_Mode;Ctrl_Return<=std_logic_vector(PC);
+                     Ctrl_Target<=x"0000" & "00" & IR(5 downto 3) & "000";
+@@ -824,7 +848,7 @@
+                                     if Frame_Mode_Bit='1' then Frame_Count<=1;Data_Out_Reg<=Ctrl_Return(23 downto 16);
+                                     else Frame_Count<=0;Data_Out_Reg<=x"02";end if;
+                                 end if;
+-                            elsif Frame_Count>0 then
++                            elsif Frame_Count>0 and not (IRQ_IM0='1' and MADL='0' and Frame_Count=1) then
+                                 Frame_Count<=Frame_Count-1;SPL<=Frame_Stack_Next;
+                                 Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+                                 if Frame_Count=3 then Data_Out_Reg<=Ctrl_Return(15 downto 8);
+@@ -857,7 +881,7 @@
+                                     if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(resize(shift_right(PC_Increment,16),8));end if;
+                                 else
+                                     Ctrl_Return<=std_logic_vector(PC_Width(PC_Increment,ADL_Mode));Frame_State<=frame_push;
+-                                    if Stream_Long='0' then
++                                    if Frame_Destination_Long='0' then
+                                         Frame_SPS<='1';Frame_Count<=2;SP<=Frame_Stack_Next(15 downto 0);
+                                         Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=MBASE;
+                                         Data_Out_Reg<=std_logic_vector(resize(shift_right(PC_Increment,8),8));
+@@ -880,7 +904,10 @@
+                             end if;
+                             end if;
+                         when frame_mode =>
+-                            if DI_Reg=x"02" or DI_Reg=x"03" then
++                            if IRQ_IM0='1' then
++                                Frame_State<=frame_idle;Address_Reg<=std_logic_vector(PC(15 downto 0));Address_Bank_Reg<=MBASE;
++                                if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));end if;
++                            elsif DI_Reg=x"02" or DI_Reg=x"03" then
+                                 Frame_Mode_Bit<=DI_Reg(0);SPL<=Frame_Stack_Next;Frame_Count<=0;
+                                 if Stream_Long='1' or DI_Reg(0)='1' then
+                                     Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
+@@ -1008,7 +1035,8 @@
+                     else Width_Pending<='0';Data_Long<='0';Stream_Long<='0';Instruction_Has_Width<='0';end if;
+                     if IntCycle = '1' and IStatus = "01" then
+                         IR <= "11111111"; Opcode_Class<=Classify_Opcode(x"FF"); Write_Class<=Classify_Write(x"FF");
+-                    elsif Halt_FF = '1' or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' then
++                    elsif (Halt_FF = '1' and IRQ_IM0='0') or (IntCycle = '1' and IStatus = "10") or NMICycle = '1' or
++                        (IRQ_IM0='1' and DInst/=x"CD" and not (DInst(7 downto 6)="11" and DInst(2 downto 0)="111")) then
+                         IR <= "00000000"; Opcode_Class<=Classify_Opcode(x"00"); Write_Class<=Classify_Write(x"00");
+                     else
+                         IR <= DInst; Opcode_Class<=Classify_Opcode(DInst); Write_Class<=Classify_Write(DInst);
+@@ -1847,7 +1875,7 @@
+                     Auto_Wait_t1<='0';Auto_Wait_t2<='0';No_BTR<='0';
+                     if Frame_Returning='1' and Frame_RetN='1' then IntE_FF1<=IntE_FF2;end if;
+                     if NMI_s='1' then NMICycle<='1';IntE_FF1<='0';IntE_FF2<=Frame_IEF;
+-                    elsif (Frame_Returning='1' or Frame_Is_Call='1') and Frame_IEF='1' and INT_s='1' and (IStatus="01" or IStatus="10") then
++                    elsif (Frame_Returning='1' or Frame_Is_Call='1') and Frame_IEF='1' and INT_s='1' and (IStatus/="11") then
+                         IntCycle<='1';IntE_FF1<='0';IntE_FF2<='0';
+                     end if;
+                 end if;
+@@ -1917,7 +1945,7 @@
+                                 NMICycle <= '1';
+                                 if ADL_Mode='1' or MADL='1' or Frame_Active='1' then IntE_FF2<=Effective_IEF;end if;
+                                 IntE_FF1 <= '0';
+-                            elsif ((ADL_Mode='0' and MADL='0') or IStatus="01" or IStatus="10") and (Effective_IEF = '1' and INT_s = '1') and Prefix = "00" and Width_Pending='0' and SetEI = '0' then
++                            elsif ((ADL_Mode='0' and MADL='0') or IStatus/="11") and (Effective_IEF = '1' and INT_s = '1') and Prefix = "00" and Width_Pending='0' and SetEI = '0' then
+                                 IntCycle <= '1';
+                                 IntE_FF1 <= '0';
+                                 IntE_FF2 <= '0';

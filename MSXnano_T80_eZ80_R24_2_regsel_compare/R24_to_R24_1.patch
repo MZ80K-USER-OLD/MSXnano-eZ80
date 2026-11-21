@@ -1,0 +1,328 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -135,7 +135,6 @@
+     constant aZI    : std_logic_vector(2 downto 0) := "110";
+ 
+     -- R1: PC and SPS stay 16-bit. No ADL execution/interrupts in this stage.
+-    type upper_array is array(0 to 7) of std_logic_vector(7 downto 0);
+     signal MADL : std_logic;
+     type frame_state_type is (frame_idle, frame_push, frame_vector, frame_mode, frame_long, frame_upper, frame_short, frame_fault);
+     signal Frame_State : frame_state_type;
+@@ -151,7 +150,12 @@
+     signal Frame_Active, Frame_Ready, Frame_Start, Frame_Unsupported, Frame_Entry, Frame_Return, Frame_End, Frame_Returning, Frame_IEF, CPU_Run : std_logic;
+     signal NoRead_Base : std_logic;
+     signal MBASE : std_logic_vector(7 downto 0);
+-    signal Upper : upper_array;
++    -- R24.1: register data crosses the module boundary as complete 24-bit words.
++    signal Reg24A, Reg24B, Reg24C, Reg24DI : std_logic_vector(23 downto 0);
++    signal Reg24Mask, Reg24AddrU, Reg24AddrW : std_logic_vector(2 downto 0);
++    signal Reg24UpperU : std_logic_vector(7 downto 0);
++    signal Reg24Exchange : std_logic;
++    signal Upper_View : std_logic_vector(63 downto 0);
+     signal Upper_Port_Events : std_logic_vector(7 downto 0);
+     signal Upper_Port_WE : std_logic;
+     signal Upper_Port_Index : std_logic_vector(2 downto 0);
+@@ -538,7 +542,7 @@
+ 
+     Exec_Normal <= not (IntCycle or NMICycle);
+     Load_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
+-    Indexed_Address<=(signed(Upper(to_integer(unsigned(RegAddrC)))) & signed(RegBusC))+resize(signed(DI_Reg),24);
++    Indexed_Address<=signed(Reg24C)+resize(signed(DI_Reg),24);
+     Wide_Stack <= Exec_Control(EC_STACK) and Exec_Normal;
+     Wide_IncDec <= Exec_Control(EC_INCDEC) and Exec_Normal;
+     Stack_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
+@@ -581,8 +585,8 @@
+     Block_Instruction <= Exec_Control(EC_BLOCK) and Exec_Normal;
+     Block_Long<=Block_Instruction and Data_Long;
+     Block_IO2 <= Exec_Control(EC_IO2) and Exec_Normal;
+-    Block_Inc_Result<=(unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))-1 when IncDec_16(3)='1'
+-        else (unsigned(Upper(to_integer(unsigned(RegAddrA)))) & unsigned(RegBusA))+1;
++    Block_Inc_Result<=unsigned(Reg24A)-1 when IncDec_16(3)='1'
++        else unsigned(Reg24A)+1;
+     Mul_Active <= Exec_Control(EC_MUL) and Exec_Normal;
+     Mul_Target<=Alternate & IR(5 downto 4);
+     Mul_Operand<=SPL(15 downto 0) when IR(5 downto 4)="11" and Data_Long='1' else
+@@ -656,28 +660,14 @@
+         Upper_Mask(Arith_Target,Upper_Port_Events(2)) or Upper_Mask(EX_SP_Index,Upper_Port_Events(3)) or
+         Upper_Mask(RegAddrA,Upper_Port_Events(4)) or Upper_Mask(RegAddrA,Upper_Port_Events(5)) or
+         Upper_Mask(Stack_Upper_Index,Upper_Port_Events(6)) or Upper_Mask(Load_Upper_Index,Upper_Port_Events(7));
+-    Upper_Inc_Byte<=std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))-1) when IncDec_16(3)='1'
+-        else std_logic_vector(unsigned(Upper(to_integer(unsigned(RegAddrA))))+1);
++    Upper_Inc_Byte<=std_logic_vector(unsigned(Reg24A(23 downto 16))-1) when IncDec_16(3)='1'
++        else std_logic_vector(unsigned(Reg24A(23 downto 16))+1);
+     Upper_Immediate_Byte<=DI_Reg when Stream_Long='1' and Data_Long='1' else x"00";
+     Upper_Port_Data<=Upper_Mask(DI_Reg,Upper_Port_Events(0)) or Upper_Mask(EA_Result(23 downto 16),Upper_Port_Events(1)) or
+         Upper_Mask(std_logic_vector(Arith_Result(23 downto 16)),Upper_Port_Events(2)) or Upper_Mask(EX_SP_Read(23 downto 16),Upper_Port_Events(3)) or
+         Upper_Mask(std_logic_vector(Block_Inc_Result(23 downto 16)),Upper_Port_Events(4)) or Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(5)) or
+         Upper_Mask(DI_Reg,Upper_Port_Events(6)) or Upper_Mask(Upper_Immediate_Byte,Upper_Port_Events(7));
+-    process(RESET_n, CLK_n)
+-    begin
+-        if RESET_n='0' then Upper<=(others=>(others=>'0'));
+-        elsif rising_edge(CLK_n) then
+-            if ClkEn='1' then
+-                -- EX DE,HL updates both entries from their old values.
+-                if Exec_Control(EC_DATA_LONG)='1' and ExchangeDH='1' and TState=3 then
+-                    Upper(to_integer(unsigned'(Alternate & "10")))<=Upper(to_integer(unsigned'(Alternate & "01")));
+-                    Upper(to_integer(unsigned'(Alternate & "01")))<=Upper(to_integer(unsigned'(Alternate & "10")));
+-                end if;
+-                -- Preserve the original priority relative to the exchange.
+-                if Upper_Port_WE='1' then Upper(to_integer(unsigned(Upper_Port_Index)))<=Upper_Port_Data;end if;
+-            end if;
+-        end if;
+-    end process;
++
+ 
+     process (RESET_n, CLK_n)
+         variable Dec_Op : std_logic_vector(7 downto 0);
+@@ -944,9 +934,9 @@
+                     elsif Set_Addr_To=aSP and (Wide_Stack='1' or PEA_Long='1' or Ctrl_Stack='1') then
+                         Address_Bank_Reg<=std_logic_vector(SPL(23 downto 16));
+                     elsif Set_Addr_To=aBC or Set_Addr_To=aDE then
+-                        Address_Bank_Reg<=Upper(to_integer(unsigned(RegAddrC)));
++                        Address_Bank_Reg<=Reg24C(23 downto 16);
+                     elsif Set_Addr_To=aXY then
+-                        if XY_State="00" then Address_Bank_Reg<=Upper(to_integer(unsigned(RegAddrC)));
++                        if XY_State="00" then Address_Bank_Reg<=Reg24C(23 downto 16);
+                         elsif NextIs_XY_Fetch='0' then Address_Bank_Reg<=Index_Bank;end if;
+                     end if;
+                 end if;
+@@ -1064,8 +1054,8 @@
+                         Address_Reg <= RegBusC;
+                         if Extensions_Enabled='1' and ISet="00" and IR=x"E9" then
+                             if Data_Long='1' then
+-                                PC<=unsigned(Upper(to_integer(unsigned(RegAddrC)))) & unsigned(RegBusC);
+-                                Address_Bank_Reg<=Upper(to_integer(unsigned(RegAddrC)));ADL_Mode<='1';
++                                PC<=unsigned(Reg24C);
++                                Address_Bank_Reg<=Reg24C(23 downto 16);ADL_Mode<='1';
+                             else PC<=resize(unsigned(RegBusC),24);Address_Bank_Reg<=MBASE;ADL_Mode<='0';end if;
+                         else PC <= resize(unsigned(RegBusC),24);end if;
+                     elsif Call = '1' or RstP = '1' then
+@@ -1200,7 +1190,7 @@
+                 end if;
+ 
+                 if LDSPHL = '1' then
+-                    if Exec_Control(EC_DATA_LONG)='1' then SPL<=unsigned(Upper(to_integer(unsigned(RegAddrC)))) & unsigned(RegBusC);
++                    if Exec_Control(EC_DATA_LONG)='1' then SPL<=unsigned(Reg24C);
+                     else SP <= unsigned(RegBusC);end if;
+                 end if;
+                 if ExchangeAF = '1' then
+@@ -1292,9 +1282,9 @@
+                 if Data_Long='1' then SPL(15 downto 0)<=Mul_Product;else SP<=Mul_Product;end if;
+             end if;
+             if Arith_Long='1' and MCycle="001" and TState=4 then
+-                Arith_Left<=unsigned(Upper(to_integer(unsigned(Arith_Target)))) & unsigned(RegBusA);
++                Arith_Left<=unsigned(Reg24A);
+                 if IR(5 downto 4)="11" then Arith_Right<=SPL;
+-                else Arith_Right<=unsigned(Upper(to_integer(unsigned(Arith_Source)))) & unsigned(RegBusB);end if;
++                else Arith_Right<=unsigned(Reg24B);end if;
+                 Arith_Flags<=F;Arith_Sub_Latched<=Arith_Sub;Arith_Carry_Latched<=Arith_Carry;
+                 if ISet="00" then Arith_Is_ADD<='1';else Arith_Is_ADD<='0';end if;
+             end if;
+@@ -1304,10 +1294,10 @@
+             if Pair_Indirect='1' then
+                 if Pair_Indexed='0' and MCycle="001" and TState=3 then
+                     EX_SP_Address(15 downto 0)<=unsigned(RegBusC);
+-                    if Data_Long='1' then EX_SP_Address(23 downto 16)<=unsigned(Upper(to_integer(unsigned(RegAddrC))));
++                    if Data_Long='1' then EX_SP_Address(23 downto 16)<=unsigned(Reg24C(23 downto 16));
+                     else EX_SP_Address(23 downto 16)<=unsigned(MBASE);end if;
+                 end if;
+-                if MCycle="001" and TState=4 then EX_SP_Source<=Upper(to_integer(unsigned(Indirect_Index))) & RegBusA;end if;
++                if MCycle="001" and TState=4 then EX_SP_Source<=Reg24A;end if;
+                 if Pair_Indexed='1' and MCycle="010" and TState=3 then
+                     EX_SP_Address(15 downto 0)<=unsigned(Indexed_Address(15 downto 0));
+                     if Data_Long='1' then EX_SP_Address(23 downto 16)<=unsigned(Indexed_Address(23 downto 16));
+@@ -1333,7 +1323,7 @@
+             if EX_SP_Long='1' then
+                 if MCycle="001" and TState=3 then EX_SP_Address<=SPL;end if;
+                 if MCycle="001" and TState=4 then
+-                    EX_SP_Source<=Upper(to_integer(unsigned(EX_SP_Index))) & RegBusA;
++                    EX_SP_Source<=Reg24A;
+                 end if;
+                 if TState=2 and Wait_n='1' then
+                     case MCycle is
+@@ -1457,7 +1447,7 @@
+                 end if;
+                 if Wide_Stack='1' and IR(3 downto 0)="0101" and MCycle="010" then
+                     if IR(5 downto 4)="11" then Data_Out_Reg<=x"00";
+-                    else Data_Out_Reg<=Upper(to_integer(unsigned(Stack_Upper_Index)));end if;
++                    else Data_Out_Reg<=Reg24UpperU;end if;
+                 end if;
+                 if Ctrl_Call='1' then
+                     if MCycle="101" then Data_Out_Reg<=Ctrl_Return(23 downto 16);
+@@ -1683,23 +1673,21 @@
+         end if;
+     end process;
+ 
++    Reg24DI<=Upper_Port_Data & RegDIH & RegDIL;
++    Reg24Mask<=Upper_Port_WE & RegWEH & RegWEL;
++    Reg24AddrW<=Upper_Port_Index when Upper_Port_WE='1' else RegAddrA;
++    Reg24AddrU<=Pair_Upper_Index when Pair_Absolute='1' else Stack_Upper_Index;
++    Reg24Exchange<=Exec_Control(EC_DATA_LONG) and ExchangeDH when TState=3 else '0';
++    RegBusA<=Reg24A(15 downto 0);
++    RegBusB<=Reg24B(15 downto 0);
++    RegBusC<=Reg24C(15 downto 0);
+     Regs : T80_Reg_eZ80
+         port map(
+-            Clk => CLK_n,
+-            CEN => ClkEn,
+-            WEH => RegWEH,
+-            WEL => RegWEL,
+-            AddrA => RegAddrA,
+-            AddrB => RegAddrB,
+-            AddrC => RegAddrC,
+-            DIH => RegDIH,
+-            DIL => RegDIL,
+-            DOAH => RegBusA(15 downto 8),
+-            DOAL => RegBusA(7 downto 0),
+-            DOBH => RegBusB(15 downto 8),
+-            DOBL => RegBusB(7 downto 0),
+-            DOCH => RegBusC(15 downto 8),
+-            DOCL => RegBusC(7 downto 0));
++            Clk=>CLK_n, CEN=>ClkEn, RESET_n=>RESET_n,
++            WMask=>Reg24Mask, AddrA=>RegAddrA, AddrB=>RegAddrB, AddrC=>RegAddrC,
++            AddrU=>Reg24AddrU, AddrW=>Reg24AddrW, DI=>Reg24DI, DOA=>Reg24A, DOB=>Reg24B, DOC=>Reg24C,
++            DOU=>Reg24UpperU, Exchange_U=>Reg24Exchange, Alternate=>Alternate,
++            Upper_View=>Upper_View);
+ 
+ ---------------------------------------------------------------------------
+ --
+@@ -1734,9 +1722,9 @@
+             when "1101" =>
+                 BusB <= std_logic_vector(PC(15 downto 8));
+             when "1110" =>
+-                if EX_SP_Long='1' then BusB<=Upper(to_integer(unsigned(EX_SP_Index)));
++                if EX_SP_Long='1' then BusB<=Reg24A(23 downto 16);
+                 elsif Pair_Absolute='1' then
+-                    if Pair_SP='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB<=Upper(to_integer(unsigned(Pair_Upper_Index)));end if;
++                    if Pair_SP='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB<=Reg24UpperU;end if;
+                 elsif SP_Readback='1' then BusB<=std_logic_vector(SPL(23 downto 16));else BusB <= "00000000";end if;
+             when others =>
+                 BusB <= "--------";
+--- a/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -159,21 +159,14 @@
+ 
+     component T80_Reg_eZ80
+     port(
+-        Clk         : in std_logic;
+-        CEN         : in std_logic;
+-        WEH         : in std_logic;
+-        WEL         : in std_logic;
+-        AddrA       : in std_logic_vector(2 downto 0);
+-        AddrB       : in std_logic_vector(2 downto 0);
+-        AddrC       : in std_logic_vector(2 downto 0);
+-        DIH         : in std_logic_vector(7 downto 0);
+-        DIL         : in std_logic_vector(7 downto 0);
+-        DOAH        : out std_logic_vector(7 downto 0);
+-        DOAL        : out std_logic_vector(7 downto 0);
+-        DOBH        : out std_logic_vector(7 downto 0);
+-        DOBL        : out std_logic_vector(7 downto 0);
+-        DOCH        : out std_logic_vector(7 downto 0);
+-        DOCL        : out std_logic_vector(7 downto 0)
++        Clk, CEN, RESET_n : in std_logic;
++        WMask : in std_logic_vector(2 downto 0);
++        AddrA, AddrB, AddrC, AddrU, AddrW : in std_logic_vector(2 downto 0);
++        DI : in std_logic_vector(23 downto 0);
++        DOA, DOB, DOC : out std_logic_vector(23 downto 0);
++        DOU : out std_logic_vector(7 downto 0);
++        Exchange_U, Alternate : in std_logic;
++        Upper_View : out std_logic_vector(63 downto 0)
+     );
+     end component;
+ 
+--- a/fpga/G80A_eZ80/t80_reg_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_reg_ez80.vhd
+@@ -58,53 +58,54 @@
+ use IEEE.std_logic_1164.all;
+ use IEEE.numeric_std.all;
+ 
++-- R24.1: common 24-bit interface; byte storage and reset semantics preserved.
+ entity T80_Reg_eZ80 is
+     port(
+-        Clk         : in std_logic;
+-        CEN         : in std_logic;
+-        WEH         : in std_logic;
+-        WEL         : in std_logic;
+-        AddrA       : in std_logic_vector(2 downto 0);
+-        AddrB       : in std_logic_vector(2 downto 0);
+-        AddrC       : in std_logic_vector(2 downto 0);
+-        DIH         : in std_logic_vector(7 downto 0);
+-        DIL         : in std_logic_vector(7 downto 0);
+-        DOAH        : out std_logic_vector(7 downto 0);
+-        DOAL        : out std_logic_vector(7 downto 0);
+-        DOBH        : out std_logic_vector(7 downto 0);
+-        DOBL        : out std_logic_vector(7 downto 0);
+-        DOCH        : out std_logic_vector(7 downto 0);
+-        DOCL        : out std_logic_vector(7 downto 0)
++        Clk, CEN, RESET_n : in std_logic;
++        WMask : in std_logic_vector(2 downto 0);
++        AddrA, AddrB, AddrC, AddrU, AddrW : in std_logic_vector(2 downto 0);
++        DI : in std_logic_vector(23 downto 0);
++        DOA, DOB, DOC : out std_logic_vector(23 downto 0);
++        DOU : out std_logic_vector(7 downto 0);
++        Exchange_U, Alternate : in std_logic;
++        Upper_View : out std_logic_vector(63 downto 0)
+     );
+ end T80_Reg_eZ80;
+-
+ architecture rtl of T80_Reg_eZ80 is
+-
+-    type Register_Image is array (natural range <>) of std_logic_vector(7 downto 0);
+-    signal  RegsH   : Register_Image(0 to 7);
+-    signal  RegsL   : Register_Image(0 to 7);
+-
++    type Register_Image is array (0 to 7) of std_logic_vector(7 downto 0);
++    signal RegsH, RegsL, RegsU : Register_Image;
+ begin
+-
+-    process (Clk)
++    -- Retain the original reset-free low-byte arrays for RAM inference.
++    process(Clk)
+     begin
+-        if Clk'event and Clk = '1' then
+-            if CEN = '1' then
+-                if WEH = '1' then
+-                    RegsH(to_integer(unsigned(AddrA))) <= DIH;
+-                end if;
+-                if WEL = '1' then
+-                    RegsL(to_integer(unsigned(AddrA))) <= DIL;
+-                end if;
++        if rising_edge(Clk) then
++            if CEN='1' then
++                if WMask(1)='1' then RegsH(to_integer(unsigned(AddrW)))<=DI(15 downto 8);end if;
++                if WMask(0)='1' then RegsL(to_integer(unsigned(AddrW)))<=DI(7 downto 0);end if;
+             end if;
+         end if;
+     end process;
+-
+-    DOAH <= RegsH(to_integer(unsigned(AddrA)));
+-    DOAL <= RegsL(to_integer(unsigned(AddrA)));
+-    DOBH <= RegsH(to_integer(unsigned(AddrB)));
+-    DOBL <= RegsL(to_integer(unsigned(AddrB)));
+-    DOCH <= RegsH(to_integer(unsigned(AddrC)));
+-    DOCL <= RegsL(to_integer(unsigned(AddrC)));
+-
++    process(RESET_n, Clk)
++    begin
++        if RESET_n='0' then RegsU<=(others=>(others=>'0'));
++        elsif rising_edge(Clk) then
++            if CEN='1' then
++                -- The existing simultaneous upper-byte exchange is retained.
++                if Exchange_U='1' then
++                    RegsU(to_integer(unsigned'(Alternate & "10")))<=RegsU(to_integer(unsigned'(Alternate & "01")));
++                    RegsU(to_integer(unsigned'(Alternate & "01")))<=RegsU(to_integer(unsigned'(Alternate & "10")));
++                end if;
++                -- Preserve ordinary-write priority over the exchange.
++                if WMask(2)='1' then RegsU(to_integer(unsigned(AddrW)))<=DI(23 downto 16);end if;
++            end if;
++        end if;
++    end process;
++    DOA<=RegsU(to_integer(unsigned(AddrA))) & RegsH(to_integer(unsigned(AddrA))) & RegsL(to_integer(unsigned(AddrA)));
++    DOB<=RegsU(to_integer(unsigned(AddrB))) & RegsH(to_integer(unsigned(AddrB))) & RegsL(to_integer(unsigned(AddrB)));
++    DOC<=RegsU(to_integer(unsigned(AddrC))) & RegsH(to_integer(unsigned(AddrC))) & RegsL(to_integer(unsigned(AddrC)));
++    -- One upper-only auxiliary port serves stack/absolute transfer output.
++    DOU<=RegsU(to_integer(unsigned(AddrU)));
++    views: for i in 0 to 7 generate
++        Upper_View(63-i*8 downto 56-i*8)<=RegsU(i);
++    end generate;
+ end;
