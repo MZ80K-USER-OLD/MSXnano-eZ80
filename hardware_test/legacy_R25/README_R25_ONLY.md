@@ -1,0 +1,8 @@
+# R25専用・比較用の旧COM
+
+このフォルダのCOMはR25用です。R26のMSX窓では実行しないでください。
+
+特に旧EZ80MBは、新仕様ではMSXの0000hへ書込みが到達する試験を含みます。
+EZ80RS8／EZ80IM0／EZ80PFX／EZ80RW2／EZ80MX1など、非ゼロMBASE上のZ80コードをprivate RAMへ置く追加診断はR26用に未移行です。R26のRUNALLには含めません。
+
+R26の実機テストには一つ上のhardware_testにあるCOMを使用してください。

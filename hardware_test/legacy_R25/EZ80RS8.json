@@ -1,0 +1,1815 @@
+{
+  "name": "EZ80RS8",
+  "version": "R18",
+  "bytes": 43193,
+  "sha256": "3e331a8d18ecfcf6086e3492ebbe5ac1bc076b0ed1bad4178514af0b831c9e51",
+  "crc32": "524E204B",
+  "labels": {
+    "START": 256,
+    "STAGE_0": 5183,
+    "AFTER_0": 5520,
+    "CHECK_OK_5284": 5571,
+    "CHECK_OK_5327": 5614,
+    "CHECK_OK_5370": 5657,
+    "CHECK_OK_5413": 5700,
+    "CHECK_OK_5456": 5743,
+    "CHECK_OK_5499": 5786,
+    "CHECK_OK_5542": 5829,
+    "CHECK_OK_5585": 5872,
+    "CHECK_OK_5628": 5915,
+    "CHECK_OK_5671": 5958,
+    "CHECK_OK_5714": 6001,
+    "CHECK_OK_5753": 6040,
+    "CHECK_OK_5792": 6079,
+    "CHECK_OK_5836": 6123,
+    "CHECK_OK_5875": 6162,
+    "CHECK_OK_5914": 6201,
+    "STAGE_1": 6201,
+    "AFTER_1": 6556,
+    "CHECK_OK_6320": 6607,
+    "CHECK_OK_6363": 6650,
+    "CHECK_OK_6406": 6693,
+    "CHECK_OK_6449": 6736,
+    "CHECK_OK_6492": 6779,
+    "CHECK_OK_6535": 6822,
+    "CHECK_OK_6578": 6865,
+    "CHECK_OK_6621": 6908,
+    "CHECK_OK_6664": 6951,
+    "CHECK_OK_6707": 6994,
+    "CHECK_OK_6750": 7037,
+    "CHECK_OK_6789": 7076,
+    "CHECK_OK_6828": 7115,
+    "CHECK_OK_6872": 7159,
+    "CHECK_OK_6911": 7198,
+    "CHECK_OK_6950": 7237,
+    "STAGE_2": 7237,
+    "AFTER_2": 7574,
+    "CHECK_OK_7338": 7625,
+    "CHECK_OK_7381": 7668,
+    "CHECK_OK_7424": 7711,
+    "CHECK_OK_7467": 7754,
+    "CHECK_OK_7510": 7797,
+    "CHECK_OK_7553": 7840,
+    "CHECK_OK_7596": 7883,
+    "CHECK_OK_7639": 7926,
+    "CHECK_OK_7682": 7969,
+    "CHECK_OK_7725": 8012,
+    "CHECK_OK_7768": 8055,
+    "CHECK_OK_7807": 8094,
+    "CHECK_OK_7846": 8133,
+    "CHECK_OK_7890": 8177,
+    "CHECK_OK_7929": 8216,
+    "CHECK_OK_7968": 8255,
+    "STAGE_3": 8255,
+    "AFTER_3": 8610,
+    "CHECK_OK_8374": 8661,
+    "CHECK_OK_8417": 8704,
+    "CHECK_OK_8460": 8747,
+    "CHECK_OK_8503": 8790,
+    "CHECK_OK_8546": 8833,
+    "CHECK_OK_8589": 8876,
+    "CHECK_OK_8632": 8919,
+    "CHECK_OK_8675": 8962,
+    "CHECK_OK_8718": 9005,
+    "CHECK_OK_8761": 9048,
+    "CHECK_OK_8804": 9091,
+    "CHECK_OK_8843": 9130,
+    "CHECK_OK_8882": 9169,
+    "CHECK_OK_8926": 9213,
+    "CHECK_OK_8965": 9252,
+    "CHECK_OK_9004": 9291,
+    "STAGE_4": 9291,
+    "AFTER_4": 9628,
+    "CHECK_OK_9392": 9679,
+    "CHECK_OK_9435": 9722,
+    "CHECK_OK_9478": 9765,
+    "CHECK_OK_9521": 9808,
+    "CHECK_OK_9564": 9851,
+    "CHECK_OK_9607": 9894,
+    "CHECK_OK_9650": 9937,
+    "CHECK_OK_9693": 9980,
+    "CHECK_OK_9736": 10023,
+    "CHECK_OK_9779": 10066,
+    "CHECK_OK_9822": 10109,
+    "CHECK_OK_9861": 10148,
+    "CHECK_OK_9900": 10187,
+    "CHECK_OK_9944": 10231,
+    "CHECK_OK_9983": 10270,
+    "CHECK_OK_10022": 10309,
+    "STAGE_5": 10309,
+    "AFTER_5": 10664,
+    "CHECK_OK_10428": 10715,
+    "CHECK_OK_10471": 10758,
+    "CHECK_OK_10514": 10801,
+    "CHECK_OK_10557": 10844,
+    "CHECK_OK_10600": 10887,
+    "CHECK_OK_10643": 10930,
+    "CHECK_OK_10686": 10973,
+    "CHECK_OK_10729": 11016,
+    "CHECK_OK_10772": 11059,
+    "CHECK_OK_10815": 11102,
+    "CHECK_OK_10858": 11145,
+    "CHECK_OK_10897": 11184,
+    "CHECK_OK_10936": 11223,
+    "CHECK_OK_10980": 11267,
+    "CHECK_OK_11019": 11306,
+    "CHECK_OK_11058": 11345,
+    "STAGE_6": 11345,
+    "AFTER_6": 11682,
+    "CHECK_OK_11446": 11733,
+    "CHECK_OK_11489": 11776,
+    "CHECK_OK_11532": 11819,
+    "CHECK_OK_11575": 11862,
+    "CHECK_OK_11618": 11905,
+    "CHECK_OK_11661": 11948,
+    "CHECK_OK_11704": 11991,
+    "CHECK_OK_11747": 12034,
+    "CHECK_OK_11790": 12077,
+    "CHECK_OK_11833": 12120,
+    "CHECK_OK_11876": 12163,
+    "CHECK_OK_11915": 12202,
+    "CHECK_OK_11954": 12241,
+    "CHECK_OK_11998": 12285,
+    "CHECK_OK_12037": 12324,
+    "CHECK_OK_12076": 12363,
+    "STAGE_7": 12363,
+    "AFTER_7": 12718,
+    "CHECK_OK_12482": 12769,
+    "CHECK_OK_12525": 12812,
+    "CHECK_OK_12568": 12855,
+    "CHECK_OK_12611": 12898,
+    "CHECK_OK_12654": 12941,
+    "CHECK_OK_12697": 12984,
+    "CHECK_OK_12740": 13027,
+    "CHECK_OK_12783": 13070,
+    "CHECK_OK_12826": 13113,
+    "CHECK_OK_12869": 13156,
+    "CHECK_OK_12912": 13199,
+    "CHECK_OK_12951": 13238,
+    "CHECK_OK_12990": 13277,
+    "CHECK_OK_13034": 13321,
+    "CHECK_OK_13073": 13360,
+    "CHECK_OK_13112": 13399,
+    "STAGE_8": 13399,
+    "AFTER_8": 13736,
+    "CHECK_OK_13500": 13787,
+    "CHECK_OK_13543": 13830,
+    "CHECK_OK_13586": 13873,
+    "CHECK_OK_13629": 13916,
+    "CHECK_OK_13672": 13959,
+    "CHECK_OK_13715": 14002,
+    "CHECK_OK_13758": 14045,
+    "CHECK_OK_13801": 14088,
+    "CHECK_OK_13844": 14131,
+    "CHECK_OK_13887": 14174,
+    "CHECK_OK_13930": 14217,
+    "CHECK_OK_13969": 14256,
+    "CHECK_OK_14008": 14295,
+    "CHECK_OK_14052": 14339,
+    "CHECK_OK_14091": 14378,
+    "CHECK_OK_14130": 14417,
+    "STAGE_9": 14417,
+    "AFTER_9": 14772,
+    "CHECK_OK_14536": 14823,
+    "CHECK_OK_14579": 14866,
+    "CHECK_OK_14622": 14909,
+    "CHECK_OK_14665": 14952,
+    "CHECK_OK_14708": 14995,
+    "CHECK_OK_14751": 15038,
+    "CHECK_OK_14794": 15081,
+    "CHECK_OK_14837": 15124,
+    "CHECK_OK_14880": 15167,
+    "CHECK_OK_14923": 15210,
+    "CHECK_OK_14966": 15253,
+    "CHECK_OK_15005": 15292,
+    "CHECK_OK_15044": 15331,
+    "CHECK_OK_15088": 15375,
+    "CHECK_OK_15127": 15414,
+    "CHECK_OK_15166": 15453,
+    "STAGE_A": 15453,
+    "AFTER_10": 15790,
+    "CHECK_OK_15554": 15841,
+    "CHECK_OK_15597": 15884,
+    "CHECK_OK_15640": 15927,
+    "CHECK_OK_15683": 15970,
+    "CHECK_OK_15726": 16013,
+    "CHECK_OK_15769": 16056,
+    "CHECK_OK_15812": 16099,
+    "CHECK_OK_15855": 16142,
+    "CHECK_OK_15898": 16185,
+    "CHECK_OK_15941": 16228,
+    "CHECK_OK_15984": 16271,
+    "CHECK_OK_16023": 16310,
+    "CHECK_OK_16062": 16349,
+    "CHECK_OK_16106": 16393,
+    "CHECK_OK_16145": 16432,
+    "CHECK_OK_16184": 16471,
+    "STAGE_B": 16471,
+    "AFTER_11": 16826,
+    "CHECK_OK_16590": 16877,
+    "CHECK_OK_16633": 16920,
+    "CHECK_OK_16676": 16963,
+    "CHECK_OK_16719": 17006,
+    "CHECK_OK_16762": 17049,
+    "CHECK_OK_16805": 17092,
+    "CHECK_OK_16848": 17135,
+    "CHECK_OK_16891": 17178,
+    "CHECK_OK_16934": 17221,
+    "CHECK_OK_16977": 17264,
+    "CHECK_OK_17020": 17307,
+    "CHECK_OK_17059": 17346,
+    "CHECK_OK_17098": 17385,
+    "CHECK_OK_17142": 17429,
+    "CHECK_OK_17181": 17468,
+    "CHECK_OK_17220": 17507,
+    "STAGE_C": 17507,
+    "AFTER_12": 17844,
+    "CHECK_OK_17608": 17895,
+    "CHECK_OK_17651": 17938,
+    "CHECK_OK_17694": 17981,
+    "CHECK_OK_17737": 18024,
+    "CHECK_OK_17780": 18067,
+    "CHECK_OK_17823": 18110,
+    "CHECK_OK_17866": 18153,
+    "CHECK_OK_17909": 18196,
+    "CHECK_OK_17952": 18239,
+    "CHECK_OK_17995": 18282,
+    "CHECK_OK_18038": 18325,
+    "CHECK_OK_18077": 18364,
+    "CHECK_OK_18116": 18403,
+    "CHECK_OK_18160": 18447,
+    "CHECK_OK_18199": 18486,
+    "CHECK_OK_18238": 18525,
+    "STAGE_D": 18525,
+    "AFTER_13": 18880,
+    "CHECK_OK_18644": 18931,
+    "CHECK_OK_18687": 18974,
+    "CHECK_OK_18730": 19017,
+    "CHECK_OK_18773": 19060,
+    "CHECK_OK_18816": 19103,
+    "CHECK_OK_18859": 19146,
+    "CHECK_OK_18902": 19189,
+    "CHECK_OK_18945": 19232,
+    "CHECK_OK_18988": 19275,
+    "CHECK_OK_19031": 19318,
+    "CHECK_OK_19074": 19361,
+    "CHECK_OK_19113": 19400,
+    "CHECK_OK_19152": 19439,
+    "CHECK_OK_19196": 19483,
+    "CHECK_OK_19235": 19522,
+    "CHECK_OK_19274": 19561,
+    "STAGE_E": 19561,
+    "AFTER_14": 19898,
+    "CHECK_OK_19662": 19949,
+    "CHECK_OK_19705": 19992,
+    "CHECK_OK_19748": 20035,
+    "CHECK_OK_19791": 20078,
+    "CHECK_OK_19834": 20121,
+    "CHECK_OK_19877": 20164,
+    "CHECK_OK_19920": 20207,
+    "CHECK_OK_19963": 20250,
+    "CHECK_OK_20006": 20293,
+    "CHECK_OK_20049": 20336,
+    "CHECK_OK_20092": 20379,
+    "CHECK_OK_20131": 20418,
+    "CHECK_OK_20170": 20457,
+    "CHECK_OK_20214": 20501,
+    "CHECK_OK_20253": 20540,
+    "CHECK_OK_20292": 20579,
+    "STAGE_F": 20579,
+    "AFTER_15": 20934,
+    "CHECK_OK_20698": 20985,
+    "CHECK_OK_20741": 21028,
+    "CHECK_OK_20784": 21071,
+    "CHECK_OK_20827": 21114,
+    "CHECK_OK_20870": 21157,
+    "CHECK_OK_20913": 21200,
+    "CHECK_OK_20956": 21243,
+    "CHECK_OK_20999": 21286,
+    "CHECK_OK_21042": 21329,
+    "CHECK_OK_21085": 21372,
+    "CHECK_OK_21128": 21415,
+    "CHECK_OK_21167": 21454,
+    "CHECK_OK_21206": 21493,
+    "CHECK_OK_21250": 21537,
+    "CHECK_OK_21289": 21576,
+    "CHECK_OK_21328": 21615,
+    "STAGE_G": 21615,
+    "AFTER_16": 21961,
+    "CHECK_OK_21725": 22012,
+    "CHECK_OK_21768": 22055,
+    "CHECK_OK_21811": 22098,
+    "CHECK_OK_21854": 22141,
+    "CHECK_OK_21897": 22184,
+    "CHECK_OK_21940": 22227,
+    "CHECK_OK_21983": 22270,
+    "CHECK_OK_22026": 22313,
+    "CHECK_OK_22069": 22356,
+    "CHECK_OK_22112": 22399,
+    "CHECK_OK_22155": 22442,
+    "CHECK_OK_22198": 22485,
+    "CHECK_OK_22237": 22524,
+    "CHECK_OK_22276": 22563,
+    "CHECK_OK_22320": 22607,
+    "CHECK_OK_22359": 22646,
+    "CHECK_OK_22398": 22685,
+    "STAGE_H": 22685,
+    "AFTER_17": 23049,
+    "CHECK_OK_22813": 23100,
+    "CHECK_OK_22856": 23143,
+    "CHECK_OK_22899": 23186,
+    "CHECK_OK_22942": 23229,
+    "CHECK_OK_22985": 23272,
+    "CHECK_OK_23028": 23315,
+    "CHECK_OK_23071": 23358,
+    "CHECK_OK_23114": 23401,
+    "CHECK_OK_23157": 23444,
+    "CHECK_OK_23200": 23487,
+    "CHECK_OK_23243": 23530,
+    "CHECK_OK_23286": 23573,
+    "CHECK_OK_23325": 23612,
+    "CHECK_OK_23364": 23651,
+    "CHECK_OK_23408": 23695,
+    "CHECK_OK_23447": 23734,
+    "CHECK_OK_23486": 23773,
+    "STAGE_I": 23773,
+    "AFTER_18": 24119,
+    "CHECK_OK_23883": 24170,
+    "CHECK_OK_23926": 24213,
+    "CHECK_OK_23969": 24256,
+    "CHECK_OK_24012": 24299,
+    "CHECK_OK_24055": 24342,
+    "CHECK_OK_24098": 24385,
+    "CHECK_OK_24141": 24428,
+    "CHECK_OK_24184": 24471,
+    "CHECK_OK_24227": 24514,
+    "CHECK_OK_24270": 24557,
+    "CHECK_OK_24313": 24600,
+    "CHECK_OK_24356": 24643,
+    "CHECK_OK_24395": 24682,
+    "CHECK_OK_24434": 24721,
+    "CHECK_OK_24478": 24765,
+    "CHECK_OK_24517": 24804,
+    "CHECK_OK_24556": 24843,
+    "STAGE_J": 24843,
+    "AFTER_19": 25207,
+    "CHECK_OK_24971": 25258,
+    "CHECK_OK_25014": 25301,
+    "CHECK_OK_25057": 25344,
+    "CHECK_OK_25100": 25387,
+    "CHECK_OK_25143": 25430,
+    "CHECK_OK_25186": 25473,
+    "CHECK_OK_25229": 25516,
+    "CHECK_OK_25272": 25559,
+    "CHECK_OK_25315": 25602,
+    "CHECK_OK_25358": 25645,
+    "CHECK_OK_25401": 25688,
+    "CHECK_OK_25444": 25731,
+    "CHECK_OK_25483": 25770,
+    "CHECK_OK_25522": 25809,
+    "CHECK_OK_25566": 25853,
+    "CHECK_OK_25605": 25892,
+    "CHECK_OK_25644": 25931,
+    "STAGE_K": 25931,
+    "AFTER_20": 26277,
+    "CHECK_OK_26041": 26328,
+    "CHECK_OK_26084": 26371,
+    "CHECK_OK_26127": 26414,
+    "CHECK_OK_26170": 26457,
+    "CHECK_OK_26213": 26500,
+    "CHECK_OK_26256": 26543,
+    "CHECK_OK_26299": 26586,
+    "CHECK_OK_26342": 26629,
+    "CHECK_OK_26385": 26672,
+    "CHECK_OK_26428": 26715,
+    "CHECK_OK_26471": 26758,
+    "CHECK_OK_26514": 26801,
+    "CHECK_OK_26553": 26840,
+    "CHECK_OK_26592": 26879,
+    "CHECK_OK_26636": 26923,
+    "CHECK_OK_26675": 26962,
+    "CHECK_OK_26714": 27001,
+    "STAGE_L": 27001,
+    "AFTER_21": 27365,
+    "CHECK_OK_27129": 27416,
+    "CHECK_OK_27172": 27459,
+    "CHECK_OK_27215": 27502,
+    "CHECK_OK_27258": 27545,
+    "CHECK_OK_27301": 27588,
+    "CHECK_OK_27344": 27631,
+    "CHECK_OK_27387": 27674,
+    "CHECK_OK_27430": 27717,
+    "CHECK_OK_27473": 27760,
+    "CHECK_OK_27516": 27803,
+    "CHECK_OK_27559": 27846,
+    "CHECK_OK_27602": 27889,
+    "CHECK_OK_27641": 27928,
+    "CHECK_OK_27680": 27967,
+    "CHECK_OK_27724": 28011,
+    "CHECK_OK_27763": 28050,
+    "CHECK_OK_27802": 28089,
+    "STAGE_M": 28089,
+    "AFTER_22": 28435,
+    "CHECK_OK_28199": 28486,
+    "CHECK_OK_28242": 28529,
+    "CHECK_OK_28285": 28572,
+    "CHECK_OK_28328": 28615,
+    "CHECK_OK_28371": 28658,
+    "CHECK_OK_28414": 28701,
+    "CHECK_OK_28457": 28744,
+    "CHECK_OK_28500": 28787,
+    "CHECK_OK_28543": 28830,
+    "CHECK_OK_28586": 28873,
+    "CHECK_OK_28629": 28916,
+    "CHECK_OK_28672": 28959,
+    "CHECK_OK_28711": 28998,
+    "CHECK_OK_28750": 29037,
+    "CHECK_OK_28794": 29081,
+    "CHECK_OK_28833": 29120,
+    "CHECK_OK_28872": 29159,
+    "STAGE_N": 29159,
+    "AFTER_23": 29523,
+    "CHECK_OK_29287": 29574,
+    "CHECK_OK_29330": 29617,
+    "CHECK_OK_29373": 29660,
+    "CHECK_OK_29416": 29703,
+    "CHECK_OK_29459": 29746,
+    "CHECK_OK_29502": 29789,
+    "CHECK_OK_29545": 29832,
+    "CHECK_OK_29588": 29875,
+    "CHECK_OK_29631": 29918,
+    "CHECK_OK_29674": 29961,
+    "CHECK_OK_29717": 30004,
+    "CHECK_OK_29760": 30047,
+    "CHECK_OK_29799": 30086,
+    "CHECK_OK_29838": 30125,
+    "CHECK_OK_29882": 30169,
+    "CHECK_OK_29921": 30208,
+    "CHECK_OK_29960": 30247,
+    "STAGE_O": 30247,
+    "AFTER_24": 30593,
+    "CHECK_OK_30357": 30644,
+    "CHECK_OK_30400": 30687,
+    "CHECK_OK_30443": 30730,
+    "CHECK_OK_30486": 30773,
+    "CHECK_OK_30529": 30816,
+    "CHECK_OK_30572": 30859,
+    "CHECK_OK_30615": 30902,
+    "CHECK_OK_30658": 30945,
+    "CHECK_OK_30701": 30988,
+    "CHECK_OK_30744": 31031,
+    "CHECK_OK_30787": 31074,
+    "CHECK_OK_30830": 31117,
+    "CHECK_OK_30869": 31156,
+    "CHECK_OK_30908": 31195,
+    "CHECK_OK_30952": 31239,
+    "CHECK_OK_30991": 31278,
+    "CHECK_OK_31030": 31317,
+    "STAGE_P": 31317,
+    "AFTER_25": 31681,
+    "CHECK_OK_31445": 31732,
+    "CHECK_OK_31488": 31775,
+    "CHECK_OK_31531": 31818,
+    "CHECK_OK_31574": 31861,
+    "CHECK_OK_31617": 31904,
+    "CHECK_OK_31660": 31947,
+    "CHECK_OK_31703": 31990,
+    "CHECK_OK_31746": 32033,
+    "CHECK_OK_31789": 32076,
+    "CHECK_OK_31832": 32119,
+    "CHECK_OK_31875": 32162,
+    "CHECK_OK_31918": 32205,
+    "CHECK_OK_31957": 32244,
+    "CHECK_OK_31996": 32283,
+    "CHECK_OK_32040": 32327,
+    "CHECK_OK_32079": 32366,
+    "CHECK_OK_32118": 32405,
+    "STAGE_Q": 32405,
+    "AFTER_26": 32751,
+    "CHECK_OK_32515": 32802,
+    "CHECK_OK_32558": 32845,
+    "CHECK_OK_32601": 32888,
+    "CHECK_OK_32644": 32931,
+    "CHECK_OK_32687": 32974,
+    "CHECK_OK_32730": 33017,
+    "CHECK_OK_32773": 33060,
+    "CHECK_OK_32816": 33103,
+    "CHECK_OK_32859": 33146,
+    "CHECK_OK_32902": 33189,
+    "CHECK_OK_32945": 33232,
+    "CHECK_OK_32988": 33275,
+    "CHECK_OK_33027": 33314,
+    "CHECK_OK_33066": 33353,
+    "CHECK_OK_33110": 33397,
+    "CHECK_OK_33149": 33436,
+    "CHECK_OK_33188": 33475,
+    "STAGE_R": 33475,
+    "AFTER_27": 33839,
+    "CHECK_OK_33603": 33890,
+    "CHECK_OK_33646": 33933,
+    "CHECK_OK_33689": 33976,
+    "CHECK_OK_33732": 34019,
+    "CHECK_OK_33775": 34062,
+    "CHECK_OK_33818": 34105,
+    "CHECK_OK_33861": 34148,
+    "CHECK_OK_33904": 34191,
+    "CHECK_OK_33947": 34234,
+    "CHECK_OK_33990": 34277,
+    "CHECK_OK_34033": 34320,
+    "CHECK_OK_34076": 34363,
+    "CHECK_OK_34115": 34402,
+    "CHECK_OK_34154": 34441,
+    "CHECK_OK_34198": 34485,
+    "CHECK_OK_34237": 34524,
+    "CHECK_OK_34276": 34563,
+    "STAGE_S": 34563,
+    "AFTER_28": 34909,
+    "CHECK_OK_34673": 34960,
+    "CHECK_OK_34716": 35003,
+    "CHECK_OK_34759": 35046,
+    "CHECK_OK_34802": 35089,
+    "CHECK_OK_34845": 35132,
+    "CHECK_OK_34888": 35175,
+    "CHECK_OK_34931": 35218,
+    "CHECK_OK_34974": 35261,
+    "CHECK_OK_35017": 35304,
+    "CHECK_OK_35060": 35347,
+    "CHECK_OK_35103": 35390,
+    "CHECK_OK_35146": 35433,
+    "CHECK_OK_35185": 35472,
+    "CHECK_OK_35224": 35511,
+    "CHECK_OK_35268": 35555,
+    "CHECK_OK_35307": 35594,
+    "CHECK_OK_35346": 35633,
+    "STAGE_T": 35633,
+    "AFTER_29": 35997,
+    "CHECK_OK_35761": 36048,
+    "CHECK_OK_35804": 36091,
+    "CHECK_OK_35847": 36134,
+    "CHECK_OK_35890": 36177,
+    "CHECK_OK_35933": 36220,
+    "CHECK_OK_35976": 36263,
+    "CHECK_OK_36019": 36306,
+    "CHECK_OK_36062": 36349,
+    "CHECK_OK_36105": 36392,
+    "CHECK_OK_36148": 36435,
+    "CHECK_OK_36191": 36478,
+    "CHECK_OK_36234": 36521,
+    "CHECK_OK_36273": 36560,
+    "CHECK_OK_36312": 36599,
+    "CHECK_OK_36356": 36643,
+    "CHECK_OK_36395": 36682,
+    "CHECK_OK_36434": 36721,
+    "STAGE_U": 36721,
+    "AFTER_30": 37067,
+    "CHECK_OK_36831": 37118,
+    "CHECK_OK_36874": 37161,
+    "CHECK_OK_36917": 37204,
+    "CHECK_OK_36960": 37247,
+    "CHECK_OK_37003": 37290,
+    "CHECK_OK_37046": 37333,
+    "CHECK_OK_37089": 37376,
+    "CHECK_OK_37132": 37419,
+    "CHECK_OK_37175": 37462,
+    "CHECK_OK_37218": 37505,
+    "CHECK_OK_37261": 37548,
+    "CHECK_OK_37304": 37591,
+    "CHECK_OK_37343": 37630,
+    "CHECK_OK_37382": 37669,
+    "CHECK_OK_37426": 37713,
+    "CHECK_OK_37465": 37752,
+    "CHECK_OK_37504": 37791,
+    "STAGE_V": 37791,
+    "AFTER_31": 38155,
+    "CHECK_OK_37919": 38206,
+    "CHECK_OK_37962": 38249,
+    "CHECK_OK_38005": 38292,
+    "CHECK_OK_38048": 38335,
+    "CHECK_OK_38091": 38378,
+    "CHECK_OK_38134": 38421,
+    "CHECK_OK_38177": 38464,
+    "CHECK_OK_38220": 38507,
+    "CHECK_OK_38263": 38550,
+    "CHECK_OK_38306": 38593,
+    "CHECK_OK_38349": 38636,
+    "CHECK_OK_38392": 38679,
+    "CHECK_OK_38431": 38718,
+    "CHECK_OK_38470": 38757,
+    "CHECK_OK_38514": 38801,
+    "CHECK_OK_38553": 38840,
+    "CHECK_OK_38592": 38879,
+    "STAGE_W": 38879,
+    "AFTER_32": 39225,
+    "CHECK_OK_38989": 39276,
+    "CHECK_OK_39032": 39319,
+    "CHECK_OK_39075": 39362,
+    "CHECK_OK_39118": 39405,
+    "CHECK_OK_39161": 39448,
+    "CHECK_OK_39204": 39491,
+    "CHECK_OK_39247": 39534,
+    "CHECK_OK_39290": 39577,
+    "CHECK_OK_39333": 39620,
+    "CHECK_OK_39376": 39663,
+    "CHECK_OK_39419": 39706,
+    "CHECK_OK_39458": 39745,
+    "CHECK_OK_39497": 39784,
+    "CHECK_OK_39541": 39828,
+    "CHECK_OK_39580": 39867,
+    "CHECK_OK_39619": 39906,
+    "STAGE_X": 39906,
+    "AFTER_33": 40252,
+    "CHECK_OK_40016": 40303,
+    "CHECK_OK_40059": 40346,
+    "CHECK_OK_40102": 40389,
+    "CHECK_OK_40145": 40432,
+    "CHECK_OK_40188": 40475,
+    "CHECK_OK_40231": 40518,
+    "CHECK_OK_40274": 40561,
+    "CHECK_OK_40317": 40604,
+    "CHECK_OK_40360": 40647,
+    "CHECK_OK_40403": 40690,
+    "CHECK_OK_40446": 40733,
+    "CHECK_OK_40485": 40772,
+    "CHECK_OK_40524": 40811,
+    "CHECK_OK_40568": 40855,
+    "CHECK_OK_40607": 40894,
+    "CHECK_OK_40646": 40933,
+    "STAGE_Y": 40933,
+    "AFTER_34": 41288,
+    "CHECK_OK_41052": 41339,
+    "CHECK_OK_41095": 41382,
+    "CHECK_OK_41138": 41425,
+    "CHECK_OK_41181": 41468,
+    "CHECK_OK_41224": 41511,
+    "CHECK_OK_41267": 41554,
+    "CHECK_OK_41310": 41597,
+    "CHECK_OK_41353": 41640,
+    "CHECK_OK_41396": 41683,
+    "CHECK_OK_41439": 41726,
+    "CHECK_OK_41482": 41769,
+    "CHECK_OK_41525": 41812,
+    "CHECK_OK_41564": 41851,
+    "CHECK_OK_41603": 41890,
+    "CHECK_OK_41647": 41934,
+    "CHECK_OK_41686": 41973,
+    "CHECK_OK_41725": 42012,
+    "STAGE_Z": 42012,
+    "AFTER_35": 42367,
+    "CHECK_OK_42131": 42418,
+    "CHECK_OK_42174": 42461,
+    "CHECK_OK_42217": 42504,
+    "CHECK_OK_42260": 42547,
+    "CHECK_OK_42303": 42590,
+    "CHECK_OK_42346": 42633,
+    "CHECK_OK_42389": 42676,
+    "CHECK_OK_42432": 42719,
+    "CHECK_OK_42475": 42762,
+    "CHECK_OK_42518": 42805,
+    "CHECK_OK_42561": 42848,
+    "CHECK_OK_42604": 42891,
+    "CHECK_OK_42643": 42930,
+    "CHECK_OK_42682": 42969,
+    "CHECK_OK_42726": 43013,
+    "CHECK_OK_42765": 43052,
+    "CHECK_OK_42804": 43091,
+    "READY": 43102,
+    "NOT_READY": 43113,
+    "FAIL": 43124,
+    "UNSUPPORTED": 43135,
+    "FINISH": 43143,
+    "FORMAT_DIAG": 43173,
+    "FORMAT_REG": 43204,
+    "FORMAT_VALUES": 43222,
+    "HEX_BYTE": 43241,
+    "HEX_NIBBLE": 43254,
+    "HEX_STORE": 43265,
+    "MSG_PASS": 43268,
+    "MSG_UNSUPPORTED": 43288,
+    "MSG_FAIL": 43315,
+    "FAIL_STAGE": 43339,
+    "HEX_ADDR": 43347,
+    "HEX_EXP": 43358,
+    "HEX_ACT": 43365,
+    "STATUS": 43370,
+    "GUARD": 43371,
+    "SP_SNAPSHOT": 43372,
+    "SP_SNAPSHOT1": 43373,
+    "SP_SNAPSHOT2": 43374,
+    "SPS_SNAPSHOT": 43375,
+    "SPS_SNAPSHOT1": 43376,
+    "SAVED_SPS": 43377,
+    "SAVED_SPS1": 43378,
+    "DIAG_MEM": 43379,
+    "DIAG_ADDR0": 43380,
+    "DIAG_ADDR1": 43381,
+    "DIAG_ADDR2": 43382,
+    "DIAG_EXP": 43383,
+    "DIAG_ACT": 43384,
+    "SAVED_AF": 43385,
+    "PAIR_SNAPSHOT": 43387,
+    "PAIR_SNAPSHOT1": 43388,
+    "LOCAL_PAIR": 43389,
+    "LOCAL_PAIR1": 43390,
+    "LOCAL_PAIR2": 43391,
+    "MSG_READY": 43392,
+    "MSG_NOT_READY": 43424
+  },
+  "cases": [
+    {
+      "index": 0,
+      "stage": "0",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 0,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 1,
+      "stage": "1",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 8,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 2,
+      "stage": "2",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 16,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 3,
+      "stage": "3",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 24,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 4,
+      "stage": "4",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 32,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 5,
+      "stage": "5",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 40,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 6,
+      "stage": "6",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 48,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 7,
+      "stage": "7",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 56,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 8,
+      "stage": "8",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 0,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 9,
+      "stage": "9",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 8,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 10,
+      "stage": "A",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 16,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 11,
+      "stage": "B",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 24,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 12,
+      "stage": "C",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 32,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 13,
+      "stage": "D",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 40,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 14,
+      "stage": "E",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 48,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 15,
+      "stage": "F",
+      "plan": {
+        "src": 0,
+        "dst": 1,
+        "vec": 56,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 950786,
+      "entry_SPS": 49153,
+      "entry_SPL": 327678,
+      "frame": [
+        [
+          327680,
+          130
+        ],
+        [
+          327679,
+          2
+        ],
+        [
+          327678,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 16,
+      "stage": "G",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 0,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 17,
+      "stage": "H",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 8,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 18,
+      "stage": "I",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 16,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 19,
+      "stage": "J",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 24,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 20,
+      "stage": "K",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 32,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 21,
+      "stage": "L",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 40,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 22,
+      "stage": "M",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 48,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 23,
+      "stage": "N",
+      "plan": {
+        "src": 1,
+        "dst": 0,
+        "vec": 56,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49151,
+      "entry_SPL": 327679,
+      "frame": [
+        [
+          966656,
+          128
+        ],
+        [
+          966655,
+          2
+        ],
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 24,
+      "stage": "O",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 0,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 25,
+      "stage": "P",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 8,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 26,
+      "stage": "Q",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 16,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 27,
+      "stage": "R",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 24,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 28,
+      "stage": "S",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 32,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 29,
+      "stage": "T",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 40,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 30,
+      "stage": "U",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 48,
+        "madl": 0,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 31,
+      "stage": "V",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 56,
+        "madl": 1,
+        "kind": "suffix"
+      },
+      "return_pc": 688130,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          2
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 32,
+      "stage": "W",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 0,
+        "madl": 1,
+        "kind": "bare"
+      },
+      "return_pc": 950785,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          1
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 33,
+      "stage": "X",
+      "plan": {
+        "src": 0,
+        "dst": 0,
+        "vec": 56,
+        "madl": 1,
+        "kind": "bare"
+      },
+      "return_pc": 950785,
+      "entry_SPS": 49151,
+      "entry_SPL": 327680,
+      "frame": [
+        [
+          966656,
+          130
+        ],
+        [
+          966655,
+          1
+        ],
+        [
+          327680,
+          2
+        ]
+      ]
+    },
+    {
+      "index": 34,
+      "stage": "Y",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 0,
+        "madl": 1,
+        "kind": "bare"
+      },
+      "return_pc": 688129,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          1
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    },
+    {
+      "index": 35,
+      "stage": "Z",
+      "plan": {
+        "src": 1,
+        "dst": 1,
+        "vec": 56,
+        "madl": 1,
+        "kind": "bare"
+      },
+      "return_pc": 688129,
+      "entry_SPS": 49153,
+      "entry_SPL": 327677,
+      "frame": [
+        [
+          327680,
+          10
+        ],
+        [
+          327679,
+          128
+        ],
+        [
+          327678,
+          1
+        ],
+        [
+          327677,
+          3
+        ]
+      ]
+    }
+  ],
+  "required_feature_mask": "8800",
+  "diagnostic_hooks_required": true,
+  "private_vector_window": "00:0000..007F read/fetch redirected to 0F:0000..007F",
+  "no_MSX_vector_writes": true,
+  "SPS": 49153,
+  "SPL": 327681,
+  "MBASE": 14,
+  "DOS_may_EI": true,
+  "checks": "entry SP/SPL, F/A, unique vector marker, exact frame memory bytes and final SPL",
+  "not_tested": [
+    "ADL IM0",
+    "noncanonical full suffixes",
+    "real MSX interrupt handler",
+    "SLP",
+    "reserved-opcode semantics"
+  ]
+}

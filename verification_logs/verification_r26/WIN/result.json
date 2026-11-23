@@ -1,0 +1,99 @@
+{
+  "tests": [
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "expected": "PASS",
+      "output": "COM stage 0 time=48690000\nCOM stage 1 time=445810000\nCOM stage 2 time=977490000\nCOM stage 3 time=1509170000\nEZ80WIN R26: PASS\nPASS window_com_r26 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=17356\n"
+    },
+    {
+      "profile": [
+        4,
+        3,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "expected": "PASS",
+      "output": "COM stage 0 time=68790000\nCOM stage 1 time=656150000\nCOM stage 2 time=1445510000\nCOM stage 3 time=2231910000\nEZ80WIN R26: PASS\nPASS window_com_r26 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=23428\n"
+    },
+    {
+      "profile": [
+        16,
+        7,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "expected": "PASS",
+      "output": "COM stage 0 time=275150000\nCOM stage 1 time=2403790000\nCOM stage 2 time=5245710000\nCOM stage 3 time=8091150000\nEZ80WIN R26: PASS\nPASS window_com_r26 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=0 WAIT_ticks=29660\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0
+      ],
+      "expected": "FAIL stage 0",
+      "output": "COM stage 0 time=48690000\nEZ80WIN R26: FAIL stage 0\nADDR=000103 EXP=31 ACT=30\nPASS window_com_r26 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=0 WAIT_ticks=3056\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "expected": "READY",
+      "output": "EZ80WIN R26: READY (use /RUN)\nPASS window_com_r26 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "expected": "UNSUPPORTED",
+      "output": "EZ80WIN R26: UNSUPPORTED\nPASS window_com_r26 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0\n"
+    },
+    {
+      "profile": [
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "expected": "NOT READY",
+      "output": "EZ80WIN R26: NOT READY\nPASS window_com_r26 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0\n"
+    }
+  ],
+  "GOWIN": false,
+  "board": false,
+  "actual_COM": true,
+  "BDOS_EI": true
+}

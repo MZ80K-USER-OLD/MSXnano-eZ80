@@ -1,3 +1,4 @@
+// R26: movable MBASE window requires PREDECODED_MSX=1 and held wrapper tag.
 // v33: isolate the MSX window before any 16-bit memory decode.
 // The external data bus remains byte-wide. Width/suffix handling is in the CPU.
 module ez80_memory_bridge #(
@@ -33,7 +34,7 @@ module ez80_memory_bridge #(
     assign msx_addr = PREDECODED_MSX ? cpu_msx_addr : extended_window ? 16'h0000 : cpu_addr[15:0];
     assign extended_cycle = extended_window && !cpu_mreq_n &&
                             (!cpu_rd_n || !cpu_wr_n);
-    wire private_ram = bank >= 8'h01 && bank <= 8'h1b;
+    wire private_ram = bank <= 8'h1b; // R26: includes private bank 00 at physical 640000h
     wire mega_ram = bank >= 8'h40 && bank <= 8'h5f;
     wire video_ram = bank >= 8'h60 && bank <= 8'h63;
     wire mapped = private_ram || mega_ram || video_ram;

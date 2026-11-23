@@ -148,6 +148,7 @@ package T80_eZ80_Pack is
         A_BANK : out std_logic_vector(7 downto 0);
         MADL_State : out std_logic;
         MBASE_State : out std_logic_vector(7 downto 0);
+        A_MSX_MATCH : out std_logic; -- final address bank equals current MBASE
         Extension_State : out std_logic;
         update_addr	: out std_logic;
         DInst       : in std_logic_vector(7 downto 0);

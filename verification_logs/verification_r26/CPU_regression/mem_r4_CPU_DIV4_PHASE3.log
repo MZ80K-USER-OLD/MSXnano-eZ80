@@ -1,0 +1,4 @@
+COM stage 1 time=33350000
+COM stage 2 time=110070000
+EZ80MEM P1: PASS
+PASS mem_r4 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_ticks=0 WAIT_ticks=1116

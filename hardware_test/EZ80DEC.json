@@ -2,8 +2,8 @@
   "name": "EZ80DEC",
   "version": "R24",
   "bytes": 29609,
-  "sha256": "431fed985d7ada4d6f00b9e43ec9022e92922d9dba76c13fcee9a92cf06ca0a3",
-  "crc32": "39161D22",
+  "sha256": "89642c8555d4bf53c27f93e62cc00593ab2749347323bc9e87a86bb52bf39d3a",
+  "crc32": "55BD2254",
   "labels": {
     "START": 256,
     "STAGE_0": 441,
@@ -378,8 +378,8 @@
         "pref": 64,
         "op": 221
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 1,
@@ -390,8 +390,8 @@
         "pref": 64,
         "op": 253
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 2,
@@ -402,8 +402,8 @@
         "pref": 73,
         "op": 221
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 3,
@@ -414,8 +414,8 @@
         "pref": 73,
         "op": 253
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 4,
@@ -426,8 +426,8 @@
         "pref": 82,
         "op": 221
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 5,
@@ -438,8 +438,8 @@
         "pref": 82,
         "op": 253
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 6,
@@ -450,8 +450,8 @@
         "pref": 91,
         "op": 221
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 7,
@@ -462,8 +462,8 @@
         "pref": 91,
         "op": 253
       },
-      "return_pc": 950815,
-      "cb_pc": 950813
+      "return_pc": 33311,
+      "cb_pc": 33309
     },
     {
       "index": 8,
@@ -570,5 +570,7 @@
   "DOS_may_EI": true,
   "no_MSX_vector_writes": true,
   "expected_decode_cases": 16,
-  "purpose": "Width-prefix lifetime: CB DD/FD followed by default-width LD DE,nn in Z80/ADL"
+  "purpose": "Width-prefix lifetime: CB DD/FD followed by default-width LD DE,nn in Z80/ADL",
+  "R26_MSX_window_compatible": true,
+  "Z80_source": "MSX 8200h, MBASE=00h"
 }

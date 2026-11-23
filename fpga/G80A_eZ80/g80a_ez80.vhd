@@ -112,6 +112,7 @@ architecture rtl of G80A_eZ80 is
     signal Diag_NMI_Count : unsigned(3 downto 0);
     signal INT_Input_n, NMI_Input_n, Vector_Window : std_logic;
     signal Diag_IACK_Byte, Instruction_Data : std_logic_vector(7 downto 0);
+    signal MSX_Match_i : std_logic;
     signal Bank_i : std_logic_vector(7 downto 0);
     signal Extension_State_i : std_logic;
     signal MADL_i : std_logic;
@@ -171,8 +172,10 @@ begin
     RFSH_n <= RFSH_n_i when BUSAK_n_i = '1' else 'Z';
     -- Decode read intent before MREQ/T1, so the existing bridge can assert
     -- WAIT before RD. Captured SDRAM requests remain untouched downstream.
-    Vector_Window <= '1' when DIAGNOSTICS and Diag_Active='1' and Bank_i=x"00" and A_i(15 downto 7)="000000000" and
+    Vector_Window <= '1' when DIAGNOSTICS and Diag_Active='1' and (Bank_i=x"00" or MSX_Match_i='1') and A_i(15 downto 7)="000000000" and
         Write='0' and IORQ='0' and IntCycle_n='1' and RFSH_n_i='1' else '0';
+    -- R26: diagnostics shadow both native bank-zero and the movable MSX vector.
+    -- Override is final, including when MBASE=0Fh.
     -- R11.6: latch the final read-only vector decision in one bit at T1.
     -- Low16 address payload registers do not depend on the core Write decode.
     -- Only the refresh phase uses the core's refresh address directly.
@@ -200,7 +203,7 @@ begin
                         Request_Address <= x"0F" & A_i;
                     end if;
                     Request_MSX_Address <= (others=>'0'); Request_Extended <= '1';
-                    if Bank_i=x"00" then
+                    if MSX_Match_i='1' then
                         Request_MSX_Address <= A_i; Request_Extended <= Vector_Window;
                     end if;
                     if IORQ='1' or (IntCycle_n='0' and MCycle="001") then
@@ -250,6 +253,8 @@ begin
             when x"E1"=>if DIAGNOSTICS then Diag_Read<=x"DB";end if;
             when x"E2"=>if DIAGNOSTICS then Diag_Read<=x"25";end if; -- R25 TSTIO test capability
             when x"E3"=>if DIAGNOSTICS then Diag_Read<=x"DA";end if;
+            when x"E4"=>if DIAGNOSTICS then Diag_Read<=x"26";end if; -- MBASE MSX window
+            when x"E5"=>if DIAGNOSTICS then Diag_Read<=x"D9";end if;
             when x"F8"=>Diag_Read<=x"00"; -- R23.2: IO2 execution removed
             when x"F9"=>Diag_Read<=x"FF";
             when x"FA"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=Diag_IO_Signature;end if;
@@ -330,7 +335,7 @@ begin
             BUSRQ_n => BUSRQ_n,
             BUSAK_n => BUSAK_n_i,
             CLK_n => CLK_n,
-            A => A_i, A_BANK=>Bank_i, Extension_State=>Extension_State_i, MBASE_State=>MBASE_i, MADL_State=>MADL_i,
+            A => A_i, A_BANK=>Bank_i, A_MSX_MATCH=>MSX_Match_i, Extension_State=>Extension_State_i, MBASE_State=>MBASE_i, MADL_State=>MADL_i,
 			update_addr => update_addr,
             DInst => Instruction_Data,
             DI => DI_Reg,

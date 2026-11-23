@@ -2,8 +2,8 @@
   "name": "EZ80ION",
   "version": "R23.1",
   "bytes": 14730,
-  "sha256": "5a6eb82b16a15d0511f1fffe4ef03fc7b67f95caecc3c6b7293acbc30b66bb9e",
-  "crc32": "89950529",
+  "sha256": "b197c9c3f6e02875d6088502e59a1a2fd463907a910bc7dff92ff179d1a44d25",
+  "crc32": "FE444DF3",
   "labels": {
     "START": 256,
     "STAGE_0": 434,
@@ -218,8 +218,8 @@
         "pref": null,
         "op": 132
       },
-      "return_pc": 950814,
-      "nop_pc": 950812
+      "return_pc": 33310,
+      "nop_pc": 33308
     },
     {
       "index": 1,
@@ -230,8 +230,8 @@
         "pref": null,
         "op": 140
       },
-      "return_pc": 950814,
-      "nop_pc": 950812
+      "return_pc": 33310,
+      "nop_pc": 33308
     },
     {
       "index": 2,
@@ -242,8 +242,8 @@
         "pref": null,
         "op": 164
       },
-      "return_pc": 950814,
-      "nop_pc": 950812
+      "return_pc": 33310,
+      "nop_pc": 33308
     },
     {
       "index": 3,
@@ -254,8 +254,8 @@
         "pref": null,
         "op": 172
       },
-      "return_pc": 950814,
-      "nop_pc": 950812
+      "return_pc": 33310,
+      "nop_pc": 33308
     },
     {
       "index": 4,
@@ -314,5 +314,7 @@
   "DOS_may_EI": true,
   "no_MSX_vector_writes": true,
   "expected_NOP_cases": 8,
-  "purpose": "Removed INI2/IND2/OUTI2/OUTD2: Z80/ADL, AF/BC/DE/HL and both stacks unchanged"
+  "purpose": "Removed INI2/IND2/OUTI2/OUTD2: Z80/ADL, AF/BC/DE/HL and both stacks unchanged",
+  "R26_MSX_window_compatible": true,
+  "Z80_source": "MSX 8200h, MBASE=00h"
 }

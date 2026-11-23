@@ -1,0 +1,15 @@
+{
+  "baseline": "R25 real-board MEM/TIO/RUNALL/Space Manbow reported PASS",
+  "scope": "design review only; RTL and COM unchanged",
+  "routing_tests_executed": false,
+  "GOWIN_new_design": false,
+  "source_sha256": {
+    "fpga/G80A_eZ80/t80_ez80.vhd": "a285d1ebe75a8ef76826662bce96a8076d31d91aa14a732e31722237ea73a0d0",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "7a1cc208133443ad3c44a8c1e84780beeeb60c99f388af003a414821a96c92e2",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "66666dc78d481acf69df939728e947a827d1370a770787ba5b777f105a4cc1b5",
+    "fpga/src/ez80_memory_bridge.v": "ce708f300b6ffaef5ecf829a727850b5d5a9d9378be2203d0fbf5a3c8702b4f0",
+    "fpga/src/memory_ez80.v": "109277977452cac59d20611fa12d7af566efc95d1f9180a867753b590b4cf916",
+    "fpga/top_ez80.v": "5bc39ef52f26f79c01d9e30e51375ce87ad3ba2d05381180dea3502aa2e8e093",
+    "hardware_test/templates/build_sleep_r20_2.py.txt": "9fb36bba168cc42b038330fc79036aeb905c41f46f2f4f8b6519ed8219d0ab5c"
+  }
+}

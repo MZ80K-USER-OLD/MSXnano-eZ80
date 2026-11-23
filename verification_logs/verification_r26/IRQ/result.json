@@ -1,0 +1,54 @@
+{
+  "cases": [
+    {
+      "NMI": 0,
+      "stress": 0,
+      "lock": 0,
+      "output": "PASS window_irq R26 NMI=0 stress=0 lock=0 vector_reads=2\n"
+    },
+    {
+      "NMI": 0,
+      "stress": 1,
+      "lock": 0,
+      "output": "PASS window_irq R26 NMI=0 stress=1 lock=0 vector_reads=2\n"
+    },
+    {
+      "NMI": 0,
+      "stress": 0,
+      "lock": 1,
+      "output": "PASS window_irq R26 NMI=0 stress=0 lock=1 vector_reads=2\n"
+    },
+    {
+      "NMI": 0,
+      "stress": 1,
+      "lock": 1,
+      "output": "PASS window_irq R26 NMI=0 stress=1 lock=1 vector_reads=2\n"
+    },
+    {
+      "NMI": 1,
+      "stress": 0,
+      "lock": 0,
+      "output": "PASS window_irq R26 NMI=1 stress=0 lock=0 vector_reads=2\n"
+    },
+    {
+      "NMI": 1,
+      "stress": 1,
+      "lock": 0,
+      "output": "PASS window_irq R26 NMI=1 stress=1 lock=0 vector_reads=2\n"
+    },
+    {
+      "NMI": 1,
+      "stress": 0,
+      "lock": 1,
+      "output": "PASS window_irq R26 NMI=1 stress=0 lock=1 vector_reads=2\n"
+    },
+    {
+      "NMI": 1,
+      "stress": 1,
+      "lock": 1,
+      "output": "PASS window_irq R26 NMI=1 stress=1 lock=1 vector_reads=2\n"
+    }
+  ],
+  "separate_MSX_and_extended_arrays": true,
+  "physical_SDRAM": false
+}

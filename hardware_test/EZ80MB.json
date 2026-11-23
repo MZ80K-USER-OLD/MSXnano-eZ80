@@ -1,356 +1,302 @@
 {
   "name": "EZ80MB",
-  "version": "P2",
-  "bytes": 2250,
-  "sha256": "c5e196993263bc2373ed39337623a6a531477f05e9f6099493e684e1e9005168",
-  "major_stage": 8,
-  "required_features": 16,
-  "feature_bit": 4,
-  "diagnostic_hooks_required": false,
+  "version": "R26",
+  "bytes": 7560,
+  "crc32": "7A7A850C",
+  "sha256": "3933e5377557f3066ed51dd0ec23a3388c3be53eb6f37127c59b38644e0b3822",
   "labels": {
-    "START": 256,
-    "STAGE_A": 664,
-    "RETURN_0": 1304,
-    "OK_1067": 1349,
-    "OK_1112": 1394,
-    "OK_1157": 1439,
-    "OK_1202": 1484,
-    "OK_1247": 1529,
-    "OK_1292": 1574,
-    "OK_1337": 1619,
-    "OK_1382": 1664,
-    "OK_1427": 1709,
-    "OK_1472": 1754,
-    "OK_1522": 1804,
-    "OK_1567": 1849,
-    "OK_1612": 1894,
-    "CHECK_OK_1652": 1924,
-    "CHECK_OK_1682": 1954,
-    "READY": 1965,
-    "NOT_READY": 1976,
-    "MSG_READY": 1987,
-    "MSG_NOT_READY": 2017,
-    "Z80_SUB": 2072,
-    "SUBROUTINE": 2079,
-    "FAIL": 2080,
-    "UNSUPPORTED": 2091,
-    "FINISH": 2099,
-    "NO_CLEANUP": 2111,
-    "PRINT_EXIT": 2128,
-    "FORMAT_DIAG": 2139,
-    "FORMAT_REG": 2170,
-    "FORMAT_VALUES": 2188,
-    "HEX_BYTE": 2207,
-    "HEX_NIBBLE": 2220,
-    "HEX_STORE": 2231,
-    "MSG_PASS": 2234,
-    "MSG_UNSUPPORTED": 2252,
-    "MSG_FAIL": 2277,
-    "FAIL_STAGE": 2299,
-    "HEX_ADDR": 2307,
-    "HEX_EXP": 2318,
-    "HEX_ACT": 2325,
-    "STATUS": 2330,
-    "GUARD": 2331,
-    "SP_SNAPSHOT": 2332,
-    "SP_SNAPSHOT1": 2333,
-    "SP_SNAPSHOT2": 2334,
-    "SPS_SNAPSHOT": 2335,
-    "SPS_SNAPSHOT1": 2336,
-    "SAVED_SPS": 2337,
-    "SAVED_SPS1": 2338,
-    "DIAG_MEM": 2339,
-    "DIAG_ADDR0": 2340,
-    "DIAG_ADDR1": 2341,
-    "DIAG_ADDR2": 2342,
-    "DIAG_EXP": 2343,
-    "DIAG_ACT": 2344,
-    "SAVED_AF": 2345,
-    "PAIR_SNAPSHOT": 2347,
-    "PAIR_SNAPSHOT1": 2348,
-    "LOCAL_PAIR": 2349,
-    "LOCAL_PAIR1": 2350,
-    "LOCAL_PAIR2": 2351,
-    "FLAGS": 2352,
-    "SNAP": 2354,
-    "CAP_LO": 2363,
-    "CAP_HI": 2364,
-    "CLEANUP": 2365,
-    "Z80_RESULT": 2366,
-    "SAVED_I16": 2367,
-    "SHORT_DATA": 2369,
-    "SHORT_STACK": 2377,
-    "SHORT_TOP": 2505
+    "WINDOW_DATA": 259,
+    "START": 260,
+    "STAGE_0": 382,
+    "AFTER_0": 1232,
+    "CHECK_OK_996": 1283,
+    "CHECK_OK_1039": 1326,
+    "CHECK_OK_1082": 1369,
+    "CHECK_OK_1125": 1412,
+    "CHECK_OK_1168": 1455,
+    "CHECK_OK_1211": 1498,
+    "CHECK_OK_1250": 1537,
+    "CHECK_OK_1289": 1576,
+    "CHECK_OK_1328": 1615,
+    "CHECK_OK_1372": 1659,
+    "CHECK_OK_1411": 1698,
+    "CHECK_OK_1450": 1737,
+    "STAGE_1": 1737,
+    "AFTER_1": 2884,
+    "CHECK_OK_2648": 2935,
+    "CHECK_OK_2691": 2978,
+    "CHECK_OK_2734": 3021,
+    "CHECK_OK_2777": 3064,
+    "CHECK_OK_2820": 3107,
+    "CHECK_OK_2863": 3150,
+    "CHECK_OK_2906": 3193,
+    "CHECK_OK_2949": 3236,
+    "CHECK_OK_2992": 3279,
+    "CHECK_OK_3031": 3318,
+    "CHECK_OK_3070": 3357,
+    "CHECK_OK_3109": 3396,
+    "CHECK_OK_3153": 3440,
+    "CHECK_OK_3192": 3479,
+    "CHECK_OK_3231": 3518,
+    "STAGE_2": 3518,
+    "AFTER_2": 4665,
+    "CHECK_OK_4429": 4716,
+    "CHECK_OK_4472": 4759,
+    "CHECK_OK_4515": 4802,
+    "CHECK_OK_4558": 4845,
+    "CHECK_OK_4601": 4888,
+    "CHECK_OK_4644": 4931,
+    "CHECK_OK_4687": 4974,
+    "CHECK_OK_4730": 5017,
+    "CHECK_OK_4773": 5060,
+    "CHECK_OK_4812": 5099,
+    "CHECK_OK_4851": 5138,
+    "CHECK_OK_4890": 5177,
+    "CHECK_OK_4934": 5221,
+    "CHECK_OK_4973": 5260,
+    "CHECK_OK_5012": 5299,
+    "STAGE_3": 5299,
+    "AFTER_3": 6770,
+    "CHECK_OK_6534": 6821,
+    "CHECK_OK_6577": 6864,
+    "CHECK_OK_6620": 6907,
+    "CHECK_OK_6663": 6950,
+    "CHECK_OK_6706": 6993,
+    "CHECK_OK_6749": 7036,
+    "CHECK_OK_6792": 7079,
+    "CHECK_OK_6835": 7122,
+    "CHECK_OK_6878": 7165,
+    "CHECK_OK_6921": 7208,
+    "CHECK_OK_6960": 7247,
+    "CHECK_OK_6999": 7286,
+    "CHECK_OK_7038": 7325,
+    "CHECK_OK_7082": 7369,
+    "CHECK_OK_7121": 7408,
+    "CHECK_OK_7160": 7447,
+    "Z80_STUB": 7463,
+    "READY": 7474,
+    "NOT_READY": 7485,
+    "FAIL": 7496,
+    "UNSUPPORTED": 7507,
+    "FINISH": 7515,
+    "FORMAT_DIAG": 7545,
+    "FORMAT_REG": 7576,
+    "FORMAT_VALUES": 7594,
+    "HEX_BYTE": 7613,
+    "HEX_NIBBLE": 7626,
+    "HEX_STORE": 7637,
+    "MSG_PASS": 7640,
+    "MSG_UNSUPPORTED": 7659,
+    "MSG_FAIL": 7685,
+    "FAIL_STAGE": 7708,
+    "HEX_ADDR": 7716,
+    "HEX_EXP": 7727,
+    "HEX_ACT": 7734,
+    "STATUS": 7739,
+    "GUARD": 7740,
+    "SP_SNAPSHOT": 7741,
+    "SP_SNAPSHOT1": 7742,
+    "SP_SNAPSHOT2": 7743,
+    "SPS_SNAPSHOT": 7744,
+    "SPS_SNAPSHOT1": 7745,
+    "SAVED_SPS": 7746,
+    "SAVED_SPS1": 7747,
+    "DIAG_MEM": 7748,
+    "DIAG_ADDR0": 7749,
+    "DIAG_ADDR1": 7750,
+    "DIAG_ADDR2": 7751,
+    "DIAG_EXP": 7752,
+    "DIAG_ACT": 7753,
+    "SAVED_AF": 7754,
+    "PAIR_SNAPSHOT": 7756,
+    "PAIR_SNAPSHOT1": 7757,
+    "LOCAL_PAIR": 7758,
+    "LOCAL_PAIR1": 7759,
+    "LOCAL_PAIR2": 7760,
+    "MSG_READY": 7761,
+    "MSG_NOT_READY": 7792
   },
   "cases": [
     {
-      "index": 0,
-      "description": "MBASE read/write, short data and SPS bank, 16-bit data wrap, banked Z80 fetch; LD MB/A NOP in Z80",
-      "entry": 655360,
-      "labels": {
-        "BACK": 655411
-      },
+      "MBASE": 0,
       "checks": [
         [
-          197632,
-          14
+          692224,
+          259,
+          49
         ],
         [
-          197633,
-          90
+          692225,
+          259,
+          206
         ],
         [
-          197634,
-          14
+          692226,
+          65795,
+          66
         ],
         [
-          950593,
-          102
+          692227,
+          524287,
+          82
         ],
         [
-          983039,
-          120
-        ],
-        [
-          917504,
-          86
-        ],
-        [
-          950528,
-          52
-        ],
-        [
-          950529,
-          18
-        ],
-        [
-          197648,
-          52
-        ],
-        [
-          197649,
-          18
+          692228,
+          524288,
+          166
         ]
       ],
-      "return_label": "RETURN_0",
-      "resolved_checks": [
-        {
-          "address": "030400",
-          "expected": "0E",
-          "mask": "FF"
-        },
-        {
-          "address": "030401",
-          "expected": "5A",
-          "mask": "FF"
-        },
-        {
-          "address": "030402",
-          "expected": "0E",
-          "mask": "FF"
-        },
-        {
-          "address": "0E8141",
-          "expected": "66",
-          "mask": "FF"
-        },
-        {
-          "address": "0EFFFF",
-          "expected": "78",
-          "mask": "FF"
-        },
-        {
-          "address": "0E0000",
-          "expected": "56",
-          "mask": "FF"
-        },
-        {
-          "address": "0E8100",
-          "expected": "34",
-          "mask": "FF"
-        },
-        {
-          "address": "0E8101",
-          "expected": "12",
-          "mask": "FF"
-        },
-        {
-          "address": "030410",
-          "expected": "34",
-          "mask": "FF"
-        },
-        {
-          "address": "030411",
-          "expected": "12",
-          "mask": "FF"
-        }
-      ],
-      "code_bytes": [
-        49,
-        1,
-        0,
-        5,
-        62,
-        14,
-        237,
-        109,
-        237,
-        110,
-        50,
-        0,
-        4,
-        3,
-        64,
-        58,
-        35,
-        129,
-        50,
-        1,
-        4,
-        3,
-        64,
-        33,
-        120,
-        86,
-        64,
-        34,
-        255,
-        255,
-        64,
-        49,
-        2,
-        129,
-        1,
-        52,
-        18,
-        0,
-        82,
-        197,
-        82,
-        209,
-        237,
-        83,
-        16,
-        4,
-        3,
-        64,
-        195,
-        0,
-        130,
-        237,
-        110,
-        50,
-        2,
-        4,
-        3,
-        62,
-        0,
-        237,
-        109,
-        64,
-        237,
-        123,
-        33,
-        9,
-        64,
-        195,
-        24,
-        5
-      ],
-      "code_template": [
-        49,
-        1,
-        0,
-        5,
-        62,
-        14,
-        237,
-        109,
-        237,
-        110,
-        50,
-        0,
-        4,
-        3,
-        64,
-        58,
-        35,
-        129,
-        50,
-        1,
-        4,
-        3,
-        64,
-        33,
-        120,
-        86,
-        64,
-        34,
-        255,
-        255,
-        64,
-        49,
-        2,
-        129,
-        1,
-        52,
-        18,
-        0,
-        82,
-        197,
-        82,
-        209,
-        237,
-        83,
-        16,
-        4,
-        3,
-        64,
-        195,
-        0,
-        130,
-        237,
-        110,
-        50,
-        2,
-        4,
-        3,
-        62,
-        0,
-        237,
-        109,
-        64,
-        237,
-        123,
+      "Z80_fetch_with_nonzero_MBASE": true
+    },
+    {
+      "MBASE": 14,
+      "checks": [
         [
-          "SAVED_SPS",
-          0,
-          0
+          692224,
+          917763,
+          49
         ],
         [
-          "SAVED_SPS",
-          0,
-          1
-        ],
-        64,
-        195,
-        [
-          "RETURN",
-          0,
-          0
+          692225,
+          917763,
+          206
         ],
         [
-          "RETURN",
-          0,
-          1
+          692226,
+          65795,
+          66
+        ],
+        [
+          692227,
+          524287,
+          82
+        ],
+        [
+          692228,
+          524288,
+          166
+        ],
+        [
+          692229,
+          259,
+          105
+        ],
+        [
+          692230,
+          65535,
+          182
+        ],
+        [
+          692231,
+          917763,
+          206
         ]
-      ]
+      ],
+      "Z80_fetch_with_nonzero_MBASE": true
+    },
+    {
+      "MBASE": 15,
+      "checks": [
+        [
+          692224,
+          983299,
+          49
+        ],
+        [
+          692225,
+          983299,
+          206
+        ],
+        [
+          692226,
+          65795,
+          66
+        ],
+        [
+          692227,
+          524287,
+          82
+        ],
+        [
+          692228,
+          524288,
+          166
+        ],
+        [
+          692229,
+          259,
+          105
+        ],
+        [
+          692230,
+          65535,
+          182
+        ],
+        [
+          692231,
+          983299,
+          206
+        ]
+      ],
+      "Z80_fetch_with_nonzero_MBASE": true
+    },
+    {
+      "MBASE": 255,
+      "checks": [
+        [
+          692224,
+          16711939,
+          49
+        ],
+        [
+          692225,
+          16711939,
+          206
+        ],
+        [
+          692226,
+          65795,
+          66
+        ],
+        [
+          692227,
+          524287,
+          82
+        ],
+        [
+          692228,
+          524288,
+          166
+        ],
+        [
+          692229,
+          259,
+          105
+        ],
+        [
+          692230,
+          65535,
+          182
+        ],
+        [
+          692231,
+          16711939,
+          206
+        ]
+      ],
+      "Z80_fetch_with_nonzero_MBASE": true
     }
   ],
-  "case_count": 1,
-  "default": "READY",
-  "R10_RUN": "NOT READY",
-  "future_feature_functionally_verified_on_RTL": true,
-  "ABI": "doc/TEST_ABI_P2.md",
-  "R12_RUN": "PASS expected"
+  "private_code": "0A8000,0A8700,0A8800",
+  "private_results": "0A9000..0A9011",
+  "private_stack": "050001",
+  "other_writes": [
+    "01:WINDOW_DATA",
+    "07FFFF",
+    "080000",
+    "00:WINDOW_DATA and 00FFFF only with nonzero MBASE"
+  ],
+  "no_MSX_vector_writes": true,
+  "private_bank00_RST_vector_write": true,
+  "DOS_may_EI": true
 }

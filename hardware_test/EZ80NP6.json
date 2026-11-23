@@ -2,8 +2,8 @@
   "name": "EZ80NP6",
   "version": "R20.6",
   "bytes": 12059,
-  "sha256": "8c0650f2245d70af3d90c083c019d2cb188ea39d70c9926ed470c7ee0115a918",
-  "crc32": "83A3ADF2",
+  "sha256": "99079bc52ac73fe489d389eaa8e37f7f5e1c6d62f4a7721a3e2809f548ec1ad6",
+  "crc32": "36EBF4B3",
   "labels": {
     "START": 256,
     "STAGE_0": 434,
@@ -167,8 +167,8 @@
         "madl": 0,
         "pref": null
       },
-      "return_pc": 950804,
-      "nop_pc": 950802
+      "return_pc": 33300,
+      "nop_pc": 33298
     },
     {
       "index": 1,
@@ -178,8 +178,8 @@
         "madl": 0,
         "pref": 64
       },
-      "return_pc": 950805,
-      "nop_pc": 950803
+      "return_pc": 33301,
+      "nop_pc": 33299
     },
     {
       "index": 2,
@@ -189,8 +189,8 @@
         "madl": 0,
         "pref": 73
       },
-      "return_pc": 950805,
-      "nop_pc": 950803
+      "return_pc": 33301,
+      "nop_pc": 33299
     },
     {
       "index": 3,
@@ -200,8 +200,8 @@
         "madl": 0,
         "pref": 82
       },
-      "return_pc": 950805,
-      "nop_pc": 950803
+      "return_pc": 33301,
+      "nop_pc": 33299
     },
     {
       "index": 4,
@@ -211,8 +211,8 @@
         "madl": 0,
         "pref": 91
       },
-      "return_pc": 950805,
-      "nop_pc": 950803
+      "return_pc": 33301,
+      "nop_pc": 33299
     },
     {
       "index": 5,
@@ -278,5 +278,7 @@
   "DOS_may_EI": true,
   "no_MSX_vector_writes": true,
   "expected_NOP_cases": 10,
-  "IM_preservation_checked_in_unit_test": true
+  "IM_preservation_checked_in_unit_test": true,
+  "R26_MSX_window_compatible": true,
+  "Z80_source": "MSX 8200h, MBASE=00h"
 }

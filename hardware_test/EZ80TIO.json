@@ -1,9 +1,9 @@
 {
   "name": "EZ80TIO",
-  "version": "R25",
+  "version": "R26",
   "bytes": 16686,
-  "sha256": "d13d3ac861f3462bb2bd6449ae87752a5b8702d16794cf1df7357ab6c7b880d5",
-  "crc32": "30505EB2",
+  "sha256": "a9f5c220826aeaf95c9d71573fa396123bf4a815b5390f0573cfe486976e4771",
+  "crc32": "461CF99D",
   "labels": {
     "START": 256,
     "STAGE_0": 439,
@@ -227,8 +227,8 @@
         "madl": 0,
         "pref": null
       },
-      "return_pc": 950815,
-      "tstio_pc": 950812,
+      "return_pc": 33311,
+      "tstio_pc": 33308,
       "mask": 0,
       "expected_flags": 84
     },
@@ -240,8 +240,8 @@
         "madl": 0,
         "pref": 64
       },
-      "return_pc": 950816,
-      "tstio_pc": 950813,
+      "return_pc": 33312,
+      "tstio_pc": 33309,
       "mask": 255,
       "expected_flags": 28
     },
@@ -253,8 +253,8 @@
         "madl": 0,
         "pref": 73
       },
-      "return_pc": 950816,
-      "tstio_pc": 950813,
+      "return_pc": 33312,
+      "tstio_pc": 33309,
       "mask": 85,
       "expected_flags": 20
     },
@@ -266,8 +266,8 @@
         "madl": 0,
         "pref": 82
       },
-      "return_pc": 950816,
-      "tstio_pc": 950813,
+      "return_pc": 33312,
+      "tstio_pc": 33309,
       "mask": 170,
       "expected_flags": 28
     },
@@ -279,8 +279,8 @@
         "madl": 0,
         "pref": 91
       },
-      "return_pc": 950816,
-      "tstio_pc": 950813,
+      "return_pc": 33312,
+      "tstio_pc": 33309,
       "mask": 15,
       "expected_flags": 28
     },
@@ -354,7 +354,7 @@
   "expected_progress_prints": 10,
   "DOS_may_EI": true,
   "no_MSX_vector_writes": true,
-  "purpose": "R25 TSTIO: port 00E6, DIAG value 5A; Z80/ADL + all widths, A/BC/DE and both stacks preserved",
+  "purpose": "R26 TSTIO: port 00E6, DIAG value 5A; Z80/ADL + all widths, A/BC/DE and both stacks preserved",
   "feature_id": {
     "E2": "25",
     "E3": "DA"
@@ -371,5 +371,7 @@
     90,
     165
   ],
-  "expected_tstio_reads": 10
+  "expected_tstio_reads": 10,
+  "R26_MSX_window_compatible": true,
+  "Z80_source": "MSX 8200h, MBASE=00h"
 }

@@ -1,4 +1,0 @@
-EZ80D3 R3: UNSUPPORTED
-PASS data_r3 phase=3 fault=0 extended=0 cpu_div=16 status=3 high_fetch_ticks=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r24-regsel-review/MSXnano_T80_eZ80_R24_2_regsel_compare/sim/tb_data_r3.sv:147: $finish called at 584030000 (1ps)
-REGSEL_DIFF checks=58352

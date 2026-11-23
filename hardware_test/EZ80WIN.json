@@ -1,0 +1,302 @@
+{
+  "name": "EZ80WIN",
+  "version": "R26",
+  "bytes": 7565,
+  "crc32": "74118748",
+  "sha256": "35b80578c4919d1804d6a1260cb614ed6eea20719bc2fcaa16cafcf52633fb75",
+  "labels": {
+    "WINDOW_DATA": 259,
+    "START": 260,
+    "STAGE_0": 382,
+    "AFTER_0": 1232,
+    "CHECK_OK_996": 1283,
+    "CHECK_OK_1039": 1326,
+    "CHECK_OK_1082": 1369,
+    "CHECK_OK_1125": 1412,
+    "CHECK_OK_1168": 1455,
+    "CHECK_OK_1211": 1498,
+    "CHECK_OK_1250": 1537,
+    "CHECK_OK_1289": 1576,
+    "CHECK_OK_1328": 1615,
+    "CHECK_OK_1372": 1659,
+    "CHECK_OK_1411": 1698,
+    "CHECK_OK_1450": 1737,
+    "STAGE_1": 1737,
+    "AFTER_1": 2884,
+    "CHECK_OK_2648": 2935,
+    "CHECK_OK_2691": 2978,
+    "CHECK_OK_2734": 3021,
+    "CHECK_OK_2777": 3064,
+    "CHECK_OK_2820": 3107,
+    "CHECK_OK_2863": 3150,
+    "CHECK_OK_2906": 3193,
+    "CHECK_OK_2949": 3236,
+    "CHECK_OK_2992": 3279,
+    "CHECK_OK_3031": 3318,
+    "CHECK_OK_3070": 3357,
+    "CHECK_OK_3109": 3396,
+    "CHECK_OK_3153": 3440,
+    "CHECK_OK_3192": 3479,
+    "CHECK_OK_3231": 3518,
+    "STAGE_2": 3518,
+    "AFTER_2": 4665,
+    "CHECK_OK_4429": 4716,
+    "CHECK_OK_4472": 4759,
+    "CHECK_OK_4515": 4802,
+    "CHECK_OK_4558": 4845,
+    "CHECK_OK_4601": 4888,
+    "CHECK_OK_4644": 4931,
+    "CHECK_OK_4687": 4974,
+    "CHECK_OK_4730": 5017,
+    "CHECK_OK_4773": 5060,
+    "CHECK_OK_4812": 5099,
+    "CHECK_OK_4851": 5138,
+    "CHECK_OK_4890": 5177,
+    "CHECK_OK_4934": 5221,
+    "CHECK_OK_4973": 5260,
+    "CHECK_OK_5012": 5299,
+    "STAGE_3": 5299,
+    "AFTER_3": 6770,
+    "CHECK_OK_6534": 6821,
+    "CHECK_OK_6577": 6864,
+    "CHECK_OK_6620": 6907,
+    "CHECK_OK_6663": 6950,
+    "CHECK_OK_6706": 6993,
+    "CHECK_OK_6749": 7036,
+    "CHECK_OK_6792": 7079,
+    "CHECK_OK_6835": 7122,
+    "CHECK_OK_6878": 7165,
+    "CHECK_OK_6921": 7208,
+    "CHECK_OK_6960": 7247,
+    "CHECK_OK_6999": 7286,
+    "CHECK_OK_7038": 7325,
+    "CHECK_OK_7082": 7369,
+    "CHECK_OK_7121": 7408,
+    "CHECK_OK_7160": 7447,
+    "Z80_STUB": 7463,
+    "READY": 7474,
+    "NOT_READY": 7485,
+    "FAIL": 7496,
+    "UNSUPPORTED": 7507,
+    "FINISH": 7515,
+    "FORMAT_DIAG": 7545,
+    "FORMAT_REG": 7576,
+    "FORMAT_VALUES": 7594,
+    "HEX_BYTE": 7613,
+    "HEX_NIBBLE": 7626,
+    "HEX_STORE": 7637,
+    "MSG_PASS": 7640,
+    "MSG_UNSUPPORTED": 7660,
+    "MSG_FAIL": 7687,
+    "FAIL_STAGE": 7711,
+    "HEX_ADDR": 7719,
+    "HEX_EXP": 7730,
+    "HEX_ACT": 7737,
+    "STATUS": 7742,
+    "GUARD": 7743,
+    "SP_SNAPSHOT": 7744,
+    "SP_SNAPSHOT1": 7745,
+    "SP_SNAPSHOT2": 7746,
+    "SPS_SNAPSHOT": 7747,
+    "SPS_SNAPSHOT1": 7748,
+    "SAVED_SPS": 7749,
+    "SAVED_SPS1": 7750,
+    "DIAG_MEM": 7751,
+    "DIAG_ADDR0": 7752,
+    "DIAG_ADDR1": 7753,
+    "DIAG_ADDR2": 7754,
+    "DIAG_EXP": 7755,
+    "DIAG_ACT": 7756,
+    "SAVED_AF": 7757,
+    "PAIR_SNAPSHOT": 7759,
+    "PAIR_SNAPSHOT1": 7760,
+    "LOCAL_PAIR": 7761,
+    "LOCAL_PAIR1": 7762,
+    "LOCAL_PAIR2": 7763,
+    "MSG_READY": 7764,
+    "MSG_NOT_READY": 7796
+  },
+  "cases": [
+    {
+      "MBASE": 0,
+      "checks": [
+        [
+          692224,
+          259,
+          49
+        ],
+        [
+          692225,
+          259,
+          206
+        ],
+        [
+          692226,
+          65795,
+          66
+        ],
+        [
+          692227,
+          524287,
+          82
+        ],
+        [
+          692228,
+          524288,
+          166
+        ]
+      ],
+      "Z80_fetch_with_nonzero_MBASE": true
+    },
+    {
+      "MBASE": 14,
+      "checks": [
+        [
+          692224,
+          917763,
+          49
+        ],
+        [
+          692225,
+          917763,
+          206
+        ],
+        [
+          692226,
+          65795,
+          66
+        ],
+        [
+          692227,
+          524287,
+          82
+        ],
+        [
+          692228,
+          524288,
+          166
+        ],
+        [
+          692229,
+          259,
+          105
+        ],
+        [
+          692230,
+          65535,
+          182
+        ],
+        [
+          692231,
+          917763,
+          206
+        ]
+      ],
+      "Z80_fetch_with_nonzero_MBASE": true
+    },
+    {
+      "MBASE": 15,
+      "checks": [
+        [
+          692224,
+          983299,
+          49
+        ],
+        [
+          692225,
+          983299,
+          206
+        ],
+        [
+          692226,
+          65795,
+          66
+        ],
+        [
+          692227,
+          524287,
+          82
+        ],
+        [
+          692228,
+          524288,
+          166
+        ],
+        [
+          692229,
+          259,
+          105
+        ],
+        [
+          692230,
+          65535,
+          182
+        ],
+        [
+          692231,
+          983299,
+          206
+        ]
+      ],
+      "Z80_fetch_with_nonzero_MBASE": true
+    },
+    {
+      "MBASE": 255,
+      "checks": [
+        [
+          692224,
+          16711939,
+          49
+        ],
+        [
+          692225,
+          16711939,
+          206
+        ],
+        [
+          692226,
+          65795,
+          66
+        ],
+        [
+          692227,
+          524287,
+          82
+        ],
+        [
+          692228,
+          524288,
+          166
+        ],
+        [
+          692229,
+          259,
+          105
+        ],
+        [
+          692230,
+          65535,
+          182
+        ],
+        [
+          692231,
+          16711939,
+          206
+        ]
+      ],
+      "Z80_fetch_with_nonzero_MBASE": true
+    }
+  ],
+  "private_code": "0A8000,0A8700,0A8800",
+  "private_results": "0A9000..0A9011",
+  "private_stack": "050001",
+  "other_writes": [
+    "01:WINDOW_DATA",
+    "07FFFF",
+    "080000",
+    "00:WINDOW_DATA and 00FFFF only with nonzero MBASE"
+  ],
+  "no_MSX_vector_writes": true,
+  "private_bank00_RST_vector_write": true,
+  "DOS_may_EI": true
+}

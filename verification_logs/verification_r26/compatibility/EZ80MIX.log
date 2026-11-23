@@ -1,0 +1,6 @@
+COM stage A time=408090000
+COM stage B time=820890000
+COM stage C time=1112090000
+COM stage D time=1669210000
+EZ80MIX P2: PASS
+PASS compat_com_r26 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=0 WAIT_ticks=3196

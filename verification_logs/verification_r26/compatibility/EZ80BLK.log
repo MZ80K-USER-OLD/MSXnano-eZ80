@@ -1,0 +1,7 @@
+COM stage 1 time=132570000
+COM stage 2 time=432090000
+COM stage 3 time=731610000
+COM stage 4 time=1110490000
+COM stage 5 time=1489370000
+EZ80BLK P1: PASS
+PASS compat_com_r26 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=0 WAIT_ticks=3172

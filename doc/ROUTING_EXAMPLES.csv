@@ -1,0 +1,11 @@
+MBASE_hex,address_hex,cycle,target,MSX_bus_hex,note
+00,001234,memory,MSX,1234,リセット既定窓
+0E,0E1234,memory,MSX,1234,ADLで明示した一致アドレスもMSX
+0E,0EFFFF,memory,MSX,FFFF,セカンダリスロットに意図して到達
+0E,07FFFF,memory,EXT,0000,MSX側は遮断
+0E,001234,memory,EXT,0000,現行は未割当。bank00h RAM候補が必要
+FF,FF8000,memory,MSX,8000,高位FFhをMSX窓へ
+FF,0A8000,memory,EXT,0000,既存private RAM
+60,601234,memory,MSX,1234,選択中のVRAM論理窓よりMSXを優先
+0E,00FFFF,io,IO,FFFF,MREQは無効。slotレジスタではない
+0E,000066,memory,EXT,0000,ADL NMIベクタの接続を要検討

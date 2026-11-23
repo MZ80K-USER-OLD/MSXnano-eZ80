@@ -1,0 +1,22 @@
+CASE 0
+COM stage 0 time=154790000
+CASE 1
+COM stage 1 time=840630000
+CASE 2
+COM stage 2 time=1532710000
+CASE 3
+COM stage 3 time=2222710000
+CASE 4
+COM stage 4 time=2914870000
+CASE 5
+COM stage 5 time=3605510000
+CASE 6
+COM stage 6 time=4361430000
+CASE 7
+COM stage 7 time=5121750000
+CASE 8
+COM stage 8 time=5882230000
+CASE 9
+COM stage 9 time=6642870000
+EZ80TIO R26: PASS
+PASS tstio_com_r25 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=389 WAIT_ticks=34228

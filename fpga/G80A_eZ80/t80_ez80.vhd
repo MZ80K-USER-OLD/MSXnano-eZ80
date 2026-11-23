@@ -103,6 +103,7 @@ entity T80_eZ80 is
         A_BANK : out std_logic_vector(7 downto 0);
         MADL_State : out std_logic;
         MBASE_State : out std_logic_vector(7 downto 0);
+        A_MSX_MATCH : out std_logic; -- final address bank equals current MBASE
         Extension_State : out std_logic;
 		update_addr	: out std_logic;
         DInst       : in std_logic_vector(7 downto 0);
@@ -437,6 +438,7 @@ architecture rtl of T80_eZ80 is
     A<=Address_Reg;
     A_BANK<=Address_Bank_Reg;
     MBASE_State <= MBASE;
+    A_MSX_MATCH <= '1' when Address_Bank_Reg=MBASE else '0';
     MADL_State <= MADL;
     DO<=Data_Out_Reg;
     Write<='1' when Frame_State=frame_push and Frame_TS/=4 else '0' when Frame_Active='1' else Write_Decode;
@@ -969,7 +971,11 @@ architecture rtl of T80_eZ80 is
             if T_Res='1' and IORQ_i='1' and Write_Decode='1' then
                 if DATA_EXTENDED and Address_Reg=x"E7E7" then
                     if Data_Out_Reg=x"00" then
-                        if ADL_Mode='0' then Extensions_Enabled<='0';MBASE<=x"00";MADL<='0';end if;Unlock_Armed<='0';
+                        if ADL_Mode='0' then
+                            Extensions_Enabled<='0';MBASE<=x"00";MADL<='0';
+                            -- The next Z80 fetch must use the cleared MBASE too.
+                            Address_Bank_Reg<=x"00";
+                        end if;Unlock_Armed<='0';
                     elsif Data_Out_Reg=x"A5" then Unlock_Armed<='1';
                     elsif Data_Out_Reg=x"5A" and Unlock_Armed='1' then Extensions_Enabled<='1';Unlock_Armed<='0';
                     else Unlock_Armed<='0';end if;
