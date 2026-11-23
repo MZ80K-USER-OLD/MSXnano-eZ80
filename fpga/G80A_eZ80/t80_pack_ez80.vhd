@@ -57,7 +57,7 @@ use IEEE.std_logic_1164.all;
 
 package T80_eZ80_Pack is
     -- R24: instruction-static execution descriptor, captured with IR.
-    subtype exec_control_t is std_logic_vector(52 downto 0);
+    subtype exec_control_t is std_logic_vector(53 downto 0);
     constant EC_EX_SP : natural := 0;
     constant EC_STACK : natural := 1;
     constant EC_INCDEC : natural := 2;
@@ -111,6 +111,7 @@ package T80_eZ80_Pack is
     constant EC_LOAD_IMM:natural:=50;
     constant EC_LOAD_ABS:natural:=51;
     constant EC_LOAD_IND:natural:=52;
+    constant EC_TSTIO:natural:=53;
     function Decode_Execution(op: std_logic_vector(7 downto 0); pg, xy: std_logic_vector(1 downto 0); ex, adl, dl, sl, hw: std_logic; mode_id: integer) return exec_control_t;
     function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
 
@@ -328,6 +329,7 @@ package body T80_eZ80_Pack is
         if ex='1' and adl='1' and hw='0' and pg="10" and raw(14)='1' then c(EC_IRQ_RETURN):='1';end if;
         if ex='1' and pg="10" and raw(15)='1' then c(EC_IV_READ):='1';end if;
         if mode_id=0 and ex='1' and pg="10" and ((op(7 downto 6)="00" and op(2 downto 0)="100") or op=x"64") then c(EC_TST):='1';end if;
+        if mode_id=0 and ex='1' and pg="10" and op=x"74" then c(EC_TSTIO):='1';end if;
         if mode_id=0 and ex='1' and pg="10" and w(7 downto 4)=x"C" then c(EC_IO2):='1';end if;
         if pg="10" and op=x"73" and dl='1' and sl='0' then c(EC_SP_READ):='1';end if;
         if ex='1' and mode_id=0 then c(EC_EXT_MODE0):='1';end if;

@@ -51,7 +51,7 @@
         <File path="../src/memory_ez80.v" type="file.verilog" enable="1"/>
         <File path="../src/ez80_memory_bridge.v" type="file.verilog" enable="1"/>
         <File path="../src/ez80_trace_mux.v" type="file.verilog" enable="1"/>
-        <File path="../src/msx2p_debug.v" type="file.verilog" enable="1"/>
+        <File path="../src/msx2p_debug_disabled.v" type="file.verilog" enable="1"/>
         <File path="../src/ocm/rtc.v" type="file.verilog" enable="1"/>
         <File path="../src/psg_filter.v" type="file.verilog" enable="1"/>
         <File path="../src/subrom_msx2p.v" type="file.verilog" enable="1"/>

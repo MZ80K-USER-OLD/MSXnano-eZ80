@@ -1784,7 +1784,18 @@ begin
                                     ALU_Op<="0100";Set_BusA_To<="0111";Set_BusB_To<="0110";
                                     MCycles<="010";
                                     if MCycle="010" then Save_ALU<='1';Inc_PC<='1';end if;
+                                elsif Exec_Control(EC_TSTIO)='1' and IntCycle='0' and NMICycle='0' then
+                                    -- R25 TSTIO: M2 holds immediate in existing TmpAddr.L,
+                                    -- M3 reads {00,C}; existing byte AND updates flags only.
+                                    MCycles<="011";
+                                    case to_integer(unsigned(MCycle)) is
+                                    when 2 => Inc_PC<='1';LDZ<='1';Set_Addr_To<=aBC;
+                                    when 3 => IORQ<='1';ALU_Op<="0100";
+                                              Set_BusA_To<="1100";Set_BusB_To<="0110";Save_ALU<='1';
+                                    when others => null;
+                                    end case;
                                 else
+                                -- Locked/other-mode ED74 retains the legacy NEG alias.
                                 -- NEG
                                 Alu_OP <= "0010";
                                 Set_BusB_To <= "0111";

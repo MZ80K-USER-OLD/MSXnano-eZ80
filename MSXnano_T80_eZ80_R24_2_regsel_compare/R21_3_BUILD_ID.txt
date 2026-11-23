@@ -1,1 +1,0 @@
-R21.3 observation link comparison; R21.2 hardware regression baseline preserved. GOWIN/board unverified.

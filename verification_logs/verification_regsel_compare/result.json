@@ -1,0 +1,135 @@
+{
+  "baseline": "R24.2",
+  "selection_truth_combinations": 8192,
+  "tests": [
+    {
+      "test": "data_r3",
+      "parameters": {
+        "PHASE": 7
+      },
+      "checks": 1020464,
+      "log": "data_r3_PHASE7.log"
+    },
+    {
+      "test": "mem_r4",
+      "parameters": {
+        "PHASE": 7
+      },
+      "checks": 152144,
+      "log": "mem_r4_PHASE7.log"
+    },
+    {
+      "test": "alu_r5",
+      "parameters": {
+        "PHASE": 7
+      },
+      "checks": 399728,
+      "log": "alu_r5_PHASE7.log"
+    },
+    {
+      "test": "blk_r6",
+      "parameters": {
+        "PHASE": 7
+      },
+      "checks": 232784,
+      "log": "blk_r6_PHASE7.log"
+    },
+    {
+      "test": "lea_r8",
+      "parameters": {
+        "PHASE": 7
+      },
+      "checks": 281776,
+      "log": "lea_r8_PHASE7.log"
+    },
+    {
+      "test": "data_r3",
+      "parameters": {
+        "PHASE": 3,
+        "EXTENDED": 0
+      },
+      "checks": 58352,
+      "log": "data_r3_PHASE3_EXTENDED0.log"
+    },
+    {
+      "test": "ldh_unit_r16",
+      "parameters": {
+        "CPU_DIV": 4,
+        "PHASE": 3,
+        "PAUSE": 1,
+        "IRQ_STRESS": 0
+      },
+      "checks": 303162,
+      "log": "ldh_unit_r16_CPU_DIV4_PHASE3_PAUSE1_IRQ_STRESS0.log"
+    },
+    {
+      "test": "ldh_unit_r16",
+      "parameters": {
+        "CPU_DIV": 4,
+        "PHASE": 3,
+        "PAUSE": 1,
+        "IRQ_STRESS": 1
+      },
+      "checks": 345490,
+      "log": "ldh_unit_r16_CPU_DIV4_PHASE3_PAUSE1_IRQ_STRESS1.log"
+    },
+    {
+      "test": "ldh_unit_r16",
+      "parameters": {
+        "CPU_DIV": 4,
+        "PHASE": 3,
+        "PAUSE": 1,
+        "IRQ_STRESS": 2
+      },
+      "checks": 348114,
+      "log": "ldh_unit_r16_CPU_DIV4_PHASE3_PAUSE1_IRQ_STRESS2.log"
+    },
+    {
+      "test": "ldx_unit_r17",
+      "parameters": {
+        "CPU_DIV": 4,
+        "PHASE": 3,
+        "PAUSE": 1,
+        "IRQ_STRESS": 0
+      },
+      "checks": 802082,
+      "log": "ldx_unit_r17_CPU_DIV4_PHASE3_PAUSE1_IRQ_STRESS0.log"
+    },
+    {
+      "test": "ldx_unit_r17",
+      "parameters": {
+        "CPU_DIV": 4,
+        "PHASE": 3,
+        "PAUSE": 1,
+        "IRQ_STRESS": 1
+      },
+      "checks": 890266,
+      "log": "ldx_unit_r17_CPU_DIV4_PHASE3_PAUSE1_IRQ_STRESS1.log"
+    },
+    {
+      "test": "ldx_unit_r17",
+      "parameters": {
+        "CPU_DIV": 4,
+        "PHASE": 3,
+        "PAUSE": 1,
+        "IRQ_STRESS": 2
+      },
+      "checks": 893946,
+      "log": "ldx_unit_r17_CPU_DIV4_PHASE3_PAUSE1_IRQ_STRESS2.log"
+    }
+  ],
+  "total_checks": 5728308,
+  "GOWIN": false,
+  "board": false,
+  "added_flip_flops": 0,
+  "source_SHA256": {
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "9204223b31c73df9c4e0a3c2279f420a2befbac33746ec17bd5bbf2631add5f9",
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "0e49cd6ffefacbe63d8b98661a5a7340e7626852c294100abf9af0de7bf8d42e",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "a19fd6b805813aef67fedf26bc7a3e4b8dddedb1e0a4cca27529e938d7c34fe3",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "d25dbf64e08b2df1e43ee32e192c58eef533fb358149a904485da6ca130f20c5",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "eac9efd07a10af985840ff3a658531599a5ce0ec5f0df0b6e4942f59b67270a1",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc"
+  },
+  "vhdl93_analysis": "PASS (six CPU sources)",
+  "baseline_core_SHA256": "fd25ca61e54f1c3ab0d57340c96f34ab799d3831dbc7e5498cde1ff3ebf533d5"
+}

@@ -8,7 +8,7 @@ def negflags(a):
  x=(-a)&255
  return (x&0xa8)|(0x40 if x==0 else 0)|(0x10 if a&15 else 0)|(4 if a==128 else 0)|2|(1 if a else 0)
 for case in range(5):
- m={};checks=[];p=0;adl=case not in [3,4]
+ m={};checks=[];p=0;adl=case not in [2,3,4]
  def at(v):
   global p;p=v
  def e(*bs):
@@ -68,14 +68,15 @@ for case in range(5):
      e(0x7d);state(addr&255,andflags(a,operand),14)
   e(0x3e,0,0xed,0x6d)
  elif case==2:
-  # ED74 is deliberately NOT TSTIO: keep the existing NEG alias.
+  e(0xc3,0,0x30);at(0x3000)
+  # Locked ED74 retains NEG; unlocked ED74 is covered by the R25 TSTIO tests.
   for a in range(256):af(a,a^0xff);e(0xed,0x74);state((-a)&255,negflags(a))
  else:
   for a in range(256):
    af(a,a^0xb7);e(0xed,0x04);state(a,a^0xb7)
    e(0xed,0x64);state((-a)&255,negflags(a))
  if adl:e(0x40,0xc3,0,2)
- else:e(0xc3,0,0x7f)
+ else:e(0xc3,0,2 if case==2 else 0x7f)
  lines=[f"mem[24'h{a:06x}]=8'h{v:02x};" for a,v in sorted(m.items())]
  for i,j in enumerate(checks):
   lines += [f"epc[{i}]=24'h{j['pc']:06x};",f"eacc[{i}]=8'h{j['acc']:02x};",f"ef[{i}]=8'h{j['flags']:02x};",f"emb[{i}]=8'h{j['mb']:02x};",f"eadl[{i}]={j['adl']};",f"check_a[{i}]=1;check_f[{i}]=1;"]

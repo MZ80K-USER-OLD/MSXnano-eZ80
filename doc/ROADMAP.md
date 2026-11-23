@@ -1,3 +1,7 @@
+# 現行：R25 TSTIO
+
+RAM併用R24.5を基準にTSTIOを追加。現行の残項目はISA_STATUS_R25.md、実装・検証はR25_TSTIO.mdを参照。以下は各版公開時点の履歴。
+
 # Current: R21.3 observation link
 
 R21.2 user hardware: MEM/IO2/RUNALL all PASS, SofaRun Space Manbow PLAY. MR3 observation records zero. R21.3 moves byte selection into Verilog and verifies 55/AA over the same link. New ISA work remains paused until this observation issue is resolved.

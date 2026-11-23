@@ -1,0 +1,82 @@
+--- a/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -57,7 +57,7 @@
+ 
+ package T80_eZ80_Pack is
+     -- R24: instruction-static execution descriptor, captured with IR.
+-    subtype exec_control_t is std_logic_vector(52 downto 0);
++    subtype exec_control_t is std_logic_vector(53 downto 0);
+     constant EC_EX_SP : natural := 0;
+     constant EC_STACK : natural := 1;
+     constant EC_INCDEC : natural := 2;
+@@ -111,6 +111,7 @@
+     constant EC_LOAD_IMM:natural:=50;
+     constant EC_LOAD_ABS:natural:=51;
+     constant EC_LOAD_IND:natural:=52;
++    constant EC_TSTIO:natural:=53;
+     function Decode_Execution(op: std_logic_vector(7 downto 0); pg, xy: std_logic_vector(1 downto 0); ex, adl, dl, sl, hw: std_logic; mode_id: integer) return exec_control_t;
+     function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
+ 
+@@ -328,6 +329,7 @@
+         if ex='1' and adl='1' and hw='0' and pg="10" and raw(14)='1' then c(EC_IRQ_RETURN):='1';end if;
+         if ex='1' and pg="10" and raw(15)='1' then c(EC_IV_READ):='1';end if;
+         if mode_id=0 and ex='1' and pg="10" and ((op(7 downto 6)="00" and op(2 downto 0)="100") or op=x"64") then c(EC_TST):='1';end if;
++        if mode_id=0 and ex='1' and pg="10" and op=x"74" then c(EC_TSTIO):='1';end if;
+         if mode_id=0 and ex='1' and pg="10" and w(7 downto 4)=x"C" then c(EC_IO2):='1';end if;
+         if pg="10" and op=x"73" and dl='1' and sl='0' then c(EC_SP_READ):='1';end if;
+         if ex='1' and mode_id=0 then c(EC_EXT_MODE0):='1';end if;
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -1784,7 +1784,18 @@
+                                     ALU_Op<="0100";Set_BusA_To<="0111";Set_BusB_To<="0110";
+                                     MCycles<="010";
+                                     if MCycle="010" then Save_ALU<='1';Inc_PC<='1';end if;
++                                elsif Exec_Control(EC_TSTIO)='1' and IntCycle='0' and NMICycle='0' then
++                                    -- R25 TSTIO: M2 holds immediate in existing TmpAddr.L,
++                                    -- M3 reads {00,C}; existing byte AND updates flags only.
++                                    MCycles<="011";
++                                    case to_integer(unsigned(MCycle)) is
++                                    when 2 => Inc_PC<='1';LDZ<='1';Set_Addr_To<=aBC;
++                                    when 3 => IORQ<='1';ALU_Op<="0100";
++                                              Set_BusA_To<="1100";Set_BusB_To<="0110";Save_ALU<='1';
++                                    when others => null;
++                                    end case;
+                                 else
++                                -- Locked/other-mode ED74 retains the legacy NEG alias.
+                                 -- NEG
+                                 Alu_OP <= "0010";
+                                 Set_BusB_To <= "0111";
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -1119,7 +1119,10 @@
+                         when aSP =>
+                             if EX_SP_Long='1' then Address_Reg<=std_logic_vector(EX_SP_Address(15 downto 0));elsif Wide_Stack='1' or PEA_Long='1' or Ctrl_Stack='1' then Address_Reg<=std_logic_vector(SPL(15 downto 0));else Address_Reg <= std_logic_vector(SP);end if;
+                         when aBC =>
+-                            if Mode = 3 and IORQ_i = '1' then
++                            if Exec_Control(EC_TSTIO)='1' then
++                                -- Only TSTIO forces port bits 15:8 to zero; ordinary IN/OUT retain BC16.
++                                Address_Reg <= x"00" & RegBusC(7 downto 0);
++                            elsif Mode = 3 and IORQ_i = '1' then
+                                 -- Memory map I/O on GBZ80
+                                 Address_Reg(15 downto 8) <= (others => '1');
+                                 Address_Reg(7 downto 0) <= RegBusC(7 downto 0);
+@@ -1797,6 +1800,8 @@
+                 BusA <= std_logic_vector(SP(15 downto 8));
+             when "1010" =>
+                 BusA <= "00000000";
++            when "1100" =>
++                BusA <= TmpAddr(7 downto 0); -- R25: retained TSTIO immediate, no new data FF.
+             when others =>
+                 BusB <= "--------";
+             end case;
+--- a/fpga/G80A_eZ80/g80a_ez80.vhd
++++ b/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -248,6 +248,8 @@
+             when x"FD"|x"FE"=>if DIAGNOSTICS then Diag_Read<=Trace_Data;end if;
+             when x"E0"=>if DIAGNOSTICS then Diag_Read<=x"24";end if;
+             when x"E1"=>if DIAGNOSTICS then Diag_Read<=x"DB";end if;
++            when x"E2"=>if DIAGNOSTICS then Diag_Read<=x"25";end if; -- R25 TSTIO test capability
++            when x"E3"=>if DIAGNOSTICS then Diag_Read<=x"DA";end if;
+             when x"F8"=>Diag_Read<=x"00"; -- R23.2: IO2 execution removed
+             when x"F9"=>Diag_Read<=x"FF";
+             when x"FA"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=Diag_IO_Signature;end if;

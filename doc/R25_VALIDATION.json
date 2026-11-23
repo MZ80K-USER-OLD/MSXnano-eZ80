@@ -1,0 +1,42 @@
+{
+  "release": "R25 TSTIO",
+  "baseline": "R24.5 RAM + normal UART-disabled profile",
+  "RTL_changed": [
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd",
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd"
+  ],
+  "register_file_ALU_top_memory_SDC_CST_GPRJ_unchanged": true,
+  "old_hardware_COM_unchanged": 34,
+  "new_COM": "EZ80TIO.COM",
+  "COM_bytes": 16686,
+  "COM_CRC32": "30505EB2",
+  "COM_SHA256": "d13d3ac861f3462bb2bd6449ae87752a5b8702d16794cf1df7357ab6c7b880d5",
+  "VHDL93": "PASS, 6 files",
+  "decode_vectors": 524288,
+  "TSTIO_unit_runs": 10,
+  "TSTIO_functional_checks": 1880,
+  "locked_NEG_checks": 512,
+  "IRQ_NMI_boundary_checks": 80,
+  "TSTIO_COM_runs": 7,
+  "old_CPU_regression_runs": 9,
+  "old_COM_smoke_runs": 5,
+  "TST_regression_success_runs": 4,
+  "TST_expected_fault_detector_runs": 2,
+  "BDOS_EI_and_IM1_in_simulation": true,
+  "simulation_full_MSX": false,
+  "GOWIN": false,
+  "board": false,
+  "timing_closed": false,
+  "new_data_work_registers": 0,
+  "execution_control_width_bits": 54,
+  "source_SHA256": {
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "66666dc78d481acf69df939728e947a827d1370a770787ba5b777f105a4cc1b5",
+    "fpga/G80A_eZ80/t80_reg_ez80.vhd": "9204223b31c73df9c4e0a3c2279f420a2befbac33746ec17bd5bbf2631add5f9",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "7a1cc208133443ad3c44a8c1e84780beeeb60c99f388af003a414821a96c92e2",
+    "fpga/G80A_eZ80/t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "a285d1ebe75a8ef76826662bce96a8076d31d91aa14a732e31722237ea73a0d0",
+    "fpga/G80A_eZ80/t80_mcode_ez80.vhd": "e214e9ba39f03edacca677e3ebf137aca9b5b4311c1490bba8cba31d76387669"
+  }
+}

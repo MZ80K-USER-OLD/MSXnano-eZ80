@@ -12,5 +12,5 @@ def run(q):
  else:assert a.returncode==0 and 'PASS tst_r15' in out,out
  print('PASS mbase',q,flush=True);return dict(case=q,result=out[-500:])
 with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:rows=list(pool.map(run,cases))
-j=dict(fresh_runs=sum(q[-1]==0 for q in cases),expected_failure_runs=2,cases=rows,A_values=256,register_sources=7,immediate=True,memory=True,source_and_A_preserved=True,flags_SZHPNC_and_XY_checked=True,ED74_legacy_NEG=True,locked_ED64_legacy_NEG=True,all_four_width_suffixes=True,WAIT_and_CEN_pause=True,nonzero_MBASE=True,flat_24bit_RAM_not_board_mapping=True,sha256={str(p.relative_to(r)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (r/'fpga/G80A_eZ80').glob('*.vhd')})
+j=dict(fresh_runs=sum(q[-1]==0 for q in cases),expected_failure_runs=2,cases=rows,A_values=256,register_sources=7,immediate=True,memory=True,source_and_A_preserved=True,flags_SZHPNC_and_XY_checked=True,locked_ED74_legacy_NEG=True,locked_ED64_legacy_NEG=True,all_four_width_suffixes=True,WAIT_and_CEN_pause=True,nonzero_MBASE=True,flat_24bit_RAM_not_board_mapping=True,sha256={str(p.relative_to(r)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (r/'fpga/G80A_eZ80').glob('*.vhd')})
 (r/'verification_tst_r15_result.json').write_text(json.dumps(j,indent=2)+'\n')

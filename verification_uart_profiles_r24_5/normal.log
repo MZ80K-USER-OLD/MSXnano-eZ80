@@ -1,0 +1,2 @@
+PASS UART normal: idle TX under reset/bus/send activity
+/workspace/scratch/db88d59b2a4d/r24-5-work/MSXnano_T80_eZ80_restart_R24_5/sim/tb_uart_profiles_r24_5.sv:58: $finish called at 1852085190 (1ps)

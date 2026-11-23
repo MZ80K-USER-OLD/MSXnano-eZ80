@@ -1,0 +1,2 @@
+PASS UART diagnostic: decoded state= at the production baud divider
+/workspace/scratch/db88d59b2a4d/r24-5-work/MSXnano_T80_eZ80_restart_R24_5/sim/tb_uart_profiles_r24_5.sv:47: $finish called at 524365485 (1ps)

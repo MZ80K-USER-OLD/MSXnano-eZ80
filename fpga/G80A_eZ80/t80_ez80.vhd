@@ -1119,7 +1119,10 @@ architecture rtl of T80_eZ80 is
                         when aSP =>
                             if EX_SP_Long='1' then Address_Reg<=std_logic_vector(EX_SP_Address(15 downto 0));elsif Wide_Stack='1' or PEA_Long='1' or Ctrl_Stack='1' then Address_Reg<=std_logic_vector(SPL(15 downto 0));else Address_Reg <= std_logic_vector(SP);end if;
                         when aBC =>
-                            if Mode = 3 and IORQ_i = '1' then
+                            if Exec_Control(EC_TSTIO)='1' then
+                                -- Only TSTIO forces port bits 15:8 to zero; ordinary IN/OUT retain BC16.
+                                Address_Reg <= x"00" & RegBusC(7 downto 0);
+                            elsif Mode = 3 and IORQ_i = '1' then
                                 -- Memory map I/O on GBZ80
                                 Address_Reg(15 downto 8) <= (others => '1');
                                 Address_Reg(7 downto 0) <= RegBusC(7 downto 0);
@@ -1797,6 +1800,8 @@ architecture rtl of T80_eZ80 is
                 BusA <= std_logic_vector(SP(15 downto 8));
             when "1010" =>
                 BusA <= "00000000";
+            when "1100" =>
+                BusA <= TmpAddr(7 downto 0); -- R25: retained TSTIO immediate, no new data FF.
             when others =>
                 BusB <= "--------";
             end case;

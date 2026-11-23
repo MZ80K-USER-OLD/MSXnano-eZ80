@@ -1,0 +1,6 @@
+COM stage 1 time=132750000
+COM stage 2 time=2105230000
+EZ80LEA P1: PASS
+PASS lea_r8 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=3900
+/workspace/scratch/db88d59b2a4d/r24-regsel-review/MSXnano_T80_eZ80_R24_2_regsel_compare/sim/tb_lea_r8.sv:140: $finish called at 2818190000 (1ps)
+REGSEL_DIFF checks=281776
