@@ -1,0 +1,8 @@
+R24.2: common pair-load collection and final commit, based on R24.1.
+Enabled-extension Mode0 immediate, absolute, HL/IX/IY pair reads share EX_SP_Read work storage.
+Destination/first/last/SP selector retained; final byte bypass; no extra instruction cycles.
+Three added descriptor bits (53 total), ten source context bits. No new 24-bit data work register.
+Locked Z80 path retained. GSR deferred and unchanged.
+Three FPGA files changed vs R24.1: core, package, microcode.
+34 COMs and RUNALL unchanged. No new hardware test COM required.
+Local checks passed; GOWIN area/timing and physical hardware not tested.

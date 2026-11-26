@@ -1,0 +1,5 @@
+R23.2: minimal ED-page IO2 removal from R21.3.
+Core/package/register/memory/constraints identical to R21.3.
+Changed FPGA files: mcode ED rows and wrapper F8/F9 feature signature.
+ION COM unchanged: CRC32 89950529; banner R23.1 is intentional.
+GOWIN/board/area/STA unverified.

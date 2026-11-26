@@ -1,0 +1,3 @@
+R29.2 mandatory DI_FRAME_VALID input
+Relative to R29: remove default in entity and component declaration only
+Integrated Gowin/netlist/timing/board verification pending

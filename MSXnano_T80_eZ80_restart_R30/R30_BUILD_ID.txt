@@ -1,0 +1,3 @@
+R30 execution descriptor selectors
+Baseline R29.2: user hardware diagnostics/RUNALL/game PASS
+R30 Gowin/PnR/hardware pending; no timing constraints changed

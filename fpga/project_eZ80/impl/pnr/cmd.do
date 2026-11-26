@@ -1,9 +1,9 @@
--d D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R29_2\fpga\project_eZ80\impl\gwsynthesis\MSXNanoTang20K_eZ80.vg
+-d D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R30\fpga\project_eZ80\impl\gwsynthesis\MSXNanoTang20K_eZ80.vg
 -p GW2AR-18C-QFN88-8
 -pn GW2AR-LV18QN88C8/I7
--cst D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R29_2\fpga\tang20k.cst
--cfg D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R29_2\fpga\project_eZ80\impl\pnr\device.cfg
--sdc D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R29_2\fpga\tang20k.sdc
+-cst D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R30\fpga\tang20k.cst
+-cfg D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R30\fpga\project_eZ80\impl\pnr\device.cfg
+-sdc D:\users\HeroineFactory\Documents\GIT\MSXnano_T80_eZ80\MSXnano_T80_eZ80_restart_R30\fpga\tang20k.sdc
 -bit
 -tr
 -ph

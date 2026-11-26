@@ -1,0 +1,207 @@
+{
+  "release": "R30",
+  "baseline": "R29.2 user hardware diagnostics/RUNALL/game PASS",
+  "RTL_changed": [
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd"
+  ],
+  "descriptor_bits_before": 54,
+  "descriptor_bits_after": 62,
+  "additional_static_predicates": 8,
+  "COMs_unchanged": 30,
+  "RUNALL_unchanged": true,
+  "GPRJ_refs_each": 123,
+  "VHDL93_files": 6,
+  "GHDL_synth_profiles": [
+    "normal",
+    "diagnostic",
+    "extension-disabled"
+  ],
+  "differential_reference": "byte-exact complete R29.2 CPU/wrapper",
+  "differential": [
+    {
+      "COM": "EZ80D3",
+      "stress": false,
+      "bus_comparisons": 1021457
+    },
+    {
+      "COM": "EZ80MEM",
+      "stress": false,
+      "bus_comparisons": 153137
+    },
+    {
+      "COM": "EZ80ALU",
+      "stress": false,
+      "bus_comparisons": 400721
+    },
+    {
+      "COM": "EZ80BLK",
+      "stress": false,
+      "bus_comparisons": 233777
+    },
+    {
+      "COM": "EZ80MUL",
+      "stress": false,
+      "bus_comparisons": 235697
+    },
+    {
+      "COM": "EZ80LEA",
+      "stress": false,
+      "bus_comparisons": 282769
+    },
+    {
+      "COM": "EZ80F9",
+      "stress": false,
+      "bus_comparisons": 580817
+    },
+    {
+      "COM": "EZ80ADL",
+      "stress": false,
+      "bus_comparisons": 115761
+    },
+    {
+      "COM": "EZ80CTL",
+      "stress": false,
+      "bus_comparisons": 740461
+    },
+    {
+      "COM": "EZ80I16",
+      "stress": false,
+      "bus_comparisons": 508241
+    },
+    {
+      "COM": "EZ80IM2",
+      "stress": false,
+      "bus_comparisons": 219345
+    },
+    {
+      "COM": "EZ80IRQ",
+      "stress": false,
+      "bus_comparisons": 322993
+    },
+    {
+      "COM": "EZ80LDH",
+      "stress": false,
+      "bus_comparisons": 1330289
+    },
+    {
+      "COM": "EZ80LDX",
+      "stress": false,
+      "bus_comparisons": 709381
+    },
+    {
+      "COM": "EZ80MAD",
+      "stress": false,
+      "bus_comparisons": 309233
+    },
+    {
+      "COM": "EZ80MB",
+      "stress": false,
+      "bus_comparisons": 866545
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": false,
+      "bus_comparisons": 276337
+    },
+    {
+      "COM": "EZ80NMI",
+      "stress": false,
+      "bus_comparisons": 461937
+    },
+    {
+      "COM": "EZ80RST",
+      "stress": false,
+      "bus_comparisons": 607441
+    },
+    {
+      "COM": "EZ80TST",
+      "stress": false,
+      "bus_comparisons": 1664913
+    },
+    {
+      "COM": "EZ80NP6",
+      "stress": false,
+      "bus_comparisons": 1562385
+    },
+    {
+      "COM": "EZ80ION",
+      "stress": false,
+      "bus_comparisons": 1678737
+    },
+    {
+      "COM": "EZ80DEC",
+      "stress": false,
+      "bus_comparisons": 3389873
+    },
+    {
+      "COM": "EZ80TIO",
+      "stress": false,
+      "bus_comparisons": 510077
+    },
+    {
+      "COM": "EZ80WIN",
+      "stress": false,
+      "bus_comparisons": 868273
+    },
+    {
+      "COM": "EZ80MEM",
+      "stress": true,
+      "bus_comparisons": 56023
+    },
+    {
+      "COM": "EZ80ALU",
+      "stress": true,
+      "bus_comparisons": 146615
+    },
+    {
+      "COM": "EZ80LEA",
+      "stress": true,
+      "bus_comparisons": 105063
+    },
+    {
+      "COM": "EZ80LDH",
+      "stress": true,
+      "bus_comparisons": 521479
+    },
+    {
+      "COM": "EZ80LDX",
+      "stress": true,
+      "bus_comparisons": 1054751
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": true,
+      "bus_comparisons": 101847
+    },
+    {
+      "COM": "EZ80MAD",
+      "stress": true,
+      "bus_comparisons": 116167
+    }
+  ],
+  "total_bus_comparisons": 21152542,
+  "diagnostic_runs": 10,
+  "descriptor_width_profiles": {
+    "cases": 64,
+    "profiles": [
+      {
+        "stress": 0,
+        "output": "descriptor hold=51840 accept=1696\nPASS decode width cases=         32 stress=          0 event=          0\n"
+      },
+      {
+        "stress": 1,
+        "output": "descriptor hold=354151 accept=1696\nPASS decode width cases=         32 stress=          1 event=          0\n"
+      }
+    ],
+    "baseline_expected_failure_checked": false,
+    "GOWIN": false,
+    "hardware": false
+  },
+  "SDC_CST_wrapper_top_bridge_memory_VDP_unchanged": true,
+  "pipeline_cycles_added": 0,
+  "GOWIN": false,
+  "board": false,
+  "timing_closed": false,
+  "LUT_savings_measured": false
+}

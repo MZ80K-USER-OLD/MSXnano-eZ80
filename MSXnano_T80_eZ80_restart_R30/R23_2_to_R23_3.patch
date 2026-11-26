@@ -1,0 +1,49 @@
+--- R23.2/fpga/src/ez80_memory_bridge.v
++++ R23.3/fpga/src/ez80_memory_bridge.v
+@@ -46,13 +46,33 @@
+     reg [1:0] state;
+     reg done_meta, done_sync;
+     reg [7:0] result;
++    // R23.3: local full-rate sampling removes the CPU falling-edge strobe
++    // from the multi-LUT payload capture enable. WAIT below stays immediate.
++    // Address/data remain held by the CPU until COMPLETE releases WAIT.
++    reg sampled_mreq_n, sampled_rd_n, sampled_wr_n, sampled_window;
++    always @(posedge clk or negedge reset_n) begin
++        if (!reset_n) begin
++            sampled_mreq_n<=1; sampled_rd_n<=1;
++            sampled_wr_n<=1; sampled_window<=0;
++        end else begin
++            sampled_mreq_n<=cpu_mreq_n; sampled_rd_n<=cpu_rd_n;
++            sampled_wr_n<=cpu_wr_n; sampled_window<=extended_window;
++        end
++    end
++    wire sampled_cycle = sampled_window && !sampled_mreq_n &&
++                         (!sampled_rd_n || !sampled_wr_n);
++    // Live MREQ/window cancel stale samples without using live RD/WR in
++    // the capture enable. MREQ is asserted in T1, before WR in T2.
++    wire accept_request = state==IDLE && sampled_cycle &&
++                          extended_window && !cpu_mreq_n && mapped && !done_sync;
++
+     // R21.2 observation only: retain the last accepted extended write.
+     // The read record reuses the existing request address/result registers.
+     generate if (TRACE_MEMORY) begin: trace_memory
+         reg [30:0] last_write;
+         always @(posedge clk or negedge reset_n) begin
+             if (!reset_n) last_write<=0;
+-            else if (state==IDLE && extended_cycle && mapped && !done_sync && !cpu_wr_n)
++            else if (accept_request && !sampled_wr_n)
+                 last_write<={physical_addr,cpu_dout};
+         end
+         assign memory_trace={1'b0,ram_addr,result,1'b0,last_write};
+@@ -75,9 +95,9 @@
+             ram_addr<=0; ram_din<=0; result<=8'hff;
+         end else begin
+             case (state)
+-                IDLE: if (extended_cycle && mapped && !done_sync) begin
++                IDLE: if (accept_request) begin
+                     ram_addr<=physical_addr; ram_din<=cpu_dout;
+-                    ram_write<=!cpu_wr_n; ram_req<=1; state<=WAIT_RAM;
++                    ram_write<=!sampled_wr_n; ram_req<=1; state<=WAIT_RAM;
+                 end
+                 WAIT_RAM: if (done_sync) begin
+                     result<=ram_dout; ram_req<=0; state<=COMPLETE;

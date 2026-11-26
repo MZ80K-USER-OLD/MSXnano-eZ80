@@ -553,6 +553,7 @@ architecture rtl of T80_eZ80 is
             Q => ALU_Q,
             F_Out => F_Out);
 
+    -- R30: execution uses instruction-static descriptor predicates.
     Exec_Normal <= not (IntCycle or NMICycle);
     Load_Active<=(Exec_Control(EC_LOAD_IMM) or Exec_Control(EC_LOAD_ABS) or Exec_Control(EC_LOAD_IND)) and Exec_Normal;
     -- Data_Long/Stream_Long are already registered with the instruction.
@@ -577,13 +578,13 @@ architecture rtl of T80_eZ80 is
     Pair_Indirect <= Exec_Control(EC_PAIR_IND) and Exec_Normal;
     Pair_Indexed <= Exec_Control(EC_PAIR_INDEX) and Exec_Normal;
     Indirect_Offset<=1 when Pair_Indexed='1' else 0;
-    Indirect_Opposite<='1' when IR=x"31" or IR=x"3E" else '0';
+    Indirect_Opposite<=Exec_Control(EC_IND_OPPOSITE);
     Indirect_Read<='1' when Write_Class(7 downto 4)=x"B" else '0';
     Indirect_Index<=(Indirect_Opposite xor (XY_State(1) and Pair_Indexed)) & "11" when IR(5 downto 4)="11" else Alternate & IR(5 downto 4);
     Pair_Commit_Index<=Indirect_Index when Pair_Indirect='1' else Pair_Upper_Index;
     EX_SP_Address_Next<=EX_SP_Address+1;
     Pair_Read<=IR(3);
-    Pair_Number<="10" when ISet="00" else IR(5 downto 4);
+    Pair_Number<="10" when Exec_Control(EC_PAGE_BASE)='1' else IR(5 downto 4);
     Pair_SP<='1' when Pair_Number="11" else '0';
     Pair_Upper_Index<=HL_Resolved_Index when Pair_Number="10" else Alternate & Pair_Number;
     Pair_Address_Last<=4 when Stream_Long='1' else 3;
@@ -594,10 +595,10 @@ architecture rtl of T80_eZ80 is
     -- Address work register advances only after an accepted T2.
     -- M1/T3 prepares the first read before the M1/T4 address latch.
     Arith_Long <= Exec_Control(EC_ARITH) and Exec_Normal;
-    Arith_Target<=HL_Resolved_Index when ISet="00" else Alternate & "10";
+    Arith_Target<=HL_Resolved_Index when Exec_Control(EC_PAGE_BASE)='1' else Alternate & "10";
     Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Pair_Raw_Index;
-    Arith_Sub<='1' when ISet="10" and IR(3)='0' else '0';
-    Arith_Carry<=F(Flag_C) when ISet="10" else '0';
+    Arith_Sub<=Exec_Control(EC_PAGE_ED) and not IR(3);
+    Arith_Carry<=F(Flag_C) and Exec_Control(EC_PAGE_ED);
     Arith_Commit<='1' when Arith_Long='1' and MCycle="001" and TState=7 else '0';
     -- Both operands and flags are captured at T4 and held through the T7 commit.
     -- Addition and subtraction share this single adder; subtraction complements B.
@@ -622,8 +623,8 @@ architecture rtl of T80_eZ80 is
     EA_Active <= Exec_Control(EC_EA) and Exec_Normal;
     PEA_Active <= Exec_Control(EC_PEA) and Exec_Normal;
     PEA_Long<=PEA_Active and Data_Long;
-    EA_Source<="111" when IR=x"03" or IR=x"13" or IR=x"23" or IR=x"33" or IR=x"54" or IR=x"66" else "011";
-    EA_Target<="011" when IR=x"32" or IR=x"54" else "111" when IR=x"33" or IR=x"55" else Alternate & IR(5 downto 4);
+    EA_Source<="111" when Exec_Control(EC_EA_SOURCE_IY)='1' else "011";
+    EA_Target<="011" when Exec_Control(EC_EA_TARGET_IX)='1' else "111" when Exec_Control(EC_EA_TARGET_IY)='1' else Alternate & IR(5 downto 4);
     LEA_Commit<='1' when EA_Active='1' and PEA_Active='0' and MCycle="010" and TState=5 else '0';
     RegAddrC<=XY_State(1) & "11" when Pair_Indexed='1' else Alternate & "10" when Pair_Indirect='1' else EA_Source when EA_Active='1' else RegAddrC_Base;
     PC_Increment<=PC+1;
@@ -1085,7 +1086,7 @@ architecture rtl of T80_eZ80 is
                         PC(7 downto 0) <= unsigned(TmpAddr(7 downto 0));
                     elsif JumpXY = '1' then
                         Address_Reg <= RegBusC;
-                        if Extensions_Enabled='1' and ISet="00" and IR=x"E9" then
+                        if Exec_Control(EC_JP_INDIRECT)='1' then
                             if Data_Long='1' then
                                 PC<=unsigned(Reg24C);
                                 Address_Bank_Reg<=Reg24C(23 downto 16);ADL_Mode<='1';
@@ -1322,7 +1323,7 @@ architecture rtl of T80_eZ80 is
                 if IR(5 downto 4)="11" then Arith_Right<=SPL;
                 else Arith_Right<=unsigned(Reg24B);end if;
                 Arith_Flags<=F;Arith_Sub_Latched<=Arith_Sub;Arith_Carry_Latched<=Arith_Carry;
-                if ISet="00" then Arith_Is_ADD<='1';else Arith_Is_ADD<='0';end if;
+                Arith_Is_ADD<=Exec_Control(EC_PAGE_BASE);
             end if;
             if Arith_Commit='1' then
                 null;
@@ -1576,10 +1577,10 @@ architecture rtl of T80_eZ80 is
                 when "10110" =>
                     Data_Out_Reg <= Save_Mux;
                 when "11000" =>
-                    if Data_Long='1' and ((ISet="00" and IR=x"31") or (Pair_Absolute='1' and Pair_Read='1' and Pair_SP='1')) then SPL(7 downto 0)<=unsigned(Save_Mux);
+                    if Data_Long='1' and ((Exec_Control(EC_SP_IMMEDIATE)='1') or (Pair_Absolute='1' and Pair_Read='1' and Pair_SP='1')) then SPL(7 downto 0)<=unsigned(Save_Mux);
                     else SP(7 downto 0)<=unsigned(Save_Mux);end if;
                 when "11001" =>
-                    if Data_Long='1' and ((ISet="00" and IR=x"31") or (Pair_Absolute='1' and Pair_Read='1' and Pair_SP='1')) then SPL(15 downto 8)<=unsigned(Save_Mux);
+                    if Data_Long='1' and ((Exec_Control(EC_SP_IMMEDIATE)='1') or (Pair_Absolute='1' and Pair_Read='1' and Pair_SP='1')) then SPL(15 downto 8)<=unsigned(Save_Mux);
                     else SP(15 downto 8)<=unsigned(Save_Mux);end if;
                 when "11011" =>
                     F <= Save_Mux;

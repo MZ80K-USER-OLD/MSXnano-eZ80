@@ -57,7 +57,7 @@ use IEEE.std_logic_1164.all;
 
 package T80_eZ80_Pack is
     -- R24: instruction-static execution descriptor, captured with IR.
-    subtype exec_control_t is std_logic_vector(53 downto 0);
+    subtype exec_control_t is std_logic_vector(61 downto 0);
     constant EC_EX_SP : natural := 0;
     constant EC_STACK : natural := 1;
     constant EC_INCDEC : natural := 2;
@@ -112,6 +112,15 @@ package T80_eZ80_Pack is
     constant EC_LOAD_ABS:natural:=51;
     constant EC_LOAD_IND:natural:=52;
     constant EC_TSTIO:natural:=53;
+    -- R30: instruction-static selectors, captured at the existing IR edge.
+    constant EC_PAGE_BASE:natural:=54;
+    constant EC_PAGE_ED:natural:=55;
+    constant EC_IND_OPPOSITE:natural:=56;
+    constant EC_EA_SOURCE_IY:natural:=57;
+    constant EC_EA_TARGET_IX:natural:=58;
+    constant EC_EA_TARGET_IY:natural:=59;
+    constant EC_JP_INDIRECT:natural:=60;
+    constant EC_SP_IMMEDIATE:natural:=61;
     function Decode_Execution(op: std_logic_vector(7 downto 0); pg, xy: std_logic_vector(1 downto 0); ex, adl, dl, sl, hw: std_logic; mode_id: integer) return exec_control_t;
     function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
 
@@ -372,6 +381,15 @@ package body T80_eZ80_Pack is
             if op(3)='1' and ((pg="00" and raw(4)='1') or (pg="10" and raw(5)='1')) then c(EC_LOAD_ABS):='1';end if;
             if c(EC_PAIR_IND)='1' and w(7 downto 4)=x"B" then c(EC_LOAD_IND):='1';end if;
         end if;
+        -- Capture final-page predicates; no new pipeline cycle or raw-prefix input.
+        if pg="00" then c(EC_PAGE_BASE):='1';end if;
+        if pg="10" then c(EC_PAGE_ED):='1';end if;
+        if op=x"31" or op=x"3E" then c(EC_IND_OPPOSITE):='1';end if;
+        if op=x"03" or op=x"13" or op=x"23" or op=x"33" or op=x"54" or op=x"66" then c(EC_EA_SOURCE_IY):='1';end if;
+        if op=x"32" or op=x"54" then c(EC_EA_TARGET_IX):='1';end if;
+        if op=x"33" or op=x"55" then c(EC_EA_TARGET_IY):='1';end if;
+        if ex='1' and pg="00" and op=x"E9" then c(EC_JP_INDIRECT):='1';end if;
+        if pg="00" and op=x"31" then c(EC_SP_IMMEDIATE):='1';end if;
         return c;
     end function;
 
