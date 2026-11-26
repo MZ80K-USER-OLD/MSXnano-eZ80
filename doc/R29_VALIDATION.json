@@ -1,0 +1,138 @@
+{
+  "release": "R29 input mode-byte predecode",
+  "baseline": "R28",
+  "RTL_changed": [
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd",
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd"
+  ],
+  "COMs_unchanged": 26,
+  "added_input_predecode_bits": 1,
+  "bridge_memory_VDP_top_constraints_unchanged": true,
+  "VHDL93_files": 6,
+  "input_frame_checks": 8192,
+  "strobe_checks": 5121,
+  "VDP_IO_checks": 3145728,
+  "WIN_profiles": 7,
+  "IRQ_NMI_lock_profiles": 8,
+  "TIO_profiles": 7,
+  "MEM_profiles": 9,
+  "MR4_profiles": 8,
+  "CPU_regression_profiles": 9,
+  "RUNALL_compat_COMs": [
+    "EZ80D3",
+    "EZ80ALU",
+    "EZ80BLK",
+    "EZ80MUL",
+    "EZ80LEA",
+    "EZ80F9",
+    "EZ80ADL",
+    "EZ80CTL",
+    "EZ80I16",
+    "EZ80IM2",
+    "EZ80IRQ",
+    "EZ80LDH",
+    "EZ80LDX",
+    "EZ80MAD",
+    "EZ80MB",
+    "EZ80MIX",
+    "EZ80NMI",
+    "EZ80RST",
+    "EZ80TST",
+    "EZ80NP6",
+    "EZ80ION",
+    "EZ80DEC"
+  ],
+  "differential_reference": "byte-exact full R28 CPU+wrapper",
+  "differential": [
+    {
+      "COM": "EZ80MEM",
+      "stress": false,
+      "comparisons": 153137
+    },
+    {
+      "COM": "EZ80WIN",
+      "stress": false,
+      "comparisons": 868273
+    },
+    {
+      "COM": "EZ80CTL",
+      "stress": false,
+      "comparisons": 740461
+    },
+    {
+      "COM": "EZ80TIO",
+      "stress": false,
+      "comparisons": 510077
+    },
+    {
+      "COM": "EZ80IRQ",
+      "stress": false,
+      "comparisons": 322993
+    },
+    {
+      "COM": "EZ80IM2",
+      "stress": false,
+      "comparisons": 219345
+    },
+    {
+      "COM": "EZ80NMI",
+      "stress": false,
+      "comparisons": 461937
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": false,
+      "comparisons": 276337
+    },
+    {
+      "COM": "EZ80MAD",
+      "stress": false,
+      "comparisons": 309233
+    },
+    {
+      "COM": "EZ80WIN",
+      "stress": true,
+      "comparisons": 338519
+    },
+    {
+      "COM": "EZ80CTL",
+      "stress": true,
+      "comparisons": 1103823
+    },
+    {
+      "COM": "EZ80IRQ",
+      "stress": true,
+      "comparisons": 121887
+    },
+    {
+      "COM": "EZ80IM2",
+      "stress": true,
+      "comparisons": 81855
+    },
+    {
+      "COM": "EZ80NMI",
+      "stress": true,
+      "comparisons": 176463
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": true,
+      "comparisons": 101847
+    },
+    {
+      "COM": "EZ80MAD",
+      "stress": true,
+      "comparisons": 116167
+    }
+  ],
+  "total_bus_comparisons": 5902354,
+  "GOWIN": false,
+  "board": false,
+  "timing_closed": false,
+  "sha256": {
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd": "799f9d747344e73f884ae6da500c90374126b067658a2bf427b790f0d1e34345",
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "789c247c28b5311e03939045dfed72ed2f8f2d49c6a7759acca0428096724090",
+    "fpga/G80A_eZ80/t80_ez80.vhd": "797e9407561c297974215397f533fc3bb3d7427398849a612bc08f1832f39d97"
+  }
+}

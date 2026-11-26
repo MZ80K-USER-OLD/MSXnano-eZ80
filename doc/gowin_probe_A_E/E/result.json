@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "netlist": "/workspace/scratch/db88d59b2a4d/report_probe/E/impl/gwsynthesis/probe.vg",
+  "sha256": "a981f78edb2e9aa73b03a4a99a3515ece380272c4094892aa8ccecd8d8aa9f1d",
+  "combinations": 1024,
+  "checks": 7168,
+  "baseline": true,
+  "structure": {
+    "checked": false
+  },
+  "zero_delay_only": true,
+  "GOWIN_netlist_claim_requires_external_file": true
+}

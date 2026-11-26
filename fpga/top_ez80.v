@@ -485,6 +485,9 @@ wire [7:0] ex_bus_data;
     wire [23:0] cpu_addr24;
     wire [15:0] cpu_msx_addr;
     wire cpu_extended_window;
+    // R28: VDP I/O decoding uses the held request low16 directly.
+    // Its IORQ/M1 qualification is independent of the MSX memory isolation mux.
+    wire [15:0] cpu_io_addr = cpu_addr24[15:0];
     wire ext_cycle, ext_wait_n;
     wire [7:0] ext_cpu_din;
     wire ext_ram_req, ext_ram_write, ext_ram_done;
@@ -1127,8 +1130,8 @@ wire [7:0] mapper_read_data =
     wire [7:0] VrmDbo;
     wire VideoDHClk;
     wire VideoDLClk;
-    assign vdp_csw_n = (bus_addr[7:2] == 6'b100110 && bus_iorq_n == 0 && bus_m1_n == 1 && bus_wr_n == 0)? 0:1; // I/O:98-9Bh   / VDP (V9938/V9958)
-    assign vdp_csr_n = (bus_addr[7:2] == 6'b100110 && bus_iorq_n == 0 && bus_m1_n == 1 && bus_rd_n == 0)? 0:1; // I/O:98-9Bh   / VDP (V9938/V9958)
+    assign vdp_csw_n = (cpu_io_addr[7:2] == 6'b100110 && bus_iorq_n == 0 && bus_m1_n == 1 && bus_wr_n == 0)? 0:1; // I/O:98-9Bh   / VDP (V9938/V9958)
+    assign vdp_csr_n = (cpu_io_addr[7:2] == 6'b100110 && bus_iorq_n == 0 && bus_m1_n == 1 && bus_rd_n == 0)? 0:1; // I/O:98-9Bh   / VDP (V9938/V9958)
 
     v9958_top vdp4 (
         .clk (clk_27m),
@@ -1141,7 +1144,7 @@ wire [7:0] mapper_read_data =
     `else
         .reset_n (0),
     `endif
-        .mode    (bus_addr[1:0]),
+        .mode    (cpu_io_addr[1:0]),
         .csw_n   (vdp_csw_n),
         .csr_n   (vdp_csr_n),
 

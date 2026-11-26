@@ -1,0 +1,20 @@
+{
+  "release": "R27",
+  "source": "impl_27.zip uploaded by user",
+  "logic": 16056,
+  "LUT": 14162,
+  "ALU": 1540,
+  "register": 6739,
+  "CLS": 9418,
+  "BSRAM": 42,
+  "setup_endpoints": 582,
+  "hold_endpoints": 42,
+  "Fmax54_MHz": 26.052,
+  "critical_ns": {
+    "XY_State_to_RD": -4.374,
+    "ISet_to_MREQ_CE": -4.288,
+    "Request_Extended_to_VDP_IO": -7.958
+  },
+  "options": "R27 GOWIN 1.9.12.04",
+  "GOWIN_R28": false
+}

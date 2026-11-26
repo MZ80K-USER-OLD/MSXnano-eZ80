@@ -1,0 +1,88 @@
+{
+  "release": "R29.2 mandatory metadata input",
+  "baseline": "R29.1 hardware PASS; R28-equivalent FPGA",
+  "RTL_changed": [
+    "fpga/G80A_eZ80/t80_pack_ez80.vhd",
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/G80A_eZ80/t80_ez80.vhd"
+  ],
+  "delta_vs_R29": "remove := 0 default from exactly two DI_FRAME_VALID declarations; wrapper identical to R29",
+  "existing_COMs_unchanged": 30,
+  "GPRJ_refs_each": 123,
+  "VHDL93_files": 6,
+  "targeted_runs": 10,
+  "input_checks": 8192,
+  "strobe_checks": 5121,
+  "VDP_IO_checks": 3145728,
+  "differential_reference": "byte-exact complete R29.1 CPU source",
+  "differential": [
+    {
+      "COM": "EZ80MEM",
+      "stress": false,
+      "comparisons": 153137
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": false,
+      "comparisons": 276337
+    },
+    {
+      "COM": "EZ80MAD",
+      "stress": false,
+      "comparisons": 309233
+    },
+    {
+      "COM": "EZ80IRQ",
+      "stress": false,
+      "comparisons": 322993
+    },
+    {
+      "COM": "EZ80MEM",
+      "stress": true,
+      "comparisons": 56023
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": true,
+      "comparisons": 101847
+    },
+    {
+      "COM": "EZ80MAD",
+      "stress": true,
+      "comparisons": 116167
+    },
+    {
+      "COM": "EZ80IRQ",
+      "stress": true,
+      "comparisons": 121887
+    }
+  ],
+  "total_bus_comparisons": 1457624,
+  "actual_probe_GOWIN": [
+    {
+      "variant": "A",
+      "passed": false
+    },
+    {
+      "variant": "B",
+      "passed": true
+    },
+    {
+      "variant": "C",
+      "passed": true
+    },
+    {
+      "variant": "D",
+      "passed": true
+    },
+    {
+      "variant": "E",
+      "passed": true
+    }
+  ],
+  "R29_2_integrated_GOWIN": false,
+  "board": false,
+  "timing_closed": false,
+  "full_RUNALL_freshly_rerun": false,
+  "SDC_CST_top_bridge_memory_VDP_unchanged": true
+}

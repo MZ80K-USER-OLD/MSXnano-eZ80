@@ -1,0 +1,388 @@
+//
+//Written by GowinSynthesis
+//Tool Version: V1.9.12.04 (64-bit)(89079)
+//Device: GW2AR-18
+//Device Version: C
+//Part Number: GW2AR-LV18QN88C8/I7
+//Device-Package: GW2AR-18C-QFN88
+//Thu Nov 26 21:03:46 2026
+
+//Source file index table:
+//file0 "\D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/R29_GOWIN_REPRO/projects/E_baseline/pack.vhd"
+//file1 "\D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/R29_GOWIN_REPRO/projects/E_baseline/sink.vhd"
+//file2 "\D:/users/HeroineFactory/Documents/GIT/MSXnano_T80_eZ80/R29_GOWIN_REPRO/projects/E_baseline/top.vhd"
+`timescale 100 ps/100 ps
+module frame_sink (
+  clk_d,
+  execute_d,
+  tag_view_d_3,
+  tag_view_d_4,
+  stream_long_d,
+  reset_n_d,
+  data_held_d_0,
+  data_held_d_5,
+  data_held_d_6,
+  data_held_d_7,
+  state_view_d
+)
+;
+input clk_d;
+input execute_d;
+input tag_view_d_3;
+input tag_view_d_4;
+input stream_long_d;
+input reset_n_d;
+input data_held_d_0;
+input data_held_d_5;
+input data_held_d_6;
+input data_held_d_7;
+output [3:0] state_view_d;
+wire n18_6;
+wire n20_8;
+wire n19_7;
+wire n25_6;
+wire n11_6;
+wire VCC;
+wire GND;
+  LUT3 n18_s1 (
+    .F(n18_6),
+    .I0(tag_view_d_3),
+    .I1(tag_view_d_4),
+    .I2(stream_long_d) 
+);
+defparam n18_s1.INIT=8'h80;
+  LUT4 n20_s3 (
+    .F(n20_8),
+    .I0(data_held_d_0),
+    .I1(stream_long_d),
+    .I2(tag_view_d_3),
+    .I3(tag_view_d_4) 
+);
+defparam n20_s3.INIT=16'h1000;
+  LUT4 n19_s2 (
+    .F(n19_7),
+    .I0(stream_long_d),
+    .I1(tag_view_d_4),
+    .I2(data_held_d_0),
+    .I3(tag_view_d_3) 
+);
+defparam n19_s2.INIT=16'h4000;
+  LUT4 n25_s2 (
+    .F(n25_6),
+    .I0(data_held_d_5),
+    .I1(data_held_d_6),
+    .I2(data_held_d_7),
+    .I3(tag_view_d_4) 
+);
+defparam n25_s2.INIT=16'hFEFF;
+  DFFCE state_view_2_s0 (
+    .Q(state_view_d[2]),
+    .D(n19_7),
+    .CLK(clk_d),
+    .CE(execute_d),
+    .CLEAR(n11_6) 
+);
+  DFFCE state_view_1_s0 (
+    .Q(state_view_d[1]),
+    .D(n20_8),
+    .CLK(clk_d),
+    .CE(execute_d),
+    .CLEAR(n11_6) 
+);
+  DFFCE state_view_3_s0 (
+    .Q(state_view_d[3]),
+    .D(n18_6),
+    .CLK(clk_d),
+    .CE(execute_d),
+    .CLEAR(n11_6) 
+);
+  DFFPE state_view_0_s0 (
+    .Q(state_view_d[0]),
+    .D(n25_6),
+    .CLK(clk_d),
+    .CE(execute_d),
+    .PRESET(n11_6) 
+);
+  INV n11_s2 (
+    .O(n11_6),
+    .I(reset_n_d) 
+);
+  VCC VCC_cZ (
+    .V(VCC)
+);
+  GND GND_cZ (
+    .G(GND)
+);
+endmodule /* frame_sink */
+module top (
+  clk,
+  reset_n,
+  capture,
+  execute,
+  stream_long,
+  select_alt,
+  data_in,
+  data_held,
+  tag_view,
+  state_view
+)
+;
+input clk;
+input reset_n;
+input capture;
+input execute;
+input stream_long;
+input select_alt;
+input [7:0] data_in;
+output [7:0] data_held;
+output tag_view;
+output [3:0] state_view;
+wire clk_d;
+wire reset_n_d;
+wire capture_d;
+wire execute_d;
+wire stream_long_d;
+wire select_alt_d;
+wire n10_4;
+wire n11_3;
+wire n12_3;
+wire n13_3;
+wire tag_view_d_3;
+wire tag_view_d_4;
+wire tag_view_d;
+wire n4_6;
+wire [7:0] data_in_d;
+wire [7:0] data_held_d;
+wire [3:0] state_view_d;
+wire VCC;
+wire GND;
+  IBUF clk_ibuf (
+    .O(clk_d),
+    .I(clk) 
+);
+  IBUF reset_n_ibuf (
+    .O(reset_n_d),
+    .I(reset_n) 
+);
+  IBUF capture_ibuf (
+    .O(capture_d),
+    .I(capture) 
+);
+  IBUF execute_ibuf (
+    .O(execute_d),
+    .I(execute) 
+);
+  IBUF stream_long_ibuf (
+    .O(stream_long_d),
+    .I(stream_long) 
+);
+  IBUF select_alt_ibuf (
+    .O(select_alt_d),
+    .I(select_alt) 
+);
+  IBUF data_in_0_ibuf (
+    .O(data_in_d[0]),
+    .I(data_in[0]) 
+);
+  IBUF data_in_1_ibuf (
+    .O(data_in_d[1]),
+    .I(data_in[1]) 
+);
+  IBUF data_in_2_ibuf (
+    .O(data_in_d[2]),
+    .I(data_in[2]) 
+);
+  IBUF data_in_3_ibuf (
+    .O(data_in_d[3]),
+    .I(data_in[3]) 
+);
+  IBUF data_in_4_ibuf (
+    .O(data_in_d[4]),
+    .I(data_in[4]) 
+);
+  IBUF data_in_5_ibuf (
+    .O(data_in_d[5]),
+    .I(data_in[5]) 
+);
+  IBUF data_in_6_ibuf (
+    .O(data_in_d[6]),
+    .I(data_in[6]) 
+);
+  IBUF data_in_7_ibuf (
+    .O(data_in_d[7]),
+    .I(data_in[7]) 
+);
+  OBUF data_held_0_obuf (
+    .O(data_held[0]),
+    .I(data_held_d[0]) 
+);
+  OBUF data_held_1_obuf (
+    .O(data_held[1]),
+    .I(data_held_d[1]) 
+);
+  OBUF data_held_2_obuf (
+    .O(data_held[2]),
+    .I(data_held_d[2]) 
+);
+  OBUF data_held_3_obuf (
+    .O(data_held[3]),
+    .I(data_held_d[3]) 
+);
+  OBUF data_held_4_obuf (
+    .O(data_held[4]),
+    .I(data_held_d[4]) 
+);
+  OBUF data_held_5_obuf (
+    .O(data_held[5]),
+    .I(data_held_d[5]) 
+);
+  OBUF data_held_6_obuf (
+    .O(data_held[6]),
+    .I(data_held_d[6]) 
+);
+  OBUF data_held_7_obuf (
+    .O(data_held[7]),
+    .I(data_held_d[7]) 
+);
+  OBUF tag_view_obuf (
+    .O(tag_view),
+    .I(tag_view_d) 
+);
+  OBUF state_view_0_obuf (
+    .O(state_view[0]),
+    .I(state_view_d[0]) 
+);
+  OBUF state_view_1_obuf (
+    .O(state_view[1]),
+    .I(state_view_d[1]) 
+);
+  OBUF state_view_2_obuf (
+    .O(state_view[2]),
+    .I(state_view_d[2]) 
+);
+  OBUF state_view_3_obuf (
+    .O(state_view[3]),
+    .I(state_view_d[3]) 
+);
+  LUT2 n10_s0 (
+    .F(n10_4),
+    .I0(data_in_d[6]),
+    .I1(select_alt_d) 
+);
+defparam n10_s0.INIT=4'h6;
+  LUT2 n11_s0 (
+    .F(n11_3),
+    .I0(select_alt_d),
+    .I1(data_in_d[4]) 
+);
+defparam n11_s0.INIT=4'h6;
+  LUT2 n12_s0 (
+    .F(n12_3),
+    .I0(select_alt_d),
+    .I1(data_in_d[3]) 
+);
+defparam n12_s0.INIT=4'h6;
+  LUT2 n13_s0 (
+    .F(n13_3),
+    .I0(select_alt_d),
+    .I1(data_in_d[1]) 
+);
+defparam n13_s0.INIT=4'h6;
+  LUT3 tag_view_d_s0 (
+    .F(tag_view_d_3),
+    .I0(data_held_d[5]),
+    .I1(data_held_d[6]),
+    .I2(data_held_d[7]) 
+);
+defparam tag_view_d_s0.INIT=8'h01;
+  LUT4 tag_view_d_s1 (
+    .F(tag_view_d_4),
+    .I0(data_held_d[2]),
+    .I1(data_held_d[3]),
+    .I2(data_held_d[4]),
+    .I3(data_held_d[1]) 
+);
+defparam tag_view_d_s1.INIT=16'h0100;
+  LUT4 tag_view_d_s2 (
+    .F(tag_view_d),
+    .I0(data_held_d[5]),
+    .I1(data_held_d[6]),
+    .I2(data_held_d[7]),
+    .I3(tag_view_d_4) 
+);
+defparam tag_view_d_s2.INIT=16'h0100;
+  DFFE held_6_s0 (
+    .Q(data_held_d[6]),
+    .D(n10_4),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  DFFE held_5_s0 (
+    .Q(data_held_d[5]),
+    .D(data_in_d[5]),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  DFFE held_4_s0 (
+    .Q(data_held_d[4]),
+    .D(n11_3),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  DFFE held_3_s0 (
+    .Q(data_held_d[3]),
+    .D(n12_3),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  DFFE held_2_s0 (
+    .Q(data_held_d[2]),
+    .D(data_in_d[2]),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  DFFE held_1_s0 (
+    .Q(data_held_d[1]),
+    .D(n13_3),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  DFFE held_0_s0 (
+    .Q(data_held_d[0]),
+    .D(data_in_d[0]),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  DFFE held_7_s0 (
+    .Q(data_held_d[7]),
+    .D(data_in_d[7]),
+    .CLK(n4_6),
+    .CE(capture_d) 
+);
+  INV n4_s2 (
+    .O(n4_6),
+    .I(clk_d) 
+);
+  frame_sink u_sink (
+    .clk_d(clk_d),
+    .execute_d(execute_d),
+    .tag_view_d_3(tag_view_d_3),
+    .tag_view_d_4(tag_view_d_4),
+    .stream_long_d(stream_long_d),
+    .reset_n_d(reset_n_d),
+    .data_held_d_0(data_held_d[0]),
+    .data_held_d_5(data_held_d[5]),
+    .data_held_d_6(data_held_d[6]),
+    .data_held_d_7(data_held_d[7]),
+    .state_view_d(state_view_d[3:0])
+);
+  VCC VCC_cZ (
+    .V(VCC)
+);
+  GND GND_cZ (
+    .G(GND)
+);
+  GSR GSR (
+    .GSRI(VCC) 
+);
+endmodule /* top */

@@ -1,0 +1,132 @@
+{
+  "release": "R28 bus strobes and VDP IO address",
+  "baseline": "R27 hardware PASS; timing not closed; Logic16056 LUT14162 Register6739",
+  "RTL_changed": [
+    "fpga/G80A_eZ80/g80a_ez80.vhd",
+    "fpga/top_ez80.v"
+  ],
+  "COMs_unchanged": 26,
+  "added_preparation_bits_vs_R27": 4,
+  "CPU_RTL_bridge_memory_VDP_constraints_unchanged": true,
+  "VDP_port_decode_top_changed": true,
+  "VHDL93_files": 6,
+  "strobe_checks": 5121,
+  "VDP_IO_checks": 3145728,
+  "WIN_profiles": 7,
+  "IRQ_NMI_lock_profiles": 8,
+  "TIO_profiles": 7,
+  "MEM_profiles": 9,
+  "MR4_profiles": 8,
+  "CPU_regression_profiles": 9,
+  "RUNALL_compat_COMs": [
+    "EZ80D3",
+    "EZ80ALU",
+    "EZ80BLK",
+    "EZ80MUL",
+    "EZ80LEA",
+    "EZ80F9",
+    "EZ80ADL",
+    "EZ80CTL",
+    "EZ80I16",
+    "EZ80IM2",
+    "EZ80IRQ",
+    "EZ80LDH",
+    "EZ80LDX",
+    "EZ80MAD",
+    "EZ80MB",
+    "EZ80MIX",
+    "EZ80NMI",
+    "EZ80RST",
+    "EZ80TST",
+    "EZ80NP6",
+    "EZ80ION",
+    "EZ80DEC"
+  ],
+  "differential": [
+    {
+      "COM": "EZ80MEM",
+      "stress": false,
+      "comparisons": 153137
+    },
+    {
+      "COM": "EZ80WIN",
+      "stress": false,
+      "comparisons": 868273
+    },
+    {
+      "COM": "EZ80CTL",
+      "stress": false,
+      "comparisons": 740461
+    },
+    {
+      "COM": "EZ80BLK",
+      "stress": false,
+      "comparisons": 233777
+    },
+    {
+      "COM": "EZ80LDX",
+      "stress": false,
+      "comparisons": 709381
+    },
+    {
+      "COM": "EZ80TIO",
+      "stress": false,
+      "comparisons": 510077
+    },
+    {
+      "COM": "EZ80IRQ",
+      "stress": false,
+      "comparisons": 322993
+    },
+    {
+      "COM": "EZ80IM2",
+      "stress": false,
+      "comparisons": 219345
+    },
+    {
+      "COM": "EZ80NMI",
+      "stress": false,
+      "comparisons": 461937
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": false,
+      "comparisons": 276337
+    },
+    {
+      "COM": "EZ80WIN",
+      "stress": true,
+      "comparisons": 338519
+    },
+    {
+      "COM": "EZ80TIO",
+      "stress": true,
+      "comparisons": 748159
+    },
+    {
+      "COM": "EZ80CTL",
+      "stress": true,
+      "comparisons": 1103823
+    },
+    {
+      "COM": "EZ80BLK",
+      "stress": true,
+      "comparisons": 86439
+    },
+    {
+      "COM": "EZ80DEC",
+      "stress": true,
+      "comparisons": 1284767
+    }
+  ],
+  "total_bus_comparisons": 8057425,
+  "GOWIN": false,
+  "board": false,
+  "timing_closed": false,
+  "post_request_pipeline": false,
+  "VDP_Hold_fixed": false,
+  "sha256": {
+    "fpga/G80A_eZ80/g80a_ez80.vhd": "eae9b3965f3199a75400d92da7d7a45e2292c2a807c105866c208d83f757ceed",
+    "fpga/top_ez80.v": "6b19e989578dfa64cccc9b02bf134b3b64b33009e56af81cd15eb9d0dccfcdd4"
+  }
+}

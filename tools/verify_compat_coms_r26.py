@@ -10,12 +10,12 @@ def run(name):
  p=subprocess.run(c,cwd=r,capture_output=True,text=True)
  if p.returncode:out=p.stderr
  else:
-  try:p=subprocess.run([os.environ['VVP'],str(v)],cwd=r,capture_output=True,text=True,timeout=240);out=p.stdout+p.stderr
+  try:p=subprocess.run([os.environ['VVP'],str(v)],cwd=r,capture_output=True,text=True,timeout=1200);out=p.stdout+p.stderr
   except subprocess.TimeoutExpired:out='TIMEOUT';p.returncode=1
  (w/(name+'.log')).write_text(out)
  ok=not p.returncode and 'PASS compat_com_r26'in out
  print('PASS'if ok else'FAIL',name,out[-600:]if not ok else'',flush=True)
  return dict(COM=name,passed=ok,sha256=hashlib.sha256(blob.read_bytes()).hexdigest(),log=name+'.log')
-with concurrent.futures.ThreadPoolExecutor(max_workers=4)as pool:rows=list(pool.map(run,names))
+with concurrent.futures.ThreadPoolExecutor(max_workers=2)as pool:rows=list(pool.map(run,names))
 (w/('result_'+('_'.join(names) if os.environ.get('NAMES') else 'all')+'.json')).write_text(json.dumps(dict(cases=rows,actual_COM=True,actual_SDRAM_RTL=True,BDOS_EI=True,board=False),indent=2)+'\n')
 assert all(x['passed']for x in rows),[x['COM']for x in rows if not x['passed']]

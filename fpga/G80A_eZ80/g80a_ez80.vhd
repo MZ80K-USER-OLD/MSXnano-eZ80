@@ -69,6 +69,7 @@ use work.T80_eZ80_Pack.all;
 entity G80A_eZ80 is
     generic(
         Mode        : integer := 0;     -- 0 => Z80, 1 => Fast Z80, 2 => 8080, 3 => GB
+        PIPELINE_REQUEST : boolean := true; -- R27 full-rate preparation before T1 capture
         DATA_EXTENDED : boolean := true;
         DIAGNOSTICS : boolean := false;
         IOWait      : integer := 1      -- 0 => Single I/O cycle, 1 => Std I/O cycle
@@ -141,6 +142,10 @@ architecture rtl of G80A_eZ80 is
     signal Request_Write, Request_IO : std_logic;
     signal Request_MSX_Address : std_logic_vector(15 downto 0);
     signal Request_Extended : std_logic;
+    signal Prepared_Bank : std_logic_vector(7 downto 0);
+    signal Prepared_Extended, Prepared_IO, Prepared_Write : std_logic;
+    signal Prepared_RD, Prepared_MREQ, Prepared_IORQ_n, Prepared_WR_n : std_logic;
+    signal DI_Frame_Valid_Reg : std_logic; -- R29: same capture/hold as DI_Reg
     signal DI_Reg       : std_logic_vector (7 downto 0);    -- Input synchroniser
     signal Wait_s       : std_logic;
     signal MCycle       : std_logic_vector(2 downto 0);
@@ -189,6 +194,25 @@ begin
              Request_MSX_Address when BUSAK_n_i='1' else (others=>'Z');
     Extended_Window <= '0' when RFSH_n_i='0' else Request_Extended;
     DO <= Request_Data;
+    -- R27: full-rate rising-edge preparation, independent of CPU CE.
+    -- The supported CE/falling schedule leaves a rising sample after entry
+    -- into T1 and before the qualified falling-edge request capture.
+    prepare_request: process(RESET_n, CLK_n)
+    begin
+        if RESET_n='0' then
+            Prepared_Bank<=x"00"; Prepared_Extended<='0';
+            Prepared_IO<='0'; Prepared_Write<='0';
+        elsif rising_edge(CLK_n) then
+            Prepared_Bank<=Bank_i; Prepared_Extended<=not MSX_Match_i;
+            if Vector_Window='1' then
+                Prepared_Bank<=x"0F"; Prepared_Extended<='1';
+            end if;
+            if IORQ='1' or (IntCycle_n='0' and MCycle="001") then
+                Prepared_Bank<=x"00"; Prepared_Extended<='0';
+            end if;
+            Prepared_IO<=IORQ; Prepared_Write<=Write;
+        end if;
+    end process;
     process(RESET_n, CLK_n)
     begin
         if RESET_n='0' then
@@ -198,6 +222,13 @@ begin
         elsif falling_edge(CLK_n) then
             if clk_falling='1' then
                 if TState="001" then
+                    if PIPELINE_REQUEST then
+                        Request_Address<=Prepared_Bank & A_i;
+                        Request_Extended<=Prepared_Extended;
+                        -- Isolation is applied once at A_MSX; no redundant input mask.
+                        Request_MSX_Address<=A_i;
+                        Request_Write<=Prepared_Write; Request_IO<=Prepared_IO;
+                    else
                     Request_Address <= Bank_i & A_i;
                     if Vector_Window='1' then
                         Request_Address <= x"0F" & A_i;
@@ -211,6 +242,7 @@ begin
                         Request_MSX_Address <= A_i; Request_Extended <= '0';
                     end if;
                     Request_Write <= Write; Request_IO <= IORQ;
+                    end if;
                 end if;
                 -- Core data can be refreshed during an automatic T1 wait.
                 -- It is final before the memory write strobe at T2.
@@ -318,6 +350,7 @@ begin
     u0 : T80_eZ80
         generic map(
             DATA_EXTENDED=>DATA_EXTENDED,
+            INPUT_FRAME_PREDECODE => true,
             Mode => Mode,
             IOWait => IOWait)
         port map(
@@ -339,23 +372,28 @@ begin
 			update_addr => update_addr,
             DInst => Instruction_Data,
             DI => DI_Reg,
+            DI_FRAME_VALID => DI_Frame_Valid_Reg,
             DO => Core_DO,
             MC => MCycle,
             TS => TState,
             IntCycle_n => IntCycle_n);
 
     process (CLK_n)
+        variable Input_Byte : std_logic_vector(7 downto 0);
     begin
         if CLK_n'event and CLK_n = '0' then
 			if clk_falling = '1' then
 				Wait_s <= WAIT_n;
 				if TState = "011" and BUSAK_n_i = '1' then
-					if Request_Address(15 downto 0)=x"E7E7" and Request_IO='1' and Request_Write='0' and IntCycle_n='1' then DI_Reg<=Diag_Read;
+					if Request_Address(15 downto 0)=x"E7E7" and Request_IO='1' and Request_Write='0' and IntCycle_n='1' then Input_Byte:=Diag_Read;
                     elsif DIAGNOSTICS and Diag_Active='1' and Request_IO='1' and Request_Write='0' and
                         Request_Address(7 downto 0)=x"E6" and IntCycle_n='1' then
-                        DI_Reg<=Request_Address(15 downto 8) xor x"5A";
-                    elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then DI_Reg<=Diag_IACK_Byte;
-                    else DI_Reg <= to_x01(DI);end if;
+                        Input_Byte:=Request_Address(15 downto 8) xor x"5A";
+                    elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then Input_Byte:=Diag_IACK_Byte;
+                    else Input_Byte := to_x01(DI);end if;
+                    DI_Reg <= Input_Byte;
+                    if Input_Byte(7 downto 1)="0000001" then DI_Frame_Valid_Reg<='1';
+                    else DI_Frame_Valid_Reg<='0';end if;
 				end if;
 			end if;
         end if;
@@ -371,12 +409,72 @@ begin
         end if;
     end process;
 
+    -- R28: prepare next bus-strobe values on a full-rate rising edge.
+    -- Default feedback preserves the original conditional hold behavior.
+    -- IORQ_n_i is the *current* output, as in the original I/O handshake.
+    prepare_strobes: process(Reset_s, CLK_n)
+    begin
+        if Reset_s='0' then
+            Prepared_RD<='0'; Prepared_MREQ<='0';
+            Prepared_IORQ_n<='1'; Prepared_WR_n<='1';
+        elsif rising_edge(CLK_n) then
+            Prepared_RD<=RD; Prepared_MREQ<=MREQ;
+            Prepared_IORQ_n<=IORQ_n_i; Prepared_WR_n<=WR_n_i;
+
+				if MCycle = "001" then
+					if TState = "001" then
+						Prepared_RD <= IntCycle_n;
+						Prepared_MREQ <= IntCycle_n;
+						Prepared_IORQ_n <= IntCycle_n;
+					end if;
+					if TState = "011" then
+						Prepared_RD <= '0';
+						Prepared_IORQ_n <= '1';
+						Prepared_MREQ <= '1';
+					end if;
+					if TState = "100" then
+						Prepared_MREQ <= '0';
+					end if;
+				else
+					if TState = "001" and NoRead = '0' then
+						Prepared_IORQ_n <= not IORQ;
+						Prepared_MREQ <= not IORQ;
+						if IORQ = '0' then
+						  Prepared_RD <= not Write;
+						elsif IORQ_n_i = '0' then
+						  Prepared_RD <= not Write;
+						end if;
+					end if;
+					if TState = "011" then
+						Prepared_RD <= '0';
+						Prepared_IORQ_n <= '1';
+						Prepared_MREQ <= '0';
+					end if;
+				end if;
+
+				if (IORQ = '0') then
+					if TState = "010" then
+						Prepared_WR_n <= not Request_Write;
+					elsif Tstate = "011" then
+						Prepared_WR_n <= '1';
+					end if;
+				else
+					if TState = "001" and IORQ_n_i = '0' then
+						Prepared_WR_n <= not Request_Write;
+					elsif Tstate = "011" then
+						Prepared_WR_n <= '1';
+					end if;
+				end if;
+        end if;
+    end process;
+
     process (Reset_s,CLK_n)                 -- 0247a
     begin
         if Reset_s = '0' then
             WR_n_i <= '1';
         elsif CLK_n'event and CLK_n = '0' then
 			if clk_falling = '1' then
+                if PIPELINE_REQUEST then WR_n_i<=Prepared_WR_n; else
 				if (IORQ = '0') then
 					if TState = "010" then
 						WR_n_i <= not Request_Write;
@@ -390,6 +488,7 @@ begin
 						WR_n_i <= '1';
 					end if;
 				end if;
+                end if;
 			end if;
         end if;
     end process;
@@ -432,6 +531,9 @@ begin
             MREQ <= '0';
         elsif CLK_n'event and CLK_n = '0' then
 			if clk_falling = '1' then
+                if PIPELINE_REQUEST then
+                    RD<=Prepared_RD; MREQ<=Prepared_MREQ; IORQ_n_i<=Prepared_IORQ_n;
+                else
 				if MCycle = "001" then
 					if TState = "001" then
 						RD <= IntCycle_n;
@@ -462,6 +564,7 @@ begin
 						MREQ <= '0';
 					end if;
 				end if;
+                end if;
 			end if;
         end if;
     end process;

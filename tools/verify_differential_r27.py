@@ -1,0 +1,26 @@
+from pathlib import Path
+import subprocess,os,json,concurrent.futures,hashlib
+r=Path(__file__).resolve().parents[1];w=r/'verification_differential_r27';w.mkdir(exist_ok=True)
+names=['EZ80D3','EZ80ALU','EZ80BLK','EZ80MUL','EZ80LEA','EZ80F9','EZ80ADL','EZ80CTL','EZ80I16','EZ80IM2','EZ80IRQ','EZ80LDH','EZ80LDX','EZ80NMI','EZ80RST','EZ80TST','EZ80NP6','EZ80ION','EZ80DEC','EZ80MAD','EZ80MIX','EZ80MB']
+names=['EZ80MEM','EZ80WIN','EZ80CTL','EZ80BLK','EZ80LDX','EZ80TIO','EZ80IRQ','EZ80IM2','EZ80NMI','EZ80MIX']
+if os.environ.get('STRESS'):
+ w=w/'stress';w.mkdir(exist_ok=True)
+if os.environ.get('NAMES'):names=os.environ['NAMES'].split(',')
+def run(name):
+ m=json.loads((r/'hardware_test'/(name+'.json')).read_text());hdr=w/(name+'.vh');blob=r/'hardware_test'/(name+'.COM')
+ hdr.write_text(''.join(f"`define P2_{k} 16'h{v:04x}\n"for k,v in m['labels'].items())+f"`define P2_COM_END 16'h{0xff+blob.stat().st_size:04x}\n")
+ v=w/(name+'.vvp');c=[os.environ['IVERILOG'],'-B',os.environ['IVL_ROOT'],'-g2012','-I',str(w),f'-DTEST_HEADER="{name}.vh"',f'-DTEST_HEX="hardware_test/{name}.hex"','-s','tb_differential_r27','-o',str(v),str(r/'sim/tb_differential_r27.sv'),str(r/'verification/cpu_diag.v'),str(r/'verification/cpu_reference.v'),str(r/'sim/sdram_model33.sv'),str(r/'fpga/src/ez80_memory_bridge.v'),str(r/'fpga/src/memory_ez80.v')]
+ if os.environ.get('STRESS'):c += ['-Ptb_differential_r27.CPU_DIV=4','-Ptb_differential_r27.PHASE=3','-Ptb_differential_r27.PAUSE_ENABLE=1']
+ elif name in ['EZ80CTL','EZ80LDX','EZ80TIO']:c += ['-Ptb_differential_r27.CPU_DIV=4']
+ p=subprocess.run(c,cwd=r,capture_output=True,text=True)
+ if p.returncode:out=p.stderr
+ else:
+  try:p=subprocess.run([os.environ['VVP'],str(v)],cwd=r,capture_output=True,text=True,timeout=1200);out=p.stdout+p.stderr
+  except subprocess.TimeoutExpired:out='TIMEOUT';p.returncode=1
+ (w/(name+'.log')).write_text(out)
+ ok=not p.returncode and 'PASS differential_r27'in out
+ print('PASS'if ok else'FAIL',name,out[-600:]if not ok else'',flush=True)
+ return dict(COM=name,passed=ok,sha256=hashlib.sha256(blob.read_bytes()).hexdigest(),log=name+'.log')
+with concurrent.futures.ThreadPoolExecutor(max_workers=2)as pool:rows=list(pool.map(run,names))
+(w/('result_'+('_'.join(names) if os.environ.get('NAMES') else 'all')+'.json')).write_text(json.dumps(dict(cases=rows,actual_COM=True,actual_SDRAM_RTL=True,BDOS_EI=True,board=False),indent=2)+'\n')
+assert all(x['passed']for x in rows),[x['COM']for x in rows if not x['passed']]

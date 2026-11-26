@@ -127,7 +127,8 @@ package T80_eZ80_Pack is
         Flag_H      : integer := 4;
         Flag_Y      : integer := 5;
         Flag_Z      : integer := 6;
-        Flag_S      : integer := 7
+        Flag_S      : integer := 7;
+        INPUT_FRAME_PREDECODE : boolean := false
     );
     port(
         RESET_n     : in std_logic;
@@ -158,7 +159,8 @@ package T80_eZ80_Pack is
         TS          : out std_logic_vector(2 downto 0);
         IntCycle_n  : out std_logic;
         IntE        : out std_logic;
-        Stop        : out std_logic
+        Stop        : out std_logic;
+        DI_FRAME_VALID : in std_logic -- sampled alongside DI when predecode enabled
     );
     end component;
 

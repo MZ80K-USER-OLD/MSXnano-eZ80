@@ -1,0 +1,102 @@
+{
+  "release": "R29.1 recovery/diagnostic",
+  "FPGA_all_files_identical_to_R28": 245,
+  "GPRJ_refs_each": 123,
+  "VHDL93_files": 6,
+  "existing_COMs_unchanged": 26,
+  "new_diagnostic_COMs": 4,
+  "fresh_targeted_runs": [
+    {
+      "COM": "EZ80MX0",
+      "stress": false,
+      "sha256": "ea11a7be58f28795502ccfd9315ce57803b1677ade0831a4c70225b2a9f2b2c7",
+      "log": "EZ80MX0.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MX1",
+      "stress": false,
+      "sha256": "a1b915df995476a26f3ded54500f026453e496551002518bcde7ccd1991c19ae",
+      "log": "EZ80MX1.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MX2",
+      "stress": false,
+      "sha256": "95db8c0bf094459011e90a0f50e63868ffe06fa086e0d2ff309be00056a459d2",
+      "log": "EZ80MX2.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MA1",
+      "stress": false,
+      "sha256": "b95a8e3ff41d46e9e02ff0c4b813e421ca4f3377b0966482d55c21f89f66c7c1",
+      "log": "EZ80MA1.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MIX",
+      "stress": false,
+      "sha256": "98fadd46d30c3c91462413a97e02ec2391fcdd08ba9b0aacf2be73bfd6fa6b4f",
+      "log": "EZ80MIX.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MAD",
+      "stress": false,
+      "sha256": "559dcccbc5f2d38412e730cf6b362ae0aae1713c0e2627936c1334cd1f43c4c7",
+      "log": "EZ80MAD.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MX0",
+      "stress": true,
+      "sha256": "ea11a7be58f28795502ccfd9315ce57803b1677ade0831a4c70225b2a9f2b2c7",
+      "log": "EZ80MX0_stress.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MX1",
+      "stress": true,
+      "sha256": "a1b915df995476a26f3ded54500f026453e496551002518bcde7ccd1991c19ae",
+      "log": "EZ80MX1_stress.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MX2",
+      "stress": true,
+      "sha256": "95db8c0bf094459011e90a0f50e63868ffe06fa086e0d2ff309be00056a459d2",
+      "log": "EZ80MX2_stress.log",
+      "passed": true
+    },
+    {
+      "COM": "EZ80MA1",
+      "stress": true,
+      "sha256": "b95a8e3ff41d46e9e02ff0c4b813e421ca4f3377b0966482d55c21f89f66c7c1",
+      "log": "EZ80MA1_stress.log",
+      "passed": true
+    }
+  ],
+  "injected_bad_tag_runs": [
+    {
+      "COM": "EZ80MIX",
+      "passed": true,
+      "injected": true,
+      "board_reproduction": false,
+      "log": "EZ80MIX.log"
+    },
+    {
+      "COM": "EZ80MAD",
+      "passed": true,
+      "injected": true,
+      "board_reproduction": false,
+      "log": "EZ80MAD.log"
+    }
+  ],
+  "board_cause_proven": false,
+  "full_RUNALL_freshly_rerun": false,
+  "reference_R28_regression": "prior release results; unchanged RTL",
+  "GOWIN_run": false,
+  "hardware_recovery_confirmed": false,
+  "timing_closed": false
+}

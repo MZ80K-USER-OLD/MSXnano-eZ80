@@ -1,0 +1,47 @@
+[
+  {
+    "variant": "A",
+    "passed": false,
+    "checks": null,
+    "netlist_sha256": "d56d4672c4a69c255ad49596b59be4a93ea4c51f85500af5ce6ac368ebd9f821",
+    "LUT": 7,
+    "FF": 9,
+    "scope": "actual uploaded Gowin standalone synthesis, not integrated CPU"
+  },
+  {
+    "variant": "B",
+    "passed": true,
+    "checks": 7168,
+    "netlist_sha256": "b286bd3f37c1fa4ba8537ffc37f87cc2efac8da632905a327144d7c9f94d14af",
+    "LUT": 11,
+    "FF": 13,
+    "scope": "actual uploaded Gowin standalone synthesis, not integrated CPU"
+  },
+  {
+    "variant": "C",
+    "passed": true,
+    "checks": 7168,
+    "netlist_sha256": "34a9fbb9477fa4ec3d5bfc2ec97132eea43a10e853dd1132faf625cb1e1345c0",
+    "LUT": 11,
+    "FF": 13,
+    "scope": "actual uploaded Gowin standalone synthesis, not integrated CPU"
+  },
+  {
+    "variant": "D",
+    "passed": true,
+    "checks": 7168,
+    "netlist_sha256": "e4492ff6336ffcb8ded1543ad80c7d36cc33702750929b957b6f64083b8f07a3",
+    "LUT": 11,
+    "FF": 13,
+    "scope": "actual uploaded Gowin standalone synthesis, not integrated CPU"
+  },
+  {
+    "variant": "E",
+    "passed": true,
+    "checks": 7168,
+    "netlist_sha256": "a981f78edb2e9aa73b03a4a99a3515ece380272c4094892aa8ccecd8d8aa9f1d",
+    "LUT": 11,
+    "FF": 12,
+    "scope": "actual uploaded Gowin standalone synthesis, not integrated CPU"
+  }
+]

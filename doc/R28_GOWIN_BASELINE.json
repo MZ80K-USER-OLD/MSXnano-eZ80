@@ -1,0 +1,70 @@
+{
+  "release": "R28",
+  "source_report": "impl_R28.zip",
+  "sha256": "50b44686fa27af6170a0b5a54d1cf7eea7e73658b203e7aed50fcbafbea17335",
+  "tool": "GOWIN V1.9.12.04",
+  "device": "GW2AR-LV18QN88C8/I7",
+  "Logic": 16049,
+  "LUT": 14155,
+  "ALU": 1540,
+  "RAM16": 59,
+  "Register": 6743,
+  "CLS": 9285,
+  "BSRAM": 42,
+  "setup_violated_endpoints": 395,
+  "hold_violated_endpoints": 42,
+  "Fmax_MHz": {
+    "clock_54m": 36.731,
+    "clock_27m": 64.151,
+    "clock_108m": 148.368
+  },
+  "clock_54m_setup_TNS_ns": -892.467,
+  "clock_54m_setup_endpoints": 303,
+  "reported_setup_paths": 400,
+  "paths": [
+    {
+      "src": "cpu1/DI_Reg_2_s0/Q",
+      "dst": "cpu1/u0/Address_Reg_0_s1/D",
+      "slack_ns": -4.353,
+      "logic_levels": 9,
+      "relation_ns": 9.259,
+      "cell_ns": 4.246,
+      "route_ns": 9.096,
+      "tC2Q_ns": 0.232
+    },
+    {
+      "src": "cpu1/Request_Address_6_s0/Q",
+      "dst": "vdp4/io_state_r_s5/D",
+      "slack_ns": -1.485
+    },
+    {
+      "src": "mem1/vram_dout_1_s0/Q",
+      "dst": "vdp4/u_v9958/U_SPRITE/SPRENDERPLANES[5]_3_s0/CE",
+      "slack_ns": -5.671
+    },
+    {
+      "src": "cpu1/u0/IntCycle_s0/Q",
+      "dst": "cpu1/u0/Regs/RegsU[6]_3_s0/CE",
+      "slack_ns": -4.598
+    },
+    {
+      "src": "cpu1/Request_Extended_s0/Q",
+      "dst": "mem1/sdram_seq_1_s4/D",
+      "slack_ns": -2.37
+    }
+  ],
+  "worst_reported_hold": {
+    "src": "mem1/sdram_din_latched_7_s0/Q",
+    "dst": "mem1/n1028_s0/D",
+    "slack_ns": -2.855
+  },
+  "hardware_user_report": {
+    "EZ80MEM": "PASS",
+    "EZ80MR4": "PASS",
+    "EZ80WIN": "PASS",
+    "EZ80TIO": "PASS",
+    "RUNALL": "all PASS",
+    "SpaceManbow": "not yet reported for R28"
+  },
+  "timing_closed": false
+}

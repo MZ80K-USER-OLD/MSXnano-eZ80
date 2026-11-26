@@ -1,0 +1,33 @@
+[
+  {
+    "name": "good",
+    "passed": true,
+    "checks": 1024
+  },
+  {
+    "name": "inverted_tag",
+    "expected_rejection": "REJECTED: FSM logic differs byte=00 stream=0 meta=0 got=02 expected=01",
+    "passed": true
+  },
+  {
+    "name": "missing_ff",
+    "expected_rejection": "REJECTED: independent DI_Frame_Valid_Reg FF missing/ambiguous",
+    "passed": true
+  },
+  {
+    "name": "actual_R28",
+    "passed": true,
+    "checks": 512,
+    "sha256": "74c8cca8e4d5d2225e3f3cb81247b22a464d059026ab26fae667efdd50711454"
+  },
+  {
+    "name": "actual_R29",
+    "passed": true,
+    "expected_rejection": "REJECTED: independent DI_Frame_Valid_Reg FF missing/ambiguous"
+  },
+  {
+    "name": "actual_R29_baseline",
+    "passed": true,
+    "expected_rejection": "REJECTED: FSM logic differs byte=02 stream=0 meta=1 got=01 expected=02"
+  }
+]

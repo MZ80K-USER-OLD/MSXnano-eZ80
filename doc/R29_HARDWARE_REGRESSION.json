@@ -1,0 +1,13 @@
+{
+  "release": "R29",
+  "source": "user hardware report",
+  "GOWIN_build": true,
+  "EZ80MEM": "P1 PASS",
+  "EZ80MR4": "R21.3 PASS",
+  "EZ80MIX": "freeze without text",
+  "EZ80MAD": "freeze without text",
+  "hardware_timing_cause_proven": false,
+  "usage_for_R29": "not reported",
+  "report_for_R29": "not yet provided",
+  "status": "regression; input predecode adoption withdrawn"
+}

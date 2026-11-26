@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "netlist": "/workspace/scratch/db88d59b2a4d/report_probe/D/impl/gwsynthesis/probe.vg",
+  "sha256": "e4492ff6336ffcb8ded1543ad80c7d36cc33702750929b957b6f64083b8f07a3",
+  "combinations": 1024,
+  "checks": 7168,
+  "baseline": false,
+  "structure": {
+    "checked": true,
+    "tag_capture_ff": {
+      "cell": "packet_reg_8_s0",
+      "type": "DFFE",
+      "clock": "n23_6",
+      "enable": "capture_d"
+    },
+    "boundary_leaves": [
+      "tag_view_d"
+    ],
+    "clock_polarity_review_required": true
+  },
+  "zero_delay_only": true,
+  "GOWIN_netlist_claim_requires_external_file": true
+}

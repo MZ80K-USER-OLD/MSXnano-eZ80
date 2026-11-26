@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/r29-repro-work/R29_GOWIN_REPRO/sim/tb_probe.sv:14: STATE b=00000002 alt=          0 stream=          0 got=0001 expected=0010
+       Time: 376000 Scope: tb_probe.check_state
