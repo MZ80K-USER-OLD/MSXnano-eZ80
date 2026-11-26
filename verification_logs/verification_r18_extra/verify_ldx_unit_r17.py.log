@@ -1,8 +1,0 @@
-PASS built 80 indexed-pair CPU cases, four suffixes, displacements -128/-1/0/1/127
-PASS built 80 indexed-pair CPU cases, four suffixes, displacements -128/-1/0/1/127
-PASS LDX unit (4, 0, 0, 0, 0)
-PASS LDX unit (16, 7, 1, 0, 0)
-PASS LDX unit (4, 3, 1, 0, 0)
-PASS LDX unit (4, 1, 1, 1, 0)
-PASS LDX unit (4, 3, 1, 0, 1)
-PASS LDX unit (4, 1, 1, 0, 2)

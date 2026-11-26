@@ -1,2 +1,0 @@
-PASS mixed_r14 case=17 div=4 stress=1 checks=1 frame_writes=4 entries=1 WAIT=188 frame_WAIT=21 pause=235 bus_grant=1
-/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mixed_r14.sv:57: $finish called at 54590000 (1ps)

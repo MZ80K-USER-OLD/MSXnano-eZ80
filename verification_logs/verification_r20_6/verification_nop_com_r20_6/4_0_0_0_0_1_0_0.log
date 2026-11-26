@@ -1,3 +1,0 @@
-EZ80NP6 R20.6: UNSUPPORTED
-PASS nop_com_r20_6 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_nop_com_r20_6.sv:153: $finish called at 182530000 (1ps)

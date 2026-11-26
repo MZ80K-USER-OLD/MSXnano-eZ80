@@ -1,7 +1,0 @@
-CASE 0
-COM stage 0 time=434850000
-CASE 1
-COM stage 1 time=2644910000
-EZ80RF2 R20.2: PASS
-PASS diag_r20_2 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=106 WAIT_ticks=8998
-/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_diag_r20_2.sv:177: $finish called at 5117150000 (1ps)

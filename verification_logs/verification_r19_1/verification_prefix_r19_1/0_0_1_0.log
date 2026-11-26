@@ -1,2 +1,0 @@
-PASS PREFIX matrix cases=496 event=0 inject=0 stress=1
-/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_prefix_r19_1.sv:120: $finish called at 94211830000 (1ps)

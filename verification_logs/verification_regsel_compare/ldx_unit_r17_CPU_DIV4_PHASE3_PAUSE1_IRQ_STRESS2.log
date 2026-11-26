@@ -1,3 +1,0 @@
-PASS ldx_unit_r17 instructions=80 WAIT=3005 pause=2256 fault=0
-/workspace/scratch/db88d59b2a4d/r24-regsel-review/MSXnano_T80_eZ80_R24_2_regsel_compare/sim/tb_ldx_unit_r17.sv:39: $finish called at 8939610000 (1ps)
-REGSEL_DIFF checks=893946

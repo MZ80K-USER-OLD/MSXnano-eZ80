@@ -1,9 +1,0 @@
-CASE 0
-COM stage 0 time=108530000
-RAM_OK
-CODE_OK
-ENTER_TEST
-RETURN_OK
-EZ80IR3 R22.1: PASS
-PASS ior_diag_r22_1 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=51 WAIT_ticks=4260
-/workspace/scratch/db88d59b2a4d/r22_2-work/MSXnano_T80_eZ80_restart_R22_2/sim/tb_ior_diag_r22_1.sv:170: $finish called at 1305810000 (1ps)

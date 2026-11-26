@@ -1,2 +1,0 @@
-PASS SD R11.9 DIV=         16 PHASE=         11 STRESS=          1 reads=        512 direct=        256 isolated=        510 waits=       5112 pauses=     170768
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/verification_sd_r11_9/tb.sv:109: $finish called at 12176100000 (1ps)

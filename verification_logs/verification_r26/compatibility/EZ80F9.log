@@ -1,8 +1,0 @@
-COM stage 1 time=140890000
-COM stage 2 time=1905690000
-COM stage 3 time=2674330000
-COM stage 4 time=3431130000
-COM stage 5 time=3619610000
-COM stage 6 time=4388250000
-EZ80F9 R9: PASS
-PASS compat_com_r26 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=0 WAIT_ticks=10518

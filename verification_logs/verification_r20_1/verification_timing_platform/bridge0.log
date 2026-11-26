@@ -1,2 +1,0 @@
-PASS bridge33 10240 decode/handshake checks plus reset
-/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_bridge33.sv:80: $finish called at 2083991000 (1ps)

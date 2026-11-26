@@ -1,5 +1,0 @@
-EZ80MR5 R22.2 START
-LOCAL EXP=31 ACT=31
-EZ80MR5 R22.2: UNSUPPORTED
-PASS mr5_r22_2 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/waitdiag-work/MSXnano_T80_eZ80_restart_R22_3/sim/tb_mr5_wait_r22_3.sv:185: $finish called at 403730000 (1ps)

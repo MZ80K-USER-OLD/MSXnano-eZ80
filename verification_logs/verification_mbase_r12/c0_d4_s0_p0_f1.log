@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mbase_r12.sv:40: MBASE state ADDR=0a0018 MB_EXP=01 MB_ACT=00 A_EXP=01 A_ACT=01 F_EXP=f2 F_ACT=f2 ADL=1/1
-       Time: 17770000  Scope: tb_mbase_r12

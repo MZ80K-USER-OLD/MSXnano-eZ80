@@ -1,2 +1,0 @@
-PASS madl_r13 guard=0
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_madl_r13.sv:63: $finish called at 16810000 (1ps)

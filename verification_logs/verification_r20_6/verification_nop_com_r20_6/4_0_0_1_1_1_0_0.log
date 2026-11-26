@@ -1,6 +1,0 @@
-CASE 0
-COM stage 0 time=106850000
-EZ80NP6 R20.6: FAIL stage 0
-ADDR=0A8100 EXP=D7 ACT=D6
-PASS nop_com_r20_6 phase=0 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=49 WAIT_ticks=2652
-/workspace/scratch/db88d59b2a4d/r20_6-work/MSXnano_T80_eZ80_restart_R20_6/sim/tb_nop_com_r20_6.sv:153: $finish called at 791250000 (1ps)

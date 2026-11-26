@@ -1,2 +1,0 @@
-PASS ldx_adl_irq_r17 NMI=          0 div=          4 stress=          0 checks=        210 entries=         40 waits=          0 frame_W=        120 frame_R=        120
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_ldx_adl_irq_r17.sv:43: $finish called at 1010970000 (1ps)

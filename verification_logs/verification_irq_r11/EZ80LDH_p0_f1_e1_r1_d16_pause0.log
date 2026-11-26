@@ -1,5 +1,0 @@
-COM stage A time=402010000
-EZ80LDH P2: FAIL stage A
-ADDR=040000 EXP=34 ACT=35
-PASS irq_r11 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=13 WAIT_ticks=2214
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_r11.sv:128: $finish called at 2336730000 (1ps)

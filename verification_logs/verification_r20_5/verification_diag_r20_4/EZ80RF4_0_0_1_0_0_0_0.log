@@ -1,3 +1,0 @@
-EZ80RF4 R20.4: UNSUPPORTED
-PASS diag_r20_4 phase=0 fault=0 extended=0 cpu_div=16 status=3 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/sim/tb_diag_r20_4.sv:187: $finish called at 687690000 (1ps)

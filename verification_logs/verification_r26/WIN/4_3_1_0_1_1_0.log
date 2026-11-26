@@ -1,6 +1,0 @@
-COM stage 0 time=68790000
-COM stage 1 time=656150000
-COM stage 2 time=1445510000
-COM stage 3 time=2231910000
-EZ80WIN R26: PASS
-PASS window_com_r26 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=23428

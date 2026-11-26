@@ -1,4 +1,0 @@
-COM stage 1 time=74970000
-FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r18/verification_upper_r18/candidate_f1.v:35723: Upper differential mismatch candidate=0000ff0000000000 reference=0000010000000000
-       Time: 80890001  Scope: tb_data_r3.cpu
-UPPER_COVERAGE=80 EXCHANGE=0

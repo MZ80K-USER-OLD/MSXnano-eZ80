@@ -1,3 +1,0 @@
-COM stage C time=47270000
-EZ80CTL R10: PASS
-PASS control_r10 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=641 WAIT_ticks=94510

@@ -1,2 +1,0 @@
-PASS refresh phase=0 long=1 refreshes=8192 max_gap_10ns=1024 VDP_reads=524350
-/workspace/scratch/db88d59b2a4d/r20_4-work/MSXnano_T80_eZ80_restart_R20_4/sim/tb_refresh_r20_1.sv:50: $finish called at 83895000000 (1ps)

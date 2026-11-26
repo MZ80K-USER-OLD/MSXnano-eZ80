@@ -1,3 +1,0 @@
-/workspace/scratch/db88d59b2a4d/cpu_restart_r18/verification_write_r18/tb.vhd:172:1:@410630ns:(assertion failure): decoder mismatch Write mode=0 op=50 iset=0 MC=4 profile=5
-ghdl:error: assertion failed
-ghdl:error: simulation failed

@@ -1,9 +1,0 @@
-{
-  "unit_and_bridge_fault_injection": true,
-  "LED_pages": 16,
-  "scoped_top_elaboration": true,
-  "unrelated_and_vendor_modules_ignored": true,
-  "project_paths_checked": 124,
-  "GOWIN": false,
-  "hardware": false
-}

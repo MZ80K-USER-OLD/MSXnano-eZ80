@@ -1,7 +1,0 @@
-/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/fpga/G80A_eZ80/t80_mcode_ez80.vhd:160:17:warning: declaration of "F" hides port "F" [-Whide]
-                F : std_logic_vector(7 downto 0);
-                ^
-/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/fpga/G80A_eZ80/t80_ez80.vhd:361:17:warning: declaration of "F" hides signal "F" [-Whide]
-                F : std_logic_vector(7 downto 0);
-                ^
-PASS fork VHDL-93 analysis

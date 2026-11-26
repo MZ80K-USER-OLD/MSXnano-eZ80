@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_madl_r13.sv:49: MADL state ADDR=0e820a ADL=0/0 MADL=1/1 A=a6/a6 F=d7/d7 SP=f000/f000 SPL=000001/000001 IEF=0/1 marker=a1/a1
-       Time: 32010000  Scope: tb_madl_r13

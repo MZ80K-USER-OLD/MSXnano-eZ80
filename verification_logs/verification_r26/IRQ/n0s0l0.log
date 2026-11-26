@@ -1,1 +1,0 @@
-PASS window_irq R26 NMI=0 stress=0 lock=0 vector_reads=2

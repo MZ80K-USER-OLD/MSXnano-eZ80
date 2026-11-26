@@ -1,9 +1,0 @@
-EZ80MX1 R15.1 START
-COM stage 1 time=156230000
-MX1 HL>HL
-COM stage 2 time=325910000
-MX2 HL>IX
-EZ80MX1 R15.1: FAIL stage 2
-ADDR=020102 EXP=A2 ACT=A3
-PASS mem_diag_r15_1 phase=3 fault=2 extended=1 cpu_div=4 status=2 high_fetch_ticks=0 WAIT_ticks=212
-/workspace/scratch/db88d59b2a4d/cpu_restart_r15_1/sim/tb_mem_diag_r15_1.sv:127: $finish called at 892230000 (1ps)

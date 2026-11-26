@@ -1,2 +1,0 @@
-PASS guard_r9 kind=3 no SPS/SPL write, no ADL IRQ/NMI entry
-/workspace/scratch/db88d59b2a4d/cpu_restart_r9/sim/tb_pc_r9.sv:66: $finish called at 57860000 (1ps)

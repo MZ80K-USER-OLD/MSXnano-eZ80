@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_madl_r13.sv:67: frame write ADDR=050000 EXP_ADDR=050000 EXP=82 ACT=00 n=0
-       Time: 19090000  Scope: tb_madl_r13

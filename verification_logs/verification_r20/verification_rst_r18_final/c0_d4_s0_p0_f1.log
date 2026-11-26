@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/r20-final/MSXnano_T80_eZ80_restart_R20/sim/tb_rst_r18.sv:73: frame write ADDR=0ec000 EXP_ADDR=0ec000 EXP=82 ACT=00 n=0
-       Time: 14930000  Scope: tb_rst_r18

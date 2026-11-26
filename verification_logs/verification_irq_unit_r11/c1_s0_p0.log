@@ -1,2 +1,0 @@
-PASS irq_unit_r11 case=          1 stress=          0 phase=          0 entries=          2 writes=          6 waits=          5
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_irq_unit_r11.sv:53: $finish called at 160890000 (1ps)

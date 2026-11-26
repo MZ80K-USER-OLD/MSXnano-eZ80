@@ -1,3 +1,0 @@
-EZ80PFX R19.1: UNSUPPORTED
-PASS prefix_com_r19_1 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r19_1-work/MSXnano_T80_eZ80_restart_R19_1/sim/tb_prefix_com_r19_1.sv:143: $finish called at 182530000 (1ps)

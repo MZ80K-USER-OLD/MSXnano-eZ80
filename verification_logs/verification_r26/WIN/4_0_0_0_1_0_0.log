@@ -1,2 +1,0 @@
-EZ80WIN R26: READY (use /RUN)
-PASS window_com_r26 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0

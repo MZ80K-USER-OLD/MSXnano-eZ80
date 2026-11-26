@@ -1,5 +1,0 @@
-COM stage 1 time=132570000
-COM stage 2 time=420570000
-EZ80MEM P1: PASS
-BUS_COMPARISONS=153137
-PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=0 WAIT_ticks=1456

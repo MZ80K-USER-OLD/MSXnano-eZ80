@@ -1,5 +1,0 @@
-COM stage 1 time=132670000
-COM stage 2 time=2059070000
-EZ80LEA P1: PASS
-PASS lea_r8 phase=11 fault=0 extended=1 cpu_div=16 status=1 high_fetch_ticks=0 WAIT_ticks=3276
-/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_lea_r8.sv:140: $finish called at 2768190000 (1ps)

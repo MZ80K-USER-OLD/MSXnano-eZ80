@@ -1,2 +1,0 @@
-PASS legacy_snapshot phase=0 poison=1 reset=1 transactions=65 VDP_reads=236 max_latency_ns=280
-/workspace/scratch/db88d59b2a4d/r20_5-work/MSXnano_T80_eZ80_restart_R20_5/sim/tb_legacy_snapshot_r20_5.sv:61: $finish called at 38370000 (1ps)

@@ -1,3 +1,0 @@
-EZ80IO2 R21: READY (use /RUN)
-PASS io2_com_r21 phase=0 fault=0 extended=1 cpu_div=4 status=4 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r21_1-work/MSXnano_T80_eZ80_restart_R21_1/sim/tb_io2_com_r21.sv:150: $finish called at 177330000 (1ps)

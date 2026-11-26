@@ -1,4 +1,0 @@
-COM stage C time=176950000
-EZ80CTL R10: PASS
-PASS control_r10 phase=7 fault=0 extended=1 cpu_div=15 status=1 high_fetch_opcodes=641 WAIT_ticks=105247
-/workspace/scratch/db88d59b2a4d/r19-work/MSXnano_T80_eZ80_restart_R19/sim/tb_control_r10.sv:128: $finish called at 35559850000 (1ps)

@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/cpu_restart_r11_4/sim/tb_cdc_r11_4.sv:172: CDC pending published before falling capture
-       Time: 1055000  Scope: tb_cdc_r11_4

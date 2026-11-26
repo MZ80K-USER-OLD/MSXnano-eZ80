@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/r18_3-work/MSXnano_T80_eZ80_restart_R18_3/sim/tb_mixed_r14.sv:67: frame write ADDR=00efff EXP_ADDR=00efff EXP=82 ACT=00 n=0
-       Time: 16050000  Scope: tb_mixed_r14

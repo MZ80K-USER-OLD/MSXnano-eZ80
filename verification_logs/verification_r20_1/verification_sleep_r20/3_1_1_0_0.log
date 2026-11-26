@@ -1,2 +1,0 @@
-PASS SLP cases=20 ctx=3 stress=1
-/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_sleep_r20.sv:76: $finish called at 3038400000 (1ps)

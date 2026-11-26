@@ -1,2 +1,0 @@
-PASS CDC R11.5 phase=0 transactions=517 WAIT_ticks=8277 VDP_reads=3151 contended=1035 refresh=3
-/workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_cdc_r11_5.sv:150: $finish called at 505611000 (1ps)

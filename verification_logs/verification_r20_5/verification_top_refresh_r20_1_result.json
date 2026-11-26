@@ -1,7 +1,0 @@
-{
-  "fresh_runs": 1,
-  "CPU_memory_bridge_ports_elaborated": true,
-  "unrelated_modules_blackboxed": true,
-  "GOWIN_run": false,
-  "full_system_simulated": false
-}

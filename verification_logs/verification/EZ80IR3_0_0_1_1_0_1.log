@@ -1,3 +1,0 @@
-EZ80IR3 R22.1: NOT READY
-PASS ior_diag_r22_1 phase=0 fault=0 extended=1 cpu_div=4 status=5 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r22-debug-work/MSXnano_T80_eZ80_restart_R22/sim/tb_ior_diag_r22_1.sv:170: $finish called at 186850000 (1ps)

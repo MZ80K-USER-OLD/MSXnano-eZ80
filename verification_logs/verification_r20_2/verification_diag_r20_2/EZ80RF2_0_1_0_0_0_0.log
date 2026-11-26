@@ -1,3 +1,0 @@
-EZ80RF2 R20.2: READY (use /RUN)
-PASS diag_r20_2 phase=0 fault=0 extended=1 cpu_div=16 status=4 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r20_2-work/MSXnano_T80_eZ80_restart_R20_2/sim/tb_diag_r20_2.sv:177: $finish called at 700670000 (1ps)

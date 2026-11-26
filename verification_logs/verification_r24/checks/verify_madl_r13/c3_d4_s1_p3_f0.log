@@ -1,2 +1,0 @@
-PASS madl_r13 case=3 div=4 stress=1 checks=1 frame_writes=3 entries=1 WAIT=253 frame_WAIT=9 pause=190 bus_grant=1
-/workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_madl_r13.sv:57: $finish called at 75150000 (1ps)

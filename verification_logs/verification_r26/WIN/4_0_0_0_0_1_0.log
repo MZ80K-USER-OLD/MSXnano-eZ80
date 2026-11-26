@@ -1,2 +1,0 @@
-EZ80WIN R26: UNSUPPORTED
-PASS window_com_r26 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0

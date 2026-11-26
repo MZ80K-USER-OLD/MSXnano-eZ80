@@ -1,7 +1,0 @@
-EZ80TS1 R15.1 START
-TS01
-COM stage A time=299910000
-EZ80TS1 P2: FAIL stage A
-ADDR=030400 EXP=54 ACT=55
-PASS tst_diag_r15_1 phase=3 fault=1 extended=1 cpu_div=4 status=2 high_fetch_opcodes=13 WAIT_ticks=972
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_tst_diag_r15_1.sv:136: $finish called at 836870000 (1ps)

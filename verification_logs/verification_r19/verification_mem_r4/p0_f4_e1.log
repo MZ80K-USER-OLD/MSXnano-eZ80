@@ -1,5 +1,0 @@
-COM stage 1 time=132570000
-EZ80MEM P1: FAIL stage 1
-ADDR=07FFFF EXP=52 ACT=D6
-PASS mem_r4 phase=0 fault=4 extended=1 cpu_div=16 status=2 high_fetch_ticks=0 WAIT_ticks=156
-/workspace/scratch/db88d59b2a4d/r19-work/MSXnano_T80_eZ80_restart_R19/sim/tb_mem_r4.sv:142: $finish called at 1665370000 (1ps)

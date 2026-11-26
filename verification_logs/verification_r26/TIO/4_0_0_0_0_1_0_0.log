@@ -1,2 +1,0 @@
-EZ80TIO R26: UNSUPPORTED
-PASS tstio_com_r25 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0

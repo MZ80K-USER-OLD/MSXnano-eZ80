@@ -1,3 +1,0 @@
-../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-../../src/ieee2008/numeric_std-body.vhdl:3036:7:@0ms:(assertion warning): NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-/workspace/scratch/db88d59b2a4d/r21_1-work/MSXnano_T80_eZ80_restart_R21_1/verification_mcode_r21_1/tb.vhd:137:1:@458752ns:(report note): PASS mcode equivalence Mode=0 vectors=458752

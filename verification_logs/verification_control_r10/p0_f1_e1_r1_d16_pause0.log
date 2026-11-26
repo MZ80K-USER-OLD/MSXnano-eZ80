@@ -1,5 +1,0 @@
-COM stage C time=132570000
-EZ80CTL R10: FAIL stage C
-ADDR=030200 EXP=22 ACT=23
-PASS control_r10 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=641 WAIT_ticks=115012
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_control_r10.sv:128: $finish called at 25295450000 (1ps)

@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_decode_width_r24.sv:52: terminal CB lost width / leaked prefix case=0 op=dd pending=1 dl=0 sl=0
-       Time: 141850000  Scope: tb_decode_width_r24

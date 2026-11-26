@@ -1,4 +1,0 @@
-COM stage A time=132750000
-EZ80ADL P1: PASS
-PASS adl_r10 phase=7 fault=0 extended=1 cpu_div=16 status=1 high_fetch_opcodes=9 WAIT_ticks=1751
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_adl_r10.sv:128: $finish called at 1148110000 (1ps)

@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/r24-work/MSXnano_T80_eZ80_restart_R24/sim/tb_mbase_r12.sv:57: MSX isolation ADDR=0a0000 MSX=0000 EW=0
-       Time: 7480002  Scope: tb_mbase_r12

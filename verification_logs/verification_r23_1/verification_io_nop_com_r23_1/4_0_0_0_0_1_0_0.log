@@ -1,3 +1,0 @@
-EZ80ION R23.1: UNSUPPORTED
-PASS io_nop_com_r23_1 phase=0 fault=0 extended=0 cpu_div=4 status=3 high_fetch_opcodes=0 WAIT_ticks=0
-/workspace/scratch/db88d59b2a4d/r23-1-work/MSXnano_T80_eZ80_restart_R23_1/sim/tb_io_nop_com_r23_1.sv:176: $finish called at 182530000 (1ps)

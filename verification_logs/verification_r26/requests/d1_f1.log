@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/r26-work/MSXnano_T80_eZ80_restart_R26/sim/tb_window_request_r26.sv:38: MSX isolation actual=ffff/0 address=000000
-       Time: 80010 Scope: tb_window_request_r26.check

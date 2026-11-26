@@ -1,5 +1,0 @@
-COM stage A time=1331610000
-EZ80NMI P2: FAIL stage A
-ADDR=030401 EXP=01 ACT=00
-PASS irq_r11 phase=0 fault=1 extended=1 cpu_div=16 status=2 high_fetch_opcodes=36 WAIT_ticks=5402
-/workspace/scratch/db88d59b2a4d/r20_4-work/MSXnano_T80_eZ80_restart_R20_4/sim/tb_irq_r11.sv:128: $finish called at 3224090000 (1ps)

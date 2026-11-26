@@ -1,2 +1,0 @@
-FATAL: /workspace/scratch/db88d59b2a4d/r20_1-work/MSXnano_T80_eZ80_restart_R20_1/sim/tb_sleep_r20.sv:57: SLP PC EXP=0b0000 ACT=0b0000
-       Time: 17060000  Scope: tb_sleep_r20

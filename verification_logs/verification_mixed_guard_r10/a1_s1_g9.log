@@ -1,2 +1,0 @@
-PASS mixed_guard_r10 kind=9 no SPS/SPL write, no ADL IRQ/NMI entry
-/workspace/scratch/db88d59b2a4d/cpu_restart_r17/sim/tb_mixed_guard_r10.sv:70: $finish called at 59780000 (1ps)

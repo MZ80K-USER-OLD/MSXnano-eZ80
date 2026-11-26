@@ -1,5 +1,0 @@
-{
-  "verification/cpu_diag.v": "9c3d9ae6f60a515735d883846494a69cf9bd29a3f840ea3208cc55dfc229f4ce",
-  "fpga/src/memory_ez80.v": "df70654725fa1cb68a90995bebc474ae4645bab60b9d5cde3f0b8f5b4e16482c",
-  "fpga/src/ez80_memory_bridge.v": "86df7f0b27e1b1df75d285f6df99b32114b2ed343fb35f4b316439cb9d89c061"
-}
