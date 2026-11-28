@@ -1,0 +1,11 @@
+COM stage A time=385970000
+COM stage B time=519250000
+COM stage C time=652530000
+COM stage D time=785810000
+COM stage E time=919090000
+COM stage F time=1052370000
+COM stage G time=1185650000
+COM stage H time=1318930000
+EZ80RST P2: PASS
+BUS_COMPARISONS=157429
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=8096

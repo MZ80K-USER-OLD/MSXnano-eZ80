@@ -1,0 +1,4 @@
+COM stage 1 time=33330000
+FATAL: /workspace/scratch/db88d59b2a4d/r33-work/MSXnano_T80_eZ80_restart_R33/sim/tb_differential_r33.sv:79: R33/R32 register/flag mismatch
+       Time: 44490002 Scope: tb_block_faults_r33.dut
+R33_BLOCK_COVERAGE inc_wrap=0 dec_wrap=0 no_wrap=2 result_zero=0

@@ -56,8 +56,110 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 
 package T80_eZ80_Pack is
+    -- R32: compact main-opcode classes, captured with IR.
+    subtype base_group_t is std_logic_vector(5 downto 0);
+    constant BG_00:base_group_t:="000000";
+    constant BG_01:base_group_t:="000001";
+    constant BG_02:base_group_t:="000010";
+    constant BG_03:base_group_t:="000011";
+    constant BG_04:base_group_t:="000100";
+    constant BG_05:base_group_t:="000101";
+    constant BG_06:base_group_t:="000110";
+    constant BG_07:base_group_t:="000111";
+    constant BG_08:base_group_t:="001000";
+    constant BG_09:base_group_t:="001001";
+    constant BG_10:base_group_t:="001010";
+    constant BG_11:base_group_t:="001011";
+    constant BG_12:base_group_t:="001100";
+    constant BG_13:base_group_t:="001101";
+    constant BG_14:base_group_t:="001110";
+    constant BG_15:base_group_t:="001111";
+    constant BG_16:base_group_t:="010000";
+    constant BG_17:base_group_t:="010001";
+    constant BG_18:base_group_t:="010010";
+    constant BG_19:base_group_t:="010011";
+    constant BG_20:base_group_t:="010100";
+    constant BG_21:base_group_t:="010101";
+    constant BG_22:base_group_t:="010110";
+    constant BG_23:base_group_t:="010111";
+    constant BG_24:base_group_t:="011000";
+    constant BG_25:base_group_t:="011001";
+    constant BG_26:base_group_t:="011010";
+    constant BG_27:base_group_t:="011011";
+    constant BG_28:base_group_t:="011100";
+    constant BG_29:base_group_t:="011101";
+    constant BG_30:base_group_t:="011110";
+    constant BG_31:base_group_t:="011111";
+    constant BG_32:base_group_t:="100000";
+    constant BG_33:base_group_t:="100001";
+    constant BG_34:base_group_t:="100010";
+    constant BG_35:base_group_t:="100011";
+    constant BG_36:base_group_t:="100100";
+    constant BG_37:base_group_t:="100101";
+    constant BG_38:base_group_t:="100110";
+    constant BG_39:base_group_t:="100111";
+    constant BG_40:base_group_t:="101000";
+    constant BG_41:base_group_t:="101001";
+    constant BG_42:base_group_t:="101010";
+    constant BG_43:base_group_t:="101011";
+    constant BG_44:base_group_t:="101100";
+    constant BG_45:base_group_t:="101101";
+    constant BG_46:base_group_t:="101110";
+    constant BG_47:base_group_t:="101111";
+    constant BG_48:base_group_t:="110000";
+    constant BG_49:base_group_t:="110001";
+    constant BG_50:base_group_t:="110010";
+    constant BG_51:base_group_t:="110011";
+    constant BG_52:base_group_t:="110100";
+    constant BG_53:base_group_t:="110101";
+    constant BG_54:base_group_t:="110110";
+    constant BG_55:base_group_t:="110111";
+    constant BG_56:base_group_t:="111000";
+    constant BG_57:base_group_t:="111001";
+    constant BG_58:base_group_t:="111010";
+    function Decode_Base_Group(op:std_logic_vector(7 downto 0)) return base_group_t;
+    subtype cb_group_t is std_logic_vector(2 downto 0);
+    constant CG_00:cb_group_t:="000";
+    constant CG_01:cb_group_t:="001";
+    constant CG_02:cb_group_t:="010";
+    constant CG_03:cb_group_t:="011";
+    constant CG_04:cb_group_t:="100";
+    constant CG_05:cb_group_t:="101";
+    constant CG_06:cb_group_t:="110";
+    constant CG_07:cb_group_t:="111";
+    function Decode_CB_Group(op:std_logic_vector(7 downto 0)) return cb_group_t;
+    subtype ed_group_t is std_logic_vector(4 downto 0);
+    constant EG_00:ed_group_t:="00000";
+    constant EG_01:ed_group_t:="00001";
+    constant EG_02:ed_group_t:="00010";
+    constant EG_03:ed_group_t:="00011";
+    constant EG_04:ed_group_t:="00100";
+    constant EG_05:ed_group_t:="00101";
+    constant EG_06:ed_group_t:="00110";
+    constant EG_07:ed_group_t:="00111";
+    constant EG_08:ed_group_t:="01000";
+    constant EG_09:ed_group_t:="01001";
+    constant EG_10:ed_group_t:="01010";
+    constant EG_11:ed_group_t:="01011";
+    constant EG_12:ed_group_t:="01100";
+    constant EG_13:ed_group_t:="01101";
+    constant EG_14:ed_group_t:="01110";
+    constant EG_15:ed_group_t:="01111";
+    constant EG_16:ed_group_t:="10000";
+    constant EG_17:ed_group_t:="10001";
+    constant EG_18:ed_group_t:="10010";
+    constant EG_19:ed_group_t:="10011";
+    constant EG_20:ed_group_t:="10100";
+    constant EG_21:ed_group_t:="10101";
+    constant EG_22:ed_group_t:="10110";
+    constant EG_23:ed_group_t:="10111";
+    constant EG_24:ed_group_t:="11000";
+    constant EG_25:ed_group_t:="11001";
+    constant EG_26:ed_group_t:="11010";
+    constant EG_27:ed_group_t:="11011";
+    function Decode_ED_Group(op:std_logic_vector(7 downto 0)) return ed_group_t;
     -- R24: instruction-static execution descriptor, captured with IR.
-    subtype exec_control_t is std_logic_vector(61 downto 0);
+    subtype exec_control_t is std_logic_vector(72 downto 0);
     constant EC_EX_SP : natural := 0;
     constant EC_STACK : natural := 1;
     constant EC_INCDEC : natural := 2;
@@ -121,6 +223,18 @@ package T80_eZ80_Pack is
     constant EC_EA_TARGET_IY:natural:=59;
     constant EC_JP_INDIRECT:natural:=60;
     constant EC_SP_IMMEDIATE:natural:=61;
+    -- R31: shared operand classes and execution subtypes.
+    constant EC_PAIR_HL:natural:=62;
+    constant EC_PAIR_SP:natural:=63;
+    constant EC_STACK_PUSH:natural:=64;
+    constant EC_STACK_POP:natural:=65;
+    constant EC_BYTE_STORE:natural:=66;
+    constant EC_IMM_PAIR:natural:=67;
+    constant EC_INDEX_FETCH:natural:=68;
+    constant EC_MADL_SET:natural:=69;
+    constant EC_MB_WRITE:natural:=70;
+    constant EC_LD_MEM_IMM:natural:=71;
+    constant EC_ABS_SP:natural:=72;
     function Decode_Execution(op: std_logic_vector(7 downto 0); pg, xy: std_logic_vector(1 downto 0); ex, adl, dl, sl, hw: std_logic; mode_id: integer) return exec_control_t;
     function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
 
@@ -201,7 +315,10 @@ package T80_eZ80_Pack is
     port(
         IR          : in std_logic_vector(7 downto 0);
         Write_Class : in std_logic_vector(7 downto 0);
-                Exec_Control : in exec_control_t;
+                        Base_Group : in base_group_t;
+                CB_Group : in cb_group_t;
+                ED_Group : in ed_group_t;
+        Exec_Control : in exec_control_t;
                 Interrupt_Long : in std_logic;
                 Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width : in std_logic;
                 Flow_Cond : out std_logic;
@@ -295,6 +412,199 @@ package T80_eZ80_Pack is
 end;
 
 package body T80_eZ80_Pack is
+
+    function Decode_Base_Group(op:std_logic_vector(7 downto 0)) return base_group_t is
+        variable opcode_bits:bit_vector(7 downto 0);
+    begin
+        opcode_bits:=to_bitvector(op);
+        case opcode_bits is
+        when "01000000"|"01000001"|"01000010"|"01000011"|"01000100"|"01000101"|"01000111"
+                        |"01001000"|"01001001"|"01001010"|"01001011"|"01001100"|"01001101"|"01001111"
+                        |"01010000"|"01010001"|"01010010"|"01010011"|"01010100"|"01010101"|"01010111"
+                        |"01011000"|"01011001"|"01011010"|"01011011"|"01011100"|"01011101"|"01011111"
+                        |"01100000"|"01100001"|"01100010"|"01100011"|"01100100"|"01100101"|"01100111"
+                        |"01101000"|"01101001"|"01101010"|"01101011"|"01101100"|"01101101"|"01101111"
+                        |"01111000"|"01111001"|"01111010"|"01111011"|"01111100"|"01111101"|"01111111" => return BG_00;
+        when "00000110"|"00001110"|"00010110"|"00011110"|"00100110"|"00101110"|"00111110" => return BG_01;
+        when "01000110"|"01001110"|"01010110"|"01011110"|"01100110"|"01101110"|"01111110" => return BG_02;
+        when "01110000"|"01110001"|"01110010"|"01110011"|"01110100"|"01110101"|"01110111" => return BG_03;
+        when "00110110" => return BG_04;
+        when "00001010" => return BG_05;
+        when "00011010" => return BG_06;
+        when "00111010" => return BG_07;
+        when "00000010" => return BG_08;
+        when "00010010" => return BG_09;
+        when "00110010" => return BG_10;
+        when "00000001"|"00010001"|"00100001"|"00110001" => return BG_11;
+        when "00101010" => return BG_12;
+        when "00100010" => return BG_13;
+        when "11111001" => return BG_14;
+        when "11000101"|"11010101"|"11100101"|"11110101" => return BG_15;
+        when "11000001"|"11010001"|"11100001"|"11110001" => return BG_16;
+        when "11101011" => return BG_17;
+        when "00001000" => return BG_18;
+        when "11011001" => return BG_19;
+        when "11100011" => return BG_20;
+        when "10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000111"
+                        |"10001000"|"10001001"|"10001010"|"10001011"|"10001100"|"10001101"|"10001111"
+                        |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010111"
+                        |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011111"
+                        |"10100000"|"10100001"|"10100010"|"10100011"|"10100100"|"10100101"|"10100111"
+                        |"10101000"|"10101001"|"10101010"|"10101011"|"10101100"|"10101101"|"10101111"
+                        |"10110000"|"10110001"|"10110010"|"10110011"|"10110100"|"10110101"|"10110111"
+                        |"10111000"|"10111001"|"10111010"|"10111011"|"10111100"|"10111101"|"10111111" => return BG_21;
+        when "10000110"|"10001110"|"10010110"|"10011110"|"10100110"|"10101110"|"10110110"|"10111110" => return BG_22;
+        when "11000110"|"11001110"|"11010110"|"11011110"|"11100110"|"11101110"|"11110110"|"11111110" => return BG_23;
+        when "00000100"|"00001100"|"00010100"|"00011100"|"00100100"|"00101100"|"00111100" => return BG_24;
+        when "00110100" => return BG_25;
+        when "00000101"|"00001101"|"00010101"|"00011101"|"00100101"|"00101101"|"00111101" => return BG_26;
+        when "00110101" => return BG_27;
+        when "00100111" => return BG_28;
+        when "00101111" => return BG_29;
+        when "00111111" => return BG_30;
+        when "00110111" => return BG_31;
+        when "00000000" => return BG_32;
+        when "01110110" => return BG_33;
+        when "11110011" => return BG_34;
+        when "11111011" => return BG_35;
+        when "00001001"|"00011001"|"00101001"|"00111001" => return BG_36;
+        when "00000011"|"00010011"|"00100011"|"00110011" => return BG_37;
+        when "00001011"|"00011011"|"00101011"|"00111011" => return BG_38;
+        when "00000111"
+                               
+                        |"00010111"
+                              
+                        |"00001111"
+                               
+                        |"00011111" => return BG_39;
+        when "11000011" => return BG_40;
+        when "11000010"|"11001010"|"11010010"|"11011010"|"11100010"|"11101010"|"11110010"|"11111010" => return BG_41;
+        when "00011000" => return BG_42;
+        when "00111000" => return BG_43;
+        when "00110000" => return BG_44;
+        when "00101000" => return BG_45;
+        when "00100000" => return BG_46;
+        when "11101001" => return BG_47;
+        when "00010000" => return BG_48;
+        when "11001101" => return BG_49;
+        when "11000100"|"11001100"|"11010100"|"11011100"|"11100100"|"11101100"|"11110100"|"11111100" => return BG_50;
+        when "11001001" => return BG_51;
+        when "11000000"|"11001000"|"11010000"|"11011000"|"11100000"|"11101000"|"11110000"|"11111000" => return BG_52;
+        when "11000111"|"11001111"|"11010111"|"11011111"|"11100111"|"11101111"|"11110111"|"11111111" => return BG_53;
+        when "11011011" => return BG_54;
+        when "11010011" => return BG_55;
+        when "11001011" => return BG_56;
+        when "11101101" => return BG_57;
+        when "11011101"|"11111101" => return BG_58;
+        when others => return BG_32;
+        end case;
+    end function;
+    function Decode_CB_Group(op:std_logic_vector(7 downto 0)) return cb_group_t is
+        variable opcode_bits:bit_vector(7 downto 0);
+    begin
+        opcode_bits:=to_bitvector(op);
+        case opcode_bits is
+        when "00000000"|"00000001"|"00000010"|"00000011"|"00000100"|"00000101"|"00000111"
+                |"00010000"|"00010001"|"00010010"|"00010011"|"00010100"|"00010101"|"00010111"
+                |"00001000"|"00001001"|"00001010"|"00001011"|"00001100"|"00001101"|"00001111"
+                |"00011000"|"00011001"|"00011010"|"00011011"|"00011100"|"00011101"|"00011111"
+                |"00100000"|"00100001"|"00100010"|"00100011"|"00100100"|"00100101"|"00100111"
+                |"00101000"|"00101001"|"00101010"|"00101011"|"00101100"|"00101101"|"00101111"
+                |"00110000"|"00110001"|"00110010"|"00110011"|"00110100"|"00110101"|"00110111"
+                |"00111000"|"00111001"|"00111010"|"00111011"|"00111100"|"00111101"|"00111111" => return CG_00;
+        when "00000110"|"00010110"|"00001110"|"00011110"|"00101110"|"00111110"|"00100110"|"00110110" => return CG_01;
+        when "01000000"|"01000001"|"01000010"|"01000011"|"01000100"|"01000101"|"01000111"
+                |"01001000"|"01001001"|"01001010"|"01001011"|"01001100"|"01001101"|"01001111"
+                |"01010000"|"01010001"|"01010010"|"01010011"|"01010100"|"01010101"|"01010111"
+                |"01011000"|"01011001"|"01011010"|"01011011"|"01011100"|"01011101"|"01011111"
+                |"01100000"|"01100001"|"01100010"|"01100011"|"01100100"|"01100101"|"01100111"
+                |"01101000"|"01101001"|"01101010"|"01101011"|"01101100"|"01101101"|"01101111"
+                |"01110000"|"01110001"|"01110010"|"01110011"|"01110100"|"01110101"|"01110111"
+                |"01111000"|"01111001"|"01111010"|"01111011"|"01111100"|"01111101"|"01111111" => return CG_02;
+        when "01000110"|"01001110"|"01010110"|"01011110"|"01100110"|"01101110"|"01110110"|"01111110" => return CG_03;
+        when "11000000"|"11000001"|"11000010"|"11000011"|"11000100"|"11000101"|"11000111"
+                |"11001000"|"11001001"|"11001010"|"11001011"|"11001100"|"11001101"|"11001111"
+                |"11010000"|"11010001"|"11010010"|"11010011"|"11010100"|"11010101"|"11010111"
+                |"11011000"|"11011001"|"11011010"|"11011011"|"11011100"|"11011101"|"11011111"
+                |"11100000"|"11100001"|"11100010"|"11100011"|"11100100"|"11100101"|"11100111"
+                |"11101000"|"11101001"|"11101010"|"11101011"|"11101100"|"11101101"|"11101111"
+                |"11110000"|"11110001"|"11110010"|"11110011"|"11110100"|"11110101"|"11110111"
+                |"11111000"|"11111001"|"11111010"|"11111011"|"11111100"|"11111101"|"11111111" => return CG_04;
+        when "11000110"|"11001110"|"11010110"|"11011110"|"11100110"|"11101110"|"11110110"|"11111110" => return CG_05;
+        when "10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000111"
+                |"10001000"|"10001001"|"10001010"|"10001011"|"10001100"|"10001101"|"10001111"
+                |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010111"
+                |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011111"
+                |"10100000"|"10100001"|"10100010"|"10100011"|"10100100"|"10100101"|"10100111"
+                |"10101000"|"10101001"|"10101010"|"10101011"|"10101100"|"10101101"|"10101111"
+                |"10110000"|"10110001"|"10110010"|"10110011"|"10110100"|"10110101"|"10110111"
+                |"10111000"|"10111001"|"10111010"|"10111011"|"10111100"|"10111101"|"10111111" => return CG_06;
+        when "10000110"|"10001110"|"10010110"|"10011110"|"10100110"|"10101110"|"10110110"|"10111110" => return CG_07;
+        when others => return CG_00;
+        end case;
+    end function;
+    function Decode_ED_Group(op:std_logic_vector(7 downto 0)) return ed_group_t is
+        variable opcode_bits:bit_vector(7 downto 0);
+    begin
+        opcode_bits:=to_bitvector(op);
+        case opcode_bits is
+        when x"84"|x"8C"|x"A4"|x"AC"|"00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"
+                                |"00001000"|"00001001"|"00001010"|"00001011"|"00001101"|"00001110"
+                                |"00010000"|"00010001"|"00010010"|"00010011"|"00010101"|"00010110"
+                                |"00011000"|"00011001"|"00011010"|"00011011"|"00011101"|"00011110"
+                                |"00100000"|"00100001"|"00100010"|"00100011"|"00100101"|"00100110"
+                                |"00101000"|"00101001"|"00101010"|"00101011"|"00101101"|"00101110"
+                                |"00110000"|"00110010"|"00110011"|"00110101"|"00110110"
+                                |"00111000"|"00111001"|"00111010"|"00111011"|"00111101"
+
+
+                                |"10000000"|"10000001"|"10000010"|"10000011"|"10000101"|"10000110"|"10000111"
+                                |"10001000"|"10001001"|"10001010"|"10001011"|"10001101"|"10001110"|"10001111"
+                                |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010110"|"10010111"
+                                |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011110"|"10011111"
+                                |"10100101"|"10100110"|"10100111"
+                                |"10101101"|"10101110"|"10101111"
+                                |                                            "10110100"|"10110101"|"10110110"|"10110111"
+                                |                                            "10111100"|"10111101"|"10111110"|"10111111"
+                                |"11000000"|           "11000010"|           "11000100"|"11000101"|"11000110"|"11000111"
+                                |"11001000"|           "11001010"|"11001011"|"11001100"|"11001101"|"11001110"|"11001111"
+                                |"11010000"|           "11010010"|"11010011"|"11010100"|"11010101"|"11010110"|"11010111"
+                                |"11011000"|           "11011010"|"11011011"|"11011100"|"11011101"|"11011110"|"11011111"
+                                |"11100000"|"11100001"|"11100010"|"11100011"|"11100100"|"11100101"|"11100110"|"11100111"
+                                |"11101000"|"11101001"|"11101010"|"11101011"|"11101100"|"11101101"|"11101110"|"11101111"
+                                |"11110000"|"11110001"|"11110010"|           "11110100"|"11110101"|"11110110"|"11110111"
+                                |"11111000"|"11111001"|"11111010"|"11111011"|"11111100"|"11111101"|"11111110"|"11111111" => return EG_00;
+        when x"07"|x"17"|x"27"|x"37"|x"31"|x"0F"|x"1F"|x"2F"|x"3F"|x"3E" => return EG_01;
+        when "00000100"|"00001100"|"00010100"|"00011100"|
+                             "00100100"|"00101100"|"00110100"|"00111100" => return EG_02;
+        when "01111110"|"01111111" => return EG_03;
+        when "01010111" => return EG_04;
+        when "01011111" => return EG_05;
+        when "01000111" => return EG_06;
+        when "01001111" => return EG_07;
+        when "01001011"|"01011011"|"01101011"|"01111011" => return EG_08;
+        when "01000011"|"01010011"|"01100011"|"01110011" => return EG_09;
+        when "10100000" | "10101000" | "10110000" | "10111000" => return EG_10;
+        when "10100001" | "10101001" | "10110001" | "10111001" => return EG_11;
+        when "01000100"|"01001100"|"01010100"|"01011100"|"01100100"|"01101100"|"01110100"|"01111100" => return EG_12;
+        when "01000110"|"01001110"|"01100110"|"01101110" => return EG_13;
+        when "01010110" => return EG_14;
+        when "01110110" => return EG_15;
+        when "01011110"|"01110111" => return EG_16;
+        when "01001010"|"01011010"|"01101010"|"01111010" => return EG_17;
+        when "01000010"|"01010010"|"01100010"|"01110010" => return EG_18;
+        when "01101111" => return EG_19;
+        when "01100111" => return EG_20;
+        when "01000101"|"01001101"|"01010101"|"01011101"|"01100101"|"01101101"|"01110101"|"01111101" => return EG_21;
+        when "01000000"|"01001000"|"01010000"|"01011000"|"01100000"|"01101000"|"01110000"|"01111000" => return EG_22;
+        when "01000001"|"01001001"|"01010001"|"01011001"|"01100001"|"01101001"|"01110001"|"01111001" => return EG_23;
+        when "10100010" | "10101010" | "10110010" | "10111010" => return EG_24;
+        when "10100011" | "10101011" | "10110011" | "10111011" => return EG_25;
+        when "11000001"|"11001001"|"11010001"|"11011001" => return EG_26;
+        when "11000011"|"11110011" => return EG_27;
+        when others => return EG_00;
+        end case;
+    end function;
     function Classify_Opcode(op : std_logic_vector(7 downto 0)) return std_logic_vector is
         variable c : std_logic_vector(15 downto 0) := (others=>'0');
     begin
@@ -390,6 +700,17 @@ package body T80_eZ80_Pack is
         if op=x"33" or op=x"55" then c(EC_EA_TARGET_IY):='1';end if;
         if ex='1' and pg="00" and op=x"E9" then c(EC_JP_INDIRECT):='1';end if;
         if pg="00" and op=x"31" then c(EC_SP_IMMEDIATE):='1';end if;
+        if op(5 downto 4)="10" then c(EC_PAIR_HL):='1';end if;
+        if op(5 downto 4)="11" then c(EC_PAIR_SP):='1';end if;
+        if op(3 downto 0)="0101" then c(EC_STACK_PUSH):='1';end if;
+        if op(3 downto 0)="0001" then c(EC_STACK_POP):='1';end if;
+        if op=x"32" then c(EC_BYTE_STORE):='1';end if;
+        if ex='1' and pg="00" and op(7 downto 6)="00" and op(3 downto 0)="0001" then c(EC_IMM_PAIR):='1';end if;
+        if op=x"CB" or op=x"36" then c(EC_INDEX_FETCH):='1';end if;
+        if op=x"7D" then c(EC_MADL_SET):='1';end if;
+        if op=x"6D" then c(EC_MB_WRITE):='1';end if;
+        if op=x"36" then c(EC_LD_MEM_IMM):='1';end if;
+        if pg/="00" and op(5 downto 4)="11" then c(EC_ABS_SP):='1';end if;
         return c;
     end function;
 

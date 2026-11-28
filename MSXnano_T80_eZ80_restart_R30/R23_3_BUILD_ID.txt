@@ -1,6 +1,0 @@
-R23.3: bridge local control capture, based on R23.2.
-Only changed FPGA file vs R23.2: fpga/src/ez80_memory_bridge.v
-4 RTL control FFs, immediate T1 WAIT, same payload latches and SDRAM/VDP schedule.
-CPU/core/register/decode/wrapper/top/constraints unchanged vs R23.2.
-All COM bytes unchanged.
-GOWIN/area/STA/hardware recovery unverified.

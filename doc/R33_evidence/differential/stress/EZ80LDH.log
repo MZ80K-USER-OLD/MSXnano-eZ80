@@ -1,0 +1,24 @@
+COM stage A time=144390000
+COM stage B time=375510000
+COM stage C time=608790000
+COM stage D time=866710000
+COM stage E time=1121350000
+COM stage F time=1352070000
+COM stage G time=1585110000
+COM stage H time=1843350000
+COM stage I time=2098310000
+COM stage J time=2328790000
+COM stage K time=2561910000
+COM stage L time=2814230000
+COM stage M time=3061750000
+COM stage N time=3297270000
+COM stage O time=3537030000
+COM stage P time=3800470000
+COM stage Q time=4058870000
+COM stage R time=4295190000
+COM stage S time=4535670000
+COM stage T time=4798870000
+EZ80LDH P2: PASS
+BUS_COMPARISONS=521479
+PASS differential_r27 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=36942
+R33_BLOCK_COVERAGE inc_wrap=0 dec_wrap=0 no_wrap=0 result_zero=0

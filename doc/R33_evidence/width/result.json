@@ -1,0 +1,16 @@
+{
+  "cases": 64,
+  "profiles": [
+    {
+      "stress": 0,
+      "output": "descriptor hold=51840 accept=1696\nPASS decode width cases=         32 stress=          0 event=          0\n"
+    },
+    {
+      "stress": 1,
+      "output": "descriptor hold=354151 accept=1696\nPASS decode width cases=         32 stress=          1 event=          0\n"
+    }
+  ],
+  "baseline_expected_failure_checked": false,
+  "GOWIN": false,
+  "hardware": false
+}

@@ -1,0 +1,6 @@
+COM stage A time=339490000
+COM stage B time=819810000
+EZ80NMI P2: PASS
+BUS_COMPARISONS=120045
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=6868
+R33_BLOCK_COVERAGE inc_wrap=0 dec_wrap=0 no_wrap=0 result_zero=0

@@ -11,17 +11,17 @@ module tb_decode_width_r24;
  G80A_eZ80 cpu(.CLK_n(clk),.RESET_n(rst),.clk_enable(ce),.clk_falling(cf),.WAIT_n(wn),.INT_n(!irq),.NMI_n(!nmi),.BUSRQ_n(1'b1),.DI(din),.A24(a),.A_MSX(msx),.Extended_Window(ext),.MREQ_n(mr),.IORQ_n(io),.RFSH_n(rf),.RD_n(rd),.WR_n(wr),.DO(dout),.M1_n(m1),.HALT_n(halt_n));
  // The descriptor may change only on an accepted opcode, indexed-CB final
  // opcode, reset, or explicit frame flush. WAIT/CEN stalls must hold it.
- reg [61:0] descriptor_before;reg descriptor_allowed;
+ reg [86:0] descriptor_before;reg descriptor_allowed;
  integer descriptor_hold_checks=0,descriptor_accept_checks=0;
  generate if(CHECK_DESCRIPTOR)begin: descriptor_checks
  always @(posedge clk) if(rst)begin
-  descriptor_before=cpu.u0.exec_control;
+  descriptor_before={cpu.u0.exec_control,cpu.u0.base_group,cpu.u0.cb_group,cpu.u0.ed_group};
   descriptor_allowed=(cpu.u0.cen && cpu.u0.frame_active && cpu.u0.frame_end) ||
     (cpu.u0.clken && !cpu.u0.frame_active && !cpu.u0.frame_start && cpu.u0.tstate==2 && cpu.u0.wait_n &&
      (cpu.u0.mcycle==1 || (cpu.u0.mcycle==7 && cpu.u0.iset==1)));
   #1;
   if(!descriptor_allowed)begin
-   if(cpu.u0.exec_control!==descriptor_before)$fatal(1,"execution descriptor changed outside accepted decode");
+   if({cpu.u0.exec_control,cpu.u0.base_group,cpu.u0.cb_group,cpu.u0.ed_group}!==descriptor_before)$fatal(1,"execution descriptor changed outside accepted decode");
    descriptor_hold_checks=descriptor_hold_checks+1;
   end else descriptor_accept_checks=descriptor_accept_checks+1;
  end

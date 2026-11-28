@@ -1,0 +1,6 @@
+COM stage 1 time=33330000
+COM stage 2 time=538050000
+EZ80LEA P1: PASS
+BUS_COMPARISONS=71965
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=2196
+R33_BLOCK_COVERAGE inc_wrap=0 dec_wrap=0 no_wrap=0 result_zero=0

@@ -1,0 +1,23 @@
+CASE 0
+COM stage 0 time=106850000
+CASE 1
+COM stage 1 time=477970000
+CASE 2
+COM stage 2 time=852210000
+CASE 3
+COM stage 3 time=1226450000
+CASE 4
+COM stage 4 time=1600690000
+CASE 5
+COM stage 5 time=1974930000
+CASE 6
+COM stage 6 time=2371570000
+CASE 7
+COM stage 7 time=2771730000
+CASE 8
+COM stage 8 time=3171890000
+CASE 9
+COM stage 9 time=3572050000
+EZ80NP6 R20.6: PASS
+BUS_COMPARISONS=403501
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=19532

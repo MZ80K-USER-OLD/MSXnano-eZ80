@@ -1,6 +1,0 @@
-R24.1: 24-bit register interface and read-selection comparison, based on R24.
-Three FPGA files changed: core, register file, package.
-Common 24-bit read buses; byte-write mask; distinct read and write addresses.
-GSR deferred. Existing reset/storage classes/bridge/SDRAM/wrapper/mcode/top/constraints/GPRJ retained.
-34 existing COMs unchanged. No new COM.
-Local differential/regression checks passed; GOWIN area/timing and board checks pending.

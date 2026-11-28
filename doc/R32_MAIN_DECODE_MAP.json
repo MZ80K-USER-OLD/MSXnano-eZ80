@@ -1,0 +1,2561 @@
+[
+  {
+    "page": "Base",
+    "bits": 6,
+    "groups": [
+      {
+        "id": 0,
+        "constant": "BG_00",
+        "opcodes": [
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45",
+          "47",
+          "48",
+          "49",
+          "4A",
+          "4B",
+          "4C",
+          "4D",
+          "4F",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "57",
+          "58",
+          "59",
+          "5A",
+          "5B",
+          "5C",
+          "5D",
+          "5F",
+          "60",
+          "61",
+          "62",
+          "63",
+          "64",
+          "65",
+          "67",
+          "68",
+          "69",
+          "6A",
+          "6B",
+          "6C",
+          "6D",
+          "6F",
+          "78",
+          "79",
+          "7A",
+          "7B",
+          "7C",
+          "7D",
+          "7F"
+        ],
+        "description": [
+          "LD r,r'"
+        ],
+        "others": false
+      },
+      {
+        "id": 1,
+        "constant": "BG_01",
+        "opcodes": [
+          "06",
+          "0E",
+          "16",
+          "1E",
+          "26",
+          "2E",
+          "3E"
+        ],
+        "description": [
+          "LD r,n"
+        ],
+        "others": false
+      },
+      {
+        "id": 2,
+        "constant": "BG_02",
+        "opcodes": [
+          "46",
+          "4E",
+          "56",
+          "5E",
+          "66",
+          "6E",
+          "7E"
+        ],
+        "description": [
+          "LD r,(HL)"
+        ],
+        "others": false
+      },
+      {
+        "id": 3,
+        "constant": "BG_03",
+        "opcodes": [
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "77"
+        ],
+        "description": [
+          "LD (HL),r"
+        ],
+        "others": false
+      },
+      {
+        "id": 4,
+        "constant": "BG_04",
+        "opcodes": [
+          "36"
+        ],
+        "description": [
+          "LD (HL),n"
+        ],
+        "others": false
+      },
+      {
+        "id": 5,
+        "constant": "BG_05",
+        "opcodes": [
+          "0A"
+        ],
+        "description": [
+          "LD A,(BC)"
+        ],
+        "others": false
+      },
+      {
+        "id": 6,
+        "constant": "BG_06",
+        "opcodes": [
+          "1A"
+        ],
+        "description": [
+          "LD A,(DE)"
+        ],
+        "others": false
+      },
+      {
+        "id": 7,
+        "constant": "BG_07",
+        "opcodes": [
+          "3A"
+        ],
+        "description": [
+          "LDD A,(HL)",
+          "LD A,(nn)"
+        ],
+        "others": false
+      },
+      {
+        "id": 8,
+        "constant": "BG_08",
+        "opcodes": [
+          "02"
+        ],
+        "description": [
+          "LD (BC),A"
+        ],
+        "others": false
+      },
+      {
+        "id": 9,
+        "constant": "BG_09",
+        "opcodes": [
+          "12"
+        ],
+        "description": [
+          "LD (DE),A"
+        ],
+        "others": false
+      },
+      {
+        "id": 10,
+        "constant": "BG_10",
+        "opcodes": [
+          "32"
+        ],
+        "description": [
+          "LDD (HL),A",
+          "LD (nn),A",
+          "16 BIT LOAD GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 11,
+        "constant": "BG_11",
+        "opcodes": [
+          "01",
+          "11",
+          "21",
+          "31"
+        ],
+        "description": [
+          "LD dd,nn"
+        ],
+        "others": false
+      },
+      {
+        "id": 12,
+        "constant": "BG_12",
+        "opcodes": [
+          "2A"
+        ],
+        "description": [
+          "LDI A,(HL)",
+          "LD HL,(nn)",
+          "L"
+        ],
+        "others": false
+      },
+      {
+        "id": 13,
+        "constant": "BG_13",
+        "opcodes": [
+          "22"
+        ],
+        "description": [
+          "LDI (HL),A",
+          "LD (nn),HL",
+          "L"
+        ],
+        "others": false
+      },
+      {
+        "id": 14,
+        "constant": "BG_14",
+        "opcodes": [
+          "F9"
+        ],
+        "description": [
+          "LD SP,HL"
+        ],
+        "others": false
+      },
+      {
+        "id": 15,
+        "constant": "BG_15",
+        "opcodes": [
+          "C5",
+          "D5",
+          "E5",
+          "F5"
+        ],
+        "description": [
+          "PUSH qq"
+        ],
+        "others": false
+      },
+      {
+        "id": 16,
+        "constant": "BG_16",
+        "opcodes": [
+          "C1",
+          "D1",
+          "E1",
+          "F1"
+        ],
+        "description": [
+          "POP qq",
+          "EXCHANGE, BLOCK TRANSFER AND SEARCH GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 17,
+        "constant": "BG_17",
+        "opcodes": [
+          "EB"
+        ],
+        "description": [
+          "EX DE,HL"
+        ],
+        "others": false
+      },
+      {
+        "id": 18,
+        "constant": "BG_18",
+        "opcodes": [
+          "08"
+        ],
+        "description": [
+          "LD (nn),SP",
+          "EX AF,AF'"
+        ],
+        "others": false
+      },
+      {
+        "id": 19,
+        "constant": "BG_19",
+        "opcodes": [
+          "D9"
+        ],
+        "description": [
+          "RETI",
+          "EXX"
+        ],
+        "others": false
+      },
+      {
+        "id": 20,
+        "constant": "BG_20",
+        "opcodes": [
+          "E3"
+        ],
+        "description": [
+          "EX (SP),HL",
+          "8 BIT ARITHMETIC AND LOGICAL GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 21,
+        "constant": "BG_21",
+        "opcodes": [
+          "80",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "87",
+          "88",
+          "89",
+          "8A",
+          "8B",
+          "8C",
+          "8D",
+          "8F",
+          "90",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "97",
+          "98",
+          "99",
+          "9A",
+          "9B",
+          "9C",
+          "9D",
+          "9F",
+          "A0",
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "A8",
+          "A9",
+          "AA",
+          "AB",
+          "AC",
+          "AD",
+          "AF",
+          "B0",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B7",
+          "B8",
+          "B9",
+          "BA",
+          "BB",
+          "BC",
+          "BD",
+          "BF"
+        ],
+        "description": [
+          "ADD A,r",
+          "ADC A,r",
+          "SUB A,r"
+        ],
+        "others": false
+      },
+      {
+        "id": 22,
+        "constant": "BG_22",
+        "opcodes": [
+          "86",
+          "8E",
+          "96",
+          "9E",
+          "A6",
+          "AE",
+          "B6",
+          "BE"
+        ],
+        "description": [
+          "ADD A,(HL)",
+          "ADC A,(HL)",
+          "SUB A,(HL)"
+        ],
+        "others": false
+      },
+      {
+        "id": 23,
+        "constant": "BG_23",
+        "opcodes": [
+          "C6",
+          "CE",
+          "D6",
+          "DE",
+          "E6",
+          "EE",
+          "F6",
+          "FE"
+        ],
+        "description": [
+          "ADD A,n",
+          "ADC A,n",
+          "SUB A,n"
+        ],
+        "others": false
+      },
+      {
+        "id": 24,
+        "constant": "BG_24",
+        "opcodes": [
+          "04",
+          "0C",
+          "14",
+          "1C",
+          "24",
+          "2C",
+          "3C"
+        ],
+        "description": [
+          "INC r"
+        ],
+        "others": false
+      },
+      {
+        "id": 25,
+        "constant": "BG_25",
+        "opcodes": [
+          "34"
+        ],
+        "description": [
+          "INC (HL)"
+        ],
+        "others": false
+      },
+      {
+        "id": 26,
+        "constant": "BG_26",
+        "opcodes": [
+          "05",
+          "0D",
+          "15",
+          "1D",
+          "25",
+          "2D",
+          "3D"
+        ],
+        "description": [
+          "DEC r"
+        ],
+        "others": false
+      },
+      {
+        "id": 27,
+        "constant": "BG_27",
+        "opcodes": [
+          "35"
+        ],
+        "description": [
+          "DEC (HL)",
+          "GENERAL PURPOSE ARITHMETIC AND CPU CONTROL GROUPS"
+        ],
+        "others": false
+      },
+      {
+        "id": 28,
+        "constant": "BG_28",
+        "opcodes": [
+          "27"
+        ],
+        "description": [
+          "DAA"
+        ],
+        "others": false
+      },
+      {
+        "id": 29,
+        "constant": "BG_29",
+        "opcodes": [
+          "2F"
+        ],
+        "description": [
+          "CPL"
+        ],
+        "others": false
+      },
+      {
+        "id": 30,
+        "constant": "BG_30",
+        "opcodes": [
+          "3F"
+        ],
+        "description": [
+          "CCF"
+        ],
+        "others": false
+      },
+      {
+        "id": 31,
+        "constant": "BG_31",
+        "opcodes": [
+          "37"
+        ],
+        "description": [
+          "SCF"
+        ],
+        "others": false
+      },
+      {
+        "id": 32,
+        "constant": "BG_32",
+        "opcodes": [
+          "00"
+        ],
+        "description": [
+          "NMI",
+          "INT (IM 2)",
+          "NOP"
+        ],
+        "others": false
+      },
+      {
+        "id": 33,
+        "constant": "BG_33",
+        "opcodes": [
+          "76"
+        ],
+        "description": [
+          "HALT"
+        ],
+        "others": false
+      },
+      {
+        "id": 34,
+        "constant": "BG_34",
+        "opcodes": [
+          "F3"
+        ],
+        "description": [
+          "DI"
+        ],
+        "others": false
+      },
+      {
+        "id": 35,
+        "constant": "BG_35",
+        "opcodes": [
+          "FB"
+        ],
+        "description": [
+          "EI",
+          "16 BIT ARITHMETIC GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 36,
+        "constant": "BG_36",
+        "opcodes": [
+          "09",
+          "19",
+          "29",
+          "39"
+        ],
+        "description": [
+          "ADD HL,ss"
+        ],
+        "others": false
+      },
+      {
+        "id": 37,
+        "constant": "BG_37",
+        "opcodes": [
+          "03",
+          "13",
+          "23",
+          "33"
+        ],
+        "description": [
+          "INC ss"
+        ],
+        "others": false
+      },
+      {
+        "id": 38,
+        "constant": "BG_38",
+        "opcodes": [
+          "0B",
+          "1B",
+          "2B",
+          "3B"
+        ],
+        "description": [
+          "DEC ss",
+          "ROTATE AND SHIFT GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 39,
+        "constant": "BG_39",
+        "opcodes": [
+          "07",
+          "17",
+          "0F",
+          "1F"
+        ],
+        "description": [
+          "RRA",
+          "JUMP GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 40,
+        "constant": "BG_40",
+        "opcodes": [
+          "C3"
+        ],
+        "description": [
+          "JP nn"
+        ],
+        "others": false
+      },
+      {
+        "id": 41,
+        "constant": "BG_41",
+        "opcodes": [
+          "C2",
+          "CA",
+          "D2",
+          "DA",
+          "E2",
+          "EA",
+          "F2",
+          "FA"
+        ],
+        "description": [
+          "LD ($FF00+C),A",
+          "LD (nn),A",
+          "LD A,($FF00+C)"
+        ],
+        "others": false
+      },
+      {
+        "id": 42,
+        "constant": "BG_42",
+        "opcodes": [
+          "18"
+        ],
+        "description": [
+          "JR e"
+        ],
+        "others": false
+      },
+      {
+        "id": 43,
+        "constant": "BG_43",
+        "opcodes": [
+          "38"
+        ],
+        "description": [
+          "JR C,e"
+        ],
+        "others": false
+      },
+      {
+        "id": 44,
+        "constant": "BG_44",
+        "opcodes": [
+          "30"
+        ],
+        "description": [
+          "JR NC,e"
+        ],
+        "others": false
+      },
+      {
+        "id": 45,
+        "constant": "BG_45",
+        "opcodes": [
+          "28"
+        ],
+        "description": [
+          "JR Z,e"
+        ],
+        "others": false
+      },
+      {
+        "id": 46,
+        "constant": "BG_46",
+        "opcodes": [
+          "20"
+        ],
+        "description": [
+          "JR NZ,e"
+        ],
+        "others": false
+      },
+      {
+        "id": 47,
+        "constant": "BG_47",
+        "opcodes": [
+          "E9"
+        ],
+        "description": [
+          "JP (HL)"
+        ],
+        "others": false
+      },
+      {
+        "id": 48,
+        "constant": "BG_48",
+        "opcodes": [
+          "10"
+        ],
+        "description": [
+          "DJNZ,e",
+          "CALL AND RETURN GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 49,
+        "constant": "BG_49",
+        "opcodes": [
+          "CD"
+        ],
+        "description": [
+          "CALL nn"
+        ],
+        "others": false
+      },
+      {
+        "id": 50,
+        "constant": "BG_50",
+        "opcodes": [
+          "C4",
+          "CC",
+          "D4",
+          "DC",
+          "E4",
+          "EC",
+          "F4",
+          "FC"
+        ],
+        "description": [
+          "CALL cc,nn"
+        ],
+        "others": false
+      },
+      {
+        "id": 51,
+        "constant": "BG_51",
+        "opcodes": [
+          "C9"
+        ],
+        "description": [
+          "RET"
+        ],
+        "others": false
+      },
+      {
+        "id": 52,
+        "constant": "BG_52",
+        "opcodes": [
+          "C0",
+          "C8",
+          "D0",
+          "D8",
+          "E0",
+          "E8",
+          "F0",
+          "F8"
+        ],
+        "description": [
+          "LD ($FF00+nn),A",
+          "ADD SP,n",
+          "Incorrect unsigned !!!!!!!!!!!!!!!!!!!!!"
+        ],
+        "others": false
+      },
+      {
+        "id": 53,
+        "constant": "BG_53",
+        "opcodes": [
+          "C7",
+          "CF",
+          "D7",
+          "DF",
+          "E7",
+          "EF",
+          "F7",
+          "FF"
+        ],
+        "description": [
+          "RST p",
+          "INPUT AND OUTPUT GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 54,
+        "constant": "BG_54",
+        "opcodes": [
+          "DB"
+        ],
+        "description": [
+          "IN A,(n)"
+        ],
+        "others": false
+      },
+      {
+        "id": 55,
+        "constant": "BG_55",
+        "opcodes": [
+          "D3"
+        ],
+        "description": [
+          "OUT (n),A",
+          "----------------------------------------------------------------------------",
+          "----------------------------------------------------------------------------"
+        ],
+        "others": false
+      },
+      {
+        "id": 56,
+        "constant": "BG_56",
+        "opcodes": [
+          "CB"
+        ],
+        "description": [],
+        "others": false
+      },
+      {
+        "id": 57,
+        "constant": "BG_57",
+        "opcodes": [
+          "ED"
+        ],
+        "description": [],
+        "others": false
+      },
+      {
+        "id": 58,
+        "constant": "BG_58",
+        "opcodes": [
+          "DD",
+          "FD"
+        ],
+        "description": [],
+        "others": false
+      }
+    ],
+    "opcode_to_group": [
+      32,
+      11,
+      8,
+      37,
+      24,
+      26,
+      1,
+      39,
+      18,
+      36,
+      5,
+      38,
+      24,
+      26,
+      1,
+      39,
+      48,
+      11,
+      9,
+      37,
+      24,
+      26,
+      1,
+      39,
+      42,
+      36,
+      6,
+      38,
+      24,
+      26,
+      1,
+      39,
+      46,
+      11,
+      13,
+      37,
+      24,
+      26,
+      1,
+      28,
+      45,
+      36,
+      12,
+      38,
+      24,
+      26,
+      1,
+      29,
+      44,
+      11,
+      10,
+      37,
+      25,
+      27,
+      4,
+      31,
+      43,
+      36,
+      7,
+      38,
+      24,
+      26,
+      1,
+      30,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      33,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      21,
+      22,
+      21,
+      52,
+      16,
+      41,
+      40,
+      50,
+      15,
+      23,
+      53,
+      52,
+      51,
+      41,
+      56,
+      50,
+      49,
+      23,
+      53,
+      52,
+      16,
+      41,
+      55,
+      50,
+      15,
+      23,
+      53,
+      52,
+      19,
+      41,
+      54,
+      50,
+      58,
+      23,
+      53,
+      52,
+      16,
+      41,
+      20,
+      50,
+      15,
+      23,
+      53,
+      52,
+      47,
+      41,
+      17,
+      50,
+      57,
+      23,
+      53,
+      52,
+      16,
+      41,
+      34,
+      50,
+      15,
+      23,
+      53,
+      52,
+      14,
+      41,
+      35,
+      50,
+      58,
+      23,
+      53
+    ],
+    "reset_group": 32
+  },
+  {
+    "page": "CB",
+    "bits": 3,
+    "groups": [
+      {
+        "id": 0,
+        "constant": "CG_00",
+        "opcodes": [
+          "00",
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "07",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "17",
+          "08",
+          "09",
+          "0A",
+          "0B",
+          "0C",
+          "0D",
+          "0F",
+          "18",
+          "19",
+          "1A",
+          "1B",
+          "1C",
+          "1D",
+          "1F",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "27",
+          "28",
+          "29",
+          "2A",
+          "2B",
+          "2C",
+          "2D",
+          "2F",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "37",
+          "38",
+          "39",
+          "3A",
+          "3B",
+          "3C",
+          "3D",
+          "3F"
+        ],
+        "description": [
+          "RLC r",
+          "RL r",
+          "RRC r"
+        ],
+        "others": false
+      },
+      {
+        "id": 1,
+        "constant": "CG_01",
+        "opcodes": [
+          "06",
+          "16",
+          "0E",
+          "1E",
+          "2E",
+          "3E",
+          "26",
+          "36"
+        ],
+        "description": [
+          "RLC (HL)",
+          "RL (HL)",
+          "RRC (HL)"
+        ],
+        "others": false
+      },
+      {
+        "id": 2,
+        "constant": "CG_02",
+        "opcodes": [
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45",
+          "47",
+          "48",
+          "49",
+          "4A",
+          "4B",
+          "4C",
+          "4D",
+          "4F",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "57",
+          "58",
+          "59",
+          "5A",
+          "5B",
+          "5C",
+          "5D",
+          "5F",
+          "60",
+          "61",
+          "62",
+          "63",
+          "64",
+          "65",
+          "67",
+          "68",
+          "69",
+          "6A",
+          "6B",
+          "6C",
+          "6D",
+          "6F",
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "77",
+          "78",
+          "79",
+          "7A",
+          "7B",
+          "7C",
+          "7D",
+          "7F"
+        ],
+        "description": [
+          "BIT b,r",
+          "BIT b,(IX+d), undocumented"
+        ],
+        "others": false
+      },
+      {
+        "id": 3,
+        "constant": "CG_03",
+        "opcodes": [
+          "46",
+          "4E",
+          "56",
+          "5E",
+          "66",
+          "6E",
+          "76",
+          "7E"
+        ],
+        "description": [
+          "BIT b,(HL)"
+        ],
+        "others": false
+      },
+      {
+        "id": 4,
+        "constant": "CG_04",
+        "opcodes": [
+          "C0",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C7",
+          "C8",
+          "C9",
+          "CA",
+          "CB",
+          "CC",
+          "CD",
+          "CF",
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "D8",
+          "D9",
+          "DA",
+          "DB",
+          "DC",
+          "DD",
+          "DF",
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "E8",
+          "E9",
+          "EA",
+          "EB",
+          "EC",
+          "ED",
+          "EF",
+          "F0",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F7",
+          "F8",
+          "F9",
+          "FA",
+          "FB",
+          "FC",
+          "FD",
+          "FF"
+        ],
+        "description": [
+          "SET b,r",
+          "SET b,(IX+d),Reg, undocumented"
+        ],
+        "others": false
+      },
+      {
+        "id": 5,
+        "constant": "CG_05",
+        "opcodes": [
+          "C6",
+          "CE",
+          "D6",
+          "DE",
+          "E6",
+          "EE",
+          "F6",
+          "FE"
+        ],
+        "description": [
+          "SET b,(HL)"
+        ],
+        "others": false
+      },
+      {
+        "id": 6,
+        "constant": "CG_06",
+        "opcodes": [
+          "80",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "87",
+          "88",
+          "89",
+          "8A",
+          "8B",
+          "8C",
+          "8D",
+          "8F",
+          "90",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "97",
+          "98",
+          "99",
+          "9A",
+          "9B",
+          "9C",
+          "9D",
+          "9F",
+          "A0",
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "A8",
+          "A9",
+          "AA",
+          "AB",
+          "AC",
+          "AD",
+          "AF",
+          "B0",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B7",
+          "B8",
+          "B9",
+          "BA",
+          "BB",
+          "BC",
+          "BD",
+          "BF"
+        ],
+        "description": [
+          "RES b,r",
+          "RES b,(IX+d),Reg, undocumented"
+        ],
+        "others": false
+      },
+      {
+        "id": 7,
+        "constant": "CG_07",
+        "opcodes": [
+          "86",
+          "8E",
+          "96",
+          "9E",
+          "A6",
+          "AE",
+          "B6",
+          "BE"
+        ],
+        "description": [
+          "RES b,(HL)"
+        ],
+        "others": false
+      }
+    ],
+    "opcode_to_group": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      7,
+      6,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      5,
+      4
+    ],
+    "reset_group": 0
+  },
+  {
+    "page": "ED",
+    "bits": 5,
+    "groups": [
+      {
+        "id": 0,
+        "constant": "EG_00",
+        "opcodes": [
+          "84",
+          "8C",
+          "A4",
+          "AC",
+          "00",
+          "01",
+          "02",
+          "03",
+          "05",
+          "06",
+          "08",
+          "09",
+          "0A",
+          "0B",
+          "0D",
+          "0E",
+          "10",
+          "11",
+          "12",
+          "13",
+          "15",
+          "16",
+          "18",
+          "19",
+          "1A",
+          "1B",
+          "1D",
+          "1E",
+          "20",
+          "21",
+          "22",
+          "23",
+          "25",
+          "26",
+          "28",
+          "29",
+          "2A",
+          "2B",
+          "2D",
+          "2E",
+          "30",
+          "32",
+          "33",
+          "35",
+          "36",
+          "38",
+          "39",
+          "3A",
+          "3B",
+          "3D",
+          "80",
+          "81",
+          "82",
+          "83",
+          "85",
+          "86",
+          "87",
+          "88",
+          "89",
+          "8A",
+          "8B",
+          "8D",
+          "8E",
+          "8F",
+          "90",
+          "91",
+          "92",
+          "93",
+          "94",
+          "95",
+          "96",
+          "97",
+          "98",
+          "99",
+          "9A",
+          "9B",
+          "9C",
+          "9D",
+          "9E",
+          "9F",
+          "A5",
+          "A6",
+          "A7",
+          "AD",
+          "AE",
+          "AF",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "BC",
+          "BD",
+          "BE",
+          "BF",
+          "C0",
+          "C2",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C8",
+          "CA",
+          "CB",
+          "CC",
+          "CD",
+          "CE",
+          "CF",
+          "D0",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "DA",
+          "DB",
+          "DC",
+          "DD",
+          "DE",
+          "DF",
+          "E0",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "E8",
+          "E9",
+          "EA",
+          "EB",
+          "EC",
+          "ED",
+          "EE",
+          "EF",
+          "F0",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "FA",
+          "FB",
+          "FC",
+          "FD",
+          "FE",
+          "FF"
+        ],
+        "description": [
+          "NOP, undocumented",
+          "R16: pair-indirect transfers share the core's EX(SP) work registers."
+        ],
+        "others": false
+      },
+      {
+        "id": 1,
+        "constant": "EG_01",
+        "opcodes": [
+          "07",
+          "17",
+          "27",
+          "37",
+          "31",
+          "0F",
+          "1F",
+          "2F",
+          "3F",
+          "3E"
+        ],
+        "description": [],
+        "others": false
+      },
+      {
+        "id": 2,
+        "constant": "EG_02",
+        "opcodes": [
+          "04",
+          "0C",
+          "14",
+          "1C",
+          "24",
+          "2C",
+          "34",
+          "3C"
+        ],
+        "description": [
+          "R15.3: TST is an ED decode row, not a global override.",
+          "Disabled extensions retain the old undocumented NOPs."
+        ],
+        "others": false
+      },
+      {
+        "id": 3,
+        "constant": "EG_03",
+        "opcodes": [
+          "7E",
+          "7F"
+        ],
+        "description": [
+          "NOP, undocumented",
+          "8 BIT LOAD GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 4,
+        "constant": "EG_04",
+        "opcodes": [
+          "57"
+        ],
+        "description": [
+          "LD A,I"
+        ],
+        "others": false
+      },
+      {
+        "id": 5,
+        "constant": "EG_05",
+        "opcodes": [
+          "5F"
+        ],
+        "description": [
+          "LD A,R"
+        ],
+        "others": false
+      },
+      {
+        "id": 6,
+        "constant": "EG_06",
+        "opcodes": [
+          "47"
+        ],
+        "description": [
+          "LD I,A"
+        ],
+        "others": false
+      },
+      {
+        "id": 7,
+        "constant": "EG_07",
+        "opcodes": [
+          "4F"
+        ],
+        "description": [
+          "LD R,A",
+          "16 BIT LOAD GROUP"
+        ],
+        "others": false
+      },
+      {
+        "id": 8,
+        "constant": "EG_08",
+        "opcodes": [
+          "4B",
+          "5B",
+          "6B",
+          "7B"
+        ],
+        "description": [
+          "LD dd,(nn)"
+        ],
+        "others": false
+      },
+      {
+        "id": 9,
+        "constant": "EG_09",
+        "opcodes": [
+          "43",
+          "53",
+          "63",
+          "73"
+        ],
+        "description": [
+          "LD (nn),dd"
+        ],
+        "others": false
+      },
+      {
+        "id": 10,
+        "constant": "EG_10",
+        "opcodes": [
+          "A0",
+          "A8",
+          "B0",
+          "B8"
+        ],
+        "description": [
+          "LDI, LDD, LDIR, LDDR",
+          "BC",
+          "IX"
+        ],
+        "others": false
+      },
+      {
+        "id": 11,
+        "constant": "EG_11",
+        "opcodes": [
+          "A1",
+          "A9",
+          "B1",
+          "B9"
+        ],
+        "description": [
+          "CPI, CPD, CPIR, CPDR",
+          "BC"
+        ],
+        "others": false
+      },
+      {
+        "id": 12,
+        "constant": "EG_12",
+        "opcodes": [
+          "44",
+          "4C",
+          "54",
+          "5C",
+          "64",
+          "6C",
+          "74",
+          "7C"
+        ],
+        "description": [
+          "ED64 is TST A,n only while extensions are active.",
+          "R25 TSTIO: M2 holds immediate in existing TmpAddr.L,",
+          "M3 reads {00,C}; existing byte AND updates flags only."
+        ],
+        "others": false
+      },
+      {
+        "id": 13,
+        "constant": "EG_13",
+        "opcodes": [
+          "46",
+          "4E",
+          "66",
+          "6E"
+        ],
+        "description": [
+          "IM 0"
+        ],
+        "others": false
+      },
+      {
+        "id": 14,
+        "constant": "EG_14",
+        "opcodes": [
+          "56"
+        ],
+        "description": [
+          "IM 1 (ED56)"
+        ],
+        "others": false
+      },
+      {
+        "id": 15,
+        "constant": "EG_15",
+        "opcodes": [
+          "76"
+        ],
+        "description": [
+          "R20.6: SLP unsupported, execute as NOP when unlocked.",
+          "Locked Z80 retains its original ED76 IM1 alias."
+        ],
+        "others": false
+      },
+      {
+        "id": 16,
+        "constant": "EG_16",
+        "opcodes": [
+          "5E",
+          "77"
+        ],
+        "description": [
+          "IM 2",
+          "16 bit arithmetic"
+        ],
+        "others": false
+      },
+      {
+        "id": 17,
+        "constant": "EG_17",
+        "opcodes": [
+          "4A",
+          "5A",
+          "6A",
+          "7A"
+        ],
+        "description": [
+          "ADC HL,ss"
+        ],
+        "others": false
+      },
+      {
+        "id": 18,
+        "constant": "EG_18",
+        "opcodes": [
+          "42",
+          "52",
+          "62",
+          "72"
+        ],
+        "description": [
+          "SBC HL,ss"
+        ],
+        "others": false
+      },
+      {
+        "id": 19,
+        "constant": "EG_19",
+        "opcodes": [
+          "6F"
+        ],
+        "description": [
+          "RLD"
+        ],
+        "others": false
+      },
+      {
+        "id": 20,
+        "constant": "EG_20",
+        "opcodes": [
+          "67"
+        ],
+        "description": [
+          "RRD"
+        ],
+        "others": false
+      },
+      {
+        "id": 21,
+        "constant": "EG_21",
+        "opcodes": [
+          "45",
+          "4D",
+          "55",
+          "5D",
+          "65",
+          "6D",
+          "75",
+          "7D"
+        ],
+        "description": [
+          "RETI, RETN"
+        ],
+        "others": false
+      },
+      {
+        "id": 22,
+        "constant": "EG_22",
+        "opcodes": [
+          "40",
+          "48",
+          "50",
+          "58",
+          "60",
+          "68",
+          "70",
+          "78"
+        ],
+        "description": [
+          "IN r,(C)"
+        ],
+        "others": false
+      },
+      {
+        "id": 23,
+        "constant": "EG_23",
+        "opcodes": [
+          "41",
+          "49",
+          "51",
+          "59",
+          "61",
+          "69",
+          "71",
+          "79"
+        ],
+        "description": [
+          "OUT (C),r",
+          "OUT (C),0"
+        ],
+        "others": false
+      },
+      {
+        "id": 24,
+        "constant": "EG_24",
+        "opcodes": [
+          "A2",
+          "AA",
+          "B2",
+          "BA"
+        ],
+        "description": [
+          "INI, IND, INIR, INDR. R23.2: ED84/8C are NOP above.",
+          "0242a",
+          "0242a"
+        ],
+        "others": false
+      },
+      {
+        "id": 25,
+        "constant": "EG_25",
+        "opcodes": [
+          "A3",
+          "AB",
+          "B3",
+          "BB"
+        ],
+        "description": [
+          "OUTI, OUTD, OTIR, OTDR. R23.2: EDA4/AC are NOP above.",
+          "0242a",
+          "0242a"
+        ],
+        "others": false
+      },
+      {
+        "id": 26,
+        "constant": "EG_26",
+        "opcodes": [
+          "C1",
+          "C9",
+          "D1",
+          "D9"
+        ],
+        "description": [
+          "R800 MULUB"
+        ],
+        "others": false
+      },
+      {
+        "id": 27,
+        "constant": "EG_27",
+        "opcodes": [
+          "C3",
+          "F3"
+        ],
+        "description": [
+          "R800 MULUW"
+        ],
+        "others": false
+      }
+    ],
+    "opcode_to_group": [
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0,
+      0,
+      2,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      1,
+      1,
+      22,
+      23,
+      18,
+      9,
+      12,
+      21,
+      13,
+      6,
+      22,
+      23,
+      17,
+      8,
+      12,
+      21,
+      13,
+      7,
+      22,
+      23,
+      18,
+      9,
+      12,
+      21,
+      14,
+      4,
+      22,
+      23,
+      17,
+      8,
+      12,
+      21,
+      16,
+      5,
+      22,
+      23,
+      18,
+      9,
+      12,
+      21,
+      13,
+      20,
+      22,
+      23,
+      17,
+      8,
+      12,
+      21,
+      13,
+      19,
+      22,
+      23,
+      18,
+      9,
+      12,
+      21,
+      15,
+      16,
+      22,
+      23,
+      17,
+      8,
+      12,
+      21,
+      3,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      10,
+      11,
+      24,
+      25,
+      0,
+      0,
+      0,
+      0,
+      10,
+      11,
+      24,
+      25,
+      0,
+      0,
+      0,
+      0,
+      10,
+      11,
+      24,
+      25,
+      0,
+      0,
+      0,
+      0,
+      10,
+      11,
+      24,
+      25,
+      0,
+      0,
+      0,
+      0,
+      0,
+      26,
+      0,
+      27,
+      0,
+      0,
+      0,
+      0,
+      0,
+      26,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      26,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      26,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      27,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "reset_group": 0
+  }
+]

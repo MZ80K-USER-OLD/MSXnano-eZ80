@@ -1,3 +1,0 @@
-MSXnano T80/eZ80 restart R19
-ADL/MADL IM0 RST/CALL/NOP. Based on hardware-verified R18.3.
-GOWIN and board not verified. Timing not closed.

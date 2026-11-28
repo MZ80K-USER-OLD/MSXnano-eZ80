@@ -84,6 +84,9 @@ entity T80_MCode_eZ80 is
         port(
                 IR          : in std_logic_vector(7 downto 0);
                 Write_Class : in std_logic_vector(7 downto 0);
+                Base_Group : in base_group_t;
+                CB_Group : in cb_group_t;
+                ED_Group : in ed_group_t;
                 Exec_Control : in exec_control_t;
                 Interrupt_Long : in std_logic;
                 Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width : in std_logic;
@@ -191,7 +194,7 @@ architecture rtl of T80_MCode_eZ80 is
 
 begin
 
-        process (Exec_Control, Interrupt_Long, IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
+        process (Base_Group, CB_Group, ED_Group, Exec_Control, Interrupt_Long, IR, Write_Class, ISet, MCycle, F, NMICycle, IntCycle, XY_State, Ext_Active, Data_Long, Stream_Long, ADL_Mode, Has_Width, Interrupt_Mode, Branch_Condition)
                 variable DDD : std_logic_vector(2 downto 0);
                 variable SSS : std_logic_vector(2 downto 0);
                 variable Tst_Active, Indexed_Pair_Active, Block_IO2 : boolean;
@@ -281,21 +284,15 @@ begin
 --
 ------------------------------------------------------------------------------
 
-                case IRB is
+                case to_integer(unsigned(Base_Group)) is
 -- 8 BIT LOAD GROUP
-                when "01000000"|"01000001"|"01000010"|"01000011"|"01000100"|"01000101"|"01000111"
-                        |"01001000"|"01001001"|"01001010"|"01001011"|"01001100"|"01001101"|"01001111"
-                        |"01010000"|"01010001"|"01010010"|"01010011"|"01010100"|"01010101"|"01010111"
-                        |"01011000"|"01011001"|"01011010"|"01011011"|"01011100"|"01011101"|"01011111"
-                        |"01100000"|"01100001"|"01100010"|"01100011"|"01100100"|"01100101"|"01100111"
-                        |"01101000"|"01101001"|"01101010"|"01101011"|"01101100"|"01101101"|"01101111"
-                        |"01111000"|"01111001"|"01111010"|"01111011"|"01111100"|"01111101"|"01111111" =>
+                when 0 => -- BG_00
                         -- LD r,r'
                         Set_BusB_To(2 downto 0) <= SSS;
                         ExchangeRp <= '1';
                         Set_BusA_To(2 downto 0) <= DDD;
                         Read_To_Reg <= '1';
-                when "00000110"|"00001110"|"00010110"|"00011110"|"00100110"|"00101110"|"00111110" =>
+                when 1 => -- BG_01
                         -- LD r,n
                         MCycles <= "010";
                         case to_integer(unsigned(MCycle)) is
@@ -305,7 +302,7 @@ begin
                                 Read_To_Reg <= '1';
                         when others => null;
                         end case;
-                when "01000110"|"01001110"|"01010110"|"01011110"|"01100110"|"01101110"|"01111110" =>
+                when 2 => -- BG_02
                         -- LD r,(HL)
                         MCycles <= "010";
                         case to_integer(unsigned(MCycle)) is
@@ -316,7 +313,7 @@ begin
                                 Read_To_Reg <= '1';
                         when others => null;
                         end case;
-                when "01110000"|"01110001"|"01110010"|"01110011"|"01110100"|"01110101"|"01110111" =>
+                when 3 => -- BG_03
                         -- LD (HL),r
                         MCycles <= "010";
                         case to_integer(unsigned(MCycle)) is
@@ -328,7 +325,7 @@ begin
                                 Legacy_Write <= '1';
                         when others => null;
                         end case;
-                when "00110110" =>
+                when 4 => -- BG_04
                         -- LD (HL),n
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -341,7 +338,7 @@ begin
                                 Legacy_Write <= '1';
                         when others => null;
                         end case;
-                when "00001010" =>
+                when 5 => -- BG_05
                         -- LD A,(BC)
                         MCycles <= "010";
                         case to_integer(unsigned(MCycle)) is
@@ -351,7 +348,7 @@ begin
                                 Read_To_Acc <= '1';
                         when others => null;
                         end case;
-                when "00011010" =>
+                when 6 => -- BG_06
                         -- LD A,(DE)
                         MCycles <= "010";
                         case to_integer(unsigned(MCycle)) is
@@ -361,7 +358,7 @@ begin
                                 Read_To_Acc <= '1';
                         when others => null;
                         end case;
-                when "00111010" =>
+                when 7 => -- BG_07
                         if Mode = 3 then
                                 -- LDD A,(HL)
                                 MCycles <= "010";
@@ -388,7 +385,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "00000010" =>
+                when 8 => -- BG_08
                         -- LD (BC),A
                         MCycles <= "010";
                         case to_integer(unsigned(MCycle)) is
@@ -399,7 +396,7 @@ begin
                                 Legacy_Write <= '1';
                         when others => null;
                         end case;
-                when "00010010" =>
+                when 9 => -- BG_09
                         -- LD (DE),A
                         MCycles <= "010";
                         case to_integer(unsigned(MCycle)) is
@@ -410,7 +407,7 @@ begin
                                 Legacy_Write <= '1';
                         when others => null;
                         end case;
-                when "00110010" =>
+                when 10 => -- BG_10
                         if Mode = 3 then
                                 -- LDD (HL),A
                                 MCycles <= "010";
@@ -441,7 +438,7 @@ begin
                         end if;
 
 -- 16 BIT LOAD GROUP
-                when "00000001"|"00010001"|"00100001"|"00110001" =>
+                when 11 => -- BG_11
                         -- LD dd,nn
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -465,7 +462,7 @@ begin
                                 end if;
                         when others => null;
                         end case;
-                when "00101010" =>
+                when 12 => -- BG_12
                         if Mode = 3 then
                                 -- LDI A,(HL)
                                 MCycles <= "010";
@@ -499,7 +496,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "00100010" =>
+                when 13 => -- BG_13
                         if Mode = 3 then
                                 -- LDI (HL),A
                                 MCycles <= "010";
@@ -534,11 +531,11 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "11111001" =>
+                when 14 => -- BG_14
                         -- LD SP,HL
                         TStates <= "110";
                         LDSPHL <= '1';
-                when "11000101"|"11010101"|"11100101"|"11110101" =>
+                when 15 => -- BG_15
                         -- PUSH qq
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -568,7 +565,7 @@ begin
                                 Legacy_Write <= '1';
                         when others => null;
                         end case;
-                when "11000001"|"11010001"|"11100001"|"11110001" =>
+                when 16 => -- BG_16
                         -- POP qq
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -597,12 +594,12 @@ begin
                         end case;
 
 -- EXCHANGE, BLOCK TRANSFER AND SEARCH GROUP
-                when "11101011" =>
+                when 17 => -- BG_17
                         if Mode /= 3 then
                                 -- EX DE,HL
                                 ExchangeDH <= '1';
                         end if;
-                when "00001000" =>
+                when 18 => -- BG_18
                         if Mode = 3 then
                                 -- LD (nn),SP
                                 MCycles <= "101";
@@ -628,7 +625,7 @@ begin
                                 -- EX AF,AF'
                                 ExchangeAF <= '1';
                         end if;
-                when "11011001" =>
+                when 19 => -- BG_19
                         if Mode = 3 then
                                 -- RETI
                                 MCycles <= "011";
@@ -650,7 +647,7 @@ begin
                                 -- EXX
                                 ExchangeRS <= '1';
                         end if;
-                when "11100011" =>
+                when 20 => -- BG_20
                         if Mode /= 3 then
                                 -- EX (SP),HL
                                 MCycles <= "101";
@@ -681,14 +678,7 @@ begin
                         end if;
 
 -- 8 BIT ARITHMETIC AND LOGICAL GROUP
-                when "10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000111"
-                        |"10001000"|"10001001"|"10001010"|"10001011"|"10001100"|"10001101"|"10001111"
-                        |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010111"
-                        |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011111"
-                        |"10100000"|"10100001"|"10100010"|"10100011"|"10100100"|"10100101"|"10100111"
-                        |"10101000"|"10101001"|"10101010"|"10101011"|"10101100"|"10101101"|"10101111"
-                        |"10110000"|"10110001"|"10110010"|"10110011"|"10110100"|"10110101"|"10110111"
-                        |"10111000"|"10111001"|"10111010"|"10111011"|"10111100"|"10111101"|"10111111" =>
+                when 21 => -- BG_21
                         -- ADD A,r
                         -- ADC A,r
                         -- SUB A,r
@@ -701,7 +691,7 @@ begin
                         Set_BusA_To(2 downto 0) <= "111";
                         Read_To_Reg <= '1';
                         Save_ALU <= '1';
-                when "10000110"|"10001110"|"10010110"|"10011110"|"10100110"|"10101110"|"10110110"|"10111110" =>
+                when 22 => -- BG_22
                         -- ADD A,(HL)
                         -- ADC A,(HL)
                         -- SUB A,(HL)
@@ -721,7 +711,7 @@ begin
                                 Set_BusA_To(2 downto 0) <= "111";
                         when others => null;
                         end case;
-                when "11000110"|"11001110"|"11010110"|"11011110"|"11100110"|"11101110"|"11110110"|"11111110" =>
+                when 23 => -- BG_23
                         -- ADD A,n
                         -- ADC A,n
                         -- SUB A,n
@@ -738,7 +728,7 @@ begin
                                 Set_BusB_To(2 downto 0) <= SSS;
                                 Set_BusA_To(2 downto 0) <= "111";
                         end if;
-                when "00000100"|"00001100"|"00010100"|"00011100"|"00100100"|"00101100"|"00111100" =>
+                when 24 => -- BG_24
                         -- INC r
                         Set_BusB_To <= "1010";
                         Set_BusA_To(2 downto 0) <= DDD;
@@ -746,7 +736,7 @@ begin
                         Save_ALU <= '1';
                         PreserveC <= '1';
                         ALU_Op <= "0000";
-                when "00110100" =>
+                when 25 => -- BG_25
                         -- INC (HL)
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -765,7 +755,7 @@ begin
                                 Legacy_Write <= '1';
                         when others => null;
                         end case;
-                when "00000101"|"00001101"|"00010101"|"00011101"|"00100101"|"00101101"|"00111101" =>
+                when 26 => -- BG_26
                         -- DEC r
                         Set_BusB_To <= "1010";
                         Set_BusA_To(2 downto 0) <= DDD;
@@ -773,7 +763,7 @@ begin
                         Save_ALU <= '1';
                         PreserveC <= '1';
                         ALU_Op <= "0010";
-                when "00110101" =>
+                when 27 => -- BG_27
                         -- DEC (HL)
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -794,22 +784,22 @@ begin
                         end case;
 
 -- GENERAL PURPOSE ARITHMETIC AND CPU CONTROL GROUPS
-                when "00100111" =>
+                when 28 => -- BG_28
                         -- DAA
                         Set_BusA_To(2 downto 0) <= "111";
                         Read_To_Reg <= '1';
                         ALU_Op <= "1100";
                         Save_ALU <= '1';
-                when "00101111" =>
+                when 29 => -- BG_29
                         -- CPL
                         I_CPL <= '1';
-                when "00111111" =>
+                when 30 => -- BG_30
                         -- CCF
                         I_CCF <= '1';
-                when "00110111" =>
+                when 31 => -- BG_31
                         -- SCF
                         I_SCF <= '1';
-                when "00000000" =>
+                when 32 => -- BG_32
                         if NMICycle = '1' then
                                 -- NMI
                                 MCycles <= "011";
@@ -859,18 +849,18 @@ begin
                         else
                                 -- NOP
                         end if;
-                when "01110110" =>
+                when 33 => -- BG_33
                         -- HALT
                         Halt <= '1';
-                when "11110011" =>
+                when 34 => -- BG_34
                         -- DI
                         SetDI <= '1';
-                when "11111011" =>
+                when 35 => -- BG_35
                         -- EI
                         SetEI <= '1';
 
 -- 16 BIT ARITHMETIC GROUP
-                when "00001001"|"00011001"|"00101001"|"00111001" =>
+                when 36 => -- BG_36
                         -- ADD HL,ss
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -904,25 +894,19 @@ begin
                                 Arith16 <= '1';
                         when others =>
                         end case;
-                when "00000011"|"00010011"|"00100011"|"00110011" =>
+                when 37 => -- BG_37
                         -- INC ss
                         TStates <= "110";
                         IncDec_16(3 downto 2) <= "01";
                         IncDec_16(1 downto 0) <= DPair;
-                when "00001011"|"00011011"|"00101011"|"00111011" =>
+                when 38 => -- BG_38
                         -- DEC ss
                         TStates <= "110";
                         IncDec_16(3 downto 2) <= "11";
                         IncDec_16(1 downto 0) <= DPair;
 
 -- ROTATE AND SHIFT GROUP
-                when "00000111"
-                        -- RLCA
-                        |"00010111"
-                        -- RLA
-                        |"00001111"
-                        -- RRCA
-                        |"00011111" =>
+                when 39 => -- BG_39
                         -- RRA
                         Set_BusA_To(2 downto 0) <= "111";
                         ALU_Op <= "1000";
@@ -930,7 +914,7 @@ begin
                         Save_ALU <= '1';
 
 -- JUMP GROUP
-                when "11000011" =>
+                when 40 => -- BG_40
                         -- JP nn
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -942,7 +926,7 @@ begin
                                 Jump <= '1';
                         when others => null;
                         end case;
-                when "11000010"|"11001010"|"11010010"|"11011010"|"11100010"|"11101010"|"11110010"|"11111010" =>
+                when 41 => -- BG_41
                         if IR(5) = '1' and Mode = 3 then
                                 case IRB(4 downto 3) is
                                 when "00" =>
@@ -1013,7 +997,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "00011000" =>
+                when 42 => -- BG_42
                         if Mode /= 2 then
                                 -- JR e
                                 MCycles <= "011";
@@ -1027,7 +1011,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "00111000" =>
+                when 43 => -- BG_43
                         if Mode /= 2 then
                                 -- JR C,e
                                 MCycles <= "011";
@@ -1044,7 +1028,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "00110000" =>
+                when 44 => -- BG_44
                         if Mode /= 2 then
                                 -- JR NC,e
                                 MCycles <= "011";
@@ -1061,7 +1045,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "00101000" =>
+                when 45 => -- BG_45
                         if Mode /= 2 then
                                 -- JR Z,e
                                 MCycles <= "011";
@@ -1078,7 +1062,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "00100000" =>
+                when 46 => -- BG_46
                         if Mode /= 2 then
                                 -- JR NZ,e
                                 MCycles <= "011";
@@ -1095,10 +1079,10 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "11101001" =>
+                when 47 => -- BG_47
                         -- JP (HL)
                         JumpXY <= '1';
-                when "00010000" =>
+                when 48 => -- BG_48
                         if Mode = 3 then
                                 I_DJNZ <= '1';
                         elsif Mode < 2 then
@@ -1125,7 +1109,7 @@ begin
                         end if;
 
 -- CALL AND RETURN GROUP
-                when "11001101" =>
+                when 49 => -- BG_49
                         -- CALL nn
                         MCycles <= "101";
                         case to_integer(unsigned(MCycle)) is
@@ -1149,7 +1133,7 @@ begin
                                 Call <= '1';
                         when others => null;
                         end case;
-                when "11000100"|"11001100"|"11010100"|"11011100"|"11100100"|"11101100"|"11110100"|"11111100" =>
+                when 50 => -- BG_50
                         if IR(5) = '0' or Mode /= 3 then
                                 -- CALL cc,nn
                                 MCycles <= "101";
@@ -1179,7 +1163,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "11001001" =>
+                when 51 => -- BG_51
                         -- RET
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -1195,7 +1179,7 @@ begin
                                 IncDec_16 <= "0111";
                         when others => null;
                         end case;
-                when "11000000"|"11001000"|"11010000"|"11011000"|"11100000"|"11101000"|"11110000"|"11111000" =>
+                when 52 => -- BG_52
                         if IR(5) = '1' and Mode = 3 then
                                 case IRB(4 downto 3) is
                                 when "00" =>
@@ -1284,7 +1268,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "11000111"|"11001111"|"11010111"|"11011111"|"11100111"|"11101111"|"11110111"|"11111111" =>
+                when 53 => -- BG_53
                         -- RST p
                         MCycles <= "011";
                         case to_integer(unsigned(MCycle)) is
@@ -1305,7 +1289,7 @@ begin
                         end case;
 
 -- INPUT AND OUTPUT GROUP
-                when "11011011" =>
+                when 54 => -- BG_54
                         if Mode /= 3 then
                                 -- IN A,(n)
                                 MCycles <= "011";
@@ -1319,7 +1303,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                when "11010011" =>
+                when 55 => -- BG_55
                         if Mode /= 3 then
                                 -- OUT (n),A
                                 MCycles <= "011";
@@ -1341,21 +1325,22 @@ begin
 ------------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 
-                when "11001011" =>
+                when 56 => -- BG_56
                         if Mode /= 2 then
                                 Prefix <= "01";
                         end if;
 
-                when "11101101" =>
+                when 57 => -- BG_57
                         if Mode < 2 then
                                 Prefix <= "10";
                         end if;
 
-                when "11011101"|"11111101" =>
+                when 58 => -- BG_58
                         if Mode < 2 then
                                 Prefix <= "11";
                         end if;
 
+                when others => null;
                 end case;
                     end if; -- R17 indexed/legacy base decode
 
@@ -1370,15 +1355,8 @@ begin
             Set_BusA_To(2 downto 0) <= IR(2 downto 0);
             Set_BusB_To(2 downto 0) <= IR(2 downto 0);
 
-            case IRB is
-            when "00000000"|"00000001"|"00000010"|"00000011"|"00000100"|"00000101"|"00000111"
-                |"00010000"|"00010001"|"00010010"|"00010011"|"00010100"|"00010101"|"00010111"
-                |"00001000"|"00001001"|"00001010"|"00001011"|"00001100"|"00001101"|"00001111"
-                |"00011000"|"00011001"|"00011010"|"00011011"|"00011100"|"00011101"|"00011111"
-                |"00100000"|"00100001"|"00100010"|"00100011"|"00100100"|"00100101"|"00100111"
-                |"00101000"|"00101001"|"00101010"|"00101011"|"00101100"|"00101101"|"00101111"
-                |"00110000"|"00110001"|"00110010"|"00110011"|"00110100"|"00110101"|"00110111"
-                |"00111000"|"00111001"|"00111010"|"00111011"|"00111100"|"00111101"|"00111111" =>
+            case to_integer(unsigned(CB_Group)) is
+            when 0 => -- CG_00
                 -- RLC r
                 -- RL r
                 -- RRC r
@@ -1413,7 +1391,7 @@ begin
                 end if;
 
 
-            when "00000110"|"00010110"|"00001110"|"00011110"|"00101110"|"00111110"|"00100110"|"00110110" =>
+            when 1 => -- CG_01
                 -- RLC (HL)
                 -- RL (HL)
                 -- RRC (HL)
@@ -1436,14 +1414,7 @@ begin
                     Legacy_Write <= '1';
                 when others =>
                 end case;
-            when "01000000"|"01000001"|"01000010"|"01000011"|"01000100"|"01000101"|"01000111"
-                |"01001000"|"01001001"|"01001010"|"01001011"|"01001100"|"01001101"|"01001111"
-                |"01010000"|"01010001"|"01010010"|"01010011"|"01010100"|"01010101"|"01010111"
-                |"01011000"|"01011001"|"01011010"|"01011011"|"01011100"|"01011101"|"01011111"
-                |"01100000"|"01100001"|"01100010"|"01100011"|"01100100"|"01100101"|"01100111"
-                |"01101000"|"01101001"|"01101010"|"01101011"|"01101100"|"01101101"|"01101111"
-                |"01110000"|"01110001"|"01110010"|"01110011"|"01110100"|"01110101"|"01110111"
-                |"01111000"|"01111001"|"01111010"|"01111011"|"01111100"|"01111101"|"01111111" =>
+            when 2 => -- CG_02
                 -- BIT b,r
                 if XY_State="00" then
                     if MCycle = "001" then
@@ -1463,7 +1434,7 @@ begin
                     when others => null;
                     end case;
                 end if;
-            when "01000110"|"01001110"|"01010110"|"01011110"|"01100110"|"01101110"|"01110110"|"01111110" =>
+            when 3 => -- CG_03
                 -- BIT b,(HL)
                 MCycles <= "010";
                 case to_integer(unsigned(MCycle)) is
@@ -1474,14 +1445,7 @@ begin
                     TStates <= "100";
                 when others => null;
                 end case;
-            when "11000000"|"11000001"|"11000010"|"11000011"|"11000100"|"11000101"|"11000111"
-                |"11001000"|"11001001"|"11001010"|"11001011"|"11001100"|"11001101"|"11001111"
-                |"11010000"|"11010001"|"11010010"|"11010011"|"11010100"|"11010101"|"11010111"
-                |"11011000"|"11011001"|"11011010"|"11011011"|"11011100"|"11011101"|"11011111"
-                |"11100000"|"11100001"|"11100010"|"11100011"|"11100100"|"11100101"|"11100111"
-                |"11101000"|"11101001"|"11101010"|"11101011"|"11101100"|"11101101"|"11101111"
-                |"11110000"|"11110001"|"11110010"|"11110011"|"11110100"|"11110101"|"11110111"
-                |"11111000"|"11111001"|"11111010"|"11111011"|"11111100"|"11111101"|"11111111" =>
+            when 4 => -- CG_04
                 -- SET b,r
                 if XY_State="00" then
                     if MCycle = "001" then
@@ -1507,7 +1471,7 @@ begin
                     when others => null;
                     end case;
                 end if;
-            when "11000110"|"11001110"|"11010110"|"11011110"|"11100110"|"11101110"|"11110110"|"11111110" =>
+            when 5 => -- CG_05
                 -- SET b,(HL)
                 MCycles <= "011";
                 case to_integer(unsigned(MCycle)) is
@@ -1523,14 +1487,7 @@ begin
                     Legacy_Write <= '1';
                 when others => null;
                 end case;
-            when "10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000111"
-                |"10001000"|"10001001"|"10001010"|"10001011"|"10001100"|"10001101"|"10001111"
-                |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010111"
-                |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011111"
-                |"10100000"|"10100001"|"10100010"|"10100011"|"10100100"|"10100101"|"10100111"
-                |"10101000"|"10101001"|"10101010"|"10101011"|"10101100"|"10101101"|"10101111"
-                |"10110000"|"10110001"|"10110010"|"10110011"|"10110100"|"10110101"|"10110111"
-                |"10111000"|"10111001"|"10111010"|"10111011"|"10111100"|"10111101"|"10111111" =>
+            when 6 => -- CG_06
                 -- RES b,r
                 if XY_State="00" then
                     if MCycle = "001" then
@@ -1557,7 +1514,7 @@ begin
                     end case;
                 end if;
 
-            when "10000110"|"10001110"|"10010110"|"10011110"|"10100110"|"10101110"|"10110110"|"10111110" =>
+            when 7 => -- CG_07
                 -- RES b,(HL)
                 MCycles <= "011";
                 case to_integer(unsigned(MCycle)) is
@@ -1573,7 +1530,8 @@ begin
                     Legacy_Write <= '1';
                 when others => null;
                 end case;
-            end case;
+            when others => null;
+                end case;
 
         when others =>
 
@@ -1583,36 +1541,11 @@ begin
 --
 ------------------------------------------------------------------------------
 
-                        case IRB is
-                        when x"84"|x"8C"|x"A4"|x"AC"|"00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"
-                                |"00001000"|"00001001"|"00001010"|"00001011"|"00001101"|"00001110"
-                                |"00010000"|"00010001"|"00010010"|"00010011"|"00010101"|"00010110"
-                                |"00011000"|"00011001"|"00011010"|"00011011"|"00011101"|"00011110"
-                                |"00100000"|"00100001"|"00100010"|"00100011"|"00100101"|"00100110"
-                                |"00101000"|"00101001"|"00101010"|"00101011"|"00101101"|"00101110"
-                                |"00110000"|"00110010"|"00110011"|"00110101"|"00110110"
-                                |"00111000"|"00111001"|"00111010"|"00111011"|"00111101"
-
-
-                                |"10000000"|"10000001"|"10000010"|"10000011"|"10000101"|"10000110"|"10000111"
-                                |"10001000"|"10001001"|"10001010"|"10001011"|"10001101"|"10001110"|"10001111"
-                                |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010110"|"10010111"
-                                |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011110"|"10011111"
-                                |"10100101"|"10100110"|"10100111"
-                                |"10101101"|"10101110"|"10101111"
-                                |                                            "10110100"|"10110101"|"10110110"|"10110111"
-                                |                                            "10111100"|"10111101"|"10111110"|"10111111"
-                                |"11000000"|           "11000010"|           "11000100"|"11000101"|"11000110"|"11000111"
-                                |"11001000"|           "11001010"|"11001011"|"11001100"|"11001101"|"11001110"|"11001111"
-                                |"11010000"|           "11010010"|"11010011"|"11010100"|"11010101"|"11010110"|"11010111"
-                                |"11011000"|           "11011010"|"11011011"|"11011100"|"11011101"|"11011110"|"11011111"
-                                |"11100000"|"11100001"|"11100010"|"11100011"|"11100100"|"11100101"|"11100110"|"11100111"
-                                |"11101000"|"11101001"|"11101010"|"11101011"|"11101100"|"11101101"|"11101110"|"11101111"
-                                |"11110000"|"11110001"|"11110010"|           "11110100"|"11110101"|"11110110"|"11110111"
-                                |"11111000"|"11111001"|"11111010"|"11111011"|"11111100"|"11111101"|"11111110"|"11111111" =>
+                        case to_integer(unsigned(ED_Group)) is
+                        when 0 => -- EG_00
                                 null; -- NOP, undocumented
                         -- R16: pair-indirect transfers share the core's EX(SP) work registers.
-                        when x"07"|x"17"|x"27"|x"37"|x"31"|x"0F"|x"1F"|x"2F"|x"3F"|x"3E" =>
+                        when 1 => -- EG_01
                             if Exec_Control(EC_PAIR_IND)='1' and IntCycle='0' and NMICycle='0' then
                                 if Data_Long='1' then MCycles<="100";else MCycles<="011";end if;
                                 if MCycle="001" then TStates<="100";else TStates<="011";end if;
@@ -1621,8 +1554,7 @@ begin
                                     elsif MCycle="011" then Read_To_Reg<='1';Set_BusA_To<="0100";end if;
                                 end if;
                             end if;
-                        when "00000100"|"00001100"|"00010100"|"00011100"|
-                             "00100100"|"00101100"|"00110100"|"00111100" =>
+                        when 2 => -- EG_02
                                 -- R15.3: TST is an ED decode row, not a global override.
                                 -- Disabled extensions retain the old undocumented NOPs.
                                 if Tst_Active then
@@ -1634,28 +1566,28 @@ begin
                                         if MCycle="010" then Save_ALU<='1';end if;
                                     elsif MCycle="001" then Save_ALU<='1';end if;
                                 end if;
-                        when "01111110"|"01111111" =>
+                        when 3 => -- EG_03
                                 -- NOP, undocumented
                                 null;
 -- 8 BIT LOAD GROUP
-                        when "01010111" =>
+                        when 4 => -- EG_04
                                 -- LD A,I
                                 Special_LD <= "100";
                                 TStates <= "101";
-                        when "01011111" =>
+                        when 5 => -- EG_05
                                 -- LD A,R
                                 Special_LD <= "101";
                                 TStates <= "101";
-                        when "01000111" =>
+                        when 6 => -- EG_06
                                 -- LD I,A
                                 Special_LD <= "110";
                                 TStates <= "101";
-                        when "01001111" =>
+                        when 7 => -- EG_07
                                 -- LD R,A
                                 Special_LD <= "111";
                                 TStates <= "101";
 -- 16 BIT LOAD GROUP
-                        when "01001011"|"01011011"|"01101011"|"01111011" =>
+                        when 8 => -- EG_08
                                 -- LD dd,(nn)
                                 MCycles <= "101";
                                 case to_integer(unsigned(MCycle)) is
@@ -1686,7 +1618,7 @@ begin
                                         end if;
                                 when others => null;
                                 end case;
-                        when "01000011"|"01010011"|"01100011"|"01110011" =>
+                        when 9 => -- EG_09
                                 -- LD (nn),dd
                                 MCycles <= "101";
                                 case to_integer(unsigned(MCycle)) is
@@ -1719,7 +1651,7 @@ begin
                                         Legacy_Write <= '1';
                                 when others => null;
                                 end case;
-                        when "10100000" | "10101000" | "10110000" | "10111000" =>
+                        when 10 => -- EG_10
                                 -- LDI, LDD, LDIR, LDDR
                                 MCycles <= "100";
                                 case to_integer(unsigned(MCycle)) is
@@ -1750,7 +1682,7 @@ begin
                                         TStates <= "101";
                                 when others => null;
                                 end case;
-                        when "10100001" | "10101001" | "10110001" | "10111001" =>
+                        when 11 => -- EG_11
                                 -- CPI, CPD, CPIR, CPDR
                                 MCycles <= "100";
                                 case to_integer(unsigned(MCycle)) is
@@ -1778,7 +1710,7 @@ begin
                                         TStates <= "101";
                                 when others => null;
                                 end case;
-                        when "01000100"|"01001100"|"01010100"|"01011100"|"01100100"|"01101100"|"01110100"|"01111100" =>
+                        when 12 => -- EG_12
                                 -- ED64 is TST A,n only while extensions are active.
                                 if Tst_Active then
                                     ALU_Op<="0100";Set_BusA_To<="0111";Set_BusB_To<="0110";
@@ -1803,21 +1735,21 @@ begin
                                 Read_To_Acc <= '1';
                                 Save_ALU <= '1';
                                 end if;
-                        when "01000110"|"01001110"|"01100110"|"01101110" =>
+                        when 13 => -- EG_13
                                 -- IM 0
                                 IMode <= "00";
-                        when "01010110" =>
+                        when 14 => -- EG_14
                                 -- IM 1 (ED56)
                                 IMode <= "01";
-                        when "01110110" =>
+                        when 15 => -- EG_15
                                 -- R20.6: SLP unsupported, execute as NOP when unlocked.
                                 -- Locked Z80 retains its original ED76 IM1 alias.
                                 if Exec_Control(EC_EXT)='0' then IMode <= "01";end if;
-                        when "01011110"|"01110111" =>
+                        when 16 => -- EG_16
                                 -- IM 2
                                 IMode <= "10";
 -- 16 bit arithmetic
-                        when "01001010"|"01011010"|"01101010"|"01111010" =>
+                        when 17 => -- EG_17
                                 -- ADC HL,ss
                                 MCycles <= "011";
                                 case to_integer(unsigned(MCycle)) is
@@ -1850,7 +1782,7 @@ begin
                                         end case;
                                 when others =>
                                 end case;
-                        when "01000010"|"01010010"|"01100010"|"01110010" =>
+                        when 18 => -- EG_18
                                 -- SBC HL,ss
                                 MCycles <= "011";
                                 case to_integer(unsigned(MCycle)) is
@@ -1882,7 +1814,7 @@ begin
                                         end case;
                                 when others =>
                                 end case;
-                        when "01101111" =>
+                        when 19 => -- EG_19
                                 -- RLD
                                 MCycles <= "100";
                                 case to_integer(unsigned(MCycle)) is
@@ -1902,7 +1834,7 @@ begin
                                         Legacy_Write <= '1';
                                 when others =>
                                 end case;
-                        when "01100111" =>
+                        when 20 => -- EG_20
                                 -- RRD
                                 MCycles <= "100";
                                 case to_integer(unsigned(MCycle)) is
@@ -1921,7 +1853,7 @@ begin
                                         Legacy_Write <= '1';
                                 when others =>
                                 end case;
-                        when "01000101"|"01001101"|"01010101"|"01011101"|"01100101"|"01101101"|"01110101"|"01111101" =>
+                        when 21 => -- EG_21
                                 -- RETI, RETN
                                 MCycles <= "011";
                                 case to_integer(unsigned(MCycle)) is
@@ -1937,7 +1869,7 @@ begin
                                         I_RETN <= '1';
                                 when others => null;
                                 end case;
-                        when "01000000"|"01001000"|"01010000"|"01011000"|"01100000"|"01101000"|"01110000"|"01111000" =>
+                        when 22 => -- EG_22
                                 -- IN r,(C)
                                 MCycles <= "010";
                                 case to_integer(unsigned(MCycle)) is
@@ -1952,7 +1884,7 @@ begin
                                         I_INRC <= '1';
                                 when others =>
                                 end case;
-                        when "01000001"|"01001001"|"01010001"|"01011001"|"01100001"|"01101001"|"01110001"|"01111001" =>
+                        when 23 => -- EG_23
                                 -- OUT (C),r
                                 -- OUT (C),0
                                 MCycles <= "010";
@@ -1968,7 +1900,7 @@ begin
                                         IORQ <= '1';
                                 when others =>
                                 end case;
-                        when "10100010" | "10101010" | "10110010" | "10111010" =>
+                        when 24 => -- EG_24
                                 -- INI, IND, INIR, INDR. R23.2: ED84/8C are NOP above.
                                 if IR(2)='0' or Block_IO2 then
                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
@@ -2012,7 +1944,7 @@ begin
                                 when others => null;
                                 end case;
                         end if;
-                        when "10100011" | "10101011" | "10110011" | "10111011" =>
+                        when 25 => -- EG_25
                                 -- OUTI, OUTD, OTIR, OTDR. R23.2: EDA4/AC are NOP above.
                                 if IR(2)='0' or Block_IO2 then
                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
@@ -2056,13 +1988,14 @@ begin
                                 when others => null;
                                 end case;
                                 end if;
-                        when "11000001"|"11001001"|"11010001"|"11011001" =>
+                        when 26 => -- EG_26
                                 --R800 MULUB
                                 null;
-                        when "11000011"|"11110011" =>
+                        when 27 => -- EG_27
                                 --R800 MULUW
                                 null;
-                        end case;
+                        when others => null;
+                end case;
 
                 end case;
 
@@ -2143,14 +2076,14 @@ begin
                 if Exec_Control(EC_STACK)='1' and Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
                     MCycles<="100"; null;Read_To_Reg<='0';IncDec_16<="0000";Set_Addr_To<=aNone;
                     TStates<="011"; if MCycle="001" then TStates<="100";end if;
-                    if IR(3 downto 0)="0101" then
+                    if Exec_Control(EC_STACK_PUSH)='1' then
                         case to_integer(unsigned(MCycle)) is
                         when 1 => TStates<="101";IncDec_16<="1111";Set_Addr_To<=aSP;
-                            if DPair="11" then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
+                            if Exec_Control(EC_PAIR_SP)='1' then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
                         when 2 => null;IncDec_16<="1111";Set_Addr_To<=aSP;
-                            if DPair="11" then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
+                            if Exec_Control(EC_PAIR_SP)='1' then Set_BusB_To<="0111";else Set_BusB_To<='0' & DPair & '0';end if;
                         when 3 => null;IncDec_16<="1111";Set_Addr_To<=aSP;
-                            if DPair="11" then Set_BusB_To<="1011";else Set_BusB_To<='0' & DPair & '1';end if;
+                            if Exec_Control(EC_PAIR_SP)='1' then Set_BusB_To<="1011";else Set_BusB_To<='0' & DPair & '1';end if;
                         when 4 => null;
                         when others=>null;
                         end case;
@@ -2158,9 +2091,9 @@ begin
                         case to_integer(unsigned(MCycle)) is
                         when 1=>Set_Addr_To<=aSP;
                         when 2=>IncDec_16<="0111";Set_Addr_To<=aSP;Read_To_Reg<='1';
-                            if DPair="11" then Set_BusA_To<="1011";else Set_BusA_To<='0' & DPair & '1';end if;
+                            if Exec_Control(EC_PAIR_SP)='1' then Set_BusA_To<="1011";else Set_BusA_To<='0' & DPair & '1';end if;
                         when 3=>IncDec_16<="0111";Set_Addr_To<=aSP;Read_To_Reg<='1';
-                            if DPair="11" then Set_BusA_To<="0111";else Set_BusA_To<='0' & DPair & '0';end if;
+                            if Exec_Control(EC_PAIR_SP)='1' then Set_BusA_To<="0111";else Set_BusA_To<='0' & DPair & '0';end if;
                         when 4=>IncDec_16<="0111";
                         when others=>null;
                         end case;
@@ -2171,7 +2104,7 @@ begin
                 if Exec_Control(EC_PAIR_ABS)='1' and Exec_Control(EC_EXT_MODE0)='1' and IntCycle='0' and NMICycle='0' then
                     if Stream_Long='1' then lastaddr:=4;else lastaddr:=3;end if;
                     if Data_Long='1' then countdata:=3;else countdata:=2;end if;
-                    if ISet="00" then pairnum:="10";else pairnum:=IR(5 downto 4);end if;
+                    if Exec_Control(EC_PAGE_BASE)='1' then pairnum:="10";else pairnum:=IR(5 downto 4);end if;
                     cycle:=to_integer(unsigned(MCycle));reading:=IR(3)='1';
                     MCycles<=std_logic_vector(to_unsigned(lastaddr+countdata,3));
                     null;Read_To_Reg<='0';Read_To_Acc<='0';Inc_PC<='0';Inc_WZ<='0';LDZ<='0';LDW<='0';
@@ -2182,19 +2115,19 @@ begin
                     if cycle=4 and lastaddr=4 then Inc_PC<='1';end if;
                     if cycle=lastaddr then
                         Set_Addr_To<=aZI;
-                        if pairnum="11" then Set_BusB_To<="1000";else Set_BusB_To<='0' & pairnum & '1';end if;
+                        if Exec_Control(EC_ABS_SP)='1' then Set_BusB_To<="1000";else Set_BusB_To<='0' & pairnum & '1';end if;
                     elsif cycle>lastaddr then
                         if cycle<lastaddr+countdata then Inc_WZ<='1';Set_Addr_To<=aZI;end if;
                         if reading then
                             if cycle=lastaddr+1 then
-                                Read_To_Reg<='1';if pairnum="11" then Set_BusA_To<="1000";else Set_BusA_To<='0' & pairnum & '1';end if;
+                                Read_To_Reg<='1';if Exec_Control(EC_ABS_SP)='1' then Set_BusA_To<="1000";else Set_BusA_To<='0' & pairnum & '1';end if;
                             elsif cycle=lastaddr+2 then
-                                Read_To_Reg<='1';if pairnum="11" then Set_BusA_To<="1001";else Set_BusA_To<='0' & pairnum & '0';end if;
+                                Read_To_Reg<='1';if Exec_Control(EC_ABS_SP)='1' then Set_BusA_To<="1001";else Set_BusA_To<='0' & pairnum & '0';end if;
                             end if;
                         else
                             null;
                             if cycle=lastaddr+1 then
-                                if pairnum="11" then Set_BusB_To<="1001";else Set_BusB_To<='0' & pairnum & '0';end if;
+                                if Exec_Control(EC_ABS_SP)='1' then Set_BusB_To<="1001";else Set_BusB_To<='0' & pairnum & '0';end if;
                             elsif cycle=lastaddr+2 then Set_BusB_To<="1110";end if;
                         end if;
                     end if;
@@ -2212,7 +2145,7 @@ begin
                     if cycle=4 and lastaddr=4 then Inc_PC<='1';end if;
                     if cycle=lastaddr then Set_Addr_To<=aZI;Set_BusB_To<="0111";
                     elsif cycle=lastaddr+1 then
-                        if IR=x"32" then null;else Read_To_Acc<='1';end if;
+                        if Exec_Control(EC_BYTE_STORE)='1' then null;else Read_To_Acc<='1';end if;
                     end if;
                 end if;
                 -- R4 EX(SPL),HL/IX/IY. Read all 3 bytes, then write all 3 bytes.
@@ -2255,7 +2188,7 @@ begin
                     Jump<='0';JumpXY<='0';Call<='0';RstP<='0';I_RETN<='0';IMode<="11";
                     Set_BusA_To<="0111";Set_BusB_To<="0111";ALU_Op<="0000";
                     if MCycle="010" then Inc_PC<='1';TStates<="101";end if;
-                    if IR=x"65" or IR=x"66" then
+                    if Exec_Control(EC_PEA)='1' then
                         if Data_Long='1' then MCycles<="101";else MCycles<="100";end if;
                         if MCycle="010" or MCycle="011" or (MCycle="100" and Data_Long='1') then
                             IncDec_16<="1111";Set_Addr_To<=aSP;

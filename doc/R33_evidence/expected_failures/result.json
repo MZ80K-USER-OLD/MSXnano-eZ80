@@ -1,0 +1,12 @@
+[
+  {
+    "kind": 0,
+    "fault": "boundary disabled",
+    "expected_failure_detected": true
+  },
+  {
+    "kind": 1,
+    "fault": "zero detection disabled",
+    "expected_failure_detected": true
+  }
+]

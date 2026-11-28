@@ -1,4 +1,0 @@
-R29.1 recovery/diagnostic
-FPGA all 245 files byte-identical to R28
-New probes: EZ80MX0 / EZ80MX1 / EZ80MX2 / EZ80MA1
-GOWIN/board recovery pending

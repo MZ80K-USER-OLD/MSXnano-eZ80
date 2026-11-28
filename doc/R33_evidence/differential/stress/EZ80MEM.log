@@ -1,0 +1,6 @@
+COM stage 1 time=47270000
+COM stage 2 time=154710000
+EZ80MEM P1: PASS
+BUS_COMPARISONS=56023
+PASS differential_r27 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=1080
+R33_BLOCK_COVERAGE inc_wrap=0 dec_wrap=0 no_wrap=0 result_zero=0

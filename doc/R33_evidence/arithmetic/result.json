@@ -1,0 +1,7 @@
+{
+  "cases": 395776,
+  "actual_RTL_assignments": true,
+  "upper_exhaustive_at_boundary_classes": true,
+  "lower16_exhaustive_at_upper_wrap_classes": true,
+  "hardware": false
+}

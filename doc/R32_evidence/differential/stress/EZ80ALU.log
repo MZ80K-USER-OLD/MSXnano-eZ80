@@ -1,0 +1,4 @@
+COM stage 1 time=47270000
+EZ80ALU P1: PASS
+BUS_COMPARISONS=146615
+PASS differential_r27 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=2784

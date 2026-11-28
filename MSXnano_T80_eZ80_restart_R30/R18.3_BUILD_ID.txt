@@ -1,3 +1,0 @@
-MSXnano T80/eZ80 restart R18.3
-Registered RST start request at accepted fetch T3; original frame start at T4.
-Not hardware verified. Not timing closed.

@@ -1,0 +1,4 @@
+EZ80MX0 R29.1: START SETUP ONLY
+EZ80MX0 R29.1: PASS
+BUS_COMPARISONS=37613
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=0

@@ -1,0 +1,44 @@
+COM stage A time=100930000
+COM stage B time=262770000
+COM stage C time=427330000
+COM stage D time=608050000
+COM stage E time=784930000
+COM stage F time=946770000
+COM stage G time=1111330000
+COM stage H time=1292050000
+COM stage I time=1468930000
+COM stage J time=1630770000
+COM stage K time=1795330000
+COM stage L time=1972530000
+COM stage M time=2145890000
+COM stage N time=2311250000
+COM stage O time=2479330000
+COM stage P time=2663570000
+COM stage Q time=2843970000
+COM stage R time=3009330000
+COM stage S time=3177410000
+COM stage T time=3361650000
+COM stage U time=3542050000
+COM stage V time=3703890000
+COM stage W time=3868450000
+COM stage X time=4049170000
+COM stage Y time=4226050000
+COM stage Z time=4387890000
+COM stage A time=4552450000
+COM stage B time=4733170000
+COM stage C time=4910050000
+COM stage D time=5071890000
+COM stage E time=5236450000
+COM stage F time=5413650000
+COM stage G time=5587010000
+COM stage H time=5752370000
+COM stage I time=5920450000
+COM stage J time=6104690000
+COM stage K time=6285090000
+COM stage L time=6450450000
+COM stage M time=6618530000
+COM stage N time=6802770000
+EZ80LDX P2: PASS
+BUS_COMPARISONS=709381
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=56736
+R33_BLOCK_COVERAGE inc_wrap=0 dec_wrap=0 no_wrap=0 result_zero=0

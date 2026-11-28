@@ -203,7 +203,7 @@ architecture rtl of T80_eZ80 is
     signal Arith_Result : unsigned(23 downto 0);
     signal Arith_Overflow, Arith_Half, Arith_Carry_Out : std_logic;
     signal Block_Instruction, Block_Long, Instruction_Has_Width, Block_IO2 : std_logic;
-    signal Block_Inc_Result : unsigned(23 downto 0);
+    signal Pair_Low_Wrap, Block_Result_Zero : std_logic;
     signal Mul_Active, Mul_Commit, Mul_Reg_Commit : std_logic;
     signal Mul_Target : std_logic_vector(2 downto 0);
     signal Mul_Operand : unsigned(15 downto 0);
@@ -253,6 +253,9 @@ architecture rtl of T80_eZ80 is
     -- Help Registers
     signal TmpAddr          : std_logic_vector(15 downto 0);    -- Temporary address register
     signal IR               : std_logic_vector(7 downto 0);     -- Instruction register
+    signal Base_Group : base_group_t;
+    signal CB_Group : cb_group_t;
+    signal ED_Group : ed_group_t;
     signal ISet             : std_logic_vector(1 downto 0);     -- Instruction set selector
     signal RegBusA_r        : std_logic_vector(15 downto 0);
 
@@ -472,6 +475,7 @@ architecture rtl of T80_eZ80 is
             Flag_S => Flag_S)
         port map(
             IR => IR, Write_Class=>Write_Class,
+            Base_Group=>Base_Group, CB_Group=>CB_Group, ED_Group=>ED_Group,
             Exec_Control=>Exec_Control, Interrupt_Long=>IRQ_Long,
             Ext_Active=>Exec_Control(EC_EXT), Data_Long=>Data_Long, Stream_Long=>Stream_Long, ADL_Mode=>Exec_Control(EC_ADL_SNAPSHOT), Has_Width=>Exec_Control(EC_EXPLICIT_WIDTH), Flow_Cond=>Flow_Cond, Branch_Condition=>Branch_Condition, Interrupt_Mode=>IStatus,
             ISet => ISet,
@@ -568,7 +572,7 @@ architecture rtl of T80_eZ80 is
     Pair_Raw_Index<=Alternate & IR(5 downto 4);
     XY_Register_Index<=XY_State(1) & "11";
     HL_Resolved_Index<=XY_Register_Index when XY_State/="00" else Alternate & "10";
-    Load_Upper_Index<=HL_Resolved_Index when IR(5 downto 4)="10" else Pair_Raw_Index;
+    Load_Upper_Index<=HL_Resolved_Index when Exec_Control(EC_PAIR_HL)='1' else Pair_Raw_Index;
     Indexed_Address<=signed(Reg24C)+resize(signed(DI_Reg),24);
     Wide_Stack <= Exec_Control(EC_STACK) and Exec_Normal;
     Wide_IncDec <= Exec_Control(EC_INCDEC) and Exec_Normal;
@@ -580,12 +584,12 @@ architecture rtl of T80_eZ80 is
     Indirect_Offset<=1 when Pair_Indexed='1' else 0;
     Indirect_Opposite<=Exec_Control(EC_IND_OPPOSITE);
     Indirect_Read<='1' when Write_Class(7 downto 4)=x"B" else '0';
-    Indirect_Index<=(Indirect_Opposite xor (XY_State(1) and Pair_Indexed)) & "11" when IR(5 downto 4)="11" else Alternate & IR(5 downto 4);
+    Indirect_Index<=(Indirect_Opposite xor (XY_State(1) and Pair_Indexed)) & "11" when Exec_Control(EC_PAIR_SP)='1' else Alternate & IR(5 downto 4);
     Pair_Commit_Index<=Indirect_Index when Pair_Indirect='1' else Pair_Upper_Index;
     EX_SP_Address_Next<=EX_SP_Address+1;
     Pair_Read<=IR(3);
     Pair_Number<="10" when Exec_Control(EC_PAGE_BASE)='1' else IR(5 downto 4);
-    Pair_SP<='1' when Pair_Number="11" else '0';
+    Pair_SP<=Exec_Control(EC_ABS_SP);
     Pair_Upper_Index<=HL_Resolved_Index when Pair_Number="10" else Alternate & Pair_Number;
     Pair_Address_Last<=4 when Stream_Long='1' else 3;
     Byte_Absolute <= Exec_Control(EC_BYTE_ABS) and Exec_Normal;
@@ -596,7 +600,7 @@ architecture rtl of T80_eZ80 is
     -- M1/T3 prepares the first read before the M1/T4 address latch.
     Arith_Long <= Exec_Control(EC_ARITH) and Exec_Normal;
     Arith_Target<=HL_Resolved_Index when Exec_Control(EC_PAGE_BASE)='1' else Alternate & "10";
-    Arith_Source<=Arith_Target when IR(5 downto 4)="10" else Pair_Raw_Index;
+    Arith_Source<=Arith_Target when Exec_Control(EC_PAIR_HL)='1' else Pair_Raw_Index;
     Arith_Sub<=Exec_Control(EC_PAGE_ED) and not IR(3);
     Arith_Carry<=F(Flag_C) and Exec_Control(EC_PAGE_ED);
     Arith_Commit<='1' when Arith_Long='1' and MCycle="001" and TState=7 else '0';
@@ -612,14 +616,19 @@ architecture rtl of T80_eZ80 is
     Block_Instruction <= Exec_Control(EC_BLOCK) and Exec_Normal;
     Block_Long<=Block_Instruction and Data_Long;
     Block_IO2 <= Exec_Control(EC_IO2) and Exec_Normal;
-    Block_Inc_Result<=unsigned(Reg24A)-1 when IncDec_16(3)='1'
-        else unsigned(Reg24A)+1;
+    -- R33: upper-byte updates use a lower16 boundary test and the shared
+    -- 8-bit incrementer. No low16 carry chain feeds the upper data input.
+    Pair_Low_Wrap<='1' when (IncDec_16(3)='1' and RegBusA=x"0000") or
+        (IncDec_16(3)='0' and RegBusA=x"FFFF") else '0';
+    -- The increment/decrement result is zero only at these two inputs.
+    Block_Result_Zero<='1' when (IncDec_16(3)='1' and Reg24A=x"000001") or
+        (IncDec_16(3)='0' and Reg24A=x"FFFFFF") else '0';
     Mul_Active <= Exec_Control(EC_MUL) and Exec_Normal;
     Mul_Target<=Pair_Raw_Index;
-    Mul_Operand<=SPL(15 downto 0) when IR(5 downto 4)="11" and Data_Long='1' else
-        SP when IR(5 downto 4)="11" else unsigned(RegBusA);
+    Mul_Operand<=SPL(15 downto 0) when Exec_Control(EC_PAIR_SP)='1' and Data_Long='1' else
+        SP when Exec_Control(EC_PAIR_SP)='1' else unsigned(RegBusA);
     Mul_Commit<='1' when Mul_Active='1' and MCycle="001" and TState=7 else '0';
-    Mul_Reg_Commit<=Mul_Commit when IR(5 downto 4)/="11" else '0';
+    Mul_Reg_Commit<=Mul_Commit when Exec_Control(EC_PAIR_SP)='0' else '0';
     EA_Active <= Exec_Control(EC_EA) and Exec_Normal;
     PEA_Active <= Exec_Control(EC_PEA) and Exec_Normal;
     PEA_Long<=PEA_Active and Data_Long;
@@ -659,8 +668,7 @@ architecture rtl of T80_eZ80 is
 
     NextIs_XY_Fetch <= '1' when XY_State /= "00" and XY_Ind = '0' and
                             ((Set_Addr_To = aXY) or
-                            (MCycle = "001" and IR = "11001011") or
-                            (MCycle = "001" and IR = "00110110")) else '0';
+                            (MCycle = "001" and Exec_Control(EC_INDEX_FETCH)='1')) else '0';
 
     Save_Mux <= BusB when ExchangeRp = '1' else
         DI_Reg when Save_ALU_r = '0' else
@@ -675,13 +683,12 @@ architecture rtl of T80_eZ80 is
     Upper_Port_Events(1)<=LEA_Commit and Data_Long;
     Upper_Port_Events(2)<=Arith_Commit;
     Upper_Port_Events(3)<=EX_SP_Result_WE;
-    Upper_Port_Events(4)<='1' when Block_Long='1' and IncDec_16(2)='1' and
+    Upper_Port_Events(4)<='1' when Block_Long='1' and IncDec_16(2)='1' and Pair_Low_Wrap='1' and
         ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) else '0';
-    Upper_Port_Events(5)<='1' when Wide_IncDec='1' and MCycle="001" and TState=3 and IR(5 downto 4)/="11" and
-        ((IncDec_16(3)='1' and RegBusA=x"0000") or (IncDec_16(3)='0' and RegBusA=x"FFFF")) else '0';
-    Upper_Port_Events(6)<='1' when Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" else '0';
-    Upper_Port_Events(7)<='1' when Mode/=0 and TState=3 and IntCycle='0' and NMICycle='0' and Extensions_Enabled='1' and
-        ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" and IR(5 downto 4)/="11" and
+    Upper_Port_Events(5)<='1' when Wide_IncDec='1' and MCycle="001" and TState=3 and Exec_Control(EC_PAIR_SP)='0' and
+        Pair_Low_Wrap='1' else '0';
+    Upper_Port_Events(6)<='1' when Wide_Stack='1' and Exec_Control(EC_STACK_POP)='1' and MCycle="100" and TState=3 and Exec_Control(EC_PAIR_SP)='0' else '0';
+    Upper_Port_Events(7)<='1' when Mode/=0 and TState=3 and IntCycle='0' and NMICycle='0' and Exec_Control(EC_IMM_PAIR)='1' and Exec_Control(EC_PAIR_SP)='0' and
         ((MCycle="011" and Stream_Long='0' and Data_Long='1') or (MCycle="100" and Stream_Long='1')) else '0';
     Upper_Port_WE<='1' when Upper_Port_Events/=x"00" else '0';
     Upper_Port_Index<=Upper_Mask(Pair_Commit_Index,Upper_Port_Events(0)) or Upper_Mask(EA_Target,Upper_Port_Events(1)) or
@@ -693,7 +700,7 @@ architecture rtl of T80_eZ80 is
     Upper_Immediate_Byte<=DI_Reg when Stream_Long='1' and Data_Long='1' else x"00";
     Upper_Port_Data<=Upper_Mask(DI_Reg,Upper_Port_Events(0)) or Upper_Mask(EA_Result(23 downto 16),Upper_Port_Events(1)) or
         Upper_Mask(std_logic_vector(Arith_Result(23 downto 16)),Upper_Port_Events(2)) or Upper_Mask(EX_SP_Read(23 downto 16),Upper_Port_Events(3)) or
-        Upper_Mask(std_logic_vector(Block_Inc_Result(23 downto 16)),Upper_Port_Events(4)) or Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(5)) or
+        Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(4)) or Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(5)) or
         Upper_Mask(DI_Reg,Upper_Port_Events(6)) or Upper_Mask(Upper_Immediate_Byte,Upper_Port_Events(7));
 
 
@@ -724,7 +731,7 @@ architecture rtl of T80_eZ80 is
             Address_Reg <= (others => '0');
 			update_addr <= '0';
             TmpAddr <= (others => '0');
-            IR <= x"00"; Exec_Control<=(others=>'0'); Write_Class<=Classify_Write(x"00");
+            IR <= x"00";Base_Group<=Decode_Base_Group(x"00");CB_Group<=Decode_CB_Group(x"00");ED_Group<=Decode_ED_Group(x"00"); Exec_Control<=(others=>'0'); Write_Class<=Classify_Write(x"00");
             ISet <= "00";
             XY_State <= "00";
             IStatus <= "00";
@@ -811,7 +818,7 @@ architecture rtl of T80_eZ80 is
                 if Frame_End='1' then
                     -- The engine completes the instruction outside the normal T_Res path.
                     -- Discard its decoder state before fetching the return/entry target.
-                    IR<=x"00";ISet<="00";Exec_Control<=Decode_Execution(x"00", "00", "00", Extensions_Enabled, ADL_Mode, Data_Long, Stream_Long, '0', Mode);Write_Class<=Classify_Write(x"00");
+                    IR<=x"00";Base_Group<=Decode_Base_Group(x"00");CB_Group<=Decode_CB_Group(x"00");ED_Group<=Decode_ED_Group(x"00");ISet<="00";Exec_Control<=Decode_Execution(x"00", "00", "00", Extensions_Enabled, ADL_Mode, Data_Long, Stream_Long, '0', Mode);Write_Class<=Classify_Write(x"00");
                     Width_Pending<='0';Instruction_Has_Width<='0';
                     XY_State<="00";XY_Ind<='0';
                     Read_To_Reg_r<="00000";Save_ALU_r<='0';ALU_Op_r<="0000";
@@ -1059,7 +1066,7 @@ architecture rtl of T80_eZ80 is
                         Dec_XY:="00";
                         XY_Ind <= '0';
                     end if;
-                    IR<=Dec_Op;ISet<=Dec_Page;XY_State<=Dec_XY;
+                    IR<=Dec_Op;Base_Group<=Decode_Base_Group(Dec_Op);CB_Group<=Decode_CB_Group(Dec_Op);ED_Group<=Decode_ED_Group(Dec_Op);ISet<=Dec_Page;XY_State<=Dec_XY;
                     Data_Long<=Dec_Data;Stream_Long<=Dec_Stream;Instruction_Has_Width<=Dec_Has;
                     Write_Class<=Classify_Write(Dec_Op);
                     Exec_Control<=Decode_Execution(Dec_Op, Dec_Page, Dec_XY, Extensions_Enabled, ADL_Mode,
@@ -1186,7 +1193,7 @@ architecture rtl of T80_eZ80 is
 
                 if TState = 2 and Wait_n = '1' then
                     if ISet = "01" and MCycle = "111" then
-                        IR <= DInst;Write_Class<=Classify_Write(DInst);
+                        IR <= DInst;Base_Group<=Decode_Base_Group(DInst);CB_Group<=Decode_CB_Group(DInst);ED_Group<=Decode_ED_Group(DInst);Write_Class<=Classify_Write(DInst);
                         Exec_Control<=Decode_Execution(DInst, ISet, XY_State, Extensions_Enabled, ADL_Mode,
                                                        Data_Long, Stream_Long, Instruction_Has_Width, Mode);
                     end if;
@@ -1315,12 +1322,12 @@ architecture rtl of T80_eZ80 is
                 if TState=4 then Mul_Left<=Mul_Operand(15 downto 8);Mul_Right<=Mul_Operand(7 downto 0);end if;
                 if TState=5 then Mul_Product<=Mul_Left*Mul_Right;end if;
             end if;
-            if Mul_Commit='1' and IR(5 downto 4)="11" then
+            if Mul_Commit='1' and Exec_Control(EC_PAIR_SP)='1' then
                 if Data_Long='1' then SPL(15 downto 0)<=Mul_Product;else SP<=Mul_Product;end if;
             end if;
             if Arith_Long='1' and MCycle="001" and TState=4 then
                 Arith_Left<=unsigned(Reg24A);
-                if IR(5 downto 4)="11" then Arith_Right<=SPL;
+                if Exec_Control(EC_PAIR_SP)='1' then Arith_Right<=SPL;
                 else Arith_Right<=unsigned(Reg24B);end if;
                 Arith_Flags<=F;Arith_Sub_Latched<=Arith_Sub;Arith_Carry_Latched<=Arith_Carry;
                 Arith_Is_ADD<=Exec_Control(EC_PAGE_BASE);
@@ -1383,7 +1390,7 @@ architecture rtl of T80_eZ80 is
                 Load_SP<='0';EX_SP_Read<=(others=>'0');
                 if Exec_Control(EC_LOAD_IMM)='1' then
                     Load_Target<=Load_Upper_Index;Load_Start_Cycle:=2;
-                    if IR(5 downto 4)="11" then Load_SP<='1';end if;
+                    if Exec_Control(EC_PAIR_SP)='1' then Load_SP<='1';end if;
                 elsif Exec_Control(EC_LOAD_ABS)='1' then
                     Load_Target<=Pair_Upper_Index;Load_SP<=Pair_SP;
                     if Stream_Long='1' then Load_Start_Cycle:=5;else Load_Start_Cycle:=4;end if;
@@ -1410,22 +1417,22 @@ architecture rtl of T80_eZ80 is
                ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) then
                 null;
             end if;
-            if Wide_IncDec='1'   and MCycle="001" and TState=3 and IR(5 downto 4)/="11" then
+            if Wide_IncDec='1'   and MCycle="001" and TState=3 and Exec_Control(EC_PAIR_SP)='0' then
                 if IncDec_16(3)='1' and RegBusA=x"0000" then
                     null;
                 elsif IncDec_16(3)='0' and RegBusA=x"FFFF" then
                     null;
                 end if;
             end if;
-            if Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" then
+            if Wide_Stack='1' and Exec_Control(EC_STACK_POP)='1' and MCycle="100" and TState=3 and Exec_Control(EC_PAIR_SP)='0' then
                 null;
             end if;
-            if Mode/=0 and TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and Pair_Indexed='0' and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
+            if Mode/=0 and TState=3 and IntCycle='0'  and NMICycle='0' and Exec_Control(EC_IMM_PAIR)='1' and Pair_Indexed='0' then
                 if MCycle="011" and Stream_Long='0' and Data_Long='1' then
-                    if IR(5 downto 4)="11" then SPL(23 downto 16)<=(others=>'0');
+                    if Exec_Control(EC_PAIR_SP)='1' then SPL(23 downto 16)<=(others=>'0');
                     else null;end if;
                 elsif MCycle="100" and Stream_Long='1' then
-                    if IR(5 downto 4)="11" then
+                    if Exec_Control(EC_PAIR_SP)='1' then
                         if Data_Long='1' then SPL(23 downto 16)<=unsigned(DI_Reg);end if;
                     else
                         if Data_Long='1' then null;
@@ -1507,8 +1514,8 @@ architecture rtl of T80_eZ80 is
                     elsif to_integer(unsigned(MCycle))=3+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(15 downto 8);
                     elsif to_integer(unsigned(MCycle))=4+Indirect_Offset then Data_Out_Reg<=EX_SP_Source(23 downto 16);end if;
                 end if;
-                if Wide_Stack='1' and IR(3 downto 0)="0101" and MCycle="010" then
-                    if IR(5 downto 4)="11" then Data_Out_Reg<=x"00";
+                if Wide_Stack='1' and Exec_Control(EC_STACK_PUSH)='1' and MCycle="010" then
+                    if Exec_Control(EC_PAIR_SP)='1' then Data_Out_Reg<=x"00";
                     else Data_Out_Reg<=Reg24UpperU;end if;
                 end if;
                 if Ctrl_Call='1' then
@@ -1592,12 +1599,11 @@ architecture rtl of T80_eZ80 is
             end if;
 
             if Exec_Control(EC_MADL_OPCODE)='1' and Exec_Normal='1' and MCycle="001" and TState=4 then
-                if IR=x"7D" then MADL<='1';elsif IR=x"7E" then MADL<='0';end if;
+                MADL<=Exec_Control(EC_MADL_SET);
             end if;
             -- LD MB,A / LD A,MB are ADL-only; Z80 mode is a NOP.
             if Exec_Control(EC_MB_VALID)='1' and Exec_Normal='1' and MCycle="001" and TState=4 then
-                if IR=x"6D" then MBASE<=ACC;
-                elsif IR=x"6E" then ACC<=MBASE;end if;
+                if Exec_Control(EC_MB_WRITE)='1' then MBASE<=ACC;else ACC<=MBASE;end if;
             end if;
 
         end if;
@@ -1646,7 +1652,7 @@ architecture rtl of T80_eZ80 is
                 end if;
                 if (TState = 2 or (TState = 3 and MCycle = "001")) and IncDec_16(2 downto 0) = "100" then
                     if Block_Long='1' then
-                        if Block_Inc_Result=0 then IncDecZ<='0';else IncDecZ<='1';end if;
+                        IncDecZ <= not Block_Result_Zero;
                     elsif ID16 = 0 then
                         IncDecZ <= '0';
                     else
@@ -1968,7 +1974,7 @@ architecture rtl of T80_eZ80 is
                         if NextIs_XY_Fetch = '1' then
                             MCycle <= "110";
                             Pre_XY_F_M <= MCycle;
-                            if IR = "00110110" and Mode = 0 then
+                            if Exec_Control(EC_LD_MEM_IMM)='1' and Mode = 0 then
                                 Pre_XY_F_M <= "010";
                             end if;
                         elsif (MCycle = "111" and Pair_Absolute='0' and EX_SP_Long='0' and Ctrl_Stack='0') or

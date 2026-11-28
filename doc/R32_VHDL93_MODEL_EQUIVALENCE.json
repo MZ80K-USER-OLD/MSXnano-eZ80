@@ -1,0 +1,38 @@
+[
+  {
+    "model": "cpu_1.v",
+    "identical": true,
+    "normalization": "comments; equal-width internal wire aliases; generated internal net names",
+    "before_aliases": 415,
+    "after_aliases": 415,
+    "before_sha256": "759fb3055dbede77a60a26c315110d51f2e2194342620e14d1e1cd64e6fa059f",
+    "after_sha256": "759fb3055dbede77a60a26c315110d51f2e2194342620e14d1e1cd64e6fa059f"
+  },
+  {
+    "model": "cpu_diag.v",
+    "identical": true,
+    "normalization": "comments; equal-width internal wire aliases; generated internal net names",
+    "before_aliases": 419,
+    "after_aliases": 419,
+    "before_sha256": "982acbb81c915a2535717b5371991e5ad0fb8e93dc8532dd715c679f27334442",
+    "after_sha256": "982acbb81c915a2535717b5371991e5ad0fb8e93dc8532dd715c679f27334442"
+  },
+  {
+    "model": "cpu_0.v",
+    "identical": true,
+    "normalization": "comments; equal-width internal wire aliases; generated internal net names",
+    "before_aliases": 414,
+    "after_aliases": 414,
+    "before_sha256": "271c06cd971e7d348bb9193d7362bf78fdddb1370768899ebc9bdb53080487d7",
+    "after_sha256": "271c06cd971e7d348bb9193d7362bf78fdddb1370768899ebc9bdb53080487d7"
+  },
+  {
+    "model": "cpu_reference.v",
+    "identical": true,
+    "normalization": "comments; equal-width internal wire aliases; generated internal net names",
+    "before_aliases": 416,
+    "after_aliases": 416,
+    "before_sha256": "f33685182eb7fe53a5291e1556b15df1d648aa4aaa8ece25b9f144b042db9980",
+    "after_sha256": "f33685182eb7fe53a5291e1556b15df1d648aa4aaa8ece25b9f144b042db9980"
+  }
+]
