@@ -1,0 +1,4 @@
+R32 registered main opcode groups: Base59/6bit CB8/3bit ED28/5bit
+Baseline R31 user RUNALL/game PASS; retain R30 timing comparison
+No extra cycles; mandatory explicit internal group ports
+Gowin/PnR/board pending; SDC/CST unchanged

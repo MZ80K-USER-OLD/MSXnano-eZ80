@@ -1,0 +1,5 @@
+R36
+BASE=R33
+CHANGE=Remove frame-header upper-7-bit format validation and tag only; keep wrapper 8-bit input FF.
+NORMAL_PROJECT=fpga/project_eZ80/MSXNanoTang20K_eZ80.gprj
+GOWIN_AND_BOARD=NOT_YET_VERIFIED

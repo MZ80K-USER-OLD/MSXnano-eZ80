@@ -1,0 +1,174 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -175,6 +175,12 @@
+     signal Indirect_Offset : integer range 0 to 1;
+     signal Indirect_Index, Pair_Commit_Index : std_logic_vector(2 downto 0);
+     signal Pair_Absolute, Pair_Read, Pair_SP : std_logic;
++    -- R24.2: EX_SP_Read is the shared 24-bit collection work register.
++    signal Load_Active, Load_Commit, Load_Three, Load_SP : std_logic;
++    signal Load_Target : std_logic_vector(2 downto 0);
++    signal Load_First, Load_Last : unsigned(2 downto 0);
++    signal Load_Result : std_logic_vector(23 downto 0);
++    signal Load_Mask : std_logic_vector(2 downto 0);
+     signal Pair_Number : std_logic_vector(1 downto 0);
+     signal Pair_Upper_Index : std_logic_vector(2 downto 0);
+     signal Pair_Address_Last : integer range 3 to 4;
+@@ -541,6 +547,16 @@
+             F_Out => F_Out);
+ 
+     Exec_Normal <= not (IntCycle or NMICycle);
++    Load_Active<=(Exec_Control(EC_LOAD_IMM) or Exec_Control(EC_LOAD_ABS) or Exec_Control(EC_LOAD_IND)) and Exec_Normal;
++    -- Data_Long/Stream_Long are already registered with the instruction.
++    Load_Three<=Stream_Long when Exec_Control(EC_LOAD_IMM)='1' else Data_Long;
++    Load_Commit<=Load_Active when unsigned(MCycle)=Load_Last and TState=3 else '0';
++    -- Bypass the final accepted byte to the commit port: no extra T-state.
++    Load_Result<=DI_Reg & EX_SP_Read(15 downto 0) when Load_Three='1' and Data_Long='1' else
++                 x"00" & EX_SP_Read(15 downto 0) when Load_Three='1' else
++                 x"00" & DI_Reg & EX_SP_Read(7 downto 0);
++    Load_Mask<=(Data_Long or (Exec_Control(EC_LOAD_IMM) and Stream_Long)) & "11";
++
+     Load_Upper_Index<=XY_State(1) & "11" when IR(5 downto 4)="10" and XY_State/="00" else Alternate & IR(5 downto 4);
+     Indexed_Address<=signed(Reg24C)+resize(signed(DI_Reg),24);
+     Wide_Stack <= Exec_Control(EC_STACK) and Exec_Normal;
+@@ -642,7 +658,8 @@
+     -- R11.10: ordinary upper-byte commits share one combinational write port.
+     -- These eight events belong to disjoint opcode families. No pipeline
+     -- stage is added: the original enabled rising edge performs the commit.
+-    Upper_Port_Events(0)<='1' when Pair_Indirect='1' and Indirect_Read='1' and Data_Long='1' and to_integer(unsigned(MCycle))=4+Indirect_Offset and TState=3 else '1' when Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
++    -- Mode0 pair reads now use the common final commit, including the upper byte.
++    Upper_Port_Events(0)<='1' when Mode/=0 and Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and Pair_SP='0' and
+         TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 else '0';
+     Upper_Port_Events(1)<=LEA_Commit and Data_Long;
+     Upper_Port_Events(2)<=Arith_Commit;
+@@ -652,7 +669,7 @@
+     Upper_Port_Events(5)<='1' when Wide_IncDec='1' and MCycle="001" and TState=3 and IR(5 downto 4)/="11" and
+         ((IncDec_16(3)='1' and RegBusA=x"0000") or (IncDec_16(3)='0' and RegBusA=x"FFFF")) else '0';
+     Upper_Port_Events(6)<='1' when Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" else '0';
+-    Upper_Port_Events(7)<='1' when TState=3 and IntCycle='0' and NMICycle='0' and Extensions_Enabled='1' and
++    Upper_Port_Events(7)<='1' when Mode/=0 and TState=3 and IntCycle='0' and NMICycle='0' and Extensions_Enabled='1' and
+         ISet="00" and IR(7 downto 6)="00" and IR(3 downto 0)="0001" and IR(5 downto 4)/="11" and
+         ((MCycle="011" and Stream_Long='0' and Data_Long='1') or (MCycle="100" and Stream_Long='1')) else '0';
+     Upper_Port_WE<='1' when Upper_Port_Events/=x"00" else '0';
+@@ -673,8 +690,10 @@
+         variable Dec_Op : std_logic_vector(7 downto 0);
+         variable Dec_Page, Dec_XY : std_logic_vector(1 downto 0);
+         variable Dec_Data, Dec_Stream, Dec_Has : std_logic;
++        variable Load_Start_Cycle : natural range 2 to 5;
+     begin
+         if RESET_n = '0' then
++            Load_Target<=(others=>'0');Load_SP<='0';Load_First<=(others=>'0');Load_Last<=(others=>'0');
+             MADL<='0';Frame_Is_Call<='0';Frame_SPS<='0';Frame_State<=frame_idle;Frame_TS<=to_unsigned(1,3);Frame_Count<=0;
+             Frame_Mode_Bit<='0';Frame_IM2<='0';Frame_RetN<='0';
+             Mul_Left<=(others=>'0');Mul_Right<=(others=>'0');Mul_Product<=(others=>'0');
+@@ -1208,7 +1227,7 @@
+                 null;
+                 null;
+             end if;
+-            if Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 then
++            if Mode/=0 and Pair_Absolute='1' and Pair_Read='1' and Data_Long='1' and TState=3 and to_integer(unsigned(MCycle))=Pair_Address_Last+3 then
+                 if Pair_SP='1' then SPL(23 downto 16)<=unsigned(DI_Reg);
+                 else null;end if;
+             end if;
+@@ -1342,6 +1361,31 @@
+                 end case;
+             end if;
+             if EX_SP_Result_WE='1' then null;end if;
++            if Load_Active='1' and MCycle="001" and TState=3 then
++                Load_SP<='0';EX_SP_Read<=(others=>'0');
++                if Exec_Control(EC_LOAD_IMM)='1' then
++                    Load_Target<=Load_Upper_Index;Load_Start_Cycle:=2;
++                    if IR(5 downto 4)="11" then Load_SP<='1';end if;
++                elsif Exec_Control(EC_LOAD_ABS)='1' then
++                    Load_Target<=Pair_Upper_Index;Load_SP<=Pair_SP;
++                    if Stream_Long='1' then Load_Start_Cycle:=5;else Load_Start_Cycle:=4;end if;
++                else
++                    Load_Target<=Indirect_Index;Load_Start_Cycle:=2+Indirect_Offset;
++                end if;
++                Load_First<=to_unsigned(Load_Start_Cycle,3);
++                if Load_Three='1' then Load_Last<=to_unsigned(Load_Start_Cycle+2,3);
++                else Load_Last<=to_unsigned(Load_Start_Cycle+1,3);end if;
++            end if;
++            if Load_Active='1' and TState=3 then
++                if unsigned(MCycle)=Load_First then EX_SP_Read(7 downto 0)<=DI_Reg;
++                elsif unsigned(MCycle)=Load_First+1 then EX_SP_Read(15 downto 8)<=DI_Reg;
++                elsif unsigned(MCycle)=Load_Last then EX_SP_Read(23 downto 16)<=DI_Reg;end if;
++            end if;
++            if Load_Commit='1' and Load_SP='1' then
++                if Data_Long='1' then SPL<=unsigned(Load_Result);
++                else SP<=unsigned(Load_Result(15 downto 0));end if;
++            end if;
++
+             -- Use exactly the original lower16 register Write_Decode edge: once per byte,
+             -- never while T2 is held by WAIT. BC decrements in M1/T3; HL/DE in data T2.
+             if Block_Long='1' and IncDec_16(2)='1' and
+@@ -1358,7 +1402,7 @@
+             if Wide_Stack='1' and IR(3 downto 0)="0001" and MCycle="100" and TState=3 and IR(5 downto 4)/="11" then
+                 null;
+             end if;
+-            if TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and Pair_Indexed='0' and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
++            if Mode/=0 and TState=3 and IntCycle='0'  and NMICycle='0' and Extensions_Enabled='1' and ISet="00" and Pair_Indexed='0' and IR(7 downto 6)="00" and IR(3 downto 0)="0001" then
+                 if MCycle="011" and Stream_Long='0' and Data_Long='1' then
+                     if IR(5 downto 4)="11" then SPL(23 downto 16)<=(others=>'0');
+                     else null;end if;
+@@ -1673,9 +1717,10 @@
+         end if;
+     end process;
+ 
+-    Reg24DI<=Upper_Port_Data & RegDIH & RegDIL;
+-    Reg24Mask<=Upper_Port_WE & RegWEH & RegWEL;
+-    Reg24AddrW<=Upper_Port_Index when Upper_Port_WE='1' else RegAddrA;
++    Reg24DI<=Load_Result when Load_Commit='1' else Upper_Port_Data & RegDIH & RegDIL;
++    Reg24Mask<=Load_Mask when Load_Commit='1' and Load_SP='0' else
++               "000" when Load_Commit='1' else Upper_Port_WE & RegWEH & RegWEL;
++    Reg24AddrW<=Load_Target when Load_Commit='1' else Upper_Port_Index when Upper_Port_WE='1' else RegAddrA;
+     Reg24AddrU<=Pair_Upper_Index when Pair_Absolute='1' else Stack_Upper_Index;
+     Reg24Exchange<=Exec_Control(EC_DATA_LONG) and ExchangeDH when TState=3 else '0';
+     RegBusA<=Reg24A(15 downto 0);
+--- a/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -2345,6 +2345,11 @@
+                     IncDec_16<="0000";Read_To_Reg<='0';Read_To_Acc<='0';Save_ALU<='0';Set_Addr_To<=aNone;
+                 end if;
+                 end if; -- R17: legacy XY/extension overrides
++                -- R24.2: read requests and cycle counts are unchanged. The pair
++                -- collector performs one architectural write at the final byte.
++                if (Exec_Control(EC_LOAD_IMM)='1' or Exec_Control(EC_LOAD_ABS)='1' or Exec_Control(EC_LOAD_IND)='1') and IntCycle='0' and NMICycle='0' then
++                    Read_To_Reg<='0';Set_BusA_To<="0000";
++                end if;
+         end process;
+ 
+     -- The legacy writer is unchanged. Extension overrides select one opcode
+--- a/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -57,7 +57,7 @@
+ 
+ package T80_eZ80_Pack is
+     -- R24: instruction-static execution descriptor, captured with IR.
+-    subtype exec_control_t is std_logic_vector(49 downto 0);
++    subtype exec_control_t is std_logic_vector(52 downto 0);
+     constant EC_EX_SP : natural := 0;
+     constant EC_STACK : natural := 1;
+     constant EC_INCDEC : natural := 2;
+@@ -108,6 +108,9 @@
+     constant EC_UNCOND_FLOW:natural:=47;
+     constant EC_JP_ALWAYS:natural:=48;
+     constant EC_RETN_OPCODE:natural:=49;
++    constant EC_LOAD_IMM:natural:=50;
++    constant EC_LOAD_ABS:natural:=51;
++    constant EC_LOAD_IND:natural:=52;
+     function Decode_Execution(op: std_logic_vector(7 downto 0); pg, xy: std_logic_vector(1 downto 0); ex, adl, dl, sl, hw: std_logic; mode_id: integer) return exec_control_t;
+     function Classify_Write(op : std_logic_vector(7 downto 0)) return std_logic_vector;
+ 
+@@ -358,6 +361,12 @@
+         if op=x"CD" or op=x"C9" then c(EC_UNCOND_FLOW):='1';end if;
+         if op=x"C3" then c(EC_JP_ALWAYS):='1';end if;
+         if op=x"45" then c(EC_RETN_OPCODE):='1';end if;
++        -- R24.2: terminal-opcode qualifiers for the common pair-load collector.
++        if mode_id=0 and ex='1' then
++            if pg="00" and op(7 downto 6)="00" and op(3 downto 0)="0001" and c(EC_PAIR_INDEX)='0' then c(EC_LOAD_IMM):='1';end if;
++            if op(3)='1' and ((pg="00" and raw(4)='1') or (pg="10" and raw(5)='1')) then c(EC_LOAD_ABS):='1';end if;
++            if c(EC_PAIR_IND)='1' and w(7 downto 4)=x"B" then c(EC_LOAD_IND):='1';end if;
++        end if;
+         return c;
+     end function;
+ 

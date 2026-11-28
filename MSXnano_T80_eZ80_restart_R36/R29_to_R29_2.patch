@@ -1,0 +1,22 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -115,7 +115,7 @@
+         IntCycle_n  : out std_logic;
+         IntE        : out std_logic;
+         Stop        : out std_logic;
+-        DI_FRAME_VALID : in std_logic := '0' -- sampled alongside DI when predecode enabled
++        DI_FRAME_VALID : in std_logic -- sampled alongside DI when predecode enabled
+     );
+     -- GOWIN SUG550: avoid a clocked BSRAM ROM on the CPU control path.
+     attribute syn_romstyle : string;
+--- a/fpga/G80A_eZ80/t80_pack_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_pack_ez80.vhd
+@@ -160,7 +160,7 @@
+         IntCycle_n  : out std_logic;
+         IntE        : out std_logic;
+         Stop        : out std_logic;
+-        DI_FRAME_VALID : in std_logic := '0' -- sampled alongside DI when predecode enabled
++        DI_FRAME_VALID : in std_logic -- sampled alongside DI when predecode enabled
+     );
+     end component;
+ 

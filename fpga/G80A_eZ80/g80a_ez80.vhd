@@ -145,7 +145,6 @@ architecture rtl of G80A_eZ80 is
     signal Prepared_Bank : std_logic_vector(7 downto 0);
     signal Prepared_Extended, Prepared_IO, Prepared_Write : std_logic;
     signal Prepared_RD, Prepared_MREQ, Prepared_IORQ_n, Prepared_WR_n : std_logic;
-    signal DI_Frame_Valid_Reg : std_logic; -- R29: same capture/hold as DI_Reg
     signal DI_Reg       : std_logic_vector (7 downto 0);    -- Input synchroniser
     signal Wait_s       : std_logic;
     signal MCycle       : std_logic_vector(2 downto 0);
@@ -350,7 +349,6 @@ begin
     u0 : T80_eZ80
         generic map(
             DATA_EXTENDED=>DATA_EXTENDED,
-            INPUT_FRAME_PREDECODE => true,
             Mode => Mode,
             IOWait => IOWait)
         port map(
@@ -372,7 +370,6 @@ begin
 			update_addr => update_addr,
             DInst => Instruction_Data,
             DI => DI_Reg,
-            DI_FRAME_VALID => DI_Frame_Valid_Reg,
             DO => Core_DO,
             MC => MCycle,
             TS => TState,
@@ -392,8 +389,6 @@ begin
                     elsif DIAGNOSTICS and Diag_Active='1' and IntCycle_n='0' and MCycle="001" then Input_Byte:=Diag_IACK_Byte;
                     else Input_Byte := to_x01(DI);end if;
                     DI_Reg <= Input_Byte;
-                    if Input_Byte(7 downto 1)="0000001" then DI_Frame_Valid_Reg<='1';
-                    else DI_Frame_Valid_Reg<='0';end if;
 				end if;
 			end if;
         end if;

@@ -1,0 +1,46 @@
+--- R21.3/fpga/G80A_eZ80/g80a_ez80.vhd
++++ R23.2/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -246,8 +246,8 @@
+             when x"FB"=>if DIAGNOSTICS then Diag_Read<=x"03";end if;
+             when x"FC"=>if DIAGNOSTICS then Diag_Read<=x"FC";end if;
+             when x"FD"|x"FE"=>if DIAGNOSTICS then Diag_Read<=Trace_Data;end if;
+-            when x"F8"=>Diag_Read<=x"01"; -- R21 single-step extended block I/O
+-            when x"F9"=>Diag_Read<=x"FE";
++            when x"F8"=>Diag_Read<=x"00"; -- R23.2: IO2 execution removed
++            when x"F9"=>Diag_Read<=x"FF";
+             when x"FA"=>if DIAGNOSTICS and Diag_Active='1' then Diag_Read<=Diag_IO_Signature;end if;
+             when x"CE"=>Diag_Read<=x"02"; -- R20.6 unsupported SLP executes as NOP
+             when x"CF"=>Diag_Read<=x"FD";
+--- R21.3/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ R23.2/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -1587,7 +1587,7 @@
+ ------------------------------------------------------------------------------
+ 
+                         case IRB is
+-                        when "00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"
++                        when x"84"|x"8C"|x"A4"|x"AC"|"00000000"|"00000001"|"00000010"|"00000011"|"00000101"|"00000110"
+                                 |"00001000"|"00001001"|"00001010"|"00001011"|"00001101"|"00001110"
+                                 |"00010000"|"00010001"|"00010010"|"00010011"|"00010101"|"00010110"
+                                 |"00011000"|"00011001"|"00011010"|"00011011"|"00011101"|"00011110"
+@@ -1960,8 +1960,8 @@
+                                         IORQ <= '1';
+                                 when others =>
+                                 end case;
+-                        when "10100010" | "10101010" | "10110010" | "10111010" | "10000100" | "10001100" =>
+-                                -- INI, IND, INIR, INDR; unlocked INI2/IND2.
++                        when "10100010" | "10101010" | "10110010" | "10111010" =>
++                                -- INI, IND, INIR, INDR. R23.2: ED84/8C are NOP above.
+                                 if IR(2)='0' or Block_IO2 then
+                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
+                                 case to_integer(unsigned(MCycle)) is
+@@ -2004,8 +2004,8 @@
+                                 when others => null;
+                                 end case;
+                         end if;
+-                        when "10100011" | "10101011" | "10110011" | "10111011" | "10100100" | "10101100" =>
+-                                -- OUTI, OUTD, OTIR, OTDR; unlocked OUTI2/OUTD2.
++                        when "10100011" | "10101011" | "10110011" | "10111011" =>
++                                -- OUTI, OUTD, OTIR, OTDR. R23.2: EDA4/AC are NOP above.
+                                 if IR(2)='0' or Block_IO2 then
+                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
+                                 case to_integer(unsigned(MCycle)) is

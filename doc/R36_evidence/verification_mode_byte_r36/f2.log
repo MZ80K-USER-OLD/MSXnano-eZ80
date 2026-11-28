@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/r36-work/MSXnano_T80_eZ80_restart_R36/sim/tb_mode_byte_r36.sv:34: return path mismatch byte=00 stream=1 actual=6 expected=4
+       Time: 4373140 Scope: tb_mode_byte_r36

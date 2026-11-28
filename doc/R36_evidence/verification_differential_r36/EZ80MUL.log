@@ -1,0 +1,6 @@
+COM stage 1 time=33330000
+COM stage 2 time=336930000
+EZ80MUL P1: PASS
+BUS_COMPARISONS=58925
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=0
+R36_INPUT_COVERAGE captures=2120

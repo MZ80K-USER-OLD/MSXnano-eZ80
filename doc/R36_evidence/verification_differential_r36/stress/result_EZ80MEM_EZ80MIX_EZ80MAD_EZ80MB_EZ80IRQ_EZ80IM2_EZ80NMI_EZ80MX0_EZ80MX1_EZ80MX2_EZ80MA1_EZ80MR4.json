@@ -1,0 +1,80 @@
+{
+  "cases": [
+    {
+      "COM": "EZ80MEM",
+      "passed": true,
+      "sha256": "b55c88d01325afe073d5562810dc43a133a811a8edf71709a8d02ecddcc6a9ff",
+      "log": "EZ80MEM.log"
+    },
+    {
+      "COM": "EZ80MIX",
+      "passed": true,
+      "sha256": "98fadd46d30c3c91462413a97e02ec2391fcdd08ba9b0aacf2be73bfd6fa6b4f",
+      "log": "EZ80MIX.log"
+    },
+    {
+      "COM": "EZ80MAD",
+      "passed": true,
+      "sha256": "559dcccbc5f2d38412e730cf6b362ae0aae1713c0e2627936c1334cd1f43c4c7",
+      "log": "EZ80MAD.log"
+    },
+    {
+      "COM": "EZ80MB",
+      "passed": true,
+      "sha256": "3933e5377557f3066ed51dd0ec23a3388c3be53eb6f37127c59b38644e0b3822",
+      "log": "EZ80MB.log"
+    },
+    {
+      "COM": "EZ80IRQ",
+      "passed": true,
+      "sha256": "f1f78fa7116db9d40add92e991dc49f71cbf86bbf93133e80da38e52592a7dcf",
+      "log": "EZ80IRQ.log"
+    },
+    {
+      "COM": "EZ80IM2",
+      "passed": true,
+      "sha256": "65c1b9f86960f0c706274693b3e346f404d0d75926d88f0582b8cc83326b36eb",
+      "log": "EZ80IM2.log"
+    },
+    {
+      "COM": "EZ80NMI",
+      "passed": true,
+      "sha256": "baec37bdb191df1565292427e225ae2ded67324614bfbf8b433939d24027221e",
+      "log": "EZ80NMI.log"
+    },
+    {
+      "COM": "EZ80MX0",
+      "passed": true,
+      "sha256": "ea11a7be58f28795502ccfd9315ce57803b1677ade0831a4c70225b2a9f2b2c7",
+      "log": "EZ80MX0.log"
+    },
+    {
+      "COM": "EZ80MX1",
+      "passed": true,
+      "sha256": "a1b915df995476a26f3ded54500f026453e496551002518bcde7ccd1991c19ae",
+      "log": "EZ80MX1.log"
+    },
+    {
+      "COM": "EZ80MX2",
+      "passed": true,
+      "sha256": "95db8c0bf094459011e90a0f50e63868ffe06fa086e0d2ff309be00056a459d2",
+      "log": "EZ80MX2.log"
+    },
+    {
+      "COM": "EZ80MA1",
+      "passed": true,
+      "sha256": "b95a8e3ff41d46e9e02ff0c4b813e421ca4f3377b0966482d55c21f89f66c7c1",
+      "log": "EZ80MA1.log"
+    },
+    {
+      "COM": "EZ80MR4",
+      "passed": true,
+      "sha256": "6ac6fc95d86aa4b550237ab6938019d0a467cfdb18b362d6aac44582a8cdc5c1",
+      "log": "EZ80MR4.log"
+    }
+  ],
+  "actual_COM": true,
+  "actual_SDRAM_RTL": true,
+  "BDOS_EI": true,
+  "board": false
+}

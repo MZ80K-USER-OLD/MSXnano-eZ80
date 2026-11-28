@@ -1,0 +1,3 @@
+R31 shared instruction predicates in core and extended mcode execution
+Baseline R30: user diagnostics/RUNALL/game PASS
+Gowin/PnR/board pending; no timing constraints changed

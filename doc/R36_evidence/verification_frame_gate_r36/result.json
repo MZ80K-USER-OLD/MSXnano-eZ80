@@ -1,0 +1,8 @@
+{
+  "cases": 512,
+  "frame_idle_bytes": 256,
+  "IM0_NOP_bypass_bytes": 256,
+  "normal_instruction_execution_held": true,
+  "cutpoint": true,
+  "full_CPU": false
+}

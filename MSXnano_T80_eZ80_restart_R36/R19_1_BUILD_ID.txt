@@ -1,0 +1,3 @@
+MSXnano T80/eZ80 restart R19.1
+Based on hardware-confirmed R19. Indexed CB width consumption and prefix boundary tests.
+GOWIN/area/physical timing/board not verified. No new timing exceptions.

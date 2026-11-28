@@ -1,0 +1,2 @@
+FATAL: /workspace/scratch/db88d59b2a4d/r36-work/MSXnano_T80_eZ80_restart_R36/sim/tb_mode_byte_r36.sv:35: saved mode bit mismatch
+       Time: 16020 Scope: tb_mode_byte_r36

@@ -1,0 +1,80 @@
+--- R21/fpga/G80A_eZ80/g80a_ez80.vhd
++++ R21.1/fpga/G80A_eZ80/g80a_ez80.vhd
+@@ -215,7 +215,7 @@
+     HALT_n<=HALT_i;
+     INT_Input_n <= not Diag_IRQ when DIAGNOSTICS and Diag_Active='1' else INT_n;
+     NMI_Input_n <= '0' when DIAGNOSTICS and Diag_NMI_Count/=0 else NMI_n;
+-    process(Diag_Select, Extension_State_i, MBASE_i, MADL_i, Diag_IO_Signature)
++    process(Diag_Select, Extension_State_i, MBASE_i, MADL_i, Diag_IO_Signature, Diag_Active)
+     begin
+         Diag_Read<="1110000" & Extension_State_i;
+         if Extension_State_i='1' then
+--- R21/fpga/G80A_eZ80/t80_mcode_ez80.vhd
++++ R21.1/fpga/G80A_eZ80/t80_mcode_ez80.vhd
+@@ -204,14 +204,8 @@
+                 IRB := to_bitvector(IR);
+                 Block_IO2:=Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
+                     Write_Class(7 downto 4)=x"C";
+-                -- Alias only the transfer schedule; the original IR keeps direction/type.
+-                if Block_IO2 then
+-                    if IR(5)='0' then
+-                        if IR(3)='0' then IRB:=x"A2";else IRB:=x"AA";end if;
+-                    else
+-                        if IR(3)='0' then IRB:=x"A3";else IRB:=x"AB";end if;
+-                    end if;
+-                end if;
++                -- R21.1: IRB remains the raw opcode for every instruction page.
++                -- Recognize IO2 only in its ED rows, avoiding a global opcode mux.
+ 
+                 Tst_Active := Mode=0 and Ext_Active='1' and ISet="10" and IntCycle='0' and NMICycle='0' and
+                     ((IR(7 downto 6)="00" and IR(2 downto 0)="100") or IR=x"64");
+@@ -1603,12 +1597,12 @@
+                                 |"00111000"|"00111001"|"00111010"|"00111011"|"00111101"
+ 
+ 
+-                                |"10000000"|"10000001"|"10000010"|"10000011"|"10000100"|"10000101"|"10000110"|"10000111"
+-                                |"10001000"|"10001001"|"10001010"|"10001011"|"10001100"|"10001101"|"10001110"|"10001111"
++                                |"10000000"|"10000001"|"10000010"|"10000011"|"10000101"|"10000110"|"10000111"
++                                |"10001000"|"10001001"|"10001010"|"10001011"|"10001101"|"10001110"|"10001111"
+                                 |"10010000"|"10010001"|"10010010"|"10010011"|"10010100"|"10010101"|"10010110"|"10010111"
+                                 |"10011000"|"10011001"|"10011010"|"10011011"|"10011100"|"10011101"|"10011110"|"10011111"
+-                                |                                            "10100100"|"10100101"|"10100110"|"10100111"
+-                                |                                            "10101100"|"10101101"|"10101110"|"10101111"
++                                |"10100101"|"10100110"|"10100111"
++                                |"10101101"|"10101110"|"10101111"
+                                 |                                            "10110100"|"10110101"|"10110110"|"10110111"
+                                 |                                            "10111100"|"10111101"|"10111110"|"10111111"
+                                 |"11000000"|           "11000010"|           "11000100"|"11000101"|"11000110"|"11000111"
+@@ -1966,8 +1960,9 @@
+                                         IORQ <= '1';
+                                 when others =>
+                                 end case;
+-                        when "10100010" | "10101010" | "10110010" | "10111010" =>
+-                                -- INI, IND, INIR, INDR
++                        when "10100010" | "10101010" | "10110010" | "10111010" | "10000100" | "10001100" =>
++                                -- INI, IND, INIR, INDR; unlocked INI2/IND2.
++                                if IR(2)='0' or Block_IO2 then
+                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
+                                 case to_integer(unsigned(MCycle)) is
+                                 when 1 =>
+@@ -2008,8 +2003,10 @@
+                                 when 6 => NoRead<='1';
+                                 when others => null;
+                                 end case;
+-                        when "10100011" | "10101011" | "10110011" | "10111011" =>
+-                                -- OUTI, OUTD, OTIR, OTDR
++                        end if;
++                        when "10100011" | "10101011" | "10110011" | "10111011" | "10100100" | "10101100" =>
++                                -- OUTI, OUTD, OTIR, OTDR; unlocked OUTI2/OUTD2.
++                                if IR(2)='0' or Block_IO2 then
+                                 MCycles <= "100";if Block_IO2 then MCycles<="110";end if;
+                                 case to_integer(unsigned(MCycle)) is
+                                 when 1 =>
+@@ -2050,6 +2047,7 @@
+                                 when 6 => NoRead<='1';
+                                 when others => null;
+                                 end case;
++                                end if;
+                         when "11000001"|"11001001"|"11010001"|"11011001" =>
+                                 --R800 MULUB
+                                 null;

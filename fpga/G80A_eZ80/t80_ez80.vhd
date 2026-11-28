@@ -82,8 +82,7 @@ entity T80_eZ80 is
         Flag_H      : integer := 4;
         Flag_Y      : integer := 5;
         Flag_Z      : integer := 6;
-        Flag_S      : integer := 7;
-        INPUT_FRAME_PREDECODE : boolean := false
+        Flag_S      : integer := 7
     );
     port(
         RESET_n     : in std_logic;
@@ -114,8 +113,7 @@ entity T80_eZ80 is
         TS          : out std_logic_vector(2 downto 0);
         IntCycle_n  : out std_logic;
         IntE        : out std_logic;
-        Stop        : out std_logic;
-        DI_FRAME_VALID : in std_logic -- sampled alongside DI when predecode enabled
+        Stop        : out std_logic
     );
     -- GOWIN SUG550: avoid a clocked BSRAM ROM on the CPU control path.
     attribute syn_romstyle : string;
@@ -274,7 +272,6 @@ architecture rtl of T80_eZ80 is
     signal INT_s            : std_logic;
     signal IStatus          : std_logic_vector(1 downto 0);
 
-    signal Frame_Byte_Valid : std_logic;
     signal DI_Reg           : std_logic_vector(7 downto 0);
     signal T_Res            : std_logic;
     signal XY_State         : std_logic_vector(1 downto 0);
@@ -901,7 +898,8 @@ architecture rtl of T80_eZ80 is
                             if IRQ_IM0='1' then
                                 Frame_State<=frame_idle;Address_Reg<=std_logic_vector(PC(15 downto 0));Address_Bank_Reg<=MBASE;
                                 if ADL_Mode='1' then Address_Bank_Reg<=std_logic_vector(PC(23 downto 16));end if;
-                            elsif Frame_Byte_Valid='1' then
+                            else
+                                -- R36: only the saved bit 0 selects the restored ADL mode.
                                 Frame_Mode_Bit<=DI_Reg(0);SPL<=Frame_Stack_Next;Frame_Count<=0;
                                 if Stream_Long='1' or DI_Reg(0)='1' then
                                     Address_Reg<=std_logic_vector(Frame_Stack_Next(15 downto 0));Address_Bank_Reg<=Frame_Stack_Bank;
@@ -909,7 +907,7 @@ architecture rtl of T80_eZ80 is
                                 if Stream_Long='1' then Frame_State<=frame_long;
                                 elsif DI_Reg(0)='1' then Frame_State<=frame_upper;
                                 else Frame_State<=frame_short;end if;
-                            else Frame_State<=frame_fault;Frame_TS<=to_unsigned(3,3);end if;
+                            end if;
                         when frame_upper =>
                             Ctrl_Target(23 downto 16)<=DI_Reg;SPL<=Frame_Stack_Next;Frame_State<=frame_short;Frame_Count<=0;
                             Address_Reg<=std_logic_vector(SP);Address_Bank_Reg<=MBASE;
@@ -1852,9 +1850,6 @@ architecture rtl of T80_eZ80 is
     MC<="001" when Frame_Active='1' and Frame_TS=4 else "010" when Frame_Active='1' else std_logic_vector(MCycle);
     TS<=std_logic_vector(Frame_TS) when Frame_Active='1' else std_logic_vector(TState);
     DI_Reg <= DI;
-    -- R29: compare bits 7:1 before the wrapper input FF; bit 0 remains mode data.
-    Frame_Byte_Valid <= DI_FRAME_VALID when INPUT_FRAME_PREDECODE else
-                        '1' when DI_Reg(7 downto 1)="0000001" else '0';
     HALT_n<='0' when Frame_State=frame_fault else not Halt_FF;
     BUSAK_n <= not BusAck;
     IntCycle_n<='1' when Frame_Active='1' else not IntCycle;

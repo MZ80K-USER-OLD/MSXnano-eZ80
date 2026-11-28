@@ -1,0 +1,27 @@
+{
+  "cases": 512,
+  "rows": [
+    {
+      "fault": 0,
+      "normal_pass": true,
+      "expected_failure_detected": false,
+      "scope": "forced frame_mode entry; actual captured byte; bit0, return state, SPL/count/address verified"
+    },
+    {
+      "fault": 1,
+      "normal_pass": false,
+      "expected_failure_detected": true,
+      "scope": "forced frame_mode entry; actual captured byte; bit0, return state, SPL/count/address verified"
+    },
+    {
+      "fault": 2,
+      "normal_pass": false,
+      "expected_failure_detected": true,
+      "scope": "forced frame_mode entry; actual captured byte; bit0, return state, SPL/count/address verified"
+    }
+  ],
+  "all_256_bytes": true,
+  "both_stream_widths": true,
+  "full_CPU": false,
+  "timing": false
+}

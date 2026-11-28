@@ -1,0 +1,58 @@
+--- R32/fpga/G80A_eZ80/t80_ez80.vhd
++++ R33/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -203,7 +203,7 @@
+     signal Arith_Result : unsigned(23 downto 0);
+     signal Arith_Overflow, Arith_Half, Arith_Carry_Out : std_logic;
+     signal Block_Instruction, Block_Long, Instruction_Has_Width, Block_IO2 : std_logic;
+-    signal Block_Inc_Result : unsigned(23 downto 0);
++    signal Pair_Low_Wrap, Block_Result_Zero : std_logic;
+     signal Mul_Active, Mul_Commit, Mul_Reg_Commit : std_logic;
+     signal Mul_Target : std_logic_vector(2 downto 0);
+     signal Mul_Operand : unsigned(15 downto 0);
+@@ -616,8 +616,13 @@
+     Block_Instruction <= Exec_Control(EC_BLOCK) and Exec_Normal;
+     Block_Long<=Block_Instruction and Data_Long;
+     Block_IO2 <= Exec_Control(EC_IO2) and Exec_Normal;
+-    Block_Inc_Result<=unsigned(Reg24A)-1 when IncDec_16(3)='1'
+-        else unsigned(Reg24A)+1;
++    -- R33: upper-byte updates use a lower16 boundary test and the shared
++    -- 8-bit incrementer. No low16 carry chain feeds the upper data input.
++    Pair_Low_Wrap<='1' when (IncDec_16(3)='1' and RegBusA=x"0000") or
++        (IncDec_16(3)='0' and RegBusA=x"FFFF") else '0';
++    -- The increment/decrement result is zero only at these two inputs.
++    Block_Result_Zero<='1' when (IncDec_16(3)='1' and Reg24A=x"000001") or
++        (IncDec_16(3)='0' and Reg24A=x"FFFFFF") else '0';
+     Mul_Active <= Exec_Control(EC_MUL) and Exec_Normal;
+     Mul_Target<=Pair_Raw_Index;
+     Mul_Operand<=SPL(15 downto 0) when Exec_Control(EC_PAIR_SP)='1' and Data_Long='1' else
+@@ -678,10 +683,10 @@
+     Upper_Port_Events(1)<=LEA_Commit and Data_Long;
+     Upper_Port_Events(2)<=Arith_Commit;
+     Upper_Port_Events(3)<=EX_SP_Result_WE;
+-    Upper_Port_Events(4)<='1' when Block_Long='1' and IncDec_16(2)='1' and
++    Upper_Port_Events(4)<='1' when Block_Long='1' and IncDec_16(2)='1' and Pair_Low_Wrap='1' and
+         ((MCycle="001" and TState=3) or (MCycle/="001" and TState=2 and Wait_n='1')) else '0';
+     Upper_Port_Events(5)<='1' when Wide_IncDec='1' and MCycle="001" and TState=3 and Exec_Control(EC_PAIR_SP)='0' and
+-        ((IncDec_16(3)='1' and RegBusA=x"0000") or (IncDec_16(3)='0' and RegBusA=x"FFFF")) else '0';
++        Pair_Low_Wrap='1' else '0';
+     Upper_Port_Events(6)<='1' when Wide_Stack='1' and Exec_Control(EC_STACK_POP)='1' and MCycle="100" and TState=3 and Exec_Control(EC_PAIR_SP)='0' else '0';
+     Upper_Port_Events(7)<='1' when Mode/=0 and TState=3 and IntCycle='0' and NMICycle='0' and Exec_Control(EC_IMM_PAIR)='1' and Exec_Control(EC_PAIR_SP)='0' and
+         ((MCycle="011" and Stream_Long='0' and Data_Long='1') or (MCycle="100" and Stream_Long='1')) else '0';
+@@ -695,7 +700,7 @@
+     Upper_Immediate_Byte<=DI_Reg when Stream_Long='1' and Data_Long='1' else x"00";
+     Upper_Port_Data<=Upper_Mask(DI_Reg,Upper_Port_Events(0)) or Upper_Mask(EA_Result(23 downto 16),Upper_Port_Events(1)) or
+         Upper_Mask(std_logic_vector(Arith_Result(23 downto 16)),Upper_Port_Events(2)) or Upper_Mask(EX_SP_Read(23 downto 16),Upper_Port_Events(3)) or
+-        Upper_Mask(std_logic_vector(Block_Inc_Result(23 downto 16)),Upper_Port_Events(4)) or Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(5)) or
++        Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(4)) or Upper_Mask(Upper_Inc_Byte,Upper_Port_Events(5)) or
+         Upper_Mask(DI_Reg,Upper_Port_Events(6)) or Upper_Mask(Upper_Immediate_Byte,Upper_Port_Events(7));
+ 
+ 
+@@ -1647,7 +1652,7 @@
+                 end if;
+                 if (TState = 2 or (TState = 3 and MCycle = "001")) and IncDec_16(2 downto 0) = "100" then
+                     if Block_Long='1' then
+-                        if Block_Inc_Result=0 then IncDecZ<='0';else IncDecZ<='1';end if;
++                        IncDecZ <= not Block_Result_Zero;
+                     elsif ID16 = 0 then
+                         IncDecZ <= '0';
+                     else

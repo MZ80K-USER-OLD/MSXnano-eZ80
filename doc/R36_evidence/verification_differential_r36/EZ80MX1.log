@@ -1,0 +1,6 @@
+EZ80MX1 R29.1: START FIRST MIXED CALL + CHECKS
+COM stage A time=332290000
+EZ80MX1 R29.1: PASS
+BUS_COMPARISONS=52405
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=40
+R36_INPUT_COVERAGE captures=1775

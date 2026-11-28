@@ -1,0 +1,5 @@
+COM stage A time=310070000
+EZ80IM2 P2: PASS
+BUS_COMPARISONS=81855
+PASS differential_r27 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=3318
+R36_INPUT_COVERAGE captures=1879

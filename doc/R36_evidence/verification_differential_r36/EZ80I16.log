@@ -1,0 +1,11 @@
+COM stage A time=93810000
+COM stage B time=254370000
+COM stage C time=414850000
+COM stage D time=575330000
+COM stage E time=735810000
+COM stage F time=896290000
+COM stage G time=1056770000
+EZ80I16 P2: PASS
+BUS_COMPARISONS=133901
+PASS differential_r27 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=9972
+R36_INPUT_COVERAGE captures=4262

@@ -1,0 +1,24 @@
+{
+  "rows": [
+    {
+      "profile": "normal",
+      "checks": 16424,
+      "captures": 16368,
+      "holds": 56,
+      "mode_bit_ones": 11088,
+      "cutpoint": true
+    },
+    {
+      "profile": "diagnostic",
+      "checks": 16424,
+      "captures": 16368,
+      "holds": 56,
+      "mode_bit_ones": 7753,
+      "cutpoint": true
+    }
+  ],
+  "forced_source_selectors": true,
+  "captured_data_not_forced": true,
+  "hardware": false,
+  "timing": false
+}
