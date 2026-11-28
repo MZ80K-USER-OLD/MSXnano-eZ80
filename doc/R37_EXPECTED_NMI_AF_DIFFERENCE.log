@@ -1,0 +1,4 @@
+COM stage A time=495510000
+FATAL: /workspace/scratch/db88d59b2a4d/r37-work/MSXnano_T80_eZ80_restart_R37/sim/tb_differential_r37.sv:67: R37/R36 bus mismatch a=04fffb/04fffb MSX=0000/0000 ext=1/1 TS=2 do=40/42 strobes=0111011/0111011
+       Time: 644060002 Scope: tb_differential_r27
+R37_INPUT_COVERAGE captures=1427

@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "cases": 28290,
+  "encoding_cells": 883,
+  "native_cases_each": 16,
+  "coverage": {
+    "native": 14128,
+    "size_prefix_probe": 14128,
+    "external_event": 34
+  },
+  "functional_read_overlaps_code": [
+    {
+      "id": "ED_B4_a0_native_s6",
+      "address": 8061184
+    },
+    {
+      "id": "ED_B4_a0_native_s6",
+      "address": 8061185
+    },
+    {
+      "id": "ED_B4_a0_native_s7",
+      "address": 8061184
+    },
+    {
+      "id": "ED_B4_a0_native_s7",
+      "address": 8061185
+    },
+    {
+      "id": "ED_C3_a0_native_s6",
+      "address": 8061184
+    },
+    {
+      "id": "ED_C3_a0_native_s6",
+      "address": 8061185
+    },
+    {
+      "id": "ED_C3_a0_native_s7",
+      "address": 8061184
+    },
+    {
+      "id": "ED_C3_a0_native_s7",
+      "address": 8061185
+    }
+  ],
+  "expected_data_unchanged": true,
+  "oracle_reexecution": false,
+  "independent_spec_checks_reexecuted": false,
+  "sha256": {
+    "events.expected.jsonl": "bdf47c903cf35fd602702107531858e659933fe4bc0c55a338ba6c06f085ccef",
+    "execution_commands.json": "f210fe071f8bd030d8f9cf81132e600d63e2992ca711f9ae48e1631850f63c6c",
+    "validation.json": "35f7a9cc5d61f56522a5e2cff81f59b21fe3cd904e979a4ee7ec879e42fbe34f",
+    "coverage.csv": "309e3e053ff95118a07bb2a671425aaaf93bc368aa684db22ff12fcc4e0e7b37",
+    "FORMAT.md": "5d66385618add6871f220f0afa9be210ca127120293c9c6a045bf30c6e9a2382",
+    "PROVENANCE.md": "3852159811e974db9776e5b1eb313b43de9d80b0554dd168d22a542375d28707",
+    "cases.jsonl": "d42fdba57da569d6a73dfe236c6c3fece6f0ef20f43694deb0dd3116cf0cc06f",
+    "summary.json": "bcf44d18ae7048ec38ae8d48cd82443f73ff4babd5711eed6cdc1311af466781",
+    "tests.in": "f5f741803f5a4be42fd71759f2d7137b2b39d34fd24e853b426ece3abbd2d39e",
+    "generation.log": "8444ff2c874c1a027be59a18256cae17646ef02129d74c99879ad9439d17a468",
+    "opcode_catalog.json": "0984aed9e10bdab3102025e67f38cf6cd0ac2c9801d8e6b27332a8776a1ed7b0",
+    "tests.expected": "605c19e42b133168e4d5f0c1e7fda0df4fd79d102e9dbeed591af6e50c89e7b2",
+    "README.md": "4c8a5c91e06f235320b593f679586ff8d6d11ea95563e5bc50865b799a42342d"
+  }
+}

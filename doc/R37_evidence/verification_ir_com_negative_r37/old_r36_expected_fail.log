@@ -1,0 +1,6 @@
+COM stage I time=24130000
+EZ80IRF R37: FAIL
+OP=I VAL=00 C=0 EXP A=00 F=40 ACT A=00 F=D2
+FATAL: /workspace/scratch/db88d59b2a4d/r37-work/MSXnano_T80_eZ80_restart_R37/sim/tb_com_r37.sv:154: wrong COM status 02 expected 01
+       Time: 457490000 Scope: tb_com_r37
+R37_INPUT_COVERAGE captures=1537

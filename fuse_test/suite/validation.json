@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "structural_cases": 28290,
+  "independent_spec_checks": 694,
+  "opcode_map_cells": {
+    "BASE": 248,
+    "CB": 248,
+    "ED": 135,
+    "DD": 95,
+    "FD": 95,
+    "DDCB": 31,
+    "FDCB": 31
+  },
+  "missing_native_encodings": 0,
+  "scope": "data/oracle checks, no RTL or silicon execution"
+}

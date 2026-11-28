@@ -1,0 +1,9 @@
+EZ80MX2 R29.1: START FULL MIX
+COM stage A time=368470000
+COM stage B time=522550000
+COM stage C time=628470000
+COM stage D time=838230000
+EZ80MX2 R29.1: PASS
+COM_COMPLETE=1
+PASS COM_R37 phase=3 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=2566
+R37_INPUT_COVERAGE captures=2981

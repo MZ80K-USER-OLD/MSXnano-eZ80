@@ -1,0 +1,16 @@
+COM stage 1 time=18930000
+COM stage 2 time=232290000
+COM stage 3 time=264610000
+COM stage 4 time=291010000
+COM stage 5 time=314130000
+COM stage 6 time=353250000
+COM stage 7 time=941650000
+COM stage 8 time=1631490000
+COM stage 9 time=1694290000
+COM stage A time=1890930000
+COM stage B time=2344050000
+COM stage C time=2475490000
+EZ80D3 R3: PASS
+COM_COMPLETE=1
+PASS COM_R37 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=8644
+R37_INPUT_COVERAGE captures=9061

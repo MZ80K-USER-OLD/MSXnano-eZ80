@@ -1,0 +1,39 @@
+{
+  "build": [
+    [
+      "gcc",
+      "-std=gnu11",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-Ivendor/cemu_core",
+      "tools/oracle.c",
+      "vendor/cemu_core/cpu.c",
+      "vendor/cemu_core/registers.c",
+      "-o",
+      "tools/oracle.so"
+    ],
+    [
+      "gcc",
+      "-std=gnu11",
+      "-O2",
+      "-fPIC",
+      "-shared",
+      "-DDEBUG_SUPPORT",
+      "-Ivendor/zdis",
+      "tools/dis.c",
+      "vendor/zdis/zdis.c",
+      "-o",
+      "tools/dis.so"
+    ]
+  ],
+  "generate": [
+    "python3",
+    "tools/generate.py"
+  ],
+  "validate": [
+    "python3",
+    "tools/validate.py"
+  ],
+  "compiler": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+}

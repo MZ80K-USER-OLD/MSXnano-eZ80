@@ -1,0 +1,172 @@
+[
+  {
+    "id": "event_NMI_a0_im0_madl0",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a0_im0_madl0",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a0_im0_madl1",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a0_im0_madl1",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a0_im1_madl0",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a0_im1_madl0",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a0_im1_madl1",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a0_im1_madl1",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a0_im2_madl0",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a0_im2_madl0",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a0_im2_madl1",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a0_im2_madl1",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_EI_NOP_a0",
+    "instruction": "EI_NOP",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_EI_NOP_IRQ_a0",
+    "instruction": "EI_NOP_IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_EI_IRQ_PENDING_a0",
+    "instruction": "EI_IRQ_PENDING",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_HALT_NMI_a0",
+    "instruction": "HALT_NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_HALT_IRQ_a0",
+    "instruction": "HALT_IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a1_im0_madl0",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a1_im0_madl0",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a1_im0_madl1",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a1_im0_madl1",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a1_im1_madl0",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a1_im1_madl0",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a1_im1_madl1",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a1_im1_madl1",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a1_im2_madl0",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a1_im2_madl0",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_NMI_a1_im2_madl1",
+    "instruction": "NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "event_IRQ_a1_im2_madl1",
+    "instruction": "IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_EI_NOP_a1",
+    "instruction": "EI_NOP",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_EI_NOP_IRQ_a1",
+    "instruction": "EI_NOP_IRQ",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_EI_IRQ_PENDING_a1",
+    "instruction": "EI_IRQ_PENDING",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_HALT_NMI_a1",
+    "instruction": "HALT_NMI",
+    "coverage": "external_event"
+  },
+  {
+    "id": "sequence_HALT_IRQ_a1",
+    "instruction": "HALT_IRQ",
+    "coverage": "external_event"
+  }
+]

@@ -1,0 +1,1047 @@
+{
+  "status": "FAIL",
+  "selected": 34,
+  "architectural_passed": 20,
+  "event_stream_passed": 18,
+  "passed": 18,
+  "failed": 16,
+  "excluded": 0,
+  "excluded_reasons": {},
+  "by_coverage": {
+    "external_event": {
+      "total": 34,
+      "passed": 18
+    }
+  },
+  "rows": [
+    {
+      "id": "event_NMI_a0_im0_madl0",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 68,
+      "errors": []
+    },
+    {
+      "id": "event_IRQ_a0_im0_madl0",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 32,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "DE",
+          "expected": 3430016,
+          "actual": 3429974,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "PC",
+          "expected": 24,
+          "actual": 256,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "SPS",
+          "expected": 17758,
+          "actual": 17760,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "7b455e",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455f",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 8078687,
+            "value": 1
+          },
+          "actual": null,
+          "expected_count": 2,
+          "actual_count": 0
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a0_im0_madl1",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 72,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311519,
+          "actual": 2311517,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "SPS",
+          "expected": 17758,
+          "actual": 17760,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 2,
+          "actual": 1
+        },
+        {
+          "kind": "memory",
+          "address": "7b455e",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455f",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 8078687,
+            "value": 1
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 1
+          },
+          "expected_count": 3,
+          "actual_count": 3
+        }
+      ]
+    },
+    {
+      "id": "event_IRQ_a0_im0_madl1",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 48,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311519,
+          "actual": 2311520,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "PC",
+          "expected": 24,
+          "actual": 256,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "ADL",
+          "expected": 1,
+          "actual": 0,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "SPS",
+          "expected": 17758,
+          "actual": 17760,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 2,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455e",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455f",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 8078687,
+            "value": 1
+          },
+          "actual": null,
+          "expected_count": 3,
+          "actual_count": 0
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a0_im1_madl0",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 68,
+      "errors": []
+    },
+    {
+      "id": "event_IRQ_a0_im1_madl0",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 60,
+      "errors": []
+    },
+    {
+      "id": "event_NMI_a0_im1_madl1",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 72,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311519,
+          "actual": 2311517,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "SPS",
+          "expected": 17758,
+          "actual": 17760,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 2,
+          "actual": 1
+        },
+        {
+          "kind": "memory",
+          "address": "7b455e",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455f",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 8078687,
+            "value": 1
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 1
+          },
+          "expected_count": 3,
+          "actual_count": 3
+        }
+      ]
+    },
+    {
+      "id": "event_IRQ_a0_im1_madl1",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 72,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311519,
+          "actual": 2311517,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "SPS",
+          "expected": 17758,
+          "actual": 17760,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 2,
+          "actual": 1
+        },
+        {
+          "kind": "memory",
+          "address": "7b455e",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455f",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 8078687,
+            "value": 1
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 1
+          },
+          "expected_count": 3,
+          "actual_count": 3
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a0_im2_madl0",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 68,
+      "errors": []
+    },
+    {
+      "id": "event_IRQ_a0_im2_madl0",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": true,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 92,
+      "errors": [
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MR",
+            "address": 8093786,
+            "value": 52
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 8078687,
+            "value": 1
+          },
+          "expected_count": 4,
+          "actual_count": 4
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a0_im2_madl1",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 72,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311519,
+          "actual": 2311517,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "SPS",
+          "expected": 17758,
+          "actual": 17760,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 2,
+          "actual": 1
+        },
+        {
+          "kind": "memory",
+          "address": "7b455e",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455f",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 8078687,
+            "value": 1
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 1
+          },
+          "expected_count": 3,
+          "actual_count": 3
+        }
+      ]
+    },
+    {
+      "id": "event_IRQ_a0_im2_madl1",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 108,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311519,
+          "actual": 2311517,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "SPS",
+          "expected": 17758,
+          "actual": 17760,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 2,
+          "actual": 1
+        },
+        {
+          "kind": "memory",
+          "address": "7b455e",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "7b455f",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MR",
+            "address": 32858,
+            "value": 52
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 1
+          },
+          "expected_count": 6,
+          "actual_count": 6
+        }
+      ]
+    },
+    {
+      "id": "sequence_EI_NOP_a0",
+      "instruction": "EI_NOP",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 52,
+      "errors": []
+    },
+    {
+      "id": "sequence_EI_NOP_IRQ_a0",
+      "instruction": "EI_NOP_IRQ",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 88,
+      "errors": []
+    },
+    {
+      "id": "sequence_EI_IRQ_PENDING_a0",
+      "instruction": "EI_IRQ_PENDING",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 88,
+      "errors": []
+    },
+    {
+      "id": "sequence_HALT_NMI_a0",
+      "instruction": "HALT_NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 80,
+      "errors": []
+    },
+    {
+      "id": "sequence_HALT_IRQ_a0",
+      "instruction": "HALT_IRQ",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 72,
+      "errors": []
+    },
+    {
+      "id": "event_NMI_a1_im0_madl0",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 72,
+      "errors": []
+    },
+    {
+      "id": "event_IRQ_a1_im0_madl0",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 48,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311517,
+          "actual": 2311520,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "PC",
+          "expected": 24,
+          "actual": 1179904,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455d",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "23455e",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 18,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 18
+          },
+          "actual": null,
+          "expected_count": 3,
+          "actual_count": 0
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a1_im0_madl1",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 84,
+      "errors": [
+        {
+          "kind": "memory",
+          "address": "23455c",
+          "expected": 0,
+          "actual": 3
+        },
+        {
+          "kind": "memory",
+          "address": "23455d",
+          "expected": 1,
+          "actual": 0
+        },
+        {
+          "kind": "memory",
+          "address": "23455e",
+          "expected": 3,
+          "actual": 1
+        },
+        {
+          "kind": "events",
+          "first_difference": 1,
+          "expected": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 3
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 1
+          },
+          "expected_count": 4,
+          "actual_count": 4
+        }
+      ]
+    },
+    {
+      "id": "event_IRQ_a1_im0_madl1",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 48,
+      "errors": [
+        {
+          "kind": "register",
+          "register": "SPL",
+          "expected": 2311516,
+          "actual": 2311520,
+          "mask": 16777215
+        },
+        {
+          "kind": "register",
+          "register": "PC",
+          "expected": 24,
+          "actual": 1179904,
+          "mask": 16777215
+        },
+        {
+          "kind": "memory",
+          "address": "23455c",
+          "expected": 0,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "23455d",
+          "expected": 1,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "23455e",
+          "expected": 3,
+          "actual": null
+        },
+        {
+          "kind": "memory",
+          "address": "23455f",
+          "expected": 18,
+          "actual": null
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 18
+          },
+          "actual": null,
+          "expected_count": 4,
+          "actual_count": 0
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a1_im1_madl0",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 72,
+      "errors": []
+    },
+    {
+      "id": "event_IRQ_a1_im1_madl0",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 72,
+      "errors": []
+    },
+    {
+      "id": "event_NMI_a1_im1_madl1",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 84,
+      "errors": [
+        {
+          "kind": "memory",
+          "address": "23455c",
+          "expected": 0,
+          "actual": 3
+        },
+        {
+          "kind": "memory",
+          "address": "23455d",
+          "expected": 1,
+          "actual": 0
+        },
+        {
+          "kind": "memory",
+          "address": "23455e",
+          "expected": 3,
+          "actual": 1
+        },
+        {
+          "kind": "events",
+          "first_difference": 1,
+          "expected": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 3
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 1
+          },
+          "expected_count": 4,
+          "actual_count": 4
+        }
+      ]
+    },
+    {
+      "id": "event_IRQ_a1_im1_madl1",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 84,
+      "errors": [
+        {
+          "kind": "memory",
+          "address": "23455c",
+          "expected": 0,
+          "actual": 3
+        },
+        {
+          "kind": "memory",
+          "address": "23455d",
+          "expected": 1,
+          "actual": 0
+        },
+        {
+          "kind": "memory",
+          "address": "23455e",
+          "expected": 3,
+          "actual": 1
+        },
+        {
+          "kind": "events",
+          "first_difference": 1,
+          "expected": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 3
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 1
+          },
+          "expected_count": 4,
+          "actual_count": 4
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a1_im2_madl0",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 72,
+      "errors": []
+    },
+    {
+      "id": "event_IRQ_a1_im2_madl0",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": true,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 108,
+      "errors": [
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MR",
+            "address": 32858,
+            "value": 52
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 18
+          },
+          "expected_count": 6,
+          "actual_count": 6
+        }
+      ]
+    },
+    {
+      "id": "event_NMI_a1_im2_madl1",
+      "instruction": "NMI",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 84,
+      "errors": [
+        {
+          "kind": "memory",
+          "address": "23455c",
+          "expected": 0,
+          "actual": 3
+        },
+        {
+          "kind": "memory",
+          "address": "23455d",
+          "expected": 1,
+          "actual": 0
+        },
+        {
+          "kind": "memory",
+          "address": "23455e",
+          "expected": 3,
+          "actual": 1
+        },
+        {
+          "kind": "events",
+          "first_difference": 1,
+          "expected": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 3
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311518,
+            "value": 1
+          },
+          "expected_count": 4,
+          "actual_count": 4
+        }
+      ]
+    },
+    {
+      "id": "event_IRQ_a1_im2_madl1",
+      "instruction": "IRQ",
+      "coverage": "external_event",
+      "passed": false,
+      "architectural_passed": false,
+      "event_stream_passed": false,
+      "status": 0,
+      "cycles": 120,
+      "errors": [
+        {
+          "kind": "memory",
+          "address": "23455c",
+          "expected": 0,
+          "actual": 3
+        },
+        {
+          "kind": "memory",
+          "address": "23455d",
+          "expected": 1,
+          "actual": 0
+        },
+        {
+          "kind": "memory",
+          "address": "23455e",
+          "expected": 3,
+          "actual": 1
+        },
+        {
+          "kind": "events",
+          "first_difference": 0,
+          "expected": {
+            "kind": "MR",
+            "address": 32858,
+            "value": 52
+          },
+          "actual": {
+            "kind": "MW",
+            "address": 2311519,
+            "value": 18
+          },
+          "expected_count": 7,
+          "actual_count": 7
+        }
+      ]
+    },
+    {
+      "id": "sequence_EI_NOP_a1",
+      "instruction": "EI_NOP",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 52,
+      "errors": []
+    },
+    {
+      "id": "sequence_EI_NOP_IRQ_a1",
+      "instruction": "EI_NOP_IRQ",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 100,
+      "errors": []
+    },
+    {
+      "id": "sequence_EI_IRQ_PENDING_a1",
+      "instruction": "EI_IRQ_PENDING",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 100,
+      "errors": []
+    },
+    {
+      "id": "sequence_HALT_NMI_a1",
+      "instruction": "HALT_NMI",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 84,
+      "errors": []
+    },
+    {
+      "id": "sequence_HALT_IRQ_a1",
+      "instruction": "HALT_IRQ",
+      "coverage": "external_event",
+      "passed": true,
+      "architectural_passed": true,
+      "event_stream_passed": true,
+      "status": 0,
+      "cycles": 84,
+      "errors": []
+    }
+  ]
+}

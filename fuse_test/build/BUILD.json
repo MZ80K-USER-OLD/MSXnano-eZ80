@@ -1,0 +1,15 @@
+{
+  "GHDL": "GHDL 5.0.1 (Debian 5.0.1+dfsg-1+b1) [Dunoon edition]\n Compiled with GNAT Version: 14.2.0\n static elaboration, mcode JIT code generator\nWritten by Tristan Gingold.\n\nCopyright (C) 2003 - 2025 Tristan Gingold.\nGHDL is free software, covered by the GNU General Public License.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n",
+  "RTL_sha256": {
+    "t80_pack_ez80.vhd": "27474194e7cb9eaf8966a1d0efe969c1f5078127b6214ac2ea1d8d9cce07842a",
+    "t80_reg_ez80.vhd": "9204223b31c73df9c4e0a3c2279f420a2befbac33746ec17bd5bbf2631add5f9",
+    "g80a_ez80.vhd": "c6549af2ac9e8a231cd369fc14747b4759f723cdc3e4f96a440cd66e0867c205",
+    "t80_alu_ez80.vhd": "94a2e7a89ac15b93be5c522c208ea79826c09d207fea192b358a067fc28f4cfc",
+    "t80_ez80.vhd": "426277206ddeba30c9a8dfb5dfa2a1b693b3ccd3a2b0f4de350fafdfb00d9098",
+    "t80_mcode_ez80.vhd": "3fcbdb0c29bb126cb9c979fbf0f596d4bec3a326fece49df1340efe0ccc1fce0"
+  },
+  "dut_sha256": "d5ad7cb6897b2725edaee8cd30cc7047e67ef578b560a4b387786ce2c8b70383",
+  "state_mapping_sha256": "cf706c544e60f7571fecd1964423b2b7779c9393c2de624115b5b480001cafac",
+  "state_deposits": "simulation only; checked roundtrip for all 22 fields before each case",
+  "FPGA_source_changed": false
+}

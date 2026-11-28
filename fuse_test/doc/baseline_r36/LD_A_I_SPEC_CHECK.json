@@ -1,0 +1,258 @@
+[
+  {
+    "id": "ED_57_a0_native_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_native_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_native_s2",
+    "expected_AF": 32901,
+    "actual_AF": 32773,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_native_s3",
+    "expected_AF": 65412,
+    "actual_AF": 65348,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_native_s4",
+    "expected_AF": 13312,
+    "actual_AF": 13440,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_native_s5",
+    "expected_AF": 65408,
+    "actual_AF": 65280,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_native_s6",
+    "expected_AF": 43652,
+    "actual_AF": 43540,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_native_s7",
+    "expected_AF": 21765,
+    "actual_AF": 21911,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p40_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p40_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p49_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p49_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p52_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p52_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p5b_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a0_p5b_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s2",
+    "expected_AF": 32901,
+    "actual_AF": 32773,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s3",
+    "expected_AF": 65412,
+    "actual_AF": 65348,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s4",
+    "expected_AF": 13312,
+    "actual_AF": 13440,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s5",
+    "expected_AF": 65408,
+    "actual_AF": 65280,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s6",
+    "expected_AF": 43652,
+    "actual_AF": 43540,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_native_s7",
+    "expected_AF": 21765,
+    "actual_AF": 21911,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p40_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p40_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p49_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p49_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p52_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p52_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p5b_s0",
+    "expected_AF": 64,
+    "actual_AF": 0,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  },
+  {
+    "id": "ED_57_a1_p5b_s1",
+    "expected_AF": 32513,
+    "actual_AF": 32763,
+    "mask": 65495,
+    "passed": false,
+    "source": "UM007715-0415 LD A,I: A=I[7:0], S/Z from value, H/N=0, PV=IEF2, C preserved"
+  }
+]

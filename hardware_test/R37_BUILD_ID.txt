@@ -1,0 +1,5 @@
+R37
+BASE=R36
+CHANGE=LD A,I and LD A,R: S/Z/H/N/PV, C preserved; shared input byte; XY from value.
+HARDWARE_TEST=EZ80IRF.COM /RUN
+GOWIN_AND_BOARD=NOT_YET_VERIFIED

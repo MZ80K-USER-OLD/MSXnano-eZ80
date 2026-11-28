@@ -1,0 +1,6 @@
+COM stage 1 time=33330000
+COM stage 2 time=107010000
+EZ80MEM P1: PASS
+COM_COMPLETE=1
+PASS COM_R37 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=844
+R37_INPUT_COVERAGE captures=1349

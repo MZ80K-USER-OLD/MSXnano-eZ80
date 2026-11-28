@@ -1,0 +1,15 @@
+{
+  "cases": 10240,
+  "passed": 10240,
+  "failed": 0,
+  "LD_A_I_R_cases": 8192,
+  "LD_I_R_A_cases": 2048,
+  "all_byte_values": true,
+  "ADL_both": true,
+  "IFF1_IFF2_independent": true,
+  "C_both": true,
+  "undocumented_XY_from_value": true,
+  "full_instruction_execution": true,
+  "independent_of_CEmu": true,
+  "failures": []
+}

@@ -1,0 +1,435 @@
+{
+  "source_bytes": 3251085,
+  "source_sha256": "85db0dbbdc65822a24e387c117e8496fe184fabb8b8aefa85330e8f42a98d2b2",
+  "central_directory_valid": false,
+  "recovered": [
+    {
+      "name": "ez80_all_fuse_v1/FORMAT.md",
+      "bytes": 3138,
+      "crc32": "66885a24",
+      "sha256": "5d66385618add6871f220f0afa9be210ca127120293c9c6a045bf30c6e9a2382"
+    },
+    {
+      "name": "ez80_all_fuse_v1/PROVENANCE.md",
+      "bytes": 2548,
+      "crc32": "fbe67b5e",
+      "sha256": "3852159811e974db9776e5b1eb313b43de9d80b0554dd168d22a542375d28707"
+    },
+    {
+      "name": "ez80_all_fuse_v1/README.md",
+      "bytes": 4137,
+      "crc32": "97405fea",
+      "sha256": "4c8a5c91e06f235320b593f679586ff8d6d11ea95563e5bc50865b799a42342d"
+    },
+    {
+      "name": "ez80_all_fuse_v1/cases.jsonl",
+      "bytes": 37357178,
+      "crc32": "a65ad30b",
+      "sha256": "d42fdba57da569d6a73dfe236c6c3fece6f0ef20f43694deb0dd3116cf0cc06f"
+    },
+    {
+      "name": "ez80_all_fuse_v1/coverage.csv",
+      "bytes": 33428,
+      "crc32": "c5968165",
+      "sha256": "309e3e053ff95118a07bb2a671425aaaf93bc368aa684db22ff12fcc4e0e7b37"
+    },
+    {
+      "name": "ez80_all_fuse_v1/events.expected.jsonl",
+      "bytes": 12897330,
+      "crc32": "21b729b4",
+      "sha256": "bdf47c903cf35fd602702107531858e659933fe4bc0c55a338ba6c06f085ccef"
+    },
+    {
+      "name": "ez80_all_fuse_v1/execution_commands.json",
+      "bytes": 669,
+      "crc32": "b954eaac",
+      "sha256": "f210fe071f8bd030d8f9cf81132e600d63e2992ca711f9ae48e1631850f63c6c"
+    },
+    {
+      "name": "ez80_all_fuse_v1/generation.log",
+      "bytes": 573,
+      "crc32": "d20fa61d",
+      "sha256": "8444ff2c874c1a027be59a18256cae17646ef02129d74c99879ad9439d17a468"
+    },
+    {
+      "name": "ez80_all_fuse_v1/opcode_catalog.json",
+      "bytes": 158388,
+      "crc32": "476d69b0",
+      "sha256": "0984aed9e10bdab3102025e67f38cf6cd0ac2c9801d8e6b27332a8776a1ed7b0"
+    },
+    {
+      "name": "ez80_all_fuse_v1/summary.json",
+      "bytes": 1868,
+      "crc32": "c50e9eea",
+      "sha256": "bcf44d18ae7048ec38ae8d48cd82443f73ff4babd5711eed6cdc1311af466781"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tests.expected",
+      "bytes": 21479824,
+      "crc32": "e91be733",
+      "sha256": "605c19e42b133168e4d5f0c1e7fda0df4fd79d102e9dbeed591af6e50c89e7b2"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tests.in",
+      "bytes": 20631782,
+      "crc32": "ca5ff3c6",
+      "sha256": "f5f741803f5a4be42fd71759f2d7137b2b39d34fd24e853b426ece3abbd2d39e"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tools/build.py",
+      "bytes": 478,
+      "crc32": "9ef348d0",
+      "sha256": "d3757af1bbc2455285120d173373605206128e98ee86414cc3191a7fe8774b5b"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tools/compare_dut.py",
+      "bytes": 1761,
+      "crc32": "5a379baf",
+      "sha256": "ba104b4ca0d711c554ac9c0d832f4ad174522ea30cf20cfcf6578b369cd3b53a"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tools/dis.c",
+      "bytes": 937,
+      "crc32": "597912e1",
+      "sha256": "fb810debeb00dc4553af1da10a9aa960d54a90164eef4845de43ddf1422087eb"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tools/generate.py",
+      "bytes": 11701,
+      "crc32": "a36ed854",
+      "sha256": "9ddba81c916cddd94487a757a0c27b8bf3929e8363e46dfd2ee515d3c12ed6e5"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tools/oracle.c",
+      "bytes": 2919,
+      "crc32": "ec359040",
+      "sha256": "28fb3d4b306fa9fb76624e3671f63897aab159fb8e4b68070569a347ac4fcce6"
+    },
+    {
+      "name": "ez80_all_fuse_v1/tools/validate.py",
+      "bytes": 6149,
+      "crc32": "6e780868",
+      "sha256": "6df0ca0f15641acb87899fd4e490f48ac5887f81b1e44ab83d9300c29b90b153"
+    },
+    {
+      "name": "ez80_all_fuse_v1/validation.json",
+      "bytes": 316,
+      "crc32": "70809de1",
+      "sha256": "35f7a9cc5d61f56522a5e2cff81f59b21fe3cd904e979a4ee7ec879e42fbe34f"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/LICENSE",
+      "bytes": 5372,
+      "crc32": "348c2495",
+      "sha256": "6ef5f2e5aed89056a713e4fa0a614c1e73978287237e7d1c9295a7f1cdf334cc"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/Makefile",
+      "bytes": 1075,
+      "crc32": "1f911415",
+      "sha256": "e48d3a5278673e685336912cde6ab72263a92a6cd67975497da2bc12500f4fcb"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/asic.c",
+      "bytes": 6860,
+      "crc32": "49fefc27",
+      "sha256": "b8bd92927a5cd998edcf09530695a9c072b316db39de7e9557b1ac3a74961e54"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/asic.h",
+      "bytes": 1036,
+      "crc32": "2c13cf3a",
+      "sha256": "d028893d3f917b43b06e1569eaa9f9ee854b3bfe44a5debbc7144112bd8f2cc2"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/atomics.h",
+      "bytes": 4052,
+      "crc32": "fd41da10",
+      "sha256": "8f4362974d9bdf03245aedd4b46ee5b8224a9f32686c60829d1c51a07a6383e8"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/backlight.c",
+      "bytes": 2425,
+      "crc32": "813f6ff9",
+      "sha256": "2107b24eb60c6ea59982d05096d398b667fce3b7b7f94d9c7334d52ae8906e0f"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/backlight.h",
+      "bytes": 453,
+      "crc32": "8a79887a",
+      "sha256": "3dbb5034b5176c73ada52bc7b5d6a7e49d188e60477f9d7125d12814f42f2b97"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/bootver.c",
+      "bytes": 4173,
+      "crc32": "14064aa3",
+      "sha256": "a799c8be5ab00e83e4237f6b3318762c8c4e17d5b54fc3ce52af3ba5e9a494d4"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/bootver.h",
+      "bytes": 594,
+      "crc32": "47d73268",
+      "sha256": "ba7bfd2dee3b3da9605cd9ceb0cf57b2b00d2e41a02d0e8761ad030c7c74a217"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/bus.c",
+      "bytes": 472,
+      "crc32": "01e0d142",
+      "sha256": "ab97f4b888e6e9c2a98cc4f46a154f12f85036d3480878c0ea11cb5246023f8f"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/bus.h",
+      "bytes": 207,
+      "crc32": "2625ff2c",
+      "sha256": "fbdd18520d6fd001913045d880fdaeb711a0d073d8798997fdf6b91d2d8abcc1"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/cemu.h",
+      "bytes": 334,
+      "crc32": "b7f0b5e8",
+      "sha256": "4948ff216fe9588e4f24e5b5b52afadac0a863d1b820b419e465ee0817d2d95a"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/cert.c",
+      "bytes": 3683,
+      "crc32": "1bfa0219",
+      "sha256": "392c96d7412d6c8391ecdd57da6a74818424132761f556232495c84c4688e932"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/cert.h",
+      "bytes": 704,
+      "crc32": "cca1cfc0",
+      "sha256": "fc594c069e80d973674b3c4ab5ec02ec5b627c83ce4f4e503a5ae94d5e6f4eed"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/control.c",
+      "bytes": 9481,
+      "crc32": "2dd8a167",
+      "sha256": "c1dd28aed47cedcbea560529b3478fd8161d4d6b60e9f652a3539ed93a154155"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/control.h",
+      "bytes": 1009,
+      "crc32": "f1b23ee7",
+      "sha256": "9fc5e32f5cc8c306107e41872b27b32c0e53c78bc039522b5127887d71e033bd"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/cpu.c",
+      "bytes": 81633,
+      "crc32": "6251801e",
+      "sha256": "57f8c0596c33e29bbe8ae7372b23a05c168c7c41c48be7edf6c088908dcd5413"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/cpu.h",
+      "bytes": 4657,
+      "crc32": "14f2360e",
+      "sha256": "2e486f5c04803215383532bb2afed37134414e9e53e3b4b7c8c6fc02b31296fe"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/debug/debug.c",
+      "bytes": 23360,
+      "crc32": "58ef3de1",
+      "sha256": "439f21d77852a7acab5363f80b5742cc98b83ebe87b575b6ce8571b717d76dd2"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/debug/debug.h",
+      "bytes": 12031,
+      "crc32": "7469f539",
+      "sha256": "c6682f3a4b17d8771a0a6fc0a65a055a984b7ec3e0294733108331c58b49ef00"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/defines.h",
+      "bytes": 3031,
+      "crc32": "5dbc6ff0",
+      "sha256": "09f0463fdc47e155ee50d7e4bafdcf792f8ebe4a813e512c5ff0b6baef475792"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/emscripten.mk",
+      "bytes": 1265,
+      "crc32": "d8660669",
+      "sha256": "f0018aee4ec783bb906ce747a88315d179f193cf253aece403d9ab7d75d39988"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/emu.c",
+      "bytes": 9882,
+      "crc32": "79e12c4f",
+      "sha256": "e615a401e055519049137b568c7b7ff42c89e43a8920b35e917a9747ecf8e326"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/emu.h",
+      "bytes": 2549,
+      "crc32": "4881e21e",
+      "sha256": "5ecc24abb135c62c433918ca66208b52644429d02c88c83fd728d7e4e07a2056"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/extras.c",
+      "bytes": 1422,
+      "crc32": "a0f34e16",
+      "sha256": "7770b05d8cc10ff10b414f23eab755f3ae8d3d11f4bda17e52397a80b0b66a24"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/extras.h",
+      "bytes": 472,
+      "crc32": "f0ced536",
+      "sha256": "6fea73fd1b502ac6cbf412180871c6e5d3b0ad99e127c3a679c6ef1813aff53f"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/flash.c",
+      "bytes": 13399,
+      "crc32": "cec2ae6b",
+      "sha256": "edcdac97d0e9d52293b240ee681a5cedca4a31678de489c61cfa7b9b39a2516c"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/flash.h",
+      "bytes": 1147,
+      "crc32": "b94618ca",
+      "sha256": "635e14f65d1d0c9a5e17ac4810493692f6a42a42f2f720ad2a3fc006bd1f50fb"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/interrupt.c",
+      "bytes": 3714,
+      "crc32": "da8d920c",
+      "sha256": "cba177d46662823e17980312d5d7ba93c31d2eaaa7ba915329f716a2e09f00d5"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/interrupt.h",
+      "bytes": 1137,
+      "crc32": "fbdf31f5",
+      "sha256": "f7b4730c7a2ea3dcb4dd455fd3107935761f90b95345d0d60723383fb933fabf"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/keypad.c",
+      "bytes": 11616,
+      "crc32": "d34afe73",
+      "sha256": "2072c9df21536110eeafb5267ece92a9e52bb09511fd1cf9d8b357d6405d4f05"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/keypad.h",
+      "bytes": 1328,
+      "crc32": "1bd4d367",
+      "sha256": "6c799ea7b253f44f03a7aecb4ab77247c0ea256f0775e3eb630bfb76b35b921b"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/lcd.c",
+      "bytes": 29104,
+      "crc32": "3757258e",
+      "sha256": "616f78a93f63f131d984c3a626ccfd9b22c8b374ae240e62026d83ce0e96e54d"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/lcd.h",
+      "bytes": 3773,
+      "crc32": "3d5172c8",
+      "sha256": "d57abd913d5236bfd9de82affbffab71b231bef659108256bb78f2d98132f350"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/link.c",
+      "bytes": 5115,
+      "crc32": "aa131efd",
+      "sha256": "75b6e7e7dbe54dc2d0fe13a71e46222c1ec49b616193a5c9444ecfbc0ab725b6"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/link.h",
+      "bytes": 846,
+      "crc32": "830fb6e8",
+      "sha256": "ee31a8ef26aeb3e6470a1237a7313d07d8cf2eda2014b09f3355a4785595bb11"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/mem.c",
+      "bytes": 32377,
+      "crc32": "63678e72",
+      "sha256": "fccb0d97aca103ac213192bb11a15e3560b218b11bc4055832a16d0ac8de7ced"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/mem.h",
+      "bytes": 2498,
+      "crc32": "55c85376",
+      "sha256": "0446c499e1533deba60c7c139b8ec6d6576e172acd5cc380db70eeaba8b8a52a"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/misc.c",
+      "bytes": 12602,
+      "crc32": "30a77614",
+      "sha256": "69bd2901c973c33667e0979d9fd74c69d090ba4986b99382f2c6d89ffb0dd76f"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/misc.h",
+      "bytes": 1351,
+      "crc32": "d4efe45b",
+      "sha256": "809f4d919820e3816fc19e8470759428f7f648ac48e9a4107857afb5f14f9a5b"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/os/os-emscripten.c",
+      "bytes": 3781,
+      "crc32": "85c45715",
+      "sha256": "6315a3b795a5161c2cf11abc96977c039efa351bd9979fee2ad15d1d668cec4a"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/os/os-linux.c",
+      "bytes": 131,
+      "crc32": "de12da0f",
+      "sha256": "ebb90d5556e31a8f76887c2b98af1a4e20eb8b7703fe9a121e576594104d1ba8"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/os/os-win32.c",
+      "bytes": 368,
+      "crc32": "4ea70078",
+      "sha256": "3f9fdd6be8bb976732dd3f459641b03e9c3e138f1fede395207d3eb9a52814c6"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/os/os.h",
+      "bytes": 278,
+      "crc32": "0f287e54",
+      "sha256": "6b874ddd6a11ad94efdb59f3083c0b6d45bb97b6a7c61f346ca01ce3840dbdf1"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/panel.c",
+      "bytes": 53574,
+      "crc32": "f5061a64",
+      "sha256": "6d91423886defceb987bd597dc71b20810fb2d535492b7d12ca5bcf71eb6b761"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/panel.h",
+      "bytes": 14001,
+      "crc32": "49b2eb4f",
+      "sha256": "80959f5939fab3365d543090189d2d44b3c04c86d51ee474029bccedfdc6fdd2"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/port.c",
+      "bytes": 2367,
+      "crc32": "77d92a2a",
+      "sha256": "271894515b2162642932f54100a452b60b7c2e4244076202eb33918b444b7861"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/port.h",
+      "bytes": 525,
+      "crc32": "8d399a21",
+      "sha256": "beac8119243526926c08af1ebc11adfd2607e1d8b3dd1e588a6e613d2ceadfae"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/realclock.c",
+      "bytes": 9855,
+      "crc32": "a1c84d12",
+      "sha256": "127a30da42f266222b172acbba9f1fec76eae0d093fa237a60b0f2df497b216f"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/realclock.h",
+      "bytes": 1154,
+      "crc32": "33045eda",
+      "sha256": "bd44e441549c9aac7a7832c802a93f15deb12a1cfcf3dd6d4b9c75a74e9d23a2"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/registers.c",
+      "bytes": 1301,
+      "crc32": "fa24382f",
+      "sha256": "f2abfc69b186d37a7a4fb68d5566fb0e4f5093629fa7a34601e7c03ff0a9222d"
+    },
+    {
+      "name": "ez80_all_fuse_v1/vendor/cemu_core/registers.h",
+      "bytes": 7167,
+      "crc32": "e7f4299d",
+      "sha256": "a1c75ac01fcabb86ae14fe03d50acd99ea5f9f443798751d90072eac30fadd70"
+    }
+  ],
+  "stopped": null,
+  "bytes_consumed": 3251085
+}

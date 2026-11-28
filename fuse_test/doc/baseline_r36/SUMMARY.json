@@ -1,0 +1,33 @@
+{
+  "total_suite_cases": 28290,
+  "executed": 27170,
+  "strict_passed": 25182,
+  "strict_unmatched": 1988,
+  "architectural_passed": 25274,
+  "event_stream_passed": 26566,
+  "not_run": 1120,
+  "not_run_reasons": {
+    "policy_excluded": 992,
+    "not_implemented": 128
+  },
+  "categories": {
+    "STRICT_PASS": 25182,
+    "UNDEFINED_UPPER_ONLY": 1051,
+    "MISMATCH_REVIEW": 753,
+    "FRAME_GUARD_REVIEW": 64,
+    "TRACE_ONLY_DIFFERENCE": 92,
+    "REFERENCE_MBASE_Z80_NOP": 8,
+    "UNDEFINED_UPPER_AND_TRACE": 6,
+    "IM0_IACK_POLICY_REVIEW": 4,
+    "REFERENCE_MADL_STACK_LAYOUT": 10
+  },
+  "RTL_modified": false,
+  "expected_modified": false,
+  "all_PASS": false,
+  "external_events": "34 executed through sampled-event boundary shim; pin synchronization timing not tested",
+  "LD_A_I_independent_check": {
+    "cases": 32,
+    "passed": 0,
+    "failed": 32
+  }
+}

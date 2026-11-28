@@ -1,0 +1,16 @@
+{
+  "release": "R37",
+  "executed": 27170,
+  "passed": 25232,
+  "unmatched": 1938,
+  "not_run_policy": 992,
+  "not_run_unimplemented": 128,
+  "LD_A_I_R_passed": 64,
+  "LD_A_I_R_total": 64,
+  "newly_passed_vs_R36": 50,
+  "new_failures_vs_R36": [],
+  "unrelated_cases_identical": 27106,
+  "expected_changed": false,
+  "all_PASS": false,
+  "remaining_issues_unchanged": true
+}

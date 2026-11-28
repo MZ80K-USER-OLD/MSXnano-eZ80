@@ -1,0 +1,6 @@
+COM stage A time=202690000
+COM stage B time=518050000
+EZ80IRQ P2: PASS
+COM_COMPLETE=1
+PASS COM_R37 phase=0 fault=0 extended=1 cpu_div=4 status=1 high_fetch_opcodes=0 WAIT_ticks=3924
+R37_INPUT_COVERAGE captures=2768

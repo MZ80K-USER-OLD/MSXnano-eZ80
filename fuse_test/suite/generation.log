@@ -1,0 +1,18 @@
+generated 100 encodings; 3200 cases
+generated 200 encodings; 6400 cases
+generated 300 encodings; 9600 cases
+generated 400 encodings; 12800 cases
+generated 500 encodings; 16000 cases
+generated 600 encodings; 19200 cases
+generated 700 encodings; 22400 cases
+generated 800 encodings; 25600 cases
+{
+  "format": "EZ80-FUSE-ADL-v2",
+  "total_cases": 28290,
+  "encoding_count": 883,
+  "external_event_cases": 34,
+  "native_cases": 14128,
+  "prefix_probe_cases": 14128,
+  "native_encoding_gaps": [],
+  "validation": "reference-generated, not eZ80X RTL PASS or silicon-certified"
+}

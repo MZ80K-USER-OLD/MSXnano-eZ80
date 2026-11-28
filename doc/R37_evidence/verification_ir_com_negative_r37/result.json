@@ -1,0 +1,6 @@
+{
+  "original_R36_expected_failure": true,
+  "expected_F": "40",
+  "actual_F": "D2",
+  "new_COM_detects_old_bug": true
+}

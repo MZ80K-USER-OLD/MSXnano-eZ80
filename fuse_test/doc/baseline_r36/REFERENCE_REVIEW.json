@@ -1,0 +1,100 @@
+[
+  {
+    "id": "ED_6E_a0_native_s0",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "ED_6E_a0_native_s1",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "ED_6E_a0_native_s2",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "ED_6E_a0_native_s3",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "ED_6E_a0_native_s4",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "ED_6E_a0_native_s5",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "ED_6E_a0_native_s6",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "ED_6E_a0_native_s7",
+    "review": "DUT agrees with separately computed Z80-mode NOP; original CEmu expectation differs"
+  },
+  {
+    "id": "event_IRQ_a0_im0_madl0",
+    "review": "Stimulus IACK byte=5A; CEmu chooses vector seed&38, while eZ80 specifies RST/CALL opcodes or NOP. Do not treat original target PC as authoritative."
+  },
+  {
+    "id": "event_NMI_a0_im0_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_IRQ_a0_im0_madl1",
+    "review": "Stimulus IACK byte=5A; CEmu chooses vector seed&38, while eZ80 specifies RST/CALL opcodes or NOP. Do not treat original target PC as authoritative."
+  },
+  {
+    "id": "event_NMI_a0_im1_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_IRQ_a0_im1_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_NMI_a0_im2_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_IRQ_a0_im2_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_IRQ_a1_im0_madl0",
+    "review": "Stimulus IACK byte=5A; CEmu chooses vector seed&38, while eZ80 specifies RST/CALL opcodes or NOP. Do not treat original target PC as authoritative."
+  },
+  {
+    "id": "event_NMI_a1_im0_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_IRQ_a1_im0_madl1",
+    "review": "Stimulus IACK byte=5A; CEmu chooses vector seed&38, while eZ80 specifies RST/CALL opcodes or NOP. Do not treat original target PC as authoritative."
+  },
+  {
+    "id": "event_NMI_a1_im1_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_IRQ_a1_im1_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_NMI_a1_im2_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  },
+  {
+    "id": "event_IRQ_a1_im2_madl1",
+    "review": "DUT stacks the complete return PC followed by saved mode on SPL. Original oracle uses SPS for short PC, or puts the mode byte between PC bytes for long PC. Official mixed interrupt tables specify PC then saved mode on SPL.",
+    "pointer_and_payload_check": true
+  }
+]

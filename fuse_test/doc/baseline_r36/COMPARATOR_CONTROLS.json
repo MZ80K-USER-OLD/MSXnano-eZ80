@@ -1,0 +1,52 @@
+{
+  "checks": [
+    {
+      "name": "real NOP",
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "name": "real data read",
+      "expected": "PASS",
+      "observed": "PASS"
+    },
+    {
+      "name": "Z flag bit flip",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "name": "memory byte flip",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "name": "missing read event",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "name": "wrong read byte",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "name": "timeout cannot PASS",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "name": "unknown PC cannot PASS",
+      "expected": "FAIL",
+      "observed": "FAIL"
+    },
+    {
+      "name": "provided undocumented flag mask",
+      "expected": "PASS",
+      "observed": "PASS"
+    }
+  ],
+  "negative_controls": 6,
+  "positive_controls": 3,
+  "R36_model_semantic_sha256": "f20f59577f25efd16e57fc5436f5a5c73d894c6debfddfd1050fafb730c2ad1d"
+}

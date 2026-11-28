@@ -1,0 +1,10474 @@
+[
+  {
+    "key": "BASE_00",
+    "space": "BASE",
+    "opcode": 0,
+    "head": [
+      0
+    ],
+    "mnemonic": "NOP",
+    "assembly": "NOP",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_01",
+    "space": "BASE",
+    "opcode": 1,
+    "head": [
+      1
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD BC,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_02",
+    "space": "BASE",
+    "opcode": 2,
+    "head": [
+      2
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (BC),A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_03",
+    "space": "BASE",
+    "opcode": 3,
+    "head": [
+      3
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC BC",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_04",
+    "space": "BASE",
+    "opcode": 4,
+    "head": [
+      4
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_05",
+    "space": "BASE",
+    "opcode": 5,
+    "head": [
+      5
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_06",
+    "space": "BASE",
+    "opcode": 6,
+    "head": [
+      6
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_07",
+    "space": "BASE",
+    "opcode": 7,
+    "head": [
+      7
+    ],
+    "mnemonic": "RLCA",
+    "assembly": "RLCA",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_08",
+    "space": "BASE",
+    "opcode": 8,
+    "head": [
+      8
+    ],
+    "mnemonic": "EX",
+    "assembly": "EX AF,AF'",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_09",
+    "space": "BASE",
+    "opcode": 9,
+    "head": [
+      9
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD HL,BC",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_0A",
+    "space": "BASE",
+    "opcode": 10,
+    "head": [
+      10
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,(BC)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_0B",
+    "space": "BASE",
+    "opcode": 11,
+    "head": [
+      11
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC BC",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_0C",
+    "space": "BASE",
+    "opcode": 12,
+    "head": [
+      12
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_0D",
+    "space": "BASE",
+    "opcode": 13,
+    "head": [
+      13
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_0E",
+    "space": "BASE",
+    "opcode": 14,
+    "head": [
+      14
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_0F",
+    "space": "BASE",
+    "opcode": 15,
+    "head": [
+      15
+    ],
+    "mnemonic": "RRCA",
+    "assembly": "RRCA",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_10",
+    "space": "BASE",
+    "opcode": 16,
+    "head": [
+      16
+    ],
+    "mnemonic": "DJNZ",
+    "assembly": "DJNZ $0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_11",
+    "space": "BASE",
+    "opcode": 17,
+    "head": [
+      17
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD DE,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_12",
+    "space": "BASE",
+    "opcode": 18,
+    "head": [
+      18
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (DE),A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_13",
+    "space": "BASE",
+    "opcode": 19,
+    "head": [
+      19
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC DE",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_14",
+    "space": "BASE",
+    "opcode": 20,
+    "head": [
+      20
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_15",
+    "space": "BASE",
+    "opcode": 21,
+    "head": [
+      21
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_16",
+    "space": "BASE",
+    "opcode": 22,
+    "head": [
+      22
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_17",
+    "space": "BASE",
+    "opcode": 23,
+    "head": [
+      23
+    ],
+    "mnemonic": "RLA",
+    "assembly": "RLA",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_18",
+    "space": "BASE",
+    "opcode": 24,
+    "head": [
+      24
+    ],
+    "mnemonic": "JR",
+    "assembly": "JR $0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_19",
+    "space": "BASE",
+    "opcode": 25,
+    "head": [
+      25
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD HL,DE",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_1A",
+    "space": "BASE",
+    "opcode": 26,
+    "head": [
+      26
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,(DE)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_1B",
+    "space": "BASE",
+    "opcode": 27,
+    "head": [
+      27
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC DE",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_1C",
+    "space": "BASE",
+    "opcode": 28,
+    "head": [
+      28
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_1D",
+    "space": "BASE",
+    "opcode": 29,
+    "head": [
+      29
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_1E",
+    "space": "BASE",
+    "opcode": 30,
+    "head": [
+      30
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_1F",
+    "space": "BASE",
+    "opcode": 31,
+    "head": [
+      31
+    ],
+    "mnemonic": "RRA",
+    "assembly": "RRA",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_20",
+    "space": "BASE",
+    "opcode": 32,
+    "head": [
+      32
+    ],
+    "mnemonic": "JR",
+    "assembly": "JR NZ,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_21",
+    "space": "BASE",
+    "opcode": 33,
+    "head": [
+      33
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD HL,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_22",
+    "space": "BASE",
+    "opcode": 34,
+    "head": [
+      34
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),HL",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_23",
+    "space": "BASE",
+    "opcode": 35,
+    "head": [
+      35
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_24",
+    "space": "BASE",
+    "opcode": 36,
+    "head": [
+      36
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_25",
+    "space": "BASE",
+    "opcode": 37,
+    "head": [
+      37
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_26",
+    "space": "BASE",
+    "opcode": 38,
+    "head": [
+      38
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_27",
+    "space": "BASE",
+    "opcode": 39,
+    "head": [
+      39
+    ],
+    "mnemonic": "DAA",
+    "assembly": "DAA",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_28",
+    "space": "BASE",
+    "opcode": 40,
+    "head": [
+      40
+    ],
+    "mnemonic": "JR",
+    "assembly": "JR Z,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_29",
+    "space": "BASE",
+    "opcode": 41,
+    "head": [
+      41
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD HL,HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_2A",
+    "space": "BASE",
+    "opcode": 42,
+    "head": [
+      42
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD HL,($0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_2B",
+    "space": "BASE",
+    "opcode": 43,
+    "head": [
+      43
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_2C",
+    "space": "BASE",
+    "opcode": 44,
+    "head": [
+      44
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_2D",
+    "space": "BASE",
+    "opcode": 45,
+    "head": [
+      45
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_2E",
+    "space": "BASE",
+    "opcode": 46,
+    "head": [
+      46
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_2F",
+    "space": "BASE",
+    "opcode": 47,
+    "head": [
+      47
+    ],
+    "mnemonic": "CPL",
+    "assembly": "CPL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_30",
+    "space": "BASE",
+    "opcode": 48,
+    "head": [
+      48
+    ],
+    "mnemonic": "JR",
+    "assembly": "JR NC,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_31",
+    "space": "BASE",
+    "opcode": 49,
+    "head": [
+      49
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD SP,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_32",
+    "space": "BASE",
+    "opcode": 50,
+    "head": [
+      50
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),A",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_33",
+    "space": "BASE",
+    "opcode": 51,
+    "head": [
+      51
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC SP",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_34",
+    "space": "BASE",
+    "opcode": 52,
+    "head": [
+      52
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC (HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_35",
+    "space": "BASE",
+    "opcode": 53,
+    "head": [
+      53
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC (HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_36",
+    "space": "BASE",
+    "opcode": 54,
+    "head": [
+      54
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_37",
+    "space": "BASE",
+    "opcode": 55,
+    "head": [
+      55
+    ],
+    "mnemonic": "SCF",
+    "assembly": "SCF",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_38",
+    "space": "BASE",
+    "opcode": 56,
+    "head": [
+      56
+    ],
+    "mnemonic": "JR",
+    "assembly": "JR C,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_39",
+    "space": "BASE",
+    "opcode": 57,
+    "head": [
+      57
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD HL,SP",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_3A",
+    "space": "BASE",
+    "opcode": 58,
+    "head": [
+      58
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,($0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_3B",
+    "space": "BASE",
+    "opcode": 59,
+    "head": [
+      59
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC SP",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_3C",
+    "space": "BASE",
+    "opcode": 60,
+    "head": [
+      60
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_3D",
+    "space": "BASE",
+    "opcode": 61,
+    "head": [
+      61
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_3E",
+    "space": "BASE",
+    "opcode": 62,
+    "head": [
+      62
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_3F",
+    "space": "BASE",
+    "opcode": 63,
+    "head": [
+      63
+    ],
+    "mnemonic": "CCF",
+    "assembly": "CCF",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_41",
+    "space": "BASE",
+    "opcode": 65,
+    "head": [
+      65
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_42",
+    "space": "BASE",
+    "opcode": 66,
+    "head": [
+      66
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_43",
+    "space": "BASE",
+    "opcode": 67,
+    "head": [
+      67
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_44",
+    "space": "BASE",
+    "opcode": 68,
+    "head": [
+      68
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_45",
+    "space": "BASE",
+    "opcode": 69,
+    "head": [
+      69
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_46",
+    "space": "BASE",
+    "opcode": 70,
+    "head": [
+      70
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_47",
+    "space": "BASE",
+    "opcode": 71,
+    "head": [
+      71
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_48",
+    "space": "BASE",
+    "opcode": 72,
+    "head": [
+      72
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_4A",
+    "space": "BASE",
+    "opcode": 74,
+    "head": [
+      74
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_4B",
+    "space": "BASE",
+    "opcode": 75,
+    "head": [
+      75
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_4C",
+    "space": "BASE",
+    "opcode": 76,
+    "head": [
+      76
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_4D",
+    "space": "BASE",
+    "opcode": 77,
+    "head": [
+      77
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_4E",
+    "space": "BASE",
+    "opcode": 78,
+    "head": [
+      78
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_4F",
+    "space": "BASE",
+    "opcode": 79,
+    "head": [
+      79
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_50",
+    "space": "BASE",
+    "opcode": 80,
+    "head": [
+      80
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_51",
+    "space": "BASE",
+    "opcode": 81,
+    "head": [
+      81
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_53",
+    "space": "BASE",
+    "opcode": 83,
+    "head": [
+      83
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_54",
+    "space": "BASE",
+    "opcode": 84,
+    "head": [
+      84
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_55",
+    "space": "BASE",
+    "opcode": 85,
+    "head": [
+      85
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_56",
+    "space": "BASE",
+    "opcode": 86,
+    "head": [
+      86
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_57",
+    "space": "BASE",
+    "opcode": 87,
+    "head": [
+      87
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_58",
+    "space": "BASE",
+    "opcode": 88,
+    "head": [
+      88
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_59",
+    "space": "BASE",
+    "opcode": 89,
+    "head": [
+      89
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_5A",
+    "space": "BASE",
+    "opcode": 90,
+    "head": [
+      90
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_5C",
+    "space": "BASE",
+    "opcode": 92,
+    "head": [
+      92
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_5D",
+    "space": "BASE",
+    "opcode": 93,
+    "head": [
+      93
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_5E",
+    "space": "BASE",
+    "opcode": 94,
+    "head": [
+      94
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_5F",
+    "space": "BASE",
+    "opcode": 95,
+    "head": [
+      95
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_60",
+    "space": "BASE",
+    "opcode": 96,
+    "head": [
+      96
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_61",
+    "space": "BASE",
+    "opcode": 97,
+    "head": [
+      97
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_62",
+    "space": "BASE",
+    "opcode": 98,
+    "head": [
+      98
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_63",
+    "space": "BASE",
+    "opcode": 99,
+    "head": [
+      99
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_64",
+    "space": "BASE",
+    "opcode": 100,
+    "head": [
+      100
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_65",
+    "space": "BASE",
+    "opcode": 101,
+    "head": [
+      101
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_66",
+    "space": "BASE",
+    "opcode": 102,
+    "head": [
+      102
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_67",
+    "space": "BASE",
+    "opcode": 103,
+    "head": [
+      103
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_68",
+    "space": "BASE",
+    "opcode": 104,
+    "head": [
+      104
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_69",
+    "space": "BASE",
+    "opcode": 105,
+    "head": [
+      105
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_6A",
+    "space": "BASE",
+    "opcode": 106,
+    "head": [
+      106
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_6B",
+    "space": "BASE",
+    "opcode": 107,
+    "head": [
+      107
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_6C",
+    "space": "BASE",
+    "opcode": 108,
+    "head": [
+      108
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_6D",
+    "space": "BASE",
+    "opcode": 109,
+    "head": [
+      109
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_6E",
+    "space": "BASE",
+    "opcode": 110,
+    "head": [
+      110
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_6F",
+    "space": "BASE",
+    "opcode": 111,
+    "head": [
+      111
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_70",
+    "space": "BASE",
+    "opcode": 112,
+    "head": [
+      112
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_71",
+    "space": "BASE",
+    "opcode": 113,
+    "head": [
+      113
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_72",
+    "space": "BASE",
+    "opcode": 114,
+    "head": [
+      114
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_73",
+    "space": "BASE",
+    "opcode": 115,
+    "head": [
+      115
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_74",
+    "space": "BASE",
+    "opcode": 116,
+    "head": [
+      116
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_75",
+    "space": "BASE",
+    "opcode": 117,
+    "head": [
+      117
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_76",
+    "space": "BASE",
+    "opcode": 118,
+    "head": [
+      118
+    ],
+    "mnemonic": "HALT",
+    "assembly": "HALT",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_77",
+    "space": "BASE",
+    "opcode": 119,
+    "head": [
+      119
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_78",
+    "space": "BASE",
+    "opcode": 120,
+    "head": [
+      120
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_79",
+    "space": "BASE",
+    "opcode": 121,
+    "head": [
+      121
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_7A",
+    "space": "BASE",
+    "opcode": 122,
+    "head": [
+      122
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_7B",
+    "space": "BASE",
+    "opcode": 123,
+    "head": [
+      123
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_7C",
+    "space": "BASE",
+    "opcode": 124,
+    "head": [
+      124
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_7D",
+    "space": "BASE",
+    "opcode": 125,
+    "head": [
+      125
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_7E",
+    "space": "BASE",
+    "opcode": 126,
+    "head": [
+      126
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_7F",
+    "space": "BASE",
+    "opcode": 127,
+    "head": [
+      127
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_80",
+    "space": "BASE",
+    "opcode": 128,
+    "head": [
+      128
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_81",
+    "space": "BASE",
+    "opcode": 129,
+    "head": [
+      129
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_82",
+    "space": "BASE",
+    "opcode": 130,
+    "head": [
+      130
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_83",
+    "space": "BASE",
+    "opcode": 131,
+    "head": [
+      131
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_84",
+    "space": "BASE",
+    "opcode": 132,
+    "head": [
+      132
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_85",
+    "space": "BASE",
+    "opcode": 133,
+    "head": [
+      133
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_86",
+    "space": "BASE",
+    "opcode": 134,
+    "head": [
+      134
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_87",
+    "space": "BASE",
+    "opcode": 135,
+    "head": [
+      135
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_88",
+    "space": "BASE",
+    "opcode": 136,
+    "head": [
+      136
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_89",
+    "space": "BASE",
+    "opcode": 137,
+    "head": [
+      137
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_8A",
+    "space": "BASE",
+    "opcode": 138,
+    "head": [
+      138
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_8B",
+    "space": "BASE",
+    "opcode": 139,
+    "head": [
+      139
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_8C",
+    "space": "BASE",
+    "opcode": 140,
+    "head": [
+      140
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_8D",
+    "space": "BASE",
+    "opcode": 141,
+    "head": [
+      141
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_8E",
+    "space": "BASE",
+    "opcode": 142,
+    "head": [
+      142
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_8F",
+    "space": "BASE",
+    "opcode": 143,
+    "head": [
+      143
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_90",
+    "space": "BASE",
+    "opcode": 144,
+    "head": [
+      144
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_91",
+    "space": "BASE",
+    "opcode": 145,
+    "head": [
+      145
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_92",
+    "space": "BASE",
+    "opcode": 146,
+    "head": [
+      146
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_93",
+    "space": "BASE",
+    "opcode": 147,
+    "head": [
+      147
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_94",
+    "space": "BASE",
+    "opcode": 148,
+    "head": [
+      148
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_95",
+    "space": "BASE",
+    "opcode": 149,
+    "head": [
+      149
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_96",
+    "space": "BASE",
+    "opcode": 150,
+    "head": [
+      150
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_97",
+    "space": "BASE",
+    "opcode": 151,
+    "head": [
+      151
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_98",
+    "space": "BASE",
+    "opcode": 152,
+    "head": [
+      152
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_99",
+    "space": "BASE",
+    "opcode": 153,
+    "head": [
+      153
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_9A",
+    "space": "BASE",
+    "opcode": 154,
+    "head": [
+      154
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_9B",
+    "space": "BASE",
+    "opcode": 155,
+    "head": [
+      155
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_9C",
+    "space": "BASE",
+    "opcode": 156,
+    "head": [
+      156
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_9D",
+    "space": "BASE",
+    "opcode": 157,
+    "head": [
+      157
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_9E",
+    "space": "BASE",
+    "opcode": 158,
+    "head": [
+      158
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_9F",
+    "space": "BASE",
+    "opcode": 159,
+    "head": [
+      159
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A0",
+    "space": "BASE",
+    "opcode": 160,
+    "head": [
+      160
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A1",
+    "space": "BASE",
+    "opcode": 161,
+    "head": [
+      161
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A2",
+    "space": "BASE",
+    "opcode": 162,
+    "head": [
+      162
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A3",
+    "space": "BASE",
+    "opcode": 163,
+    "head": [
+      163
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A4",
+    "space": "BASE",
+    "opcode": 164,
+    "head": [
+      164
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A5",
+    "space": "BASE",
+    "opcode": 165,
+    "head": [
+      165
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A6",
+    "space": "BASE",
+    "opcode": 166,
+    "head": [
+      166
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A7",
+    "space": "BASE",
+    "opcode": 167,
+    "head": [
+      167
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A8",
+    "space": "BASE",
+    "opcode": 168,
+    "head": [
+      168
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_A9",
+    "space": "BASE",
+    "opcode": 169,
+    "head": [
+      169
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_AA",
+    "space": "BASE",
+    "opcode": 170,
+    "head": [
+      170
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_AB",
+    "space": "BASE",
+    "opcode": 171,
+    "head": [
+      171
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_AC",
+    "space": "BASE",
+    "opcode": 172,
+    "head": [
+      172
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_AD",
+    "space": "BASE",
+    "opcode": 173,
+    "head": [
+      173
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_AE",
+    "space": "BASE",
+    "opcode": 174,
+    "head": [
+      174
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_AF",
+    "space": "BASE",
+    "opcode": 175,
+    "head": [
+      175
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B0",
+    "space": "BASE",
+    "opcode": 176,
+    "head": [
+      176
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B1",
+    "space": "BASE",
+    "opcode": 177,
+    "head": [
+      177
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B2",
+    "space": "BASE",
+    "opcode": 178,
+    "head": [
+      178
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B3",
+    "space": "BASE",
+    "opcode": 179,
+    "head": [
+      179
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B4",
+    "space": "BASE",
+    "opcode": 180,
+    "head": [
+      180
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B5",
+    "space": "BASE",
+    "opcode": 181,
+    "head": [
+      181
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B6",
+    "space": "BASE",
+    "opcode": 182,
+    "head": [
+      182
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B7",
+    "space": "BASE",
+    "opcode": 183,
+    "head": [
+      183
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B8",
+    "space": "BASE",
+    "opcode": 184,
+    "head": [
+      184
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,B",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_B9",
+    "space": "BASE",
+    "opcode": 185,
+    "head": [
+      185
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_BA",
+    "space": "BASE",
+    "opcode": 186,
+    "head": [
+      186
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,D",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_BB",
+    "space": "BASE",
+    "opcode": 187,
+    "head": [
+      187
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,E",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_BC",
+    "space": "BASE",
+    "opcode": 188,
+    "head": [
+      188
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,H",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_BD",
+    "space": "BASE",
+    "opcode": 189,
+    "head": [
+      189
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,L",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_BE",
+    "space": "BASE",
+    "opcode": 190,
+    "head": [
+      190
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,(HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_BF",
+    "space": "BASE",
+    "opcode": 191,
+    "head": [
+      191
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,A",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_C0",
+    "space": "BASE",
+    "opcode": 192,
+    "head": [
+      192
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET NZ",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_C1",
+    "space": "BASE",
+    "opcode": 193,
+    "head": [
+      193
+    ],
+    "mnemonic": "POP",
+    "assembly": "POP BC",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_C2",
+    "space": "BASE",
+    "opcode": 194,
+    "head": [
+      194
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP NZ,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_C3",
+    "space": "BASE",
+    "opcode": 195,
+    "head": [
+      195
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP $0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_C4",
+    "space": "BASE",
+    "opcode": 196,
+    "head": [
+      196
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL NZ,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_C5",
+    "space": "BASE",
+    "opcode": 197,
+    "head": [
+      197
+    ],
+    "mnemonic": "PUSH",
+    "assembly": "PUSH BC",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_C6",
+    "space": "BASE",
+    "opcode": 198,
+    "head": [
+      198
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_C7",
+    "space": "BASE",
+    "opcode": 199,
+    "head": [
+      199
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $0",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_C8",
+    "space": "BASE",
+    "opcode": 200,
+    "head": [
+      200
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET Z",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_C9",
+    "space": "BASE",
+    "opcode": 201,
+    "head": [
+      201
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_CA",
+    "space": "BASE",
+    "opcode": 202,
+    "head": [
+      202
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP Z,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_CC",
+    "space": "BASE",
+    "opcode": 204,
+    "head": [
+      204
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL Z,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_CD",
+    "space": "BASE",
+    "opcode": 205,
+    "head": [
+      205
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL $0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_CE",
+    "space": "BASE",
+    "opcode": 206,
+    "head": [
+      206
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_CF",
+    "space": "BASE",
+    "opcode": 207,
+    "head": [
+      207
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $8",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_D0",
+    "space": "BASE",
+    "opcode": 208,
+    "head": [
+      208
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET NC",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_D1",
+    "space": "BASE",
+    "opcode": 209,
+    "head": [
+      209
+    ],
+    "mnemonic": "POP",
+    "assembly": "POP DE",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_D2",
+    "space": "BASE",
+    "opcode": 210,
+    "head": [
+      210
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP NC,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_D3",
+    "space": "BASE",
+    "opcode": 211,
+    "head": [
+      211
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT ($0),A",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_D4",
+    "space": "BASE",
+    "opcode": 212,
+    "head": [
+      212
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL NC,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_D5",
+    "space": "BASE",
+    "opcode": 213,
+    "head": [
+      213
+    ],
+    "mnemonic": "PUSH",
+    "assembly": "PUSH DE",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_D6",
+    "space": "BASE",
+    "opcode": 214,
+    "head": [
+      214
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_D7",
+    "space": "BASE",
+    "opcode": 215,
+    "head": [
+      215
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $10",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_D8",
+    "space": "BASE",
+    "opcode": 216,
+    "head": [
+      216
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET C",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_D9",
+    "space": "BASE",
+    "opcode": 217,
+    "head": [
+      217
+    ],
+    "mnemonic": "EXX",
+    "assembly": "EXX",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_DA",
+    "space": "BASE",
+    "opcode": 218,
+    "head": [
+      218
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP C,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_DB",
+    "space": "BASE",
+    "opcode": 219,
+    "head": [
+      219
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN A,($0)",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_DC",
+    "space": "BASE",
+    "opcode": 220,
+    "head": [
+      220
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL C,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_DE",
+    "space": "BASE",
+    "opcode": 222,
+    "head": [
+      222
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_DF",
+    "space": "BASE",
+    "opcode": 223,
+    "head": [
+      223
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $18",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_E0",
+    "space": "BASE",
+    "opcode": 224,
+    "head": [
+      224
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET PO",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_E1",
+    "space": "BASE",
+    "opcode": 225,
+    "head": [
+      225
+    ],
+    "mnemonic": "POP",
+    "assembly": "POP HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_E2",
+    "space": "BASE",
+    "opcode": 226,
+    "head": [
+      226
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP PO,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_E3",
+    "space": "BASE",
+    "opcode": 227,
+    "head": [
+      227
+    ],
+    "mnemonic": "EX",
+    "assembly": "EX (SP),HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_E4",
+    "space": "BASE",
+    "opcode": 228,
+    "head": [
+      228
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL PO,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_E5",
+    "space": "BASE",
+    "opcode": 229,
+    "head": [
+      229
+    ],
+    "mnemonic": "PUSH",
+    "assembly": "PUSH HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_E6",
+    "space": "BASE",
+    "opcode": 230,
+    "head": [
+      230
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_E7",
+    "space": "BASE",
+    "opcode": 231,
+    "head": [
+      231
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $20",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_E8",
+    "space": "BASE",
+    "opcode": 232,
+    "head": [
+      232
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET PE",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_E9",
+    "space": "BASE",
+    "opcode": 233,
+    "head": [
+      233
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP (HL)",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_EA",
+    "space": "BASE",
+    "opcode": 234,
+    "head": [
+      234
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP PE,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_EB",
+    "space": "BASE",
+    "opcode": 235,
+    "head": [
+      235
+    ],
+    "mnemonic": "EX",
+    "assembly": "EX DE,HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_EC",
+    "space": "BASE",
+    "opcode": 236,
+    "head": [
+      236
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL PE,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_EE",
+    "space": "BASE",
+    "opcode": 238,
+    "head": [
+      238
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_EF",
+    "space": "BASE",
+    "opcode": 239,
+    "head": [
+      239
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $28",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_F0",
+    "space": "BASE",
+    "opcode": 240,
+    "head": [
+      240
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET P",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_F1",
+    "space": "BASE",
+    "opcode": 241,
+    "head": [
+      241
+    ],
+    "mnemonic": "POP",
+    "assembly": "POP AF",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_F2",
+    "space": "BASE",
+    "opcode": 242,
+    "head": [
+      242
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP P,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_F3",
+    "space": "BASE",
+    "opcode": 243,
+    "head": [
+      243
+    ],
+    "mnemonic": "DI",
+    "assembly": "DI",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_F4",
+    "space": "BASE",
+    "opcode": 244,
+    "head": [
+      244
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL P,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_F5",
+    "space": "BASE",
+    "opcode": 245,
+    "head": [
+      245
+    ],
+    "mnemonic": "PUSH",
+    "assembly": "PUSH AF",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_F6",
+    "space": "BASE",
+    "opcode": 246,
+    "head": [
+      246
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_F7",
+    "space": "BASE",
+    "opcode": 247,
+    "head": [
+      247
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $30",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_F8",
+    "space": "BASE",
+    "opcode": 248,
+    "head": [
+      248
+    ],
+    "mnemonic": "RET",
+    "assembly": "RET M",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_F9",
+    "space": "BASE",
+    "opcode": 249,
+    "head": [
+      249
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD SP,HL",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_FA",
+    "space": "BASE",
+    "opcode": 250,
+    "head": [
+      250
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP M,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_FB",
+    "space": "BASE",
+    "opcode": 251,
+    "head": [
+      251
+    ],
+    "mnemonic": "EI",
+    "assembly": "EI",
+    "length_adl1": 1
+  },
+  {
+    "key": "BASE_FC",
+    "space": "BASE",
+    "opcode": 252,
+    "head": [
+      252
+    ],
+    "mnemonic": "CALL",
+    "assembly": "CALL M,$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "BASE_FE",
+    "space": "BASE",
+    "opcode": 254,
+    "head": [
+      254
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,$0",
+    "length_adl1": 2
+  },
+  {
+    "key": "BASE_FF",
+    "space": "BASE",
+    "opcode": 255,
+    "head": [
+      255
+    ],
+    "mnemonic": "RST",
+    "assembly": "RST $38",
+    "length_adl1": 1
+  },
+  {
+    "key": "CB_00",
+    "space": "CB",
+    "opcode": 0,
+    "head": [
+      203,
+      0
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_01",
+    "space": "CB",
+    "opcode": 1,
+    "head": [
+      203,
+      1
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_02",
+    "space": "CB",
+    "opcode": 2,
+    "head": [
+      203,
+      2
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_03",
+    "space": "CB",
+    "opcode": 3,
+    "head": [
+      203,
+      3
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_04",
+    "space": "CB",
+    "opcode": 4,
+    "head": [
+      203,
+      4
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_05",
+    "space": "CB",
+    "opcode": 5,
+    "head": [
+      203,
+      5
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_06",
+    "space": "CB",
+    "opcode": 6,
+    "head": [
+      203,
+      6
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC (HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_07",
+    "space": "CB",
+    "opcode": 7,
+    "head": [
+      203,
+      7
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_08",
+    "space": "CB",
+    "opcode": 8,
+    "head": [
+      203,
+      8
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_09",
+    "space": "CB",
+    "opcode": 9,
+    "head": [
+      203,
+      9
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_0A",
+    "space": "CB",
+    "opcode": 10,
+    "head": [
+      203,
+      10
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_0B",
+    "space": "CB",
+    "opcode": 11,
+    "head": [
+      203,
+      11
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_0C",
+    "space": "CB",
+    "opcode": 12,
+    "head": [
+      203,
+      12
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_0D",
+    "space": "CB",
+    "opcode": 13,
+    "head": [
+      203,
+      13
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_0E",
+    "space": "CB",
+    "opcode": 14,
+    "head": [
+      203,
+      14
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC (HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_0F",
+    "space": "CB",
+    "opcode": 15,
+    "head": [
+      203,
+      15
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_10",
+    "space": "CB",
+    "opcode": 16,
+    "head": [
+      203,
+      16
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_11",
+    "space": "CB",
+    "opcode": 17,
+    "head": [
+      203,
+      17
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_12",
+    "space": "CB",
+    "opcode": 18,
+    "head": [
+      203,
+      18
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_13",
+    "space": "CB",
+    "opcode": 19,
+    "head": [
+      203,
+      19
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_14",
+    "space": "CB",
+    "opcode": 20,
+    "head": [
+      203,
+      20
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_15",
+    "space": "CB",
+    "opcode": 21,
+    "head": [
+      203,
+      21
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_16",
+    "space": "CB",
+    "opcode": 22,
+    "head": [
+      203,
+      22
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL (HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_17",
+    "space": "CB",
+    "opcode": 23,
+    "head": [
+      203,
+      23
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_18",
+    "space": "CB",
+    "opcode": 24,
+    "head": [
+      203,
+      24
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_19",
+    "space": "CB",
+    "opcode": 25,
+    "head": [
+      203,
+      25
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_1A",
+    "space": "CB",
+    "opcode": 26,
+    "head": [
+      203,
+      26
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_1B",
+    "space": "CB",
+    "opcode": 27,
+    "head": [
+      203,
+      27
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_1C",
+    "space": "CB",
+    "opcode": 28,
+    "head": [
+      203,
+      28
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_1D",
+    "space": "CB",
+    "opcode": 29,
+    "head": [
+      203,
+      29
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_1E",
+    "space": "CB",
+    "opcode": 30,
+    "head": [
+      203,
+      30
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR (HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_1F",
+    "space": "CB",
+    "opcode": 31,
+    "head": [
+      203,
+      31
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_20",
+    "space": "CB",
+    "opcode": 32,
+    "head": [
+      203,
+      32
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_21",
+    "space": "CB",
+    "opcode": 33,
+    "head": [
+      203,
+      33
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_22",
+    "space": "CB",
+    "opcode": 34,
+    "head": [
+      203,
+      34
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_23",
+    "space": "CB",
+    "opcode": 35,
+    "head": [
+      203,
+      35
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_24",
+    "space": "CB",
+    "opcode": 36,
+    "head": [
+      203,
+      36
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_25",
+    "space": "CB",
+    "opcode": 37,
+    "head": [
+      203,
+      37
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_26",
+    "space": "CB",
+    "opcode": 38,
+    "head": [
+      203,
+      38
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA (HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_27",
+    "space": "CB",
+    "opcode": 39,
+    "head": [
+      203,
+      39
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_28",
+    "space": "CB",
+    "opcode": 40,
+    "head": [
+      203,
+      40
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_29",
+    "space": "CB",
+    "opcode": 41,
+    "head": [
+      203,
+      41
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_2A",
+    "space": "CB",
+    "opcode": 42,
+    "head": [
+      203,
+      42
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_2B",
+    "space": "CB",
+    "opcode": 43,
+    "head": [
+      203,
+      43
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_2C",
+    "space": "CB",
+    "opcode": 44,
+    "head": [
+      203,
+      44
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_2D",
+    "space": "CB",
+    "opcode": 45,
+    "head": [
+      203,
+      45
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_2E",
+    "space": "CB",
+    "opcode": 46,
+    "head": [
+      203,
+      46
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA (HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_2F",
+    "space": "CB",
+    "opcode": 47,
+    "head": [
+      203,
+      47
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_38",
+    "space": "CB",
+    "opcode": 56,
+    "head": [
+      203,
+      56
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_39",
+    "space": "CB",
+    "opcode": 57,
+    "head": [
+      203,
+      57
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_3A",
+    "space": "CB",
+    "opcode": 58,
+    "head": [
+      203,
+      58
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_3B",
+    "space": "CB",
+    "opcode": 59,
+    "head": [
+      203,
+      59
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_3C",
+    "space": "CB",
+    "opcode": 60,
+    "head": [
+      203,
+      60
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_3D",
+    "space": "CB",
+    "opcode": 61,
+    "head": [
+      203,
+      61
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_3E",
+    "space": "CB",
+    "opcode": 62,
+    "head": [
+      203,
+      62
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL (HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_3F",
+    "space": "CB",
+    "opcode": 63,
+    "head": [
+      203,
+      63
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_40",
+    "space": "CB",
+    "opcode": 64,
+    "head": [
+      203,
+      64
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_41",
+    "space": "CB",
+    "opcode": 65,
+    "head": [
+      203,
+      65
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_42",
+    "space": "CB",
+    "opcode": 66,
+    "head": [
+      203,
+      66
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_43",
+    "space": "CB",
+    "opcode": 67,
+    "head": [
+      203,
+      67
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_44",
+    "space": "CB",
+    "opcode": 68,
+    "head": [
+      203,
+      68
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_45",
+    "space": "CB",
+    "opcode": 69,
+    "head": [
+      203,
+      69
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_46",
+    "space": "CB",
+    "opcode": 70,
+    "head": [
+      203,
+      70
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_47",
+    "space": "CB",
+    "opcode": 71,
+    "head": [
+      203,
+      71
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_48",
+    "space": "CB",
+    "opcode": 72,
+    "head": [
+      203,
+      72
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_49",
+    "space": "CB",
+    "opcode": 73,
+    "head": [
+      203,
+      73
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_4A",
+    "space": "CB",
+    "opcode": 74,
+    "head": [
+      203,
+      74
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_4B",
+    "space": "CB",
+    "opcode": 75,
+    "head": [
+      203,
+      75
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_4C",
+    "space": "CB",
+    "opcode": 76,
+    "head": [
+      203,
+      76
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_4D",
+    "space": "CB",
+    "opcode": 77,
+    "head": [
+      203,
+      77
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_4E",
+    "space": "CB",
+    "opcode": 78,
+    "head": [
+      203,
+      78
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_4F",
+    "space": "CB",
+    "opcode": 79,
+    "head": [
+      203,
+      79
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_50",
+    "space": "CB",
+    "opcode": 80,
+    "head": [
+      203,
+      80
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_51",
+    "space": "CB",
+    "opcode": 81,
+    "head": [
+      203,
+      81
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_52",
+    "space": "CB",
+    "opcode": 82,
+    "head": [
+      203,
+      82
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_53",
+    "space": "CB",
+    "opcode": 83,
+    "head": [
+      203,
+      83
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_54",
+    "space": "CB",
+    "opcode": 84,
+    "head": [
+      203,
+      84
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_55",
+    "space": "CB",
+    "opcode": 85,
+    "head": [
+      203,
+      85
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_56",
+    "space": "CB",
+    "opcode": 86,
+    "head": [
+      203,
+      86
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_57",
+    "space": "CB",
+    "opcode": 87,
+    "head": [
+      203,
+      87
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_58",
+    "space": "CB",
+    "opcode": 88,
+    "head": [
+      203,
+      88
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_59",
+    "space": "CB",
+    "opcode": 89,
+    "head": [
+      203,
+      89
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_5A",
+    "space": "CB",
+    "opcode": 90,
+    "head": [
+      203,
+      90
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_5B",
+    "space": "CB",
+    "opcode": 91,
+    "head": [
+      203,
+      91
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_5C",
+    "space": "CB",
+    "opcode": 92,
+    "head": [
+      203,
+      92
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_5D",
+    "space": "CB",
+    "opcode": 93,
+    "head": [
+      203,
+      93
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_5E",
+    "space": "CB",
+    "opcode": 94,
+    "head": [
+      203,
+      94
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_5F",
+    "space": "CB",
+    "opcode": 95,
+    "head": [
+      203,
+      95
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_60",
+    "space": "CB",
+    "opcode": 96,
+    "head": [
+      203,
+      96
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_61",
+    "space": "CB",
+    "opcode": 97,
+    "head": [
+      203,
+      97
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_62",
+    "space": "CB",
+    "opcode": 98,
+    "head": [
+      203,
+      98
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_63",
+    "space": "CB",
+    "opcode": 99,
+    "head": [
+      203,
+      99
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_64",
+    "space": "CB",
+    "opcode": 100,
+    "head": [
+      203,
+      100
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_65",
+    "space": "CB",
+    "opcode": 101,
+    "head": [
+      203,
+      101
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_66",
+    "space": "CB",
+    "opcode": 102,
+    "head": [
+      203,
+      102
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_67",
+    "space": "CB",
+    "opcode": 103,
+    "head": [
+      203,
+      103
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_68",
+    "space": "CB",
+    "opcode": 104,
+    "head": [
+      203,
+      104
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_69",
+    "space": "CB",
+    "opcode": 105,
+    "head": [
+      203,
+      105
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_6A",
+    "space": "CB",
+    "opcode": 106,
+    "head": [
+      203,
+      106
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_6B",
+    "space": "CB",
+    "opcode": 107,
+    "head": [
+      203,
+      107
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_6C",
+    "space": "CB",
+    "opcode": 108,
+    "head": [
+      203,
+      108
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_6D",
+    "space": "CB",
+    "opcode": 109,
+    "head": [
+      203,
+      109
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_6E",
+    "space": "CB",
+    "opcode": 110,
+    "head": [
+      203,
+      110
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_6F",
+    "space": "CB",
+    "opcode": 111,
+    "head": [
+      203,
+      111
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_70",
+    "space": "CB",
+    "opcode": 112,
+    "head": [
+      203,
+      112
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_71",
+    "space": "CB",
+    "opcode": 113,
+    "head": [
+      203,
+      113
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_72",
+    "space": "CB",
+    "opcode": 114,
+    "head": [
+      203,
+      114
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_73",
+    "space": "CB",
+    "opcode": 115,
+    "head": [
+      203,
+      115
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_74",
+    "space": "CB",
+    "opcode": 116,
+    "head": [
+      203,
+      116
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_75",
+    "space": "CB",
+    "opcode": 117,
+    "head": [
+      203,
+      117
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_76",
+    "space": "CB",
+    "opcode": 118,
+    "head": [
+      203,
+      118
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_77",
+    "space": "CB",
+    "opcode": 119,
+    "head": [
+      203,
+      119
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_78",
+    "space": "CB",
+    "opcode": 120,
+    "head": [
+      203,
+      120
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_79",
+    "space": "CB",
+    "opcode": 121,
+    "head": [
+      203,
+      121
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_7A",
+    "space": "CB",
+    "opcode": 122,
+    "head": [
+      203,
+      122
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_7B",
+    "space": "CB",
+    "opcode": 123,
+    "head": [
+      203,
+      123
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_7C",
+    "space": "CB",
+    "opcode": 124,
+    "head": [
+      203,
+      124
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_7D",
+    "space": "CB",
+    "opcode": 125,
+    "head": [
+      203,
+      125
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_7E",
+    "space": "CB",
+    "opcode": 126,
+    "head": [
+      203,
+      126
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_7F",
+    "space": "CB",
+    "opcode": 127,
+    "head": [
+      203,
+      127
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_80",
+    "space": "CB",
+    "opcode": 128,
+    "head": [
+      203,
+      128
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_81",
+    "space": "CB",
+    "opcode": 129,
+    "head": [
+      203,
+      129
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_82",
+    "space": "CB",
+    "opcode": 130,
+    "head": [
+      203,
+      130
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_83",
+    "space": "CB",
+    "opcode": 131,
+    "head": [
+      203,
+      131
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_84",
+    "space": "CB",
+    "opcode": 132,
+    "head": [
+      203,
+      132
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_85",
+    "space": "CB",
+    "opcode": 133,
+    "head": [
+      203,
+      133
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_86",
+    "space": "CB",
+    "opcode": 134,
+    "head": [
+      203,
+      134
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_87",
+    "space": "CB",
+    "opcode": 135,
+    "head": [
+      203,
+      135
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_88",
+    "space": "CB",
+    "opcode": 136,
+    "head": [
+      203,
+      136
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_89",
+    "space": "CB",
+    "opcode": 137,
+    "head": [
+      203,
+      137
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_8A",
+    "space": "CB",
+    "opcode": 138,
+    "head": [
+      203,
+      138
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_8B",
+    "space": "CB",
+    "opcode": 139,
+    "head": [
+      203,
+      139
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_8C",
+    "space": "CB",
+    "opcode": 140,
+    "head": [
+      203,
+      140
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_8D",
+    "space": "CB",
+    "opcode": 141,
+    "head": [
+      203,
+      141
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_8E",
+    "space": "CB",
+    "opcode": 142,
+    "head": [
+      203,
+      142
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_8F",
+    "space": "CB",
+    "opcode": 143,
+    "head": [
+      203,
+      143
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_90",
+    "space": "CB",
+    "opcode": 144,
+    "head": [
+      203,
+      144
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_91",
+    "space": "CB",
+    "opcode": 145,
+    "head": [
+      203,
+      145
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_92",
+    "space": "CB",
+    "opcode": 146,
+    "head": [
+      203,
+      146
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_93",
+    "space": "CB",
+    "opcode": 147,
+    "head": [
+      203,
+      147
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_94",
+    "space": "CB",
+    "opcode": 148,
+    "head": [
+      203,
+      148
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_95",
+    "space": "CB",
+    "opcode": 149,
+    "head": [
+      203,
+      149
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_96",
+    "space": "CB",
+    "opcode": 150,
+    "head": [
+      203,
+      150
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_97",
+    "space": "CB",
+    "opcode": 151,
+    "head": [
+      203,
+      151
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_98",
+    "space": "CB",
+    "opcode": 152,
+    "head": [
+      203,
+      152
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_99",
+    "space": "CB",
+    "opcode": 153,
+    "head": [
+      203,
+      153
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_9A",
+    "space": "CB",
+    "opcode": 154,
+    "head": [
+      203,
+      154
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_9B",
+    "space": "CB",
+    "opcode": 155,
+    "head": [
+      203,
+      155
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_9C",
+    "space": "CB",
+    "opcode": 156,
+    "head": [
+      203,
+      156
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_9D",
+    "space": "CB",
+    "opcode": 157,
+    "head": [
+      203,
+      157
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_9E",
+    "space": "CB",
+    "opcode": 158,
+    "head": [
+      203,
+      158
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_9F",
+    "space": "CB",
+    "opcode": 159,
+    "head": [
+      203,
+      159
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A0",
+    "space": "CB",
+    "opcode": 160,
+    "head": [
+      203,
+      160
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A1",
+    "space": "CB",
+    "opcode": 161,
+    "head": [
+      203,
+      161
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A2",
+    "space": "CB",
+    "opcode": 162,
+    "head": [
+      203,
+      162
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A3",
+    "space": "CB",
+    "opcode": 163,
+    "head": [
+      203,
+      163
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A4",
+    "space": "CB",
+    "opcode": 164,
+    "head": [
+      203,
+      164
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A5",
+    "space": "CB",
+    "opcode": 165,
+    "head": [
+      203,
+      165
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A6",
+    "space": "CB",
+    "opcode": 166,
+    "head": [
+      203,
+      166
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A7",
+    "space": "CB",
+    "opcode": 167,
+    "head": [
+      203,
+      167
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A8",
+    "space": "CB",
+    "opcode": 168,
+    "head": [
+      203,
+      168
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_A9",
+    "space": "CB",
+    "opcode": 169,
+    "head": [
+      203,
+      169
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_AA",
+    "space": "CB",
+    "opcode": 170,
+    "head": [
+      203,
+      170
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_AB",
+    "space": "CB",
+    "opcode": 171,
+    "head": [
+      203,
+      171
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_AC",
+    "space": "CB",
+    "opcode": 172,
+    "head": [
+      203,
+      172
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_AD",
+    "space": "CB",
+    "opcode": 173,
+    "head": [
+      203,
+      173
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_AE",
+    "space": "CB",
+    "opcode": 174,
+    "head": [
+      203,
+      174
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_AF",
+    "space": "CB",
+    "opcode": 175,
+    "head": [
+      203,
+      175
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B0",
+    "space": "CB",
+    "opcode": 176,
+    "head": [
+      203,
+      176
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B1",
+    "space": "CB",
+    "opcode": 177,
+    "head": [
+      203,
+      177
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B2",
+    "space": "CB",
+    "opcode": 178,
+    "head": [
+      203,
+      178
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B3",
+    "space": "CB",
+    "opcode": 179,
+    "head": [
+      203,
+      179
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B4",
+    "space": "CB",
+    "opcode": 180,
+    "head": [
+      203,
+      180
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B5",
+    "space": "CB",
+    "opcode": 181,
+    "head": [
+      203,
+      181
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B6",
+    "space": "CB",
+    "opcode": 182,
+    "head": [
+      203,
+      182
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B7",
+    "space": "CB",
+    "opcode": 183,
+    "head": [
+      203,
+      183
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B8",
+    "space": "CB",
+    "opcode": 184,
+    "head": [
+      203,
+      184
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_B9",
+    "space": "CB",
+    "opcode": 185,
+    "head": [
+      203,
+      185
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_BA",
+    "space": "CB",
+    "opcode": 186,
+    "head": [
+      203,
+      186
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_BB",
+    "space": "CB",
+    "opcode": 187,
+    "head": [
+      203,
+      187
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_BC",
+    "space": "CB",
+    "opcode": 188,
+    "head": [
+      203,
+      188
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_BD",
+    "space": "CB",
+    "opcode": 189,
+    "head": [
+      203,
+      189
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_BE",
+    "space": "CB",
+    "opcode": 190,
+    "head": [
+      203,
+      190
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_BF",
+    "space": "CB",
+    "opcode": 191,
+    "head": [
+      203,
+      191
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C0",
+    "space": "CB",
+    "opcode": 192,
+    "head": [
+      203,
+      192
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C1",
+    "space": "CB",
+    "opcode": 193,
+    "head": [
+      203,
+      193
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C2",
+    "space": "CB",
+    "opcode": 194,
+    "head": [
+      203,
+      194
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C3",
+    "space": "CB",
+    "opcode": 195,
+    "head": [
+      203,
+      195
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C4",
+    "space": "CB",
+    "opcode": 196,
+    "head": [
+      203,
+      196
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C5",
+    "space": "CB",
+    "opcode": 197,
+    "head": [
+      203,
+      197
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C6",
+    "space": "CB",
+    "opcode": 198,
+    "head": [
+      203,
+      198
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C7",
+    "space": "CB",
+    "opcode": 199,
+    "head": [
+      203,
+      199
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C8",
+    "space": "CB",
+    "opcode": 200,
+    "head": [
+      203,
+      200
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_C9",
+    "space": "CB",
+    "opcode": 201,
+    "head": [
+      203,
+      201
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_CA",
+    "space": "CB",
+    "opcode": 202,
+    "head": [
+      203,
+      202
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_CB",
+    "space": "CB",
+    "opcode": 203,
+    "head": [
+      203,
+      203
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_CC",
+    "space": "CB",
+    "opcode": 204,
+    "head": [
+      203,
+      204
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_CD",
+    "space": "CB",
+    "opcode": 205,
+    "head": [
+      203,
+      205
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_CE",
+    "space": "CB",
+    "opcode": 206,
+    "head": [
+      203,
+      206
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_CF",
+    "space": "CB",
+    "opcode": 207,
+    "head": [
+      203,
+      207
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D0",
+    "space": "CB",
+    "opcode": 208,
+    "head": [
+      203,
+      208
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D1",
+    "space": "CB",
+    "opcode": 209,
+    "head": [
+      203,
+      209
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D2",
+    "space": "CB",
+    "opcode": 210,
+    "head": [
+      203,
+      210
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D3",
+    "space": "CB",
+    "opcode": 211,
+    "head": [
+      203,
+      211
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D4",
+    "space": "CB",
+    "opcode": 212,
+    "head": [
+      203,
+      212
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D5",
+    "space": "CB",
+    "opcode": 213,
+    "head": [
+      203,
+      213
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D6",
+    "space": "CB",
+    "opcode": 214,
+    "head": [
+      203,
+      214
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D7",
+    "space": "CB",
+    "opcode": 215,
+    "head": [
+      203,
+      215
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D8",
+    "space": "CB",
+    "opcode": 216,
+    "head": [
+      203,
+      216
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_D9",
+    "space": "CB",
+    "opcode": 217,
+    "head": [
+      203,
+      217
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_DA",
+    "space": "CB",
+    "opcode": 218,
+    "head": [
+      203,
+      218
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_DB",
+    "space": "CB",
+    "opcode": 219,
+    "head": [
+      203,
+      219
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_DC",
+    "space": "CB",
+    "opcode": 220,
+    "head": [
+      203,
+      220
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_DD",
+    "space": "CB",
+    "opcode": 221,
+    "head": [
+      203,
+      221
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_DE",
+    "space": "CB",
+    "opcode": 222,
+    "head": [
+      203,
+      222
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_DF",
+    "space": "CB",
+    "opcode": 223,
+    "head": [
+      203,
+      223
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E0",
+    "space": "CB",
+    "opcode": 224,
+    "head": [
+      203,
+      224
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E1",
+    "space": "CB",
+    "opcode": 225,
+    "head": [
+      203,
+      225
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E2",
+    "space": "CB",
+    "opcode": 226,
+    "head": [
+      203,
+      226
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E3",
+    "space": "CB",
+    "opcode": 227,
+    "head": [
+      203,
+      227
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E4",
+    "space": "CB",
+    "opcode": 228,
+    "head": [
+      203,
+      228
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E5",
+    "space": "CB",
+    "opcode": 229,
+    "head": [
+      203,
+      229
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E6",
+    "space": "CB",
+    "opcode": 230,
+    "head": [
+      203,
+      230
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E7",
+    "space": "CB",
+    "opcode": 231,
+    "head": [
+      203,
+      231
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E8",
+    "space": "CB",
+    "opcode": 232,
+    "head": [
+      203,
+      232
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_E9",
+    "space": "CB",
+    "opcode": 233,
+    "head": [
+      203,
+      233
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_EA",
+    "space": "CB",
+    "opcode": 234,
+    "head": [
+      203,
+      234
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_EB",
+    "space": "CB",
+    "opcode": 235,
+    "head": [
+      203,
+      235
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_EC",
+    "space": "CB",
+    "opcode": 236,
+    "head": [
+      203,
+      236
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_ED",
+    "space": "CB",
+    "opcode": 237,
+    "head": [
+      203,
+      237
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_EE",
+    "space": "CB",
+    "opcode": 238,
+    "head": [
+      203,
+      238
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_EF",
+    "space": "CB",
+    "opcode": 239,
+    "head": [
+      203,
+      239
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F0",
+    "space": "CB",
+    "opcode": 240,
+    "head": [
+      203,
+      240
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F1",
+    "space": "CB",
+    "opcode": 241,
+    "head": [
+      203,
+      241
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F2",
+    "space": "CB",
+    "opcode": 242,
+    "head": [
+      203,
+      242
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F3",
+    "space": "CB",
+    "opcode": 243,
+    "head": [
+      203,
+      243
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F4",
+    "space": "CB",
+    "opcode": 244,
+    "head": [
+      203,
+      244
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F5",
+    "space": "CB",
+    "opcode": 245,
+    "head": [
+      203,
+      245
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F6",
+    "space": "CB",
+    "opcode": 246,
+    "head": [
+      203,
+      246
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F7",
+    "space": "CB",
+    "opcode": 247,
+    "head": [
+      203,
+      247
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F8",
+    "space": "CB",
+    "opcode": 248,
+    "head": [
+      203,
+      248
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_F9",
+    "space": "CB",
+    "opcode": 249,
+    "head": [
+      203,
+      249
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_FA",
+    "space": "CB",
+    "opcode": 250,
+    "head": [
+      203,
+      250
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_FB",
+    "space": "CB",
+    "opcode": 251,
+    "head": [
+      203,
+      251
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_FC",
+    "space": "CB",
+    "opcode": 252,
+    "head": [
+      203,
+      252
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_FD",
+    "space": "CB",
+    "opcode": 253,
+    "head": [
+      203,
+      253
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_FE",
+    "space": "CB",
+    "opcode": 254,
+    "head": [
+      203,
+      254
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "CB_FF",
+    "space": "CB",
+    "opcode": 255,
+    "head": [
+      203,
+      255
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_00",
+    "space": "ED",
+    "opcode": 0,
+    "head": [
+      237,
+      0
+    ],
+    "mnemonic": "IN0",
+    "assembly": "IN0 B,($0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_01",
+    "space": "ED",
+    "opcode": 1,
+    "head": [
+      237,
+      1
+    ],
+    "mnemonic": "OUT0",
+    "assembly": "OUT0 ($0),B",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_02",
+    "space": "ED",
+    "opcode": 2,
+    "head": [
+      237,
+      2
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA BC,IX+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_03",
+    "space": "ED",
+    "opcode": 3,
+    "head": [
+      237,
+      3
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA BC,IY+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_04",
+    "space": "ED",
+    "opcode": 4,
+    "head": [
+      237,
+      4
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_07",
+    "space": "ED",
+    "opcode": 7,
+    "head": [
+      237,
+      7
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD BC,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_08",
+    "space": "ED",
+    "opcode": 8,
+    "head": [
+      237,
+      8
+    ],
+    "mnemonic": "IN0",
+    "assembly": "IN0 C,($0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_09",
+    "space": "ED",
+    "opcode": 9,
+    "head": [
+      237,
+      9
+    ],
+    "mnemonic": "OUT0",
+    "assembly": "OUT0 ($0),C",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_0C",
+    "space": "ED",
+    "opcode": 12,
+    "head": [
+      237,
+      12
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_0F",
+    "space": "ED",
+    "opcode": 15,
+    "head": [
+      237,
+      15
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),BC",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_10",
+    "space": "ED",
+    "opcode": 16,
+    "head": [
+      237,
+      16
+    ],
+    "mnemonic": "IN0",
+    "assembly": "IN0 D,($0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_11",
+    "space": "ED",
+    "opcode": 17,
+    "head": [
+      237,
+      17
+    ],
+    "mnemonic": "OUT0",
+    "assembly": "OUT0 ($0),D",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_12",
+    "space": "ED",
+    "opcode": 18,
+    "head": [
+      237,
+      18
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA DE,IX+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_13",
+    "space": "ED",
+    "opcode": 19,
+    "head": [
+      237,
+      19
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA DE,IY+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_14",
+    "space": "ED",
+    "opcode": 20,
+    "head": [
+      237,
+      20
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_17",
+    "space": "ED",
+    "opcode": 23,
+    "head": [
+      237,
+      23
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD DE,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_18",
+    "space": "ED",
+    "opcode": 24,
+    "head": [
+      237,
+      24
+    ],
+    "mnemonic": "IN0",
+    "assembly": "IN0 E,($0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_19",
+    "space": "ED",
+    "opcode": 25,
+    "head": [
+      237,
+      25
+    ],
+    "mnemonic": "OUT0",
+    "assembly": "OUT0 ($0),E",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_1C",
+    "space": "ED",
+    "opcode": 28,
+    "head": [
+      237,
+      28
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_1F",
+    "space": "ED",
+    "opcode": 31,
+    "head": [
+      237,
+      31
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),DE",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_20",
+    "space": "ED",
+    "opcode": 32,
+    "head": [
+      237,
+      32
+    ],
+    "mnemonic": "IN0",
+    "assembly": "IN0 H,($0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_21",
+    "space": "ED",
+    "opcode": 33,
+    "head": [
+      237,
+      33
+    ],
+    "mnemonic": "OUT0",
+    "assembly": "OUT0 ($0),H",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_22",
+    "space": "ED",
+    "opcode": 34,
+    "head": [
+      237,
+      34
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA HL,IX+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_23",
+    "space": "ED",
+    "opcode": 35,
+    "head": [
+      237,
+      35
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA HL,IY+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_24",
+    "space": "ED",
+    "opcode": 36,
+    "head": [
+      237,
+      36
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,H",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_27",
+    "space": "ED",
+    "opcode": 39,
+    "head": [
+      237,
+      39
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD HL,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_28",
+    "space": "ED",
+    "opcode": 40,
+    "head": [
+      237,
+      40
+    ],
+    "mnemonic": "IN0",
+    "assembly": "IN0 L,($0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_29",
+    "space": "ED",
+    "opcode": 41,
+    "head": [
+      237,
+      41
+    ],
+    "mnemonic": "OUT0",
+    "assembly": "OUT0 ($0),L",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_2C",
+    "space": "ED",
+    "opcode": 44,
+    "head": [
+      237,
+      44
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,L",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_2F",
+    "space": "ED",
+    "opcode": 47,
+    "head": [
+      237,
+      47
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),HL",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_31",
+    "space": "ED",
+    "opcode": 49,
+    "head": [
+      237,
+      49
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IY,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_32",
+    "space": "ED",
+    "opcode": 50,
+    "head": [
+      237,
+      50
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA IX,IX+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_33",
+    "space": "ED",
+    "opcode": 51,
+    "head": [
+      237,
+      51
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA IY,IY+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_34",
+    "space": "ED",
+    "opcode": 52,
+    "head": [
+      237,
+      52
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_37",
+    "space": "ED",
+    "opcode": 55,
+    "head": [
+      237,
+      55
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IX,(HL)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_38",
+    "space": "ED",
+    "opcode": 56,
+    "head": [
+      237,
+      56
+    ],
+    "mnemonic": "IN0",
+    "assembly": "IN0 A,($0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_39",
+    "space": "ED",
+    "opcode": 57,
+    "head": [
+      237,
+      57
+    ],
+    "mnemonic": "OUT0",
+    "assembly": "OUT0 ($0),A",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_3C",
+    "space": "ED",
+    "opcode": 60,
+    "head": [
+      237,
+      60
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_3E",
+    "space": "ED",
+    "opcode": 62,
+    "head": [
+      237,
+      62
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_3F",
+    "space": "ED",
+    "opcode": 63,
+    "head": [
+      237,
+      63
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (HL),IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_40",
+    "space": "ED",
+    "opcode": 64,
+    "head": [
+      237,
+      64
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN B,(BC)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_41",
+    "space": "ED",
+    "opcode": 65,
+    "head": [
+      237,
+      65
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT (BC),B",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_42",
+    "space": "ED",
+    "opcode": 66,
+    "head": [
+      237,
+      66
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC HL,BC",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_43",
+    "space": "ED",
+    "opcode": 67,
+    "head": [
+      237,
+      67
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),BC",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_44",
+    "space": "ED",
+    "opcode": 68,
+    "head": [
+      237,
+      68
+    ],
+    "mnemonic": "NEG",
+    "assembly": "NEG",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_45",
+    "space": "ED",
+    "opcode": 69,
+    "head": [
+      237,
+      69
+    ],
+    "mnemonic": "RETN",
+    "assembly": "RETN",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_46",
+    "space": "ED",
+    "opcode": 70,
+    "head": [
+      237,
+      70
+    ],
+    "mnemonic": "IM",
+    "assembly": "IM 0",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_47",
+    "space": "ED",
+    "opcode": 71,
+    "head": [
+      237,
+      71
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD I,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_48",
+    "space": "ED",
+    "opcode": 72,
+    "head": [
+      237,
+      72
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN C,(BC)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_49",
+    "space": "ED",
+    "opcode": 73,
+    "head": [
+      237,
+      73
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT (BC),C",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_4A",
+    "space": "ED",
+    "opcode": 74,
+    "head": [
+      237,
+      74
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC HL,BC",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_4B",
+    "space": "ED",
+    "opcode": 75,
+    "head": [
+      237,
+      75
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD BC,($0)",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_4C",
+    "space": "ED",
+    "opcode": 76,
+    "head": [
+      237,
+      76
+    ],
+    "mnemonic": "MLT",
+    "assembly": "MLT BC",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_4D",
+    "space": "ED",
+    "opcode": 77,
+    "head": [
+      237,
+      77
+    ],
+    "mnemonic": "RETI",
+    "assembly": "RETI",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_4F",
+    "space": "ED",
+    "opcode": 79,
+    "head": [
+      237,
+      79
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD R,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_50",
+    "space": "ED",
+    "opcode": 80,
+    "head": [
+      237,
+      80
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN D,(BC)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_51",
+    "space": "ED",
+    "opcode": 81,
+    "head": [
+      237,
+      81
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT (BC),D",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_52",
+    "space": "ED",
+    "opcode": 82,
+    "head": [
+      237,
+      82
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC HL,DE",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_53",
+    "space": "ED",
+    "opcode": 83,
+    "head": [
+      237,
+      83
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),DE",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_54",
+    "space": "ED",
+    "opcode": 84,
+    "head": [
+      237,
+      84
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA IX,IY+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_55",
+    "space": "ED",
+    "opcode": 85,
+    "head": [
+      237,
+      85
+    ],
+    "mnemonic": "LEA",
+    "assembly": "LEA IY,IX+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_56",
+    "space": "ED",
+    "opcode": 86,
+    "head": [
+      237,
+      86
+    ],
+    "mnemonic": "IM",
+    "assembly": "IM 1",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_57",
+    "space": "ED",
+    "opcode": 87,
+    "head": [
+      237,
+      87
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,I",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_58",
+    "space": "ED",
+    "opcode": 88,
+    "head": [
+      237,
+      88
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN E,(BC)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_59",
+    "space": "ED",
+    "opcode": 89,
+    "head": [
+      237,
+      89
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT (BC),E",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_5A",
+    "space": "ED",
+    "opcode": 90,
+    "head": [
+      237,
+      90
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC HL,DE",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_5B",
+    "space": "ED",
+    "opcode": 91,
+    "head": [
+      237,
+      91
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD DE,($0)",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_5C",
+    "space": "ED",
+    "opcode": 92,
+    "head": [
+      237,
+      92
+    ],
+    "mnemonic": "MLT",
+    "assembly": "MLT DE",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_5E",
+    "space": "ED",
+    "opcode": 94,
+    "head": [
+      237,
+      94
+    ],
+    "mnemonic": "IM",
+    "assembly": "IM 2",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_5F",
+    "space": "ED",
+    "opcode": 95,
+    "head": [
+      237,
+      95
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,R",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_60",
+    "space": "ED",
+    "opcode": 96,
+    "head": [
+      237,
+      96
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN H,(BC)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_61",
+    "space": "ED",
+    "opcode": 97,
+    "head": [
+      237,
+      97
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT (BC),H",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_62",
+    "space": "ED",
+    "opcode": 98,
+    "head": [
+      237,
+      98
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC HL,HL",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_63",
+    "space": "ED",
+    "opcode": 99,
+    "head": [
+      237,
+      99
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),HL",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_64",
+    "space": "ED",
+    "opcode": 100,
+    "head": [
+      237,
+      100
+    ],
+    "mnemonic": "TST",
+    "assembly": "TST A,$0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_65",
+    "space": "ED",
+    "opcode": 101,
+    "head": [
+      237,
+      101
+    ],
+    "mnemonic": "PEA",
+    "assembly": "PEA IX+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_66",
+    "space": "ED",
+    "opcode": 102,
+    "head": [
+      237,
+      102
+    ],
+    "mnemonic": "PEA",
+    "assembly": "PEA IY+0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_67",
+    "space": "ED",
+    "opcode": 103,
+    "head": [
+      237,
+      103
+    ],
+    "mnemonic": "RRD",
+    "assembly": "RRD",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_68",
+    "space": "ED",
+    "opcode": 104,
+    "head": [
+      237,
+      104
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN L,(BC)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_69",
+    "space": "ED",
+    "opcode": 105,
+    "head": [
+      237,
+      105
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT (BC),L",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_6A",
+    "space": "ED",
+    "opcode": 106,
+    "head": [
+      237,
+      106
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC HL,HL",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_6B",
+    "space": "ED",
+    "opcode": 107,
+    "head": [
+      237,
+      107
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD HL,($0)",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_6C",
+    "space": "ED",
+    "opcode": 108,
+    "head": [
+      237,
+      108
+    ],
+    "mnemonic": "MLT",
+    "assembly": "MLT HL",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_6D",
+    "space": "ED",
+    "opcode": 109,
+    "head": [
+      237,
+      109
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD MB,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_6E",
+    "space": "ED",
+    "opcode": 110,
+    "head": [
+      237,
+      110
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,MB",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_6F",
+    "space": "ED",
+    "opcode": 111,
+    "head": [
+      237,
+      111
+    ],
+    "mnemonic": "RLD",
+    "assembly": "RLD",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_72",
+    "space": "ED",
+    "opcode": 114,
+    "head": [
+      237,
+      114
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC HL,SP",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_73",
+    "space": "ED",
+    "opcode": 115,
+    "head": [
+      237,
+      115
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),SP",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_74",
+    "space": "ED",
+    "opcode": 116,
+    "head": [
+      237,
+      116
+    ],
+    "mnemonic": "TSTIO",
+    "assembly": "TSTIO $0",
+    "length_adl1": 3
+  },
+  {
+    "key": "ED_76",
+    "space": "ED",
+    "opcode": 118,
+    "head": [
+      237,
+      118
+    ],
+    "mnemonic": "SLP",
+    "assembly": "SLP",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_78",
+    "space": "ED",
+    "opcode": 120,
+    "head": [
+      237,
+      120
+    ],
+    "mnemonic": "IN",
+    "assembly": "IN A,(BC)",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_79",
+    "space": "ED",
+    "opcode": 121,
+    "head": [
+      237,
+      121
+    ],
+    "mnemonic": "OUT",
+    "assembly": "OUT (BC),A",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_7A",
+    "space": "ED",
+    "opcode": 122,
+    "head": [
+      237,
+      122
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC HL,SP",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_7B",
+    "space": "ED",
+    "opcode": 123,
+    "head": [
+      237,
+      123
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD SP,($0)",
+    "length_adl1": 5
+  },
+  {
+    "key": "ED_7C",
+    "space": "ED",
+    "opcode": 124,
+    "head": [
+      237,
+      124
+    ],
+    "mnemonic": "MLT",
+    "assembly": "MLT SP",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_7D",
+    "space": "ED",
+    "opcode": 125,
+    "head": [
+      237,
+      125
+    ],
+    "mnemonic": "STMIX",
+    "assembly": "STMIX",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_7E",
+    "space": "ED",
+    "opcode": 126,
+    "head": [
+      237,
+      126
+    ],
+    "mnemonic": "RSMIX",
+    "assembly": "RSMIX",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_82",
+    "space": "ED",
+    "opcode": 130,
+    "head": [
+      237,
+      130
+    ],
+    "mnemonic": "INIM",
+    "assembly": "INIM",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_83",
+    "space": "ED",
+    "opcode": 131,
+    "head": [
+      237,
+      131
+    ],
+    "mnemonic": "OTIM",
+    "assembly": "OTIM",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_84",
+    "space": "ED",
+    "opcode": 132,
+    "head": [
+      237,
+      132
+    ],
+    "mnemonic": "INI2",
+    "assembly": "INI2",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_8A",
+    "space": "ED",
+    "opcode": 138,
+    "head": [
+      237,
+      138
+    ],
+    "mnemonic": "INDM",
+    "assembly": "INDM",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_8B",
+    "space": "ED",
+    "opcode": 139,
+    "head": [
+      237,
+      139
+    ],
+    "mnemonic": "OTDM",
+    "assembly": "OTDM",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_8C",
+    "space": "ED",
+    "opcode": 140,
+    "head": [
+      237,
+      140
+    ],
+    "mnemonic": "IND2",
+    "assembly": "IND2",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_92",
+    "space": "ED",
+    "opcode": 146,
+    "head": [
+      237,
+      146
+    ],
+    "mnemonic": "INIMR",
+    "assembly": "INIMR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_93",
+    "space": "ED",
+    "opcode": 147,
+    "head": [
+      237,
+      147
+    ],
+    "mnemonic": "OTIMR",
+    "assembly": "OTIMR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_94",
+    "space": "ED",
+    "opcode": 148,
+    "head": [
+      237,
+      148
+    ],
+    "mnemonic": "INI2R",
+    "assembly": "INI2R",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_9A",
+    "space": "ED",
+    "opcode": 154,
+    "head": [
+      237,
+      154
+    ],
+    "mnemonic": "INDMR",
+    "assembly": "INDMR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_9B",
+    "space": "ED",
+    "opcode": 155,
+    "head": [
+      237,
+      155
+    ],
+    "mnemonic": "OTDMR",
+    "assembly": "OTDMR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_9C",
+    "space": "ED",
+    "opcode": 156,
+    "head": [
+      237,
+      156
+    ],
+    "mnemonic": "IND2R",
+    "assembly": "IND2R",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_A0",
+    "space": "ED",
+    "opcode": 160,
+    "head": [
+      237,
+      160
+    ],
+    "mnemonic": "LDI",
+    "assembly": "LDI",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_A1",
+    "space": "ED",
+    "opcode": 161,
+    "head": [
+      237,
+      161
+    ],
+    "mnemonic": "CPI",
+    "assembly": "CPI",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_A2",
+    "space": "ED",
+    "opcode": 162,
+    "head": [
+      237,
+      162
+    ],
+    "mnemonic": "INI",
+    "assembly": "INI",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_A3",
+    "space": "ED",
+    "opcode": 163,
+    "head": [
+      237,
+      163
+    ],
+    "mnemonic": "OUTI",
+    "assembly": "OUTI",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_A4",
+    "space": "ED",
+    "opcode": 164,
+    "head": [
+      237,
+      164
+    ],
+    "mnemonic": "OUTI2",
+    "assembly": "OUTI2",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_A8",
+    "space": "ED",
+    "opcode": 168,
+    "head": [
+      237,
+      168
+    ],
+    "mnemonic": "LDD",
+    "assembly": "LDD",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_A9",
+    "space": "ED",
+    "opcode": 169,
+    "head": [
+      237,
+      169
+    ],
+    "mnemonic": "CPD",
+    "assembly": "CPD",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_AA",
+    "space": "ED",
+    "opcode": 170,
+    "head": [
+      237,
+      170
+    ],
+    "mnemonic": "IND",
+    "assembly": "IND",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_AB",
+    "space": "ED",
+    "opcode": 171,
+    "head": [
+      237,
+      171
+    ],
+    "mnemonic": "OUTD",
+    "assembly": "OUTD",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_AC",
+    "space": "ED",
+    "opcode": 172,
+    "head": [
+      237,
+      172
+    ],
+    "mnemonic": "OUTD2",
+    "assembly": "OUTD2",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_B0",
+    "space": "ED",
+    "opcode": 176,
+    "head": [
+      237,
+      176
+    ],
+    "mnemonic": "LDIR",
+    "assembly": "LDIR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_B1",
+    "space": "ED",
+    "opcode": 177,
+    "head": [
+      237,
+      177
+    ],
+    "mnemonic": "CPIR",
+    "assembly": "CPIR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_B2",
+    "space": "ED",
+    "opcode": 178,
+    "head": [
+      237,
+      178
+    ],
+    "mnemonic": "INIR",
+    "assembly": "INIR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_B3",
+    "space": "ED",
+    "opcode": 179,
+    "head": [
+      237,
+      179
+    ],
+    "mnemonic": "OTIR",
+    "assembly": "OTIR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_B4",
+    "space": "ED",
+    "opcode": 180,
+    "head": [
+      237,
+      180
+    ],
+    "mnemonic": "OTI2R",
+    "assembly": "OTI2R",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_B8",
+    "space": "ED",
+    "opcode": 184,
+    "head": [
+      237,
+      184
+    ],
+    "mnemonic": "LDDR",
+    "assembly": "LDDR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_B9",
+    "space": "ED",
+    "opcode": 185,
+    "head": [
+      237,
+      185
+    ],
+    "mnemonic": "CPDR",
+    "assembly": "CPDR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_BA",
+    "space": "ED",
+    "opcode": 186,
+    "head": [
+      237,
+      186
+    ],
+    "mnemonic": "INDR",
+    "assembly": "INDR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_BB",
+    "space": "ED",
+    "opcode": 187,
+    "head": [
+      237,
+      187
+    ],
+    "mnemonic": "OTDR",
+    "assembly": "OTDR",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_BC",
+    "space": "ED",
+    "opcode": 188,
+    "head": [
+      237,
+      188
+    ],
+    "mnemonic": "OTD2R",
+    "assembly": "OTD2R",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_C2",
+    "space": "ED",
+    "opcode": 194,
+    "head": [
+      237,
+      194
+    ],
+    "mnemonic": "INIRX",
+    "assembly": "INIRX",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_C3",
+    "space": "ED",
+    "opcode": 195,
+    "head": [
+      237,
+      195
+    ],
+    "mnemonic": "OTIRX",
+    "assembly": "OTIRX",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_C7",
+    "space": "ED",
+    "opcode": 199,
+    "head": [
+      237,
+      199
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD I,HL",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_CA",
+    "space": "ED",
+    "opcode": 202,
+    "head": [
+      237,
+      202
+    ],
+    "mnemonic": "INDRX",
+    "assembly": "INDRX",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_CB",
+    "space": "ED",
+    "opcode": 203,
+    "head": [
+      237,
+      203
+    ],
+    "mnemonic": "OTDRX",
+    "assembly": "OTDRX",
+    "length_adl1": 2
+  },
+  {
+    "key": "ED_D7",
+    "space": "ED",
+    "opcode": 215,
+    "head": [
+      237,
+      215
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD HL,I",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_07",
+    "space": "DD",
+    "opcode": 7,
+    "head": [
+      221,
+      7
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD BC,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_09",
+    "space": "DD",
+    "opcode": 9,
+    "head": [
+      221,
+      9
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IX,BC",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_0F",
+    "space": "DD",
+    "opcode": 15,
+    "head": [
+      221,
+      15
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),BC",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_17",
+    "space": "DD",
+    "opcode": 23,
+    "head": [
+      221,
+      23
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD DE,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_19",
+    "space": "DD",
+    "opcode": 25,
+    "head": [
+      221,
+      25
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IX,DE",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_1F",
+    "space": "DD",
+    "opcode": 31,
+    "head": [
+      221,
+      31
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),DE",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_21",
+    "space": "DD",
+    "opcode": 33,
+    "head": [
+      221,
+      33
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IX,$0",
+    "length_adl1": 5
+  },
+  {
+    "key": "DD_22",
+    "space": "DD",
+    "opcode": 34,
+    "head": [
+      221,
+      34
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),IX",
+    "length_adl1": 5
+  },
+  {
+    "key": "DD_23",
+    "space": "DD",
+    "opcode": 35,
+    "head": [
+      221,
+      35
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_24",
+    "space": "DD",
+    "opcode": 36,
+    "head": [
+      221,
+      36
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_25",
+    "space": "DD",
+    "opcode": 37,
+    "head": [
+      221,
+      37
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_26",
+    "space": "DD",
+    "opcode": 38,
+    "head": [
+      221,
+      38
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,$0",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_27",
+    "space": "DD",
+    "opcode": 39,
+    "head": [
+      221,
+      39
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD HL,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_29",
+    "space": "DD",
+    "opcode": 41,
+    "head": [
+      221,
+      41
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IX,IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_2A",
+    "space": "DD",
+    "opcode": 42,
+    "head": [
+      221,
+      42
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IX,($0)",
+    "length_adl1": 5
+  },
+  {
+    "key": "DD_2B",
+    "space": "DD",
+    "opcode": 43,
+    "head": [
+      221,
+      43
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_2C",
+    "space": "DD",
+    "opcode": 44,
+    "head": [
+      221,
+      44
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_2D",
+    "space": "DD",
+    "opcode": 45,
+    "head": [
+      221,
+      45
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_2E",
+    "space": "DD",
+    "opcode": 46,
+    "head": [
+      221,
+      46
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,$0",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_2F",
+    "space": "DD",
+    "opcode": 47,
+    "head": [
+      221,
+      47
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),HL",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_31",
+    "space": "DD",
+    "opcode": 49,
+    "head": [
+      221,
+      49
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IY,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_34",
+    "space": "DD",
+    "opcode": 52,
+    "head": [
+      221,
+      52
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC (IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_35",
+    "space": "DD",
+    "opcode": 53,
+    "head": [
+      221,
+      53
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC (IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_36",
+    "space": "DD",
+    "opcode": 54,
+    "head": [
+      221,
+      54
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "DD_37",
+    "space": "DD",
+    "opcode": 55,
+    "head": [
+      221,
+      55
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IX,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_39",
+    "space": "DD",
+    "opcode": 57,
+    "head": [
+      221,
+      57
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IX,SP",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_3E",
+    "space": "DD",
+    "opcode": 62,
+    "head": [
+      221,
+      62
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),IY",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_3F",
+    "space": "DD",
+    "opcode": 63,
+    "head": [
+      221,
+      63
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),IX",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_44",
+    "space": "DD",
+    "opcode": 68,
+    "head": [
+      221,
+      68
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_45",
+    "space": "DD",
+    "opcode": 69,
+    "head": [
+      221,
+      69
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_46",
+    "space": "DD",
+    "opcode": 70,
+    "head": [
+      221,
+      70
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_4C",
+    "space": "DD",
+    "opcode": 76,
+    "head": [
+      221,
+      76
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_4D",
+    "space": "DD",
+    "opcode": 77,
+    "head": [
+      221,
+      77
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_4E",
+    "space": "DD",
+    "opcode": 78,
+    "head": [
+      221,
+      78
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_54",
+    "space": "DD",
+    "opcode": 84,
+    "head": [
+      221,
+      84
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_55",
+    "space": "DD",
+    "opcode": 85,
+    "head": [
+      221,
+      85
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_56",
+    "space": "DD",
+    "opcode": 86,
+    "head": [
+      221,
+      86
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_5C",
+    "space": "DD",
+    "opcode": 92,
+    "head": [
+      221,
+      92
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_5D",
+    "space": "DD",
+    "opcode": 93,
+    "head": [
+      221,
+      93
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_5E",
+    "space": "DD",
+    "opcode": 94,
+    "head": [
+      221,
+      94
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_60",
+    "space": "DD",
+    "opcode": 96,
+    "head": [
+      221,
+      96
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_61",
+    "space": "DD",
+    "opcode": 97,
+    "head": [
+      221,
+      97
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_62",
+    "space": "DD",
+    "opcode": 98,
+    "head": [
+      221,
+      98
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_63",
+    "space": "DD",
+    "opcode": 99,
+    "head": [
+      221,
+      99
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_64",
+    "space": "DD",
+    "opcode": 100,
+    "head": [
+      221,
+      100
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_65",
+    "space": "DD",
+    "opcode": 101,
+    "head": [
+      221,
+      101
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_66",
+    "space": "DD",
+    "opcode": 102,
+    "head": [
+      221,
+      102
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_67",
+    "space": "DD",
+    "opcode": 103,
+    "head": [
+      221,
+      103
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXH,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_68",
+    "space": "DD",
+    "opcode": 104,
+    "head": [
+      221,
+      104
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_69",
+    "space": "DD",
+    "opcode": 105,
+    "head": [
+      221,
+      105
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_6A",
+    "space": "DD",
+    "opcode": 106,
+    "head": [
+      221,
+      106
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_6B",
+    "space": "DD",
+    "opcode": 107,
+    "head": [
+      221,
+      107
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_6C",
+    "space": "DD",
+    "opcode": 108,
+    "head": [
+      221,
+      108
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_6D",
+    "space": "DD",
+    "opcode": 109,
+    "head": [
+      221,
+      109
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_6E",
+    "space": "DD",
+    "opcode": 110,
+    "head": [
+      221,
+      110
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_6F",
+    "space": "DD",
+    "opcode": 111,
+    "head": [
+      221,
+      111
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IXL,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_70",
+    "space": "DD",
+    "opcode": 112,
+    "head": [
+      221,
+      112
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),B",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_71",
+    "space": "DD",
+    "opcode": 113,
+    "head": [
+      221,
+      113
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),C",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_72",
+    "space": "DD",
+    "opcode": 114,
+    "head": [
+      221,
+      114
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),D",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_73",
+    "space": "DD",
+    "opcode": 115,
+    "head": [
+      221,
+      115
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),E",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_74",
+    "space": "DD",
+    "opcode": 116,
+    "head": [
+      221,
+      116
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),H",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_75",
+    "space": "DD",
+    "opcode": 117,
+    "head": [
+      221,
+      117
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),L",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_77",
+    "space": "DD",
+    "opcode": 119,
+    "head": [
+      221,
+      119
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IX+0),A",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_7C",
+    "space": "DD",
+    "opcode": 124,
+    "head": [
+      221,
+      124
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_7D",
+    "space": "DD",
+    "opcode": 125,
+    "head": [
+      221,
+      125
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_7E",
+    "space": "DD",
+    "opcode": 126,
+    "head": [
+      221,
+      126
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_84",
+    "space": "DD",
+    "opcode": 132,
+    "head": [
+      221,
+      132
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_85",
+    "space": "DD",
+    "opcode": 133,
+    "head": [
+      221,
+      133
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_86",
+    "space": "DD",
+    "opcode": 134,
+    "head": [
+      221,
+      134
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_8C",
+    "space": "DD",
+    "opcode": 140,
+    "head": [
+      221,
+      140
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_8D",
+    "space": "DD",
+    "opcode": 141,
+    "head": [
+      221,
+      141
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_8E",
+    "space": "DD",
+    "opcode": 142,
+    "head": [
+      221,
+      142
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_94",
+    "space": "DD",
+    "opcode": 148,
+    "head": [
+      221,
+      148
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_95",
+    "space": "DD",
+    "opcode": 149,
+    "head": [
+      221,
+      149
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_96",
+    "space": "DD",
+    "opcode": 150,
+    "head": [
+      221,
+      150
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_9C",
+    "space": "DD",
+    "opcode": 156,
+    "head": [
+      221,
+      156
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_9D",
+    "space": "DD",
+    "opcode": 157,
+    "head": [
+      221,
+      157
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_9E",
+    "space": "DD",
+    "opcode": 158,
+    "head": [
+      221,
+      158
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_A4",
+    "space": "DD",
+    "opcode": 164,
+    "head": [
+      221,
+      164
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_A5",
+    "space": "DD",
+    "opcode": 165,
+    "head": [
+      221,
+      165
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_A6",
+    "space": "DD",
+    "opcode": 166,
+    "head": [
+      221,
+      166
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_AC",
+    "space": "DD",
+    "opcode": 172,
+    "head": [
+      221,
+      172
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_AD",
+    "space": "DD",
+    "opcode": 173,
+    "head": [
+      221,
+      173
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_AE",
+    "space": "DD",
+    "opcode": 174,
+    "head": [
+      221,
+      174
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_B4",
+    "space": "DD",
+    "opcode": 180,
+    "head": [
+      221,
+      180
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_B5",
+    "space": "DD",
+    "opcode": 181,
+    "head": [
+      221,
+      181
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_B6",
+    "space": "DD",
+    "opcode": 182,
+    "head": [
+      221,
+      182
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_BC",
+    "space": "DD",
+    "opcode": 188,
+    "head": [
+      221,
+      188
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,IXH",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_BD",
+    "space": "DD",
+    "opcode": 189,
+    "head": [
+      221,
+      189
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,IXL",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_BE",
+    "space": "DD",
+    "opcode": 190,
+    "head": [
+      221,
+      190
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,(IX+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "DD_E1",
+    "space": "DD",
+    "opcode": 225,
+    "head": [
+      221,
+      225
+    ],
+    "mnemonic": "POP",
+    "assembly": "POP IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_E3",
+    "space": "DD",
+    "opcode": 227,
+    "head": [
+      221,
+      227
+    ],
+    "mnemonic": "EX",
+    "assembly": "EX (SP),IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_E5",
+    "space": "DD",
+    "opcode": 229,
+    "head": [
+      221,
+      229
+    ],
+    "mnemonic": "PUSH",
+    "assembly": "PUSH IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_E9",
+    "space": "DD",
+    "opcode": 233,
+    "head": [
+      221,
+      233
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP (IX)",
+    "length_adl1": 2
+  },
+  {
+    "key": "DD_F9",
+    "space": "DD",
+    "opcode": 249,
+    "head": [
+      221,
+      249
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD SP,IX",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_07",
+    "space": "FD",
+    "opcode": 7,
+    "head": [
+      253,
+      7
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD BC,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_09",
+    "space": "FD",
+    "opcode": 9,
+    "head": [
+      253,
+      9
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IY,BC",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_0F",
+    "space": "FD",
+    "opcode": 15,
+    "head": [
+      253,
+      15
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),BC",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_17",
+    "space": "FD",
+    "opcode": 23,
+    "head": [
+      253,
+      23
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD DE,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_19",
+    "space": "FD",
+    "opcode": 25,
+    "head": [
+      253,
+      25
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IY,DE",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_1F",
+    "space": "FD",
+    "opcode": 31,
+    "head": [
+      253,
+      31
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),DE",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_21",
+    "space": "FD",
+    "opcode": 33,
+    "head": [
+      253,
+      33
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IY,$0",
+    "length_adl1": 5
+  },
+  {
+    "key": "FD_22",
+    "space": "FD",
+    "opcode": 34,
+    "head": [
+      253,
+      34
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD ($0),IY",
+    "length_adl1": 5
+  },
+  {
+    "key": "FD_23",
+    "space": "FD",
+    "opcode": 35,
+    "head": [
+      253,
+      35
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_24",
+    "space": "FD",
+    "opcode": 36,
+    "head": [
+      253,
+      36
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_25",
+    "space": "FD",
+    "opcode": 37,
+    "head": [
+      253,
+      37
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_26",
+    "space": "FD",
+    "opcode": 38,
+    "head": [
+      253,
+      38
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,$0",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_27",
+    "space": "FD",
+    "opcode": 39,
+    "head": [
+      253,
+      39
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD HL,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_29",
+    "space": "FD",
+    "opcode": 41,
+    "head": [
+      253,
+      41
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IY,IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_2A",
+    "space": "FD",
+    "opcode": 42,
+    "head": [
+      253,
+      42
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IY,($0)",
+    "length_adl1": 5
+  },
+  {
+    "key": "FD_2B",
+    "space": "FD",
+    "opcode": 43,
+    "head": [
+      253,
+      43
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_2C",
+    "space": "FD",
+    "opcode": 44,
+    "head": [
+      253,
+      44
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_2D",
+    "space": "FD",
+    "opcode": 45,
+    "head": [
+      253,
+      45
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_2E",
+    "space": "FD",
+    "opcode": 46,
+    "head": [
+      253,
+      46
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,$0",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_2F",
+    "space": "FD",
+    "opcode": 47,
+    "head": [
+      253,
+      47
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),HL",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_31",
+    "space": "FD",
+    "opcode": 49,
+    "head": [
+      253,
+      49
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IX,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_34",
+    "space": "FD",
+    "opcode": 52,
+    "head": [
+      253,
+      52
+    ],
+    "mnemonic": "INC",
+    "assembly": "INC (IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_35",
+    "space": "FD",
+    "opcode": 53,
+    "head": [
+      253,
+      53
+    ],
+    "mnemonic": "DEC",
+    "assembly": "DEC (IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_36",
+    "space": "FD",
+    "opcode": 54,
+    "head": [
+      253,
+      54
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),$0",
+    "length_adl1": 4
+  },
+  {
+    "key": "FD_37",
+    "space": "FD",
+    "opcode": 55,
+    "head": [
+      253,
+      55
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IY,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_39",
+    "space": "FD",
+    "opcode": 57,
+    "head": [
+      253,
+      57
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD IY,SP",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_3E",
+    "space": "FD",
+    "opcode": 62,
+    "head": [
+      253,
+      62
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),IX",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_3F",
+    "space": "FD",
+    "opcode": 63,
+    "head": [
+      253,
+      63
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),IY",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_44",
+    "space": "FD",
+    "opcode": 68,
+    "head": [
+      253,
+      68
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_45",
+    "space": "FD",
+    "opcode": 69,
+    "head": [
+      253,
+      69
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_46",
+    "space": "FD",
+    "opcode": 70,
+    "head": [
+      253,
+      70
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD B,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_4C",
+    "space": "FD",
+    "opcode": 76,
+    "head": [
+      253,
+      76
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_4D",
+    "space": "FD",
+    "opcode": 77,
+    "head": [
+      253,
+      77
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_4E",
+    "space": "FD",
+    "opcode": 78,
+    "head": [
+      253,
+      78
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD C,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_54",
+    "space": "FD",
+    "opcode": 84,
+    "head": [
+      253,
+      84
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_55",
+    "space": "FD",
+    "opcode": 85,
+    "head": [
+      253,
+      85
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_56",
+    "space": "FD",
+    "opcode": 86,
+    "head": [
+      253,
+      86
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD D,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_5C",
+    "space": "FD",
+    "opcode": 92,
+    "head": [
+      253,
+      92
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_5D",
+    "space": "FD",
+    "opcode": 93,
+    "head": [
+      253,
+      93
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_5E",
+    "space": "FD",
+    "opcode": 94,
+    "head": [
+      253,
+      94
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD E,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_60",
+    "space": "FD",
+    "opcode": 96,
+    "head": [
+      253,
+      96
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_61",
+    "space": "FD",
+    "opcode": 97,
+    "head": [
+      253,
+      97
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_62",
+    "space": "FD",
+    "opcode": 98,
+    "head": [
+      253,
+      98
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_63",
+    "space": "FD",
+    "opcode": 99,
+    "head": [
+      253,
+      99
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_64",
+    "space": "FD",
+    "opcode": 100,
+    "head": [
+      253,
+      100
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_65",
+    "space": "FD",
+    "opcode": 101,
+    "head": [
+      253,
+      101
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_66",
+    "space": "FD",
+    "opcode": 102,
+    "head": [
+      253,
+      102
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD H,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_67",
+    "space": "FD",
+    "opcode": 103,
+    "head": [
+      253,
+      103
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYH,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_68",
+    "space": "FD",
+    "opcode": 104,
+    "head": [
+      253,
+      104
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,B",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_69",
+    "space": "FD",
+    "opcode": 105,
+    "head": [
+      253,
+      105
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,C",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_6A",
+    "space": "FD",
+    "opcode": 106,
+    "head": [
+      253,
+      106
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,D",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_6B",
+    "space": "FD",
+    "opcode": 107,
+    "head": [
+      253,
+      107
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,E",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_6C",
+    "space": "FD",
+    "opcode": 108,
+    "head": [
+      253,
+      108
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_6D",
+    "space": "FD",
+    "opcode": 109,
+    "head": [
+      253,
+      109
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_6E",
+    "space": "FD",
+    "opcode": 110,
+    "head": [
+      253,
+      110
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD L,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_6F",
+    "space": "FD",
+    "opcode": 111,
+    "head": [
+      253,
+      111
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD IYL,A",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_70",
+    "space": "FD",
+    "opcode": 112,
+    "head": [
+      253,
+      112
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),B",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_71",
+    "space": "FD",
+    "opcode": 113,
+    "head": [
+      253,
+      113
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),C",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_72",
+    "space": "FD",
+    "opcode": 114,
+    "head": [
+      253,
+      114
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),D",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_73",
+    "space": "FD",
+    "opcode": 115,
+    "head": [
+      253,
+      115
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),E",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_74",
+    "space": "FD",
+    "opcode": 116,
+    "head": [
+      253,
+      116
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),H",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_75",
+    "space": "FD",
+    "opcode": 117,
+    "head": [
+      253,
+      117
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),L",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_77",
+    "space": "FD",
+    "opcode": 119,
+    "head": [
+      253,
+      119
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD (IY+0),A",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_7C",
+    "space": "FD",
+    "opcode": 124,
+    "head": [
+      253,
+      124
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_7D",
+    "space": "FD",
+    "opcode": 125,
+    "head": [
+      253,
+      125
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_7E",
+    "space": "FD",
+    "opcode": 126,
+    "head": [
+      253,
+      126
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_84",
+    "space": "FD",
+    "opcode": 132,
+    "head": [
+      253,
+      132
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_85",
+    "space": "FD",
+    "opcode": 133,
+    "head": [
+      253,
+      133
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_86",
+    "space": "FD",
+    "opcode": 134,
+    "head": [
+      253,
+      134
+    ],
+    "mnemonic": "ADD",
+    "assembly": "ADD A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_8C",
+    "space": "FD",
+    "opcode": 140,
+    "head": [
+      253,
+      140
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_8D",
+    "space": "FD",
+    "opcode": 141,
+    "head": [
+      253,
+      141
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_8E",
+    "space": "FD",
+    "opcode": 142,
+    "head": [
+      253,
+      142
+    ],
+    "mnemonic": "ADC",
+    "assembly": "ADC A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_94",
+    "space": "FD",
+    "opcode": 148,
+    "head": [
+      253,
+      148
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_95",
+    "space": "FD",
+    "opcode": 149,
+    "head": [
+      253,
+      149
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_96",
+    "space": "FD",
+    "opcode": 150,
+    "head": [
+      253,
+      150
+    ],
+    "mnemonic": "SUB",
+    "assembly": "SUB A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_9C",
+    "space": "FD",
+    "opcode": 156,
+    "head": [
+      253,
+      156
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_9D",
+    "space": "FD",
+    "opcode": 157,
+    "head": [
+      253,
+      157
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_9E",
+    "space": "FD",
+    "opcode": 158,
+    "head": [
+      253,
+      158
+    ],
+    "mnemonic": "SBC",
+    "assembly": "SBC A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_A4",
+    "space": "FD",
+    "opcode": 164,
+    "head": [
+      253,
+      164
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_A5",
+    "space": "FD",
+    "opcode": 165,
+    "head": [
+      253,
+      165
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_A6",
+    "space": "FD",
+    "opcode": 166,
+    "head": [
+      253,
+      166
+    ],
+    "mnemonic": "AND",
+    "assembly": "AND A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_AC",
+    "space": "FD",
+    "opcode": 172,
+    "head": [
+      253,
+      172
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_AD",
+    "space": "FD",
+    "opcode": 173,
+    "head": [
+      253,
+      173
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_AE",
+    "space": "FD",
+    "opcode": 174,
+    "head": [
+      253,
+      174
+    ],
+    "mnemonic": "XOR",
+    "assembly": "XOR A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_B4",
+    "space": "FD",
+    "opcode": 180,
+    "head": [
+      253,
+      180
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_B5",
+    "space": "FD",
+    "opcode": 181,
+    "head": [
+      253,
+      181
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_B6",
+    "space": "FD",
+    "opcode": 182,
+    "head": [
+      253,
+      182
+    ],
+    "mnemonic": "OR",
+    "assembly": "OR A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_BC",
+    "space": "FD",
+    "opcode": 188,
+    "head": [
+      253,
+      188
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,IYH",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_BD",
+    "space": "FD",
+    "opcode": 189,
+    "head": [
+      253,
+      189
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,IYL",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_BE",
+    "space": "FD",
+    "opcode": 190,
+    "head": [
+      253,
+      190
+    ],
+    "mnemonic": "CP",
+    "assembly": "CP A,(IY+0)",
+    "length_adl1": 3
+  },
+  {
+    "key": "FD_E1",
+    "space": "FD",
+    "opcode": 225,
+    "head": [
+      253,
+      225
+    ],
+    "mnemonic": "POP",
+    "assembly": "POP IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_E3",
+    "space": "FD",
+    "opcode": 227,
+    "head": [
+      253,
+      227
+    ],
+    "mnemonic": "EX",
+    "assembly": "EX (SP),IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_E5",
+    "space": "FD",
+    "opcode": 229,
+    "head": [
+      253,
+      229
+    ],
+    "mnemonic": "PUSH",
+    "assembly": "PUSH IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_E9",
+    "space": "FD",
+    "opcode": 233,
+    "head": [
+      253,
+      233
+    ],
+    "mnemonic": "JP",
+    "assembly": "JP (IY)",
+    "length_adl1": 2
+  },
+  {
+    "key": "FD_F9",
+    "space": "FD",
+    "opcode": 249,
+    "head": [
+      253,
+      249
+    ],
+    "mnemonic": "LD",
+    "assembly": "LD SP,IY",
+    "length_adl1": 2
+  },
+  {
+    "key": "DDCB_06",
+    "space": "DDCB",
+    "opcode": 6,
+    "head": [
+      221,
+      203,
+      0,
+      6
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC (IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_0E",
+    "space": "DDCB",
+    "opcode": 14,
+    "head": [
+      221,
+      203,
+      0,
+      14
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC (IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_16",
+    "space": "DDCB",
+    "opcode": 22,
+    "head": [
+      221,
+      203,
+      0,
+      22
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL (IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_1E",
+    "space": "DDCB",
+    "opcode": 30,
+    "head": [
+      221,
+      203,
+      0,
+      30
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR (IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_26",
+    "space": "DDCB",
+    "opcode": 38,
+    "head": [
+      221,
+      203,
+      0,
+      38
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA (IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_2E",
+    "space": "DDCB",
+    "opcode": 46,
+    "head": [
+      221,
+      203,
+      0,
+      46
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA (IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_3E",
+    "space": "DDCB",
+    "opcode": 62,
+    "head": [
+      221,
+      203,
+      0,
+      62
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL (IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_46",
+    "space": "DDCB",
+    "opcode": 70,
+    "head": [
+      221,
+      203,
+      0,
+      70
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_4E",
+    "space": "DDCB",
+    "opcode": 78,
+    "head": [
+      221,
+      203,
+      0,
+      78
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_56",
+    "space": "DDCB",
+    "opcode": 86,
+    "head": [
+      221,
+      203,
+      0,
+      86
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_5E",
+    "space": "DDCB",
+    "opcode": 94,
+    "head": [
+      221,
+      203,
+      0,
+      94
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_66",
+    "space": "DDCB",
+    "opcode": 102,
+    "head": [
+      221,
+      203,
+      0,
+      102
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_6E",
+    "space": "DDCB",
+    "opcode": 110,
+    "head": [
+      221,
+      203,
+      0,
+      110
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_76",
+    "space": "DDCB",
+    "opcode": 118,
+    "head": [
+      221,
+      203,
+      0,
+      118
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_7E",
+    "space": "DDCB",
+    "opcode": 126,
+    "head": [
+      221,
+      203,
+      0,
+      126
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_86",
+    "space": "DDCB",
+    "opcode": 134,
+    "head": [
+      221,
+      203,
+      0,
+      134
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_8E",
+    "space": "DDCB",
+    "opcode": 142,
+    "head": [
+      221,
+      203,
+      0,
+      142
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_96",
+    "space": "DDCB",
+    "opcode": 150,
+    "head": [
+      221,
+      203,
+      0,
+      150
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_9E",
+    "space": "DDCB",
+    "opcode": 158,
+    "head": [
+      221,
+      203,
+      0,
+      158
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_A6",
+    "space": "DDCB",
+    "opcode": 166,
+    "head": [
+      221,
+      203,
+      0,
+      166
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_AE",
+    "space": "DDCB",
+    "opcode": 174,
+    "head": [
+      221,
+      203,
+      0,
+      174
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_B6",
+    "space": "DDCB",
+    "opcode": 182,
+    "head": [
+      221,
+      203,
+      0,
+      182
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_BE",
+    "space": "DDCB",
+    "opcode": 190,
+    "head": [
+      221,
+      203,
+      0,
+      190
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_C6",
+    "space": "DDCB",
+    "opcode": 198,
+    "head": [
+      221,
+      203,
+      0,
+      198
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_CE",
+    "space": "DDCB",
+    "opcode": 206,
+    "head": [
+      221,
+      203,
+      0,
+      206
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_D6",
+    "space": "DDCB",
+    "opcode": 214,
+    "head": [
+      221,
+      203,
+      0,
+      214
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_DE",
+    "space": "DDCB",
+    "opcode": 222,
+    "head": [
+      221,
+      203,
+      0,
+      222
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_E6",
+    "space": "DDCB",
+    "opcode": 230,
+    "head": [
+      221,
+      203,
+      0,
+      230
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_EE",
+    "space": "DDCB",
+    "opcode": 238,
+    "head": [
+      221,
+      203,
+      0,
+      238
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_F6",
+    "space": "DDCB",
+    "opcode": 246,
+    "head": [
+      221,
+      203,
+      0,
+      246
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "DDCB_FE",
+    "space": "DDCB",
+    "opcode": 254,
+    "head": [
+      221,
+      203,
+      0,
+      254
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,(IX+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_06",
+    "space": "FDCB",
+    "opcode": 6,
+    "head": [
+      253,
+      203,
+      0,
+      6
+    ],
+    "mnemonic": "RLC",
+    "assembly": "RLC (IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_0E",
+    "space": "FDCB",
+    "opcode": 14,
+    "head": [
+      253,
+      203,
+      0,
+      14
+    ],
+    "mnemonic": "RRC",
+    "assembly": "RRC (IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_16",
+    "space": "FDCB",
+    "opcode": 22,
+    "head": [
+      253,
+      203,
+      0,
+      22
+    ],
+    "mnemonic": "RL",
+    "assembly": "RL (IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_1E",
+    "space": "FDCB",
+    "opcode": 30,
+    "head": [
+      253,
+      203,
+      0,
+      30
+    ],
+    "mnemonic": "RR",
+    "assembly": "RR (IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_26",
+    "space": "FDCB",
+    "opcode": 38,
+    "head": [
+      253,
+      203,
+      0,
+      38
+    ],
+    "mnemonic": "SLA",
+    "assembly": "SLA (IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_2E",
+    "space": "FDCB",
+    "opcode": 46,
+    "head": [
+      253,
+      203,
+      0,
+      46
+    ],
+    "mnemonic": "SRA",
+    "assembly": "SRA (IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_3E",
+    "space": "FDCB",
+    "opcode": 62,
+    "head": [
+      253,
+      203,
+      0,
+      62
+    ],
+    "mnemonic": "SRL",
+    "assembly": "SRL (IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_46",
+    "space": "FDCB",
+    "opcode": 70,
+    "head": [
+      253,
+      203,
+      0,
+      70
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 0,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_4E",
+    "space": "FDCB",
+    "opcode": 78,
+    "head": [
+      253,
+      203,
+      0,
+      78
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 1,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_56",
+    "space": "FDCB",
+    "opcode": 86,
+    "head": [
+      253,
+      203,
+      0,
+      86
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 2,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_5E",
+    "space": "FDCB",
+    "opcode": 94,
+    "head": [
+      253,
+      203,
+      0,
+      94
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 3,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_66",
+    "space": "FDCB",
+    "opcode": 102,
+    "head": [
+      253,
+      203,
+      0,
+      102
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 4,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_6E",
+    "space": "FDCB",
+    "opcode": 110,
+    "head": [
+      253,
+      203,
+      0,
+      110
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 5,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_76",
+    "space": "FDCB",
+    "opcode": 118,
+    "head": [
+      253,
+      203,
+      0,
+      118
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 6,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_7E",
+    "space": "FDCB",
+    "opcode": 126,
+    "head": [
+      253,
+      203,
+      0,
+      126
+    ],
+    "mnemonic": "BIT",
+    "assembly": "BIT 7,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_86",
+    "space": "FDCB",
+    "opcode": 134,
+    "head": [
+      253,
+      203,
+      0,
+      134
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 0,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_8E",
+    "space": "FDCB",
+    "opcode": 142,
+    "head": [
+      253,
+      203,
+      0,
+      142
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 1,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_96",
+    "space": "FDCB",
+    "opcode": 150,
+    "head": [
+      253,
+      203,
+      0,
+      150
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 2,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_9E",
+    "space": "FDCB",
+    "opcode": 158,
+    "head": [
+      253,
+      203,
+      0,
+      158
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 3,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_A6",
+    "space": "FDCB",
+    "opcode": 166,
+    "head": [
+      253,
+      203,
+      0,
+      166
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 4,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_AE",
+    "space": "FDCB",
+    "opcode": 174,
+    "head": [
+      253,
+      203,
+      0,
+      174
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 5,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_B6",
+    "space": "FDCB",
+    "opcode": 182,
+    "head": [
+      253,
+      203,
+      0,
+      182
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 6,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_BE",
+    "space": "FDCB",
+    "opcode": 190,
+    "head": [
+      253,
+      203,
+      0,
+      190
+    ],
+    "mnemonic": "RES",
+    "assembly": "RES 7,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_C6",
+    "space": "FDCB",
+    "opcode": 198,
+    "head": [
+      253,
+      203,
+      0,
+      198
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 0,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_CE",
+    "space": "FDCB",
+    "opcode": 206,
+    "head": [
+      253,
+      203,
+      0,
+      206
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 1,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_D6",
+    "space": "FDCB",
+    "opcode": 214,
+    "head": [
+      253,
+      203,
+      0,
+      214
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 2,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_DE",
+    "space": "FDCB",
+    "opcode": 222,
+    "head": [
+      253,
+      203,
+      0,
+      222
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 3,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_E6",
+    "space": "FDCB",
+    "opcode": 230,
+    "head": [
+      253,
+      203,
+      0,
+      230
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 4,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_EE",
+    "space": "FDCB",
+    "opcode": 238,
+    "head": [
+      253,
+      203,
+      0,
+      238
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 5,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_F6",
+    "space": "FDCB",
+    "opcode": 246,
+    "head": [
+      253,
+      203,
+      0,
+      246
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 6,(IY+0)",
+    "length_adl1": 4
+  },
+  {
+    "key": "FDCB_FE",
+    "space": "FDCB",
+    "opcode": 254,
+    "head": [
+      253,
+      203,
+      0,
+      254
+    ],
+    "mnemonic": "SET",
+    "assembly": "SET 7,(IY+0)",
+    "length_adl1": 4
+  }
+]

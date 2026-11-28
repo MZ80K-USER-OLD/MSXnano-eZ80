@@ -1,0 +1,35 @@
+--- a/fpga/G80A_eZ80/t80_ez80.vhd
++++ b/fpga/G80A_eZ80/t80_ez80.vhd
+@@ -703,6 +703,7 @@
+ 
+     process (RESET_n, CLK_n)
+         variable Dec_Op : std_logic_vector(7 downto 0);
++        variable IR_Load_Byte : std_logic_vector(7 downto 0);
+         variable Dec_Page, Dec_XY : std_logic_vector(1 downto 0);
+         variable Dec_Data, Dec_Stream, Dec_Has : std_logic;
+         variable Load_Start_Cycle : natural range 2 to 5;
+@@ -1448,12 +1449,19 @@
+ 
+                 if Special_LD(2) = '1' then
+                     case Special_LD(1 downto 0) is
+-                    when "00" =>
+-                        ACC <= I;
++                    when "00" | "01" =>
++                        -- R37: LD A,I/R share one byte value for A and flag generation.
++                        if Special_LD(0)='0' then IR_Load_Byte:=I;
++                        else IR_Load_Byte:=std_logic_vector(R);end if;
++                        ACC <= IR_Load_Byte;
++                        F(Flag_S) <= IR_Load_Byte(7);
++                        if IR_Load_Byte=x"00" then F(Flag_Z)<='1';else F(Flag_Z)<='0';end if;
++                        F(Flag_H) <= '0';
+                         F(Flag_P) <= IntE_FF2;
+-                    when "01" =>
+-                        ACC <= std_logic_vector(R);
+-                        F(Flag_P) <= IntE_FF2;
++                        F(Flag_N) <= '0';
++                        F(Flag_X) <= IR_Load_Byte(3);
++                        F(Flag_Y) <= IR_Load_Byte(5);
++                        -- Carry is preserved; LD I,A and LD R,A remain flag-neutral.
+                     when "10" =>
+                         I <= ACC;
+                     when others =>

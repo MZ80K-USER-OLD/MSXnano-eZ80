@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "group": "calibration_nop",
+      "cases": 32,
+      "passed": 32,
+      "exit_code": 0
+    },
+    {
+      "group": "calibration_ld_a_i",
+      "cases": 32,
+      "passed": 0,
+      "exit_code": 1
+    }
+  ],
+  "not_additional_unique_suite_cases": true
+}
